@@ -16,7 +16,7 @@
       php83 # PHP 8.3 (currently latest) to run symfony console completion
       php83Packages.composer # package manager for PHP (to init PHP projects)
       symfony-cli # for Symfony dev
-      # Linters 
+      # Linters
       php83Packages.phpstan
       php83Packages.psalm
       php83Packages.php-codesniffer
@@ -90,6 +90,7 @@
   home.file =
     let
       gitIgnoreGlobal = import ./home-files/gitignore_global.nix { inherit pkgs; };
+      syncHomeDir = config.home.homeDirectory + "/Library/Mobile\ Documents/com\~apple\~CloudDocs/Sync/HOME";
     in
     {
       ".gitconfig" = {
@@ -113,11 +114,53 @@
           set -a terminal-overrides ",*256col*:RGB"
         '';
       };
-      ".intelephense_license.txt" = {
+      ".config/php/intelephense_license.txt" = {
         enable = true;
-        target = ".config/php/intelephense_license.txt";
-        # source = ~/Library/Mobile Documents/com~apple~CloudDocs/Sync/HOME/.config/php/intelephense_license.txt;
-        source = config.lib.file.mkOutOfStoreSymlink (config.home.homeDirectory + "/Library/Mobile\ Documents/com\~apple\~CloudDocs/Sync/HOME/.config/php/intelephense_license.txt");
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/php/intelephense_license.txt");
+      };
+      ".config/nvim" = {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/nvim");
+      };
+      ".config/nixpkgs" = {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/nixpkgs");
+      };
+      ".config/karabiner" = {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/karabiner");
+      };
+      "bin" = {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/bin");
+      };
+      ".vimrc" = {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.vimrc");
+      };
+      ".ideavimrc" = {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.ideavimrc");
+      };
+      ".scss-lint.yml" = {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.scss-lint.yml");
+      };
+      "Library/Application\ Support/BibDesk/TypeInfo.plist" = {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/Library/Application\ Support/BibDesk/TypeInfo.plist");
+      };
+      "Library/Application\ Support/BibDesk/Templates/mdApaTemplate.txt" = {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (
+          syncHomeDir + "/Library/Application\ Support/BibDesk/Templates/mdApaTemplate.txt"
+        );
+      };
+      "Library/Group\ Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary" = {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (
+          syncHomeDir + "/Library/Group\ Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary"
+        );
       };
     };
 
