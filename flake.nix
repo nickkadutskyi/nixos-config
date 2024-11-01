@@ -1,6 +1,6 @@
 #   nix run nix-darwin -- switch --flake "path:$(readlink -f ~/.config/nixpkgs)"
 # To update nix-darwin system configurations after changing, run in the flake dir:
-#   darwin-rebuild switch --flake path:~/.config/nixpkgs 
+#   darwin-rebuild switch --flake path:~/.config/nixpkgs
 
 {
   description = "Default user environment packages";
@@ -37,6 +37,7 @@
             ++ [
               home-manager.darwinModules.home-manager
               {
+                home-manager.backupFileExtension = ".hm-backup";
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = false;
                 home-manager.users = {
