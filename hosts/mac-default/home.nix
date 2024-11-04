@@ -529,7 +529,6 @@
 
     # Stage Manager
     "com.apple.WindowManager" = {
-      # TODO 2024-11-04 disabled to remove <CMD-Tab> animaton
       GloballyEnabled = false;
       EnableStandardClickToShowDesktop = 1;
       StandardHideDesktopIcons = 1;
