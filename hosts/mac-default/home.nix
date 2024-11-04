@@ -527,8 +527,10 @@
       TrackpadThreeFingerDrag = true;
     };
 
+    # Stage Manager
     "com.apple.WindowManager" = {
-      GloballyEnabled = true;
+      # TODO 2024-11-04 disabled to remove <CMD-Tab> animaton
+      GloballyEnabled = false;
       EnableStandardClickToShowDesktop = 0;
       StandardHideDesktopIcons = 0;
       HideDesktop = 1;
