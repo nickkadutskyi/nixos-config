@@ -576,8 +576,8 @@
 
     # Keyboard Shortucts
     "com.apple.symbolichotkeys" = {
-      # Option + 1/2/3 to switch between Desktops
       AppleSymbolicHotKeys = {
+        # Option + 1 to Switch to Desktop 1
         "118" = {
           enabled = true;
           value = {
@@ -589,6 +589,7 @@
             type = "standard";
           };
         };
+        # Option + 2 to Switch to Desktop 2
         "119" = {
           enabled = true;
           value = {
@@ -600,6 +601,7 @@
             type = "standard";
           };
         };
+        # Option + 3 to Switch to Desktop 3
         "120" = {
           enabled = true;
           value = {
@@ -611,8 +613,64 @@
             type = "standard";
           };
         };
+        # Disables Mission Control: Move left a space
+        "79" = {
+          enabled = 0;
+          value = {
+            type = 65536;
+            parameters = [ ];
+          };
+        };
+        # Disables Mission Control: Move right a space
+        "81" = {
+          enabled = 0;
+          value = {
+            type = 65536;
+            parameters = [ ];
+          };
+        };
+        # Screenshot related shortcuts
+        # Save picture of screen as a file (Shift + Command + 3)
+        "28" = {
+          enabled = 0;
+          value = {
+            type = 65536;
+            parameters = [ ];
+          };
+        };
+        # Copy picture of screen to clipboard (Shift + Command + Control + 3)
+        "29" = {
+          enabled = 0;
+          value = {
+            type = 65536;
+            parameters = [ ];
+          };
+        };
+        # Save picture of selected area as a file (Shift + Command + 4)
+        "30" = {
+          enabled = 0;
+          value = {
+            type = 65536;
+            parameters = [ ];
+          };
+        };
+        # Copy picture of selected area to clipboard (Shift + Command + Control + 4)
+        "31" = {
+          enabled = 0;
+          value = {
+            type = 65536;
+            parameters = [ ];
+          };
+        };
+        # Screenshot and recording options (Shift + Command + 5)
+        "184" = {
+          enabled = 0;
+          value = {
+            type = 65536;
+            parameters = [ ];
+          };
+        };
       };
     };
-
   };
 }
