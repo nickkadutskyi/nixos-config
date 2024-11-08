@@ -60,7 +60,9 @@
       zsh-completions # don't why I need this?
       zsh-powerlevel10k # prompt style
       zsh-autosuggestions # autosuggests with grey text from history
+      zsh-autocomplete # autocomplete
       zsh-syntax-highlighting # highglits binaries in terminal
+      oh-my-zsh # zsh framework
 
       # Fonts
       (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) # Configures main font
@@ -213,21 +215,35 @@
           src = pkgs.zsh-completions;
           file = "share/zsh-completions/zsh-completions.plugin.zsh";
         }
+        {
+          name = "zsh-autocomplete";
+          src = pkgs.zsh-autocomplete;
+          file = "share/zsh-autocomplete/zsh-autocomplete.plugin.zsh";
+        }
+        {
+          name = "git";
+          src = pkgs.oh-my-zsh;
+          file = "share/oh-my-zsh/plugins/git/git.plugin.zsh";
+        }
+        {
+          name = "git-extras";
+          src = pkgs.oh-my-zsh;
+          file = "share/oh-my-zsh/plugins/git-extras/git-extras.plugin.zsh";
+        }
       ];
       history = {
         save = 1000000000;
         size = 1000000000;
         ignoreAllDups = false;
       };
+      # need this just for the theme
       oh-my-zsh = {
         enable = true;
-        plugins = [
-          "git"
-          "git-extras"
-        ];
       };
-      initExtraFirst = # bash
+      initExtraFirst =
+        # bash
         ''
+          # This is before everything else (initExtraFirst)
           # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
           # Initialization code that may require console input (password prompts, [y/n]
           # confirmations, etc.) must go above this block; everything else may go below.
@@ -235,12 +251,30 @@
             source "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
           fi
         '';
-      initExtraBeforeCompInit = # bash
+      initExtraBeforeCompInit =
+        # bash
         ''
-
+          # This is before compinit (initExtraBeforeCompInit)
         '';
-      initExtra = # bash
+      initExtra =
+        # bash
         ''
+          # zsh-autocomplete start
+          # TOOD decide how to better bind keys to mimic original experience or remove zsh-autocomplete
+          # Make Tab and ShiftTab cycle completions on the command line
+          # bindkey              '^I'         menu-complete
+          # bindkey "$terminfo[kcbt]" reverse-menu-complete
+          # Make Tab and ShiftTab change the selection in the menu
+          # bindkey -M menuselect              '^I'         menu-complete
+          # bindkey -M menuselect "$terminfo[kcbt]" reverse-menu-complete
+          # # Make Tab and ShiftTab go to the menu
+          # bindkey              '^I' menu-select
+          # bindkey "$terminfo[kcbt]" menu-select
+          # # Make Enter always submit the command line
+          # bindkey -M menuselect '^M' .accept-line
+          # zsh-autocomplete end
+
+          # This is after compinit (initExtra)
           HISTSIZE=1000000
 
           # INIT
@@ -271,8 +305,14 @@
           esac
           # pnpm end
 
+
+          # zoxide start
+          [ -x "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"
+          # zoxide end
+
         '';
-      envExtra = # bash
+      envExtra =
+        # bash
         ''
           # Configure paths before loading the shell
           if [[ $SHLVL == 1 && ! -o LOGIN ]]; then
@@ -326,8 +366,6 @@
         epds_ec2 = "aws ec2 describe-instances  --query 'Reservations[].Instances[?not_null(Tags[?Key==\`Name\`].Value)]|[].[State.Name,PrivateIpAddress,PublicIpAddress,InstanceId,Tags[?Key==\`Name\`].Value[]|[0]] | sort_by(@, &[3])'  --output text |  sed '$!N;s/ / /'";
       };
     };
-
-  # programs.zsh.oh-my-zsh.enable = true;
 
   targets.darwin.defaults = {
     "com.apple.dock" = {

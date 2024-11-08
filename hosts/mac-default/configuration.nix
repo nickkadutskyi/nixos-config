@@ -37,6 +37,7 @@
     tcping-go # for checking tcp connection "tcping google.com 80"
     fd # faster alternative to find
     fzf # fuzzy finder
+    zoxide # smarter cd
     # yt-dlp # youtube video downloader
     python311Packages.yt-dlp
 
@@ -88,7 +89,7 @@
   # Enable the touch-id authentication for sudo via tmux reattach and in proper file
   environment.etc."pam.d/sudo_local".text = ''
     # Managed by Nix-Darwin
-    auth       optional       ${pkgs.pam-reattach}/lib/pam/pam_reattach.so ignore_ssh 
+    auth       optional       ${pkgs.pam-reattach}/lib/pam/pam_reattach.so ignore_ssh
     auth       sufficient     pam_tid.so
   '';
 
