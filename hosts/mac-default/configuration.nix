@@ -225,7 +225,7 @@
     onActivation = {
       cleanup = "zap"; # Removes unlisted casks and brews.
       autoUpdate = true; # Updates Homebrew and all installed packages.
-      upgrade = true; # Upgrades outdated packages.
+      upgrade = false; # Upgrades outdated packages.
       extraFlags = [
         "--verbose"
         "--force"
