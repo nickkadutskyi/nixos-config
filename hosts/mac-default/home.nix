@@ -215,11 +215,11 @@
           src = pkgs.zsh-completions;
           file = "share/zsh-completions/zsh-completions.plugin.zsh";
         }
-        {
-          name = "zsh-autocomplete";
-          src = pkgs.zsh-autocomplete;
-          file = "share/zsh-autocomplete/zsh-autocomplete.plugin.zsh";
-        }
+        # {
+        #   name = "zsh-autocomplete";
+        #   src = pkgs.zsh-autocomplete;
+        #   file = "share/zsh-autocomplete/zsh-autocomplete.plugin.zsh";
+        # }
         {
           name = "git";
           src = pkgs.oh-my-zsh;
