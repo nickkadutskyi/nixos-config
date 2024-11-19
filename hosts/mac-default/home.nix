@@ -20,10 +20,12 @@
       php83Packages.phpstan
       php83Packages.psalm
       php83Packages.php-codesniffer
+      php83Packages.phpmd
       # Fixers
       php83Packages.php-cs-fixer
       # Language Servers
       nodePackages_latest.intelephense
+      phpactor
 
       # JavaScript Development
       pnpm # package manager for JavaScript
@@ -35,6 +37,8 @@
       lua54Packages.luarocks # lua package manager
       stylua # lua formatter
       # lua-language-server # lua_ls
+      # Linters
+      luajitPackages.luacheck
 
       # Tools
       awscli2 # AWS CLI
