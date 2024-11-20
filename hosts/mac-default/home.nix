@@ -16,16 +16,6 @@
       php83 # PHP 8.3 (currently latest) to run symfony console completion
       php83Packages.composer # package manager for PHP (to init PHP projects)
       symfony-cli # for Symfony dev
-      # Linters
-      php83Packages.phpstan
-      php83Packages.psalm
-      php83Packages.php-codesniffer
-      php83Packages.phpmd
-      # Fixers
-      php83Packages.php-cs-fixer
-      # Language Servers
-      nodePackages_latest.intelephense
-      phpactor
 
       # JavaScript Development
       pnpm # package manager for JavaScript
