@@ -29,6 +29,7 @@
       # lua-language-server # lua_ls
       # Linters
       luajitPackages.luacheck
+      selene
 
       # Tools
       awscli2 # AWS CLI
@@ -117,6 +118,10 @@
       ".config/nvim" = {
         enable = true;
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/nvim");
+      };
+      ".config/nvim_spell" = {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/nvim_spell");
       };
       ".config/nixpkgs" = {
         enable = true;
