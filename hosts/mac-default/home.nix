@@ -31,6 +31,9 @@
       luajitPackages.luacheck
       selene
 
+      # TOML
+      taplo # formatter
+
       # Tools
       awscli2 # AWS CLI
       google-cloud-sdk # Google Cloud SDK
@@ -111,9 +114,17 @@
           set -a terminal-overrides ",*256col*:RGB"
         '';
       };
-      ".config/php/intelephense_license.txt" = {
+      ".config/alacritty" = {
         enable = true;
-        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/php/intelephense_license.txt");
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/alacritty");
+      };
+      ".config/private_php/intelephense_license.txt" = {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_php/intelephense_license.txt");
+      };
+      ".config/private_clickup/key.txt" = {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_php/key.txt");
       };
       ".config/nvim" = {
         enable = true;

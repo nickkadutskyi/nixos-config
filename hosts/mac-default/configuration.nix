@@ -168,6 +168,12 @@
     };
     casks = [
       "1password"
+      {
+        name = "alacritty";
+        args = {
+          no_quarantine = true;
+        };
+      }
       "amazon-chime"
       "anydesk"
       "appcleaner"
@@ -196,6 +202,7 @@
       "itermai"
       "jetbrains-toolbox"
       "karabiner-elements"
+      "kitty"
       # "little-snitch" # disabled because breaking ssh in LAN
       # "logi-options-plus" # deletes/installs on each switch so commenting this out for now
       "microsoft-edge"
@@ -218,6 +225,7 @@
       # "upwork" # missing from any package managers so handling it directly
       "veracrypt"
       "webex"
+      "wezterm"
       "wireshark"
       "zoom"
     ];

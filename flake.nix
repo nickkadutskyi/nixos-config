@@ -31,8 +31,8 @@
               ./hosts/mac-default/configuration.nix
               ./hosts/nicks-macbook-air/configuration.nix
             ]
-            ++ (if true then [ ./hosts/mac-default/services/dnsmasq.nix ] else [ ])
-            ++ (if true then [ ./hosts/mac-default/services/snippety.nix ] else [ ])
+            ++ (if true then [ ./hosts/services/dnsmasq.nix ] else [ ])
+            ++ (if true then [ ./hosts/services/snippety.nix ] else [ ])
             ++ (if true then [ ./hosts/mac-default/httpd.nix ] else [ ])
             ++ [
               home-manager.darwinModules.home-manager
@@ -66,8 +66,8 @@
               ./hosts/mac-default/configuration.nix
               ./hosts/nicks-mac-mini/configuration.nix
             ]
-            ++ (if true then [ ./hosts/mac-default/services/dnsmasq.nix ] else [ ])
-            ++ (if true then [ ./hosts/mac-default/services/snippety.nix ] else [ ])
+            ++ (if true then [ ./hosts/services/dnsmasq.nix ] else [ ])
+            ++ (if true then [ ./hosts/services/snippety.nix ] else [ ])
             ++ (if true then [ ./hosts/mac-default/httpd.nix ] else [ ])
             ++ [
               home-manager.darwinModules.home-manager

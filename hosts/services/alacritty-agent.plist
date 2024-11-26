@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Label</key>
+        <string>org.nixos.alacritty-helper</string>
+        <key>ProgramArguments</key>
+        <array>
+            <string>/bin/zsh</string>
+            <string>-c</string>
+            <string>SYSTEM_THEME=$(\
+                defaults read -g AppleInterfaceStyle 2>/dev/null || echo "Light" \
+                | tr '[:upper:]' '[:lower:]') &amp;&amp; \
+                ln -sf "$ALACRITTY_CONFIG/themes/$SYSTEM_THEME.toml" "$ALACRITTY_THEME"
+                </string>
+        </array>
+        <key>EnvironmentVariables</key>
+        <dict>
+            <key>ALACRITTY_CONFIG</key>
+            <string>~/.config/alacritty</string>
+            <key>ALACRITTY_THEME</key>
+            <string>~/.alacritty_theme.toml</string>
+            <key>PATH</key>
+            <string>/run/current-system/sw/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        </dict>
+        <key>RunAtLoad</key>
+        <true/>
+        <key>KeepAlive</key>
+        <true/>
+    </dict>
+</plist>
+
