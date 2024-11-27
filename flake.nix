@@ -41,7 +41,11 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = false;
                 home-manager.users = {
-                  nick.imports = [ ./hosts/mac-default/home.nix ];
+                  nick.imports = [
+                    ./hosts/mac-default/home.nix
+                    ./hosts/services/home-alacritty-theme.nix
+                    ./hosts/services/home-nvim-background.nix
+                  ];
                 };
               }
             ]

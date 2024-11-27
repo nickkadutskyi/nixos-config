@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
 {
+  launchd.enable = true;
+
   # Packages that should be installed to the user profile.
   home.packages =
     with pkgs;
@@ -367,10 +369,10 @@
         ip6a = # bash
           "dig +short -6 myip.opendns.com @resolver1.ipv6-sandbox.opendns.com AAAA";
         # TERM=tmux-256color adds support for undercurl in neovim
-        vi = "TERM=tmux-256color nvim";
-        vim = "TERM=tmux-256color nvim";
-        view = "TERM=tmux-256color nvim -R";
-        vimdiff = "TERM=tmux-256color nvim -d";
+        vi = "TERM=tmux-256color nvim --listen nvimsocket";
+        vim = "TERM=tmux-256color nvim --listen nvimsocket";
+        view = "TERM=tmux-256color nvim -R --listen nvimsocket";
+        vimdiff = "TERM=tmux-256color nvim -d --listen nvimsocket";
         # EPDS
         # List EPDS AWS EC2 Instances
         epds_ec2 = "aws ec2 describe-instances  --query 'Reservations[].Instances[?not_null(Tags[?Key==\`Name\`].Value)]|[].[State.Name,PrivateIpAddress,PublicIpAddress,InstanceId,Tags[?Key==\`Name\`].Value[]|[0]] | sort_by(@, &[3])'  --output text |  sed '$!N;s/ / /'";
