@@ -109,12 +109,24 @@
       };
       ".tmux.conf" = {
         enable = true;
-        text = ''
-          set -sg escape-time 10
-          # Changed to xterm-256color to support italics because tmux-256color doesn't support
-          set -g default-terminal "xterm-256color"
-          set -a terminal-overrides ",*256col*:RGB"
-        '';
+        text =
+          # tmux
+          ''
+            set -sg escape-time 10
+            bind-key & kill-window
+            bind-key x kill-pane
+            set-option -g set-titles-string "#T"
+            set-option -g set-titles on
+
+            # Fixes colors in tmux
+            set -g default-terminal "tmux-256color"
+            set -ag terminal-overrides ",$TERM:sRGB"
+            # Enables undercurl in tmux
+            set-option -ga terminal-features ",$TERM:usstyle"
+
+            # Neovim requested
+            set-option -g focus-events on
+          '';
       };
       ".config/alacritty" = {
         enable = true;
@@ -368,11 +380,10 @@
           "dig +short -4 myip.opendns.com @resolver4.opendns.com";
         ip6a = # bash
           "dig +short -6 myip.opendns.com @resolver1.ipv6-sandbox.opendns.com AAAA";
-        # TERM=tmux-256color adds support for undercurl in neovim
-        vi = "TERM=tmux-256color nvim --listen nvimsocket";
-        vim = "TERM=tmux-256color nvim --listen nvimsocket";
-        view = "TERM=tmux-256color nvim -R --listen nvimsocket";
-        vimdiff = "TERM=tmux-256color nvim -d --listen nvimsocket";
+        vi = "nvim";
+        vim = "nvim";
+        view = "nvim";
+        vimdiff = "nvim";
         # EPDS
         # List EPDS AWS EC2 Instances
         epds_ec2 = "aws ec2 describe-instances  --query 'Reservations[].Instances[?not_null(Tags[?Key==\`Name\`].Value)]|[].[State.Name,PrivateIpAddress,PublicIpAddress,InstanceId,Tags[?Key==\`Name\`].Value[]|[0]] | sort_by(@, &[3])'  --output text |  sed '$!N;s/ / /'";
@@ -570,6 +581,8 @@
       KeyRepeat = 2;
       # Prefer tabs when opening documents (always|fullscreen|never)
       AppleWindowTabbingMode = "always";
+      # To have consistent font rendering across all apps (Alacritty, iTerm)
+      AppleFontSmoothing = 0;
     };
 
     "com.apple.AppleMultitouchTrackpad" = {

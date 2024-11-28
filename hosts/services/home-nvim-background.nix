@@ -9,7 +9,7 @@ let
       IFS=$'\n'
       for s in $(${nvrPath} --serverlist); do
           test ! -S "$s" && continue
-          if [[ $s =~ "nvimsocket" ]]; then
+          if [[ $s =~ "nvim" ]]; then
               ${nvrPath} --nostart --servername "$s" --remote-expr "execute('set background=$SYSTEM_THEME')"
           fi
       done

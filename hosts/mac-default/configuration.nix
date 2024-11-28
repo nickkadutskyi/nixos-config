@@ -108,6 +108,11 @@
   system.keyboard.remapCapsLockToControl = true;
 
   system.defaults.CustomUserPreferences = {
+    NSGlobalDomain = {
+      NSUserKeyEquivalents = {
+        "Move Tab to New Window" = "~$n";
+      };
+    };
     "com.apple.Mail" = {
       # @ = Cmd; ^ = Control; ~ = Option; $ = Shift
       NSUserKeyEquivalents = {
