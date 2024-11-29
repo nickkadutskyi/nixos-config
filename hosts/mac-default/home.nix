@@ -131,6 +131,13 @@
             # Enables mouse mode
             set -g mouse on
             set -g history-limit 100000
+
+            # Color Scheme dark and light modes
+            if-shell "echo $(/usr/bin/defaults read -g AppleInterfaceStyle 2>/dev/null) | grep Dark" \
+              "set-option -g pane-border-style fg='#393B40'; \
+               set-option -g pane-active-border-style fg='#393B40'" \
+              "set-option -g pane-border-style fg='#EBECF0'; \
+               set-option -g pane-active-border-style fg='#EBECF0'"
           '';
       };
       ".config/alacritty" = {
