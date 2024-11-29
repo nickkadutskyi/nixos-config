@@ -120,7 +120,7 @@
 
             # Fixes colors in tmux
             set -g default-terminal "tmux-256color"
-            set -ag terminal-overrides ",$TERM:sRGB"
+            set -ag terminal-overrides ",$TERM:RGB"
             # Enables undercurl in tmux
             set-option -ga terminal-features ",$TERM:usstyle"
 
