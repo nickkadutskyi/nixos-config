@@ -116,7 +116,7 @@
             set -sg escape-time 10
             bind-key & kill-window
             bind-key x kill-pane
-            set-option -g set-titles-string "tm #T"
+            set-option -g set-titles-string "p #T"
             set-option -g set-titles on
 
             # Fixes colors in tmux
