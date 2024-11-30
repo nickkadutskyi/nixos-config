@@ -363,6 +363,11 @@
           # zoxide end
 
           ${if config.programs.zsh.oh-my-zsh.enable then tmuxTitleConfig else ""}
+
+          # ls color start
+          export LSCOLORS="exfxcxdxbxAxAxBxBxExEx"
+          export LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=1;30:cd=1;30:su=1;31:sg=1;31:tw=1;34:ow=1;34"
+          # ls color end
         '';
       envExtra =
         # bash
