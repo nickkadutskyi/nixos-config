@@ -14,6 +14,9 @@
       mariadb # global db execs mysql and mysqldump for Intellij export/import
       tree-sitter # for tree-sitter-cli for neovim
 
+      # Shell
+      shfmt # for formatting shell scripts
+
       # PHP Develpoment
       php83 # PHP 8.3 (currently latest) to run symfony console completion
       php83Packages.composer # package manager for PHP (to init PHP projects)
@@ -46,6 +49,7 @@
       # ueberzugpp # for image preview in terminal
       # chafa # for image preview in terminal
       # viu # for image preview in terminal
+      alacritty # added to be handled in paths via nix (gui installed via homebrew)
 
       # Nix
       nixfmt-rfc-style # formatter, nixfmt package with maintainers
@@ -112,7 +116,7 @@
         text = # tmux
           ''
             set -g status-left-length 14
-            set -sg escape-time 10
+            set -sg escape-time 0
             bind-key & kill-window
             bind-key x kill-pane
             set -g set-titles-string "#T"
