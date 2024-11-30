@@ -109,24 +109,26 @@
       };
       ".tmux.conf" = {
         enable = true;
-        text =
-          # tmux
+        text = # tmux
           ''
             set -g status-left-length 14
             set -sg escape-time 10
             bind-key & kill-window
             bind-key x kill-pane
-            set-option -g set-titles-string "p #T"
-            set-option -g set-titles on
+            set -g set-titles-string "#T"
+            set -g set-titles on
+            set -g automatic-rename on
+            set -g allow-rename on
+            # set-window-option -g automatic-rename on
 
             # Fixes colors in tmux
             set -g default-terminal "tmux-256color"
             set -ag terminal-overrides ",$TERM:RGB"
             # Enables undercurl in tmux
-            set-option -ga terminal-features ",$TERM:usstyle"
+            set -ga terminal-features ",$TERM:usstyle"
 
             # Neovim requested
-            set-option -g focus-events on
+            set -g focus-events on
 
             # Enables mouse mode
             set -g mouse on
@@ -134,10 +136,10 @@
 
             # Color Scheme dark and light modes
             if-shell "echo $(/usr/bin/defaults read -g AppleInterfaceStyle 2>/dev/null) | grep Dark" \
-              "set-option -g pane-border-style fg='#393B40'; \
-               set-option -g pane-active-border-style fg='#393B40'" \
-              "set-option -g pane-border-style fg='#EBECF0'; \
-               set-option -g pane-active-border-style fg='#EBECF0'"
+              "set -g pane-border-style fg='#393B40'; \
+               set -g pane-active-border-style fg='#393B40'" \
+              "set -g pane-border-style fg='#EBECF0'; \
+               set -g pane-active-border-style fg='#EBECF0'"
           '';
       };
       ".config/alacritty" = {
@@ -293,6 +295,20 @@
           # This is before compinit (initExtraBeforeCompInit)
         '';
       initExtra =
+        let
+          tmuxTitleConfig = # bash
+            ''
+              # tmux title start
+              # Uses OMZ theme terminal title directives for tmux
+              function omz_termsupport_precmd_tmux_extended() {
+                if [[ "$TERM" =~ "tmux*"  ]]; then
+                  print -Pn "\e]2;''${ZSH_THEME_TERM_TITLE_IDLE:q}\e\\"
+                fi
+              }
+              add-zsh-hook precmd omz_termsupport_precmd_tmux_extended
+              # tmux title end
+            '';
+        in
         # bash
         ''
           # zsh-autocomplete start
@@ -346,6 +362,7 @@
           [ -x "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"
           # zoxide end
 
+          ${if config.programs.zsh.oh-my-zsh.enable then tmuxTitleConfig else ""}
         '';
       envExtra =
         # bash
@@ -372,7 +389,11 @@
           fi
         '';
       shellAliases = {
-        sc = "symfony console";
+        # Navigation
+        ll = "ls -lah";
+        # Tooling
+        sc = # bash
+          "symfony console";
         sym = "symfony";
         mfs = # bash
           "php artisan migrate:fresh --seed";
