@@ -117,9 +117,6 @@
             bind-key x kill-pane
             set -g set-titles-string "#T"
             set -g set-titles on
-            set -g automatic-rename on
-            set -g allow-rename on
-            # set-window-option -g automatic-rename on
 
             # Fixes colors in tmux
             set -g default-terminal "tmux-256color"
@@ -137,9 +134,11 @@
             # Color Scheme dark and light modes
             if-shell "echo $(/usr/bin/defaults read -g AppleInterfaceStyle 2>/dev/null) | grep Dark" \
               "set -g pane-border-style fg='#393B40'; \
-               set -g pane-active-border-style fg='#393B40'" \
+               set -g pane-active-border-style fg='#393B40' \
+              " \
               "set -g pane-border-style fg='#EBECF0'; \
-               set -g pane-active-border-style fg='#EBECF0'"
+               set -g pane-active-border-style fg='#EBECF0' \
+              "
           '';
       };
       ".config/alacritty" = {
