@@ -66,6 +66,13 @@
           path = "/Applications/Alacritty.app";
           icon = alacrittyIcon + /alacritty.icns;
         }
+        {
+          path = "/Applications/Upwork.app";
+          icon = pkgs.fetchurl {
+            url = "https://github.com/SetuCoder/macOS_Big_Sur_icons_replacements/raw/refs/heads/master/icons/Upwork.icns";
+            hash = "sha256-Gj9Dv//HEEsrmGwG+dHVEIYxrH69m+MHRLnXEHlsInI=";
+          };
+        }
       ];
     };
 
