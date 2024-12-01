@@ -5,7 +5,7 @@ let
   nvrPath = (toString (lib.getExe neovim-remote));
   scriptContent = # bash
     ''
-      SYSTEM_THEME=$(( /usr/bin/defaults read -g AppleInterfaceStyle 2>/dev/null || echo "Light" ) | tr '[:upper:]' '[:lower:]')
+      SYSTEM_THEME=$([ "$DARKMODE" = "1" ] && echo "dark" || echo "light")
       IFS=$'\n'
       for s in $(${nvrPath} --serverlist); do
           test ! -S "$s" && continue

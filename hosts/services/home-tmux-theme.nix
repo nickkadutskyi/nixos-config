@@ -5,7 +5,7 @@ let
   tmuxPath = (toString (lib.getExe tmux));
   scriptContent = # bash
     ''
-      SYSTEM_THEME=$(( /usr/bin/defaults read -g AppleInterfaceStyle 2>/dev/null || echo "Light" ) | tr '[:upper:]' '[:lower:]')
+      SYSTEM_THEME=$([ "$DARKMODE" = "1" ] && echo "dark" || echo "light")
       [ $SYSTEM_THEME = "light" ] && BORDER_FG="#EBECF0" || BORDER_FG="#393B40"
       ${tmuxPath} set -g pane-border-style fg=$BORDER_FG
       ${tmuxPath} set -g pane-active-border-style fg=$BORDER_FG

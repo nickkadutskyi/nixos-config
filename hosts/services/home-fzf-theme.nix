@@ -4,17 +4,17 @@ with builtins;
 let
   scriptContent = # bash
     ''
-      ALACRITTY_CONFIG=~/.config/alacritty
-      ALACRITTY_THEME=~/.alacritty_theme.toml
+      FZF_CONFIG=~/.config/fzf
+      FZF_THEME=~/.fzfrc
       SYSTEM_THEME=$([ "$DARKMODE" = "1" ] && echo "dark" || echo "light")
-      /bin/ln -sf "$ALACRITTY_CONFIG/themes/$SYSTEM_THEME.toml" "$ALACRITTY_THEME"
+      /bin/ln -sf "$FZF_CONFIG/$SYSTEM_THEME.fzfrc" "$FZF_THEME"
     '';
-  scriptPath = (toString (writeShellScript "home-alacritty-theme.sh" scriptContent));
+  scriptPath = (toString (writeShellScript "home-fzf-theme.sh" scriptContent));
   cmdPath = (toString (lib.getExe dark-mode-notify));
 in
 {
   launchd.agents = {
-    "alacritty-theme-helper" = {
+    "fzf-theme-helper" = {
       enable = true;
       config = {
         ProgramArguments = [

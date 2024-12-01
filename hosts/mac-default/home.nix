@@ -151,6 +151,10 @@
         enable = true;
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/alacritty");
       };
+      ".config/fzf" = {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/fzf");
+      };
       ".config/private_php/intelephense_license.txt" = {
         enable = true;
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_php/intelephense_license.txt");
@@ -338,6 +342,7 @@
           # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
           # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
           # Fuzzy search
+          export FZF_DEFAULT_OPTS_FILE=~/.fzfrc
           [ -x "$(command -v fzf)" ] && eval "$(fzf --zsh)"
 
           # FUNCTIONS
