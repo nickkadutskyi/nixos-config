@@ -119,7 +119,7 @@
             set -sg escape-time 0
             bind-key & kill-window
             bind-key x kill-pane
-            set -g set-titles-string "#T"
+            set -g set-titles-string "⧉ #T"
             set -g set-titles on
             set -g allow-rename on
             set -g automatic-rename on
