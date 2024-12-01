@@ -11,6 +11,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    darwin-custom-icons.url = "github:ryanccn/nix-darwin-custom-icons";
   };
   outputs =
     {
@@ -19,6 +20,7 @@
       nix-darwin,
       home-manager,
       nix-homebrew,
+      darwin-custom-icons,
       ...
     }@inputs:
     {
@@ -30,6 +32,7 @@
             [
               ./hosts/mac-default/configuration.nix
               ./hosts/nicks-macbook-air/configuration.nix
+              darwin-custom-icons.darwinModules.default
             ]
             ++ (if true then [ ./hosts/services/dnsmasq.nix ] else [ ])
             ++ (if true then [ ./hosts/services/snippety.nix ] else [ ])
@@ -71,6 +74,7 @@
             [
               ./hosts/mac-default/configuration.nix
               ./hosts/nicks-mac-mini/configuration.nix
+              darwin-custom-icons.darwinModules.default
             ]
             ++ (if true then [ ./hosts/services/dnsmasq.nix ] else [ ])
             ++ (if true then [ ./hosts/services/snippety.nix ] else [ ])

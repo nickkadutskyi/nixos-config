@@ -43,6 +43,32 @@
 
     # Misc
   ];
+
+  environment.customIcons =
+    let
+      alacrittyIcon = pkgs.stdenv.mkDerivation {
+        name = "alacritty.icns";
+        src = pkgs.fetchurl {
+          url = "https://github.com/hmarr/dotfiles/files/8549877/alacritty.icns.gz";
+          hash = "sha256-FVNeoFypAOLeWhLEe9kB82/mTyiYSp63leJt+Xw9YHI=";
+        };
+        unpackPhase = ":";
+        nativeBuildInputs = [ pkgs.gzip ];
+        installPhase = ''
+          mkdir $out
+          gzip -dc $src > $out/alacritty.icns'';
+      };
+    in
+    {
+      enable = true;
+      icons = [
+        {
+          path = "/Applications/Alacritty.app";
+          icon = alacrittyIcon + /alacritty.icns;
+        }
+      ];
+    };
+
   # environment.shellAliases = {
   #   vi = "nvim";
   # };
