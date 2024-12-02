@@ -76,9 +76,6 @@
       ];
     };
 
-  # environment.shellAliases = {
-  #   vi = "nvim";
-  # };
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;
@@ -135,10 +132,6 @@
   programs.direnv.direnvrcExtra = ''
     export DIRENV_LOG_FORMAT=
   '';
-
-  # System configs that can't be done in home-manager
-  system.keyboard.enableKeyMapping = true;
-  system.keyboard.remapCapsLockToControl = true;
 
   system.defaults.CustomUserPreferences = {
     NSGlobalDomain = {
@@ -237,10 +230,8 @@
       "hazel"
       "iina"
       "iterm2@beta"
-      "itermai"
       "jetbrains-toolbox"
-      "karabiner-elements"
-      "kitty"
+      "karabiner-elements" # disabled to handle via nix-darwin
       # "little-snitch" # disabled because breaking ssh in LAN
       # "logi-options-plus" # deletes/installs on each switch so commenting this out for now
       "microsoft-edge"
@@ -263,7 +254,6 @@
       # "upwork" # missing from any package managers so handling it directly
       "veracrypt"
       "webex"
-      "wezterm"
       "wireshark"
       "zoom"
     ];
