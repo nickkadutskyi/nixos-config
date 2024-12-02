@@ -117,6 +117,7 @@
           ''
             set -g status-left-length 14
             set -sg escape-time 0
+            set -g status-interval 0
             bind-key & kill-window
             bind-key x kill-pane
             set -g set-titles-string "⧉ #T"
@@ -342,8 +343,17 @@
           # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
           # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
           # Fuzzy search
-          export FZF_DEFAULT_OPTS_FILE=~/.fzfrc
-          [ -x "$(command -v fzf)" ] && eval "$(fzf --zsh)"
+          if [ -x "$(command -v fzf)" ]; then
+          function fzf() {
+            ( # run in subshell to not pollute top level shell environment
+              if [ "$SHELL" != "/bin/sh" ]; then
+                export FZF_DEFAULT_OPTS_FILE=~/.fzfrc
+              fi
+              $(whence -p fzf) "$@"
+            )
+          }
+          eval "$(fzf --zsh)"
+          fi
 
           # FUNCTIONS
           # Fuzzy search functions
