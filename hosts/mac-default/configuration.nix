@@ -172,6 +172,7 @@
       "#blockit: Block distractions" = 1492879257;
       "1Blocker - Ad Blocker" = 1365531024;
       "1Password for Safari" = 1569813296;
+      "24 Hour Wallpaper" = 1226087575;
       "Amazon Kindle" = 302584613;
       "Apple Developer" = 640199958;
       "BetterJSON for Safari" = 1511935951;
