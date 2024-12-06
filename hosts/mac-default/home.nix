@@ -415,7 +415,7 @@
         '';
       shellAliases = {
         # Navigation
-        ll = "ls -lah -L";
+        ll = "ls -lah";
         # Tooling
         sc = # bash
           "symfony console";

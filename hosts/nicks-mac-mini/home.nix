@@ -1,6 +1,6 @@
 {config, pkgs, ...}:
 {
   targets.darwin.defaults = {
-    NSGlobalDomain._HIHideMenuBar = true;
+    NSGlobalDomain._HIHideMenuBar = false;
   };
 }
