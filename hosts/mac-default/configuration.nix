@@ -178,6 +178,7 @@
       "BetterJSON for Safari" = 1511935951;
       "BetterXML for Safari" = 1556487002;
       "Blackmagic Disk Speed Test" = 425264550;
+      "Core Tunnel" = 1354318707;
       "DjVu Viewer + DjVu to PDF" = 755261884;
       "Easy CSV Editor" = 1171346381;
       "Fonts Ninja" = 1480227114;
@@ -196,7 +197,7 @@
       "Snippety - Snippets Manager" = 1530751461;
       "Telegram" = 747648890;
       "Wayback Machine" = 1472432422;
-      "Core Tunnel" = 1354318707;
+      "Xdebug Key" = 1441712067;
     };
     casks = [
       "1password"
