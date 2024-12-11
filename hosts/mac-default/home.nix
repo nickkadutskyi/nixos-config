@@ -212,6 +212,10 @@
           syncHomeDir + "/Library/Group\ Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary"
         );
       };
+      ".local/bin/youtube-dl" = {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (pkgs.python311Packages.yt-dlp + /bin/yt-dlp);
+      };
     };
 
   programs.zsh =
