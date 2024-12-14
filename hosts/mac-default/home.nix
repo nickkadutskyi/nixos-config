@@ -9,17 +9,18 @@
       # Development
       devenv # development environment
       go # Probably for gcloud
-      dart-sass # for sass to css conversion
+      dart-sass # for SASS to CSS conversion
       stripe-cli
-      mariadb # global db execs mysql and mysqldump for Intellij export/import
-      tree-sitter # for tree-sitter-cli for neovim
+      mariadb # global db execs mysql and mysqldump for IntelliJ export/import
+      tree-sitter # for tree-sitter-cli for Neovim
+      gost # tunnel for socks5 proxy
 
       # Shell
       shfmt # for formatting shell scripts
 
-      # PHP Develpoment
-      php83 # PHP 8.3 (currently latest) to run symfony console completion
-      php83Packages.composer # package manager for PHP (to init PHP projects)
+      # PHP Development
+      php83 # PHP 8.3 (currently latest) to run Symfony console completion
+      php83Packages.composer # package manager for PHP (to initialize PHP projects)
       symfony-cli # for Symfony dev
 
       # JavaScript Development
@@ -28,8 +29,8 @@
       # dart # disabled due to conflict with composer
 
       # Lua Development
-      lua54Packages.lua # For lua development and neovim configs
-      lua54Packages.luarocks # lua package manager
+      lua54Packages.lua # For Lua development and Neovim configs
+      lua54Packages.luarocks # Lua package manager
       stylua # lua formatter
       # lua-language-server # lua_ls
       # Linters
@@ -229,7 +230,7 @@
           # Set PATH, MANPATH, etc., for Homebrew.
           # [ -d $HOMEBREW_PREFIX ] && eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
           #zpath User's private binaries and scripts
-          export PATH="$PATH:$HOME/bin"
+          # export PATH="$PATH:$HOME/bin"
           # Tizen CLI
           export PATH=/Users/nick/Tizen/tizen-studio/tools/ide/bin:$PATH
           # Rust related
@@ -372,15 +373,6 @@
           fh() {
             eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
           }
-
-          # pnpm
-          export PNPM_HOME="/Users/nick/Library/pnpm"
-          case ":$PATH:" in
-            *":$PNPM_HOME:"*) ;;
-            *) export PATH="$PNPM_HOME:$PATH" ;;
-          esac
-          # pnpm end
-
 
           # zoxide start
           [ -x "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"
