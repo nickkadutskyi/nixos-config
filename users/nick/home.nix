@@ -111,21 +111,37 @@ in
       chromium
     ]);
 
-    programs.git = {
-      enable = true;
-      userName = "Nick Kadutskyi";
-      userEmail = "nick@kadutskyi.com";
-      aliases = {
-        st = "status";
-        ci = "commit";
-        br = "branch";
-        co = "checkout";
+  programs.git = {
+    enable = true;
+    userName = "Nick Kadutskyi";
+    userEmail = "nick@kadutskyi.com";
+    aliases = {
+      st = "status";
+      ci = "commit";
+      br = "branch";
+      co = "checkout";
+    };
+    extraConfig = {
+      core = {
+        autocrlf = "input";
+        editor = "nvim";
       };
-      extraConfig = {
-        core = {
-          autocrlf = "input";
-          editor = "nvim";
-        };
+      gpg = {
+        format = "ssh";
+      };
+      "gpg \"ssh\"" = {
+        program = lib.mkIf isDarwin "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       };
     };
+    signing = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUOOm/kpbXdO0Zg7XzDK3W67QUCZ/jutXK8w+pgoZqq";
+      # On macOS 1Password is used for signing
+      # gpgPath = lib.mkIf isDarwin "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+      signByDefault = true;
+    };
+  };
+  programs.alacritty = {
+    enable = !isWSL;
+    settings = import ./alacritty/alacritty.nix { inherit lib pkgs; };
+  };
 }
