@@ -106,7 +106,6 @@ in
       fswatch
       # Global mysql and mysqldump for IntelliJ/DataGrip db export/import
       mariadb
-      upwork
     ])
     ++ (lib.optionals (isLinux && !isWSL) [
       chromium
