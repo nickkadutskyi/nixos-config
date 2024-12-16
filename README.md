@@ -12,5 +12,6 @@ perfectly suit your needs.
 ([nix-installer](https://nixos.org/download/),
 [Determinate Nix Installer](https://github.com/DeterminateSystems/nix-installer), etc.)
 to get `nix` CLI with Flake support.
-2. Clone this repository and run `make`
-
+2. Clone this repository
+3. Run `nix run --exeprimental-features "nix-command flakes" shell nixpkgs#git` to ensure that you have Git
+4. Run `nix run nix-darwin -- switch --flake .` to build and switch to the configuration
