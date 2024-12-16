@@ -20,7 +20,7 @@ in
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.05";
 
   # Enables XDG Base Directory Specification support
   xdg.enable = true;
@@ -111,4 +111,21 @@ in
       chromium
     ]);
 
+    programs.git = {
+      enable = true;
+      userName = "Nick Kadutskyi";
+      userEmail = "nick@kadutskyi.com";
+      aliases = {
+        st = "status";
+        ci = "commit";
+        br = "branch";
+        co = "checkout";
+      };
+      extraConfig = {
+        core = {
+          autocrlf = "input";
+          editor = "nvim";
+        };
+      };
+    };
 }

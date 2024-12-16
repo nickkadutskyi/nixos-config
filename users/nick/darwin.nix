@@ -6,10 +6,6 @@
     shell = pkgs.zsh;
   };
 
-  environment.systemPackages = with pkgs; [
-    alacritty
-  ];
-
   homebrew = {
     enable = true;
     masApps = {
@@ -35,12 +31,12 @@
     };
     casks = [
       "1password"
-      # {
-      #   name = "alacritty";
-      #   args = {
-      #     no_quarantine = true;
-      #   };
-      # }
+       {
+         name = "alacritty";
+         args = {
+           no_quarantine = true;
+         };
+       }
       # "appcleaner"
       # "betterzip"
       # "bettertouchtool"
