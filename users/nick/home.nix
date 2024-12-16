@@ -129,8 +129,8 @@ in
       gpg = {
         format = "ssh";
       };
-      "gpg \"ssh\"" = {
-        program = lib.mkIf isDarwin "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+      gpg = {
+        ssh.program = lib.mkIf isDarwin "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       };
     };
     signing = {
