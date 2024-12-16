@@ -97,6 +97,6 @@
         "--force"
       ];
     };
-    tags = builtins.attrNames config.nix-homebrew.taps;
+    taps = builtins.attrNames config.nix-homebrew.taps;
   };
 }
