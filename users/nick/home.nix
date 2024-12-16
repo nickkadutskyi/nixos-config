@@ -133,6 +133,12 @@ in
         # On macOS 1Password is used for signing using ssh key
         ssh.program = lib.mkIf isDarwin "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       };
+      init = {
+        defaultBranch = "main";
+      };
+      push = {
+        followTags = true;
+      };
     };
     signing = {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUOOm/kpbXdO0Zg7XzDK3W67QUCZ/jutXK8w+pgoZqq";
