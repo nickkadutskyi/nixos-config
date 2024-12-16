@@ -83,5 +83,19 @@
       # "wireshark"
       # "zoom"
     ];
+    brews = [ ];
+    global.autoUpdate = false;
+    onActivation = {
+      # Removes unlisted casks and brews.
+      cleanup = "zap";
+      # Updates Homebrew and all installed packages.
+      autoUpdate = true;
+      # Upgrades outdated packages.
+      upgrade = true;
+      extraFlags = [
+        "--verbose"
+        "--force"
+      ];
+    };
   };
 }
