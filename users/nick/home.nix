@@ -95,7 +95,7 @@ in
       zsh-syntax-highlighting
     ]
     ++ (lib.optionals isDarwin [
-      _1password-gui
+      _1password-cli
       # Control bluetooth (TODO check if I need this)
       blueutil
       # GNU Coreutils (gtimeout is required by snippety-helper)
@@ -106,6 +106,7 @@ in
       fswatch
       # Global mysql and mysqldump for IntelliJ/DataGrip db export/import
       mariadb
+      upwork
     ])
     ++ (lib.optionals (isLinux && !isWSL) [
       chromium
