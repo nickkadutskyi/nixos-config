@@ -95,6 +95,7 @@ in
       zsh-syntax-highlighting
     ]
     ++ (lib.optionals isDarwin [
+      1password
       # Control bluetooth (TODO check if I need this)
       blueutil
       # GNU Coreutils (gtimeout is required by snippety-helper)
