@@ -36,6 +36,18 @@ systemFunc rec {
     { nixpkgs.config.allowUnfree = true; }
     # Bring in WSL if this is a WSL build
     (if isWSL then inputs.nixos-wsl.nixosModules.wsl else { })
+    machineConfig
+    userSystemConfig
+    home-manager.home-manager
+    {
+      home-manager.backupFileExtension = ".hm-backup";
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.users.${user} = import userHomeConfig {
+        isWSL = isWSL;
+        inputs = inputs;
+      };
+    }
     # Manages Homebrew on macOS with Nix
     (if darwin then inputs.nix-homebrew.darwinModules.nix-homebrew else { })
     (
@@ -59,18 +71,6 @@ systemFunc rec {
       else
         { }
     )
-    machineConfig
-    userSystemConfig
-    home-manager.home-manager
-    {
-      home-manager.backupFileExtension = ".hm-backup";
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.users.${user} = import userHomeConfig {
-        isWSL = isWSL;
-        inputs = inputs;
-      };
-    }
 
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.

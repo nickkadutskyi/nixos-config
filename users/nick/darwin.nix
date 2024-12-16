@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, config, ... }:
 {
   users.users.nick = {
     name = "nick";
@@ -97,5 +97,6 @@
         "--force"
       ];
     };
+    tags = builtins.attrNames config.nix-homebrew.taps;
   };
 }
