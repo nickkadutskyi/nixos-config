@@ -39,10 +39,10 @@ systemFunc {
     # Fixes .app programs installed by Nix on macOS
     (if darwin then inputs.mac-app-util.darwinModules.default else { })
     # Manages Homebrew on macOS with Nix
+    (if darwin then inputs.nix-homebrew.darwinModules.nix-homebrew else { })
     (
       if darwin then
-        # Fully manage Homebrew on macOS with Nix
-        inputs.nix-homebrew.darwinModules.nix-homebrew {
+        {
           nix-homebrew = {
             enable = true;
             enableRosetta = true;
