@@ -7,7 +7,7 @@
   };
 
   homebrew = {
-    enable = true;
+    enable = false;
     masApps = {
       "1Blocker - Ad Blocker" = 1365531024;
       "1Password for Safari" = 1569813296;
@@ -37,23 +37,19 @@
           no_quarantine = true;
         };
       }
-      "anydesk"
       "appcleaner"
       "betterzip"
       "bettertouchtool"
       "bibdesk"
       "calibre"
-      # "chromium 66" # not present in any package manager so handle it directly
       "cleanshot"
       "clickup"
-      # "core-tunnel"
       "daisydisk"
       "dash"
       "discord"
       "docker"
       "dropbox"
       "element"
-      # "finicky"
       "firefox"
       "google-chrome"
       "google-drive"
@@ -66,28 +62,22 @@
       # "little-snitch" # disabled because breaking ssh in LAN
       # "logi-options-plus" # deletes/installs on each switch so commenting this out for now
       "microsoft-edge"
-      "microsoft-teams"
       "obsidian"
       "protonvpn"
       "rapidapi"
       "raycast"
       "sf-symbols"
       "sketch"
-      # "sloth" # for monitoring network and disk usage; never user it
       "splashtop-business"
       "spotify"
       "teamviewer"
-      "tor-browser"
       "transmission"
       "transmit"
       "tresorit"
       "typeface"
-      # "upwork" # missing from any package managers so handling it directly
       "veracrypt"
-      "webex"
       "wireshark"
       "zoom"
-
     ];
   };
 }
