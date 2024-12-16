@@ -29,15 +29,13 @@ let
   systemFunc = if darwin then inputs.nix-darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
   home-manager = if darwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
 in
-systemFunc {
+systemFunc rec {
   inherit system inputs;
   modules = [
     # Allow unfree packages.
     { nixpkgs.config.allowUnfree = true; }
     # Bring in WSL if this is a WSL build
     (if isWSL then inputs.nixos-wsl.nixosModules.wsl else { })
-    # Fixes .app programs installed by Nix on macOS
-    (if darwin then inputs.mac-app-util.darwinModules.default else { })
     # Manages Homebrew on macOS with Nix
     (if darwin then inputs.nix-homebrew.darwinModules.nix-homebrew else { })
     (
@@ -68,9 +66,6 @@ systemFunc {
       home-manager.backupFileExtension = ".hm-backup";
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.sharedModules = [
-        (if darwin then inputs.mac-app-util.homeManagerModules.default else { })
-      ];
       home-manager.users.${user} = import userHomeConfig {
         isWSL = isWSL;
         inputs = inputs;
