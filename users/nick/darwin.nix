@@ -6,6 +6,10 @@
     shell = pkgs.zsh;
   };
 
+  environment.systemPackages = with pkgs; [
+    alacritty
+  ];
+
   homebrew = {
     enable = false;
     masApps = {
