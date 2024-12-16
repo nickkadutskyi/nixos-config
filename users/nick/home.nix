@@ -58,7 +58,7 @@ in
       # Main editor (TODO make it work on NixOS, nix-darwin, and non-nix systems)
       neovim
       # Provides Nerd fonts for icons support
-      nerd-fots.jetbrains-mono
+      nerd-fonts.jetbrains-mono
       # Nix language server (TODO keep only one server and make it project scoped)
       nil
       # Nix language server
