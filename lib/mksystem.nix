@@ -36,6 +36,8 @@ systemFunc {
     { nixpkgs.config.allowUnfree = true; }
     # Bring in WSL if this is a WSL build
     (if isWSL then inputs.nixos-wsl.nixosModules.wsl else { })
+    # Fixes .app programs installed by Nix on macOS
+    (if darwin then inputs.mac-app-util.darwinModules.default else { })
     machineConfig
     userSystemConfig
     home-manager.home-manager
@@ -43,6 +45,9 @@ systemFunc {
       home-manager.backupFileExtension = ".hm-backup";
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
+      home-manager.sharedModules = [
+        (if darwin then inputs.mac-app-util.homeManagerModules.default else { })
+      ];
       home-manager.users.${user} = import userHomeConfig {
         isWSL = isWSL;
         inputs = inputs;

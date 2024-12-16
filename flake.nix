@@ -30,6 +30,8 @@
     };
     # For custom icons on macOS
     darwin-custom-icons.url = "github:ryanccn/nix-darwin-custom-icons";
+    # Fixes .app programs installed by Nix on Mac
+    mac-app-util.url = "github:hraban/mac-app-util";
   };
   outputs =
     {
