@@ -128,6 +128,7 @@ in
     EDITOR = "nvim";
     VISUAL = "nvim";
     GPG_TTY = "$(tty)";
+    HOMEBREW_NO_ANALYTICS = "1";
   };
 
   home.sessionPath = [
@@ -171,10 +172,16 @@ in
     epds_ec2 = "aws ec2 describe-instances  --query 'Reservations[].Instances[?not_null(Tags[?Key==\`Name\`].Value)]|[].[State.Name,PrivateIpAddress,PublicIpAddress,InstanceId,Tags[?Key==\`Name\`].Value[]|[0]] | sort_by(@, &[3])'  --output text |  sed '$!N;s/ / /'";
   };
 
+  xdg.configFile = {
+    "karabiner/karabiner.json".text = builtins.readFile ./karabiner.json;
+    "tmux/tmux.conf".text = builtins.readFile ./tmux.conf;
+  };
+
   #---------------------------------------------------------------------
   # Programs
   #---------------------------------------------------------------------
 
+  # TODO fix scripts and ensure key bindings work properly
   programs.alacritty = {
     enable = !isWSL;
     settings = import ./alacritty/alacritty.nix { inherit lib pkgs; };
@@ -242,6 +249,7 @@ in
   programs.zsh = {
     enable = true;
     enableCompletion = true;
+    oh-my-zsh.enable = true;
     plugins = [
       {
         name = "powerlevel10k";
@@ -273,6 +281,20 @@ in
         src = pkgs.oh-my-zsh;
         file = "share/oh-my-zsh/plugins/git-extras/git-extras.plugin.zsh";
       }
+      {
+        name = "zsh-window-title";
+        src = pkgs.oh-my-zsh;
+        file = "share/oh-my-zsh/plugins/git-extras/git-extras.plugin.zsh";
+      }
+      # {
+      #   name = "zsh-window-title";
+      #   src = pkgs.fetchFromGitHub {
+      #     owner = "olets";
+      #     repo = "zsh-window-title";
+      #     rev = "main";
+      #     sha256 = "sha256-RqJmb+XYK35o+FjUyqGZHD6r1Ku1lmckX41aXtVIUJQ=";
+      #   };
+      # }
     ];
     history = {
       save = 1000000000;
@@ -313,13 +335,6 @@ in
         else
           ""
       );
-  };
-
-  home.file = {
-    ".config/karabiner/karabiner.json" = lib.mkIf isDarwin {
-      enable = true;
-      source = ./karabiner.json;
-    };
   };
 
   #---------------------------------------------------------------------
@@ -397,6 +412,23 @@ in
             "file-type" = 41;
             "is-beta" = 0;
             "parent-mod-date" = 136841467249233;
+          };
+          "tile-type" = "file-tile";
+        }
+        {
+          GUID = 3001694762;
+          "tile-data" = {
+            "bundle-identifier" = "com.upwork.Upwork";
+            "dock-extra" = 0;
+            "file-data" = {
+              "_CFURLString" = "file:///Applications/Upwork.app/";
+              "_CFURLStringType" = 15;
+            };
+            "file-label" = "Upwork";
+            "file-mod-date" = 31485927583175;
+            "file-type" = 1;
+            "is-beta" = 0;
+            "parent-mod-date" = 49486135520711;
           };
           "tile-type" = "file-tile";
         }
@@ -521,6 +553,11 @@ in
       AppleWindowTabbingMode = "always";
       # To have consistent font rendering across all apps (Alacritty, iTerm)
       AppleFontSmoothing = 0;
+      NSUserKeyEquivalents = {
+        "Move Tab to New Window" = "~$n";
+      };
+      # Use F1, F2, etc. keys as standard function keys
+      "com.apple.keyboard.fnState" = true;
     };
 
     "com.apple.AppleMultitouchTrackpad" = {
@@ -538,6 +575,45 @@ in
       StandardHideWidgets = 1;
       AutoHide = true;
       EnableTiledWindowMargins = 0;
+    };
+
+    # Adds Input Sources
+    "com.apple.HIToolbox" = {
+      AppleFnUsageType = 3;
+      AppleEnabledInputSources = [
+        {
+          InputSourceKind = "Keyboard Layout";
+          "KeyboardLayout ID" = 12825;
+          "KeyboardLayout Name" = "Colemak";
+        }
+        {
+          InputSourceKind = "Keyboard Layout";
+          "KeyboardLayout ID" = 19458;
+          "KeyboardLayout Name" = "RussianWin";
+        }
+        {
+          InputSourceKind = "Keyboard Layout";
+          "KeyboardLayout ID" = -2354;
+          "KeyboardLayout Name" = "Ukrainian-PC";
+        }
+        {
+          "Bundle ID" = "com.apple.CharacterPaletteIM";
+          InputSourceKind = "Non Keyboard Input Method";
+        }
+        {
+          "Bundle ID" = "com.apple.PressAndHold";
+          InputSourceKind = "Non Keyboard Input Method";
+        }
+        {
+          "Bundle ID" = "com.apple.inputmethod.ironwood";
+          InputSourceKind = "Non Keyboard Input Method";
+        }
+        {
+          InputSourceKind = "Keyboard Layout";
+          "KeyboardLayout ID" = 0;
+          "KeyboardLayout Name" = "U.S.";
+        }
+      ];
     };
 
     "com.apple.Safari" = {
@@ -562,18 +638,38 @@ in
       PreloadTopHit = true;
       ExtensionsEnabled = true;
       FindOnPageMatchesWordStartsOnly = false;
+      # TODO find how to make it work
+      # @ = Cmd; ^ = Control; ~ = Option; $ = Shift
+      # NSUserKeyEquivalents = {
+      #   "\\033File\\033Share…" = "@~s";
+      # };
     };
 
     "com.apple.finder" = {
       ShowPathbar = true;
       ShowStatusBar = true;
+      # TODO find how to make it work
+      # @ = Cmd; ^ = Control; ~ = Option; $ = Shift
       # NSUserKeyEquivalents = {
       #   "Tags..." = "~$t";
       #   "Tags…" = "~$t";
       # };
     };
 
-    "com.apple.mail" = { };
+    "com.apple.mail" = {
+      # @ = Cmd; ^ = Control; ~ = Option; $ = Shift
+      NSUserKeyEquivalents = {
+        "Mail Selection to Task" = "@$t";
+        "Navigate to Mailbox" = "@^n";
+        "Move to Mailbox" = "@^m";
+        "Get deep links for selected messages" = "@^~d";
+        "Markdown to RTF" = "@^r";
+        "Paste as Quotation" = "@^v";
+        "Take All Accounts Offline" = "@$m";
+        "Take All Accounts Online" = "@$o";
+      };
+
+    };
 
     # Keyboard Shortucts
     "com.apple.symbolichotkeys" = {
