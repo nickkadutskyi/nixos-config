@@ -32,8 +32,14 @@ in
 systemFunc rec {
   inherit system inputs;
   modules = [
-    # Allow unfree packages.
-    { nixpkgs.config.allowUnfree = true; }
+    {
+      nixpkgs = {
+        # Allow unfree packages.
+        config.allowUnfree = true;
+        # The platform the configuration will be used on.
+        hostPlatform = system;
+      };
+    }
     # Bring in WSL if this is a WSL build
     (if isWSL then inputs.nixos-wsl.nixosModules.wsl else { })
     machineConfig
@@ -83,7 +89,6 @@ systemFunc rec {
         currentSystemName = name;
         currentSystemUser = user;
         isWSL = isWSL;
-        inputs = inputs;
       };
     }
   ];

@@ -59,8 +59,8 @@
       "iina"
       "iterm2@beta"
       "jetbrains-toolbox"
-      "karabiner-elements" # disabled to handle via nix-darwin
-      "little-snitch" # disabled because breaking ssh in LAN
+      "karabiner-elements"
+      "little-snitch"
       "protonvpn"
       "rapidapi"
       "sketch"
@@ -103,4 +103,10 @@
       }
     ];
   };
+  # Enable the touch-id authentication for sudo via tmux reattach and in proper file
+  environment.etc."pam.d/sudo_local".text = ''
+    # Managed by Nix-Darwin
+    auth       optional       ${pkgs.pam-reattach}/lib/pam/pam_reattach.so ignore_ssh
+    auth       sufficient     pam_tid.so
+  '';
 }

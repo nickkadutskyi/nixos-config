@@ -25,6 +25,12 @@ in
   # Enables XDG Base Directory Specification support
   xdg.enable = true;
 
+  #---------------------------------------------------------------------
+  # Packages
+  #---------------------------------------------------------------------
+
+  # TODO Package Tizen Studio and install via Nix or Homebrew
+
   # Packages I always want installed, but keep project specific packages
   # in their project specific flake.nix accessible via `nix develop`
   home.packages =
@@ -111,6 +117,83 @@ in
       chromium
     ]);
 
+  #---------------------------------------------------------------------
+  # Env vars and dotfiles
+  #---------------------------------------------------------------------
+
+  home.sessionVariables = {
+    LANG = "en_US.UTF-8";
+    LC_CTYPE = "en_US.UTF-8";
+    LC_ALL = "en_US.UTF-8";
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+    GPG_TTY = "$(tty)";
+  };
+
+  home.sessionPath = [
+    # For now Tizen is installed only on Macs
+    (if isDarwin then "$HOME/Tizen/tizen-studio/tools/ide/bin" else "")
+    # User-specific executable files
+    "$HOME/.local/bin"
+  ];
+
+  home.shellAliases = {
+    # Navigation
+    ll = "ls -lah";
+    # Tooling
+    # sc = # bash
+    #   "symfony console";
+    # sym = "symfony";
+    # mfs = # bash
+    #   "php artisan migrate:fresh --seed";
+    # mfss = # bash
+    #   "mfs && php artisan db:seed --class=DevSeeder";
+    ip = # bash
+      "curl -4 icanhazip.com";
+    ip4 = # bash
+      "curl -4 icanhazip.com";
+    ip6 = # bash
+      "curl -6 icanhazip.com";
+    iplan = # bash
+      lib.mkIf isDarwin "ifconfig en0 inet | grep 'inet ' | awk ' { print \$2 } '";
+    ips = # bash
+      lib.mkIf isDarwin "ifconfig -a | perl -nle'/(\\d+\\.\\d+\\.\\d+\\.\\d+)/ && print \$1'";
+    ip4a = # bash
+      "dig +short -4 myip.opendns.com @resolver4.opendns.com";
+    ip6a = # bash
+      "dig +short -6 myip.opendns.com @resolver1.ipv6-sandbox.opendns.com AAAA";
+    vi = "nvim";
+    vim = "nvim";
+    view = "nvim";
+    vimdiff = "nvim";
+    # EPDS
+    # List EPDS AWS EC2 Instances
+    epds_ec2 = "aws ec2 describe-instances  --query 'Reservations[].Instances[?not_null(Tags[?Key==\`Name\`].Value)]|[].[State.Name,PrivateIpAddress,PublicIpAddress,InstanceId,Tags[?Key==\`Name\`].Value[]|[0]] | sort_by(@, &[3])'  --output text |  sed '$!N;s/ / /'";
+  };
+
+  #---------------------------------------------------------------------
+  # Programs
+  #---------------------------------------------------------------------
+
+  programs.alacritty = {
+    enable = !isWSL;
+    settings = import ./alacritty/alacritty.nix { inherit lib pkgs; };
+  };
+
+  # Enables direnv to automatically switch environments in project directories.
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+    stdlib =
+      # bash
+      ''
+        # Makes direnv it silent since
+        export DIRENV_LOG_FORMAT=
+      '';
+  };
+
   programs.git = {
     enable = true;
     userName = "Nick Kadutskyi";
@@ -155,14 +238,440 @@ in
       signByDefault = true;
     };
   };
-  programs.alacritty = {
-    enable = !isWSL;
-    settings = import ./alacritty/alacritty.nix { inherit lib pkgs; };
+
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    plugins = [
+      {
+        name = "powerlevel10k";
+        src = pkgs.zsh-powerlevel10k;
+        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      }
+      {
+        name = "zsh-autosuggestions";
+        src = pkgs.zsh-autosuggestions;
+        file = "share/zsh-autosuggestions/zsh-autosuggestions.zsh";
+      }
+      {
+        name = "zsh-syntax-highlighting";
+        src = pkgs.zsh-syntax-highlighting;
+        file = "share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh";
+      }
+      {
+        name = "zsh-completions";
+        src = pkgs.zsh-completions;
+        file = "share/zsh-completions/zsh-completions.plugin.zsh";
+      }
+      {
+        name = "git";
+        src = pkgs.oh-my-zsh;
+        file = "share/oh-my-zsh/plugins/git/git.plugin.zsh";
+      }
+      {
+        name = "git-extras";
+        src = pkgs.oh-my-zsh;
+        file = "share/oh-my-zsh/plugins/git-extras/git-extras.plugin.zsh";
+      }
+    ];
+    history = {
+      save = 1000000000;
+      size = 1000000000;
+      ignoreAllDups = false;
+    };
+    initExtraFirst =
+      # bash
+      ''
+        # This is before everything else (initExtraFirst)
+        # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+        # Initialization code that may require console input (password prompts, [y/n]
+        # confirmations, etc.) must go above this block; everything else may go below.
+        if [[ -r "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+          source "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+        fi
+      '';
+    initExtra =
+      # bash
+      ''
+        ${builtins.readFile ./zshrc}
+        ${builtins.readFile ./p10k.zsh}
+      ''
+      + (
+        if config.programs.zsh.oh-my-zsh.enable then
+          # bash
+          ''
+            # tmux title start
+            # Uses OMZ theme terminal title directives for tmux
+            function omz_termsupport_precmd_tmux_extended() {
+              if [[ "$TERM" =~ "tmux*"  ]]; then
+                print -Pn "\e]2;''${ZSH_THEME_TERM_TITLE_IDLE:q}\e\\"
+              fi
+            }
+            add-zsh-hook precmd omz_termsupport_precmd_tmux_extended
+            # tmux title end
+          ''
+        else
+          ""
+      );
   };
+
   home.file = {
     ".config/karabiner/karabiner.json" = lib.mkIf isDarwin {
       enable = true;
       source = ./karabiner.json;
+    };
+  };
+
+  #---------------------------------------------------------------------
+  # System and UI
+  #---------------------------------------------------------------------
+  targets.darwin.defaults = {
+    # Dock configurations
+    "com.apple.dock" = {
+      autohide = true;
+      "mru-spaces" = false;
+      # Persistent Dock items on the left (using for frequently used apps)
+      "persistent-apps" = [
+        {
+          GUID = 3016036810;
+          "tile-data" = {
+            "bundle-identifier" = "com.apple.iCal";
+            "dock-extra" = 1;
+            "file-data" = {
+              "_CFURLString" = "file:///System/Applications/Calendar.app/";
+              "_CFURLStringType" = 15;
+            };
+            "file-label" = "Calendar";
+            "file-mod-date" = 3807236824;
+            "file-type" = 41;
+            "is-beta" = 0;
+            "parent-mod-date" = 3807236824;
+          };
+          "tile-type" = "file-tile";
+        }
+        {
+          GUID = 3983927002;
+          "tile-data" = {
+            "bundle-identifier" = "pro.writer.mac";
+            "dock-extra" = 0;
+            "file-data" = {
+              "_CFURLString" = "file:///Applications/iA%20Writer.app/";
+              "_CFURLStringType" = 15;
+            };
+            "file-label" = "iA Writer";
+            "file-mod-date" = 156628376039959;
+            "file-type" = 41;
+            "is-beta" = 0;
+            "parent-mod-date" = 248111184366845;
+          };
+          "tile-type" = "file-tile";
+        }
+        {
+          GUID = 2502778024;
+          "tile-data" = {
+            "bundle-identifier" = "com.apple.mail";
+            "dock-extra" = 0;
+            "file-data" = {
+              "_CFURLString" = "file:///System/Applications/Mail.app/";
+              "_CFURLStringType" = 15;
+            };
+            "file-label" = "Mail";
+            "file-mod-date" = 3808414457;
+            "file-type" = 41;
+            "is-beta" = 0;
+            "parent-mod-date" = 3808414457;
+          };
+          "tile-type" = "file-tile";
+        }
+        {
+          GUID = 714452850;
+          "tile-data" = {
+            "bundle-identifier" = "ru.keepcoder.Telegram";
+            "dock-extra" = 0;
+            "file-data" = {
+              "_CFURLString" = "file:///Applications/Telegram.app/";
+              "_CFURLStringType" = 15;
+            };
+            "file-label" = "Telegram";
+            "file-mod-date" = 114026600348085;
+            "file-type" = 41;
+            "is-beta" = 0;
+            "parent-mod-date" = 136841467249233;
+          };
+          "tile-type" = "file-tile";
+        }
+        {
+          GUID = 1305831930;
+          "tile-data" = {
+            "bundle-identifier" = "com.apple.ScreenContinuity";
+            "dock-extra" = 1;
+            "file-data" = {
+              "_CFURLString" = "file:///System/Applications/iPhone%20Mirroring.app/";
+              "_CFURLStringType" = 15;
+            };
+            "file-label" = "iPhone Mirroring";
+            "file-mod-date" = 3807236824;
+            "file-type" = 41;
+            "is-beta" = 0;
+            "parent-mod-date" = 3807236824;
+          };
+          "tile-type" = "file-tile";
+        }
+      ];
+      # Persistent Dock items on the right (using for quick access folders)
+      "persistent-others" = [
+        {
+          GUID = 354663587;
+          "tile-data" = {
+            arrangement = 2;
+            displayas = 0;
+            "file-data" = {
+              "_CFURLString" = "file:///Users/nick/Desktop/";
+              "_CFURLStringType" = 15;
+            };
+            "file-label" = "Desktop";
+            "file-mod-date" = 3807722698;
+            "file-type" = 2;
+            "is-beta" = 0;
+            "parent-mod-date" = 261124935269833;
+            preferreditemsize = "-1";
+            showas = 0;
+          };
+          "tile-type" = "directory-tile";
+        }
+        {
+          GUID = 3715713668;
+          "tile-data" = {
+            arrangement = 2;
+            displayas = 0;
+            "file-data" = {
+              "_CFURLString" = "file:///Users/nick/Documents/";
+              "_CFURLStringType" = 15;
+            };
+            "file-label" = "Documents";
+            "file-mod-date" = 3808363796;
+            "file-type" = 2;
+            "is-beta" = 0;
+            "parent-mod-date" = 261124935269833;
+            preferreditemsize = "-1";
+            showas = 0;
+          };
+          "tile-type" = "directory-tile";
+        }
+        {
+          GUID = 2502778041;
+          "tile-data" = {
+            arrangement = 2;
+            displayas = 0;
+            "file-data" = {
+              "_CFURLString" = "file:///Users/nick/Downloads/";
+              "_CFURLStringType" = 15;
+            };
+            "file-label" = "Downloads";
+            "file-mod-date" = 176612863732546;
+            "file-type" = 2;
+            "is-beta" = 0;
+            "parent-mod-date" = 261124935269833;
+            preferreditemsize = "-1";
+            showas = 1;
+          };
+          "tile-type" = "directory-tile";
+        }
+        {
+          GUID = 3715713667;
+          "tile-data" = {
+            arrangement = 4;
+            displayas = 0;
+            "file-data" = {
+              "_CFURLString" = "file:///Users/nick/Library/Mobile%20Documents/com~apple~CloudDocs/Screenshots/";
+              "_CFURLStringType" = 15;
+            };
+            "file-label" = "Screenshots";
+            "file-mod-date" = 3808512343;
+            "file-type" = 2;
+            "is-beta" = 0;
+            "parent-mod-date" = 246848453805355;
+            preferreditemsize = "-1";
+            showas = 1;
+          };
+          "tile-type" = "directory-tile";
+        }
+      ];
+    };
+
+    NSGlobalDomain = {
+      # Instead of special char menu repeat the character
+      ApplePressAndHoldEnabled = false;
+      AppleShowAllExtensions = true;
+      # Appearance to auto
+      AppleInterfaceStyleSwitchesAutomatically = true;
+      # Languages in Regional Settings
+      AppleLanguages = [
+        "en-US"
+        "ru-US"
+        "uk-US"
+      ];
+      AppleLocale = "en_US";
+      # "com.apple.mouse.tapBehavior" = 1;
+      # Delay before starting key repeat
+      InitialKeyRepeat = 15;
+      # Frequency of key repeat
+      KeyRepeat = 2;
+      # Prefer tabs when opening documents (always|fullscreen|never)
+      AppleWindowTabbingMode = "always";
+      # To have consistent font rendering across all apps (Alacritty, iTerm)
+      AppleFontSmoothing = 0;
+    };
+
+    "com.apple.AppleMultitouchTrackpad" = {
+      Clicking = true;
+      TrackpadThreeFingerDrag = true;
+    };
+
+    # Stage Manager
+    "com.apple.WindowManager" = {
+      GloballyEnabled = false;
+      EnableStandardClickToShowDesktop = 1;
+      StandardHideDesktopIcons = 1;
+      HideDesktop = 1;
+      StageManagerHideWidgets = 0;
+      StandardHideWidgets = 1;
+      AutoHide = true;
+      EnableTiledWindowMargins = 0;
+    };
+
+    "com.apple.Safari" = {
+      IncludeDevelopMenu = true;
+      AutoFillCreditCardData = false;
+      AutoFillPasswords = false;
+      AutoFillMiscellaneousForms = false;
+      AutoFillFromAddressBook = false;
+      AutoOpenSafeDownloads = true;
+      ShowOverlayStatusBar = true;
+      "ShowFavoritesBar-v2" = false;
+      AlwaysRestoreSessionAtLaunch = false;
+      HomePage = "";
+      ShowStandaloneTabBar = false;
+      EnableNarrowTabs = true;
+      SuppressSearchSuggestions = false;
+      CommandClickMakesTabs = true;
+      OpenNewTabsInFront = false;
+      UniversalSearchEnabled = true;
+      SendDoNotTrackHTTPHeader = true;
+      WebKitStorageBlockingPolicy = 1;
+      PreloadTopHit = true;
+      ExtensionsEnabled = true;
+      FindOnPageMatchesWordStartsOnly = false;
+    };
+
+    "com.apple.finder" = {
+      ShowPathbar = true;
+      ShowStatusBar = true;
+      # NSUserKeyEquivalents = {
+      #   "Tags..." = "~$t";
+      #   "Tags…" = "~$t";
+      # };
+    };
+
+    "com.apple.mail" = { };
+
+    # Keyboard Shortucts
+    "com.apple.symbolichotkeys" = {
+      AppleSymbolicHotKeys = {
+        # Option + 1 to Switch to Desktop 1
+        "118" = {
+          enabled = true;
+          value = {
+            parameters = [
+              49
+              18
+              524288
+            ];
+            type = "standard";
+          };
+        };
+        # Option + 2 to Switch to Desktop 2
+        "119" = {
+          enabled = true;
+          value = {
+            parameters = [
+              50
+              19
+              524288
+            ];
+            type = "standard";
+          };
+        };
+        # Option + 3 to Switch to Desktop 3
+        "120" = {
+          enabled = true;
+          value = {
+            parameters = [
+              51
+              20
+              524288
+            ];
+            type = "standard";
+          };
+        };
+        # Disables Mission Control: Move left a space
+        # "79" = {
+        #   enabled = 0;
+        #   value = {
+        #     type = 65536;
+        #     parameters = [ ];
+        #   };
+        # };
+        # Disables Mission Control: Move right a space
+        # "81" = {
+        #   enabled = 0;
+        #   value = {
+        #     type = 65536;
+        #     parameters = [ ];
+        #   };
+        # };
+        # Screenshot related shortcuts
+        # Save picture of screen as a file (Shift + Command + 3)
+        "28" = {
+          enabled = 0;
+          value = {
+            type = 65536;
+            parameters = [ ];
+          };
+        };
+        # Copy picture of screen to clipboard (Shift + Command + Control + 3)
+        "29" = {
+          enabled = 0;
+          value = {
+            type = 65536;
+            parameters = [ ];
+          };
+        };
+        # Save picture of selected area as a file (Shift + Command + 4)
+        "30" = {
+          enabled = 0;
+          value = {
+            type = 65536;
+            parameters = [ ];
+          };
+        };
+        # Copy picture of selected area to clipboard (Shift + Command + Control + 4)
+        "31" = {
+          enabled = 0;
+          value = {
+            type = 65536;
+            parameters = [ ];
+          };
+        };
+        # Screenshot and recording options (Shift + Command + 5)
+        "184" = {
+          enabled = 0;
+          value = {
+            type = 65536;
+            parameters = [ ];
+          };
+        };
+      };
     };
   };
 }

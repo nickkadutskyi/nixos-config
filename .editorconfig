@@ -13,7 +13,7 @@ trim_trailing_whitespace = true
 [{*.ant,*.dproj,*.fxml,*.jhm,*.jnlp,*.jrxml,*.lpi,*.rng,*.sdef,*.tld,*.wsdl,*.xml,*.xsd,*.xsl,*.xslt,*.xul,phpunit.xml.dist}]
 indent_style = space
 
-[{*.bash,*.bats,*.dash,*.ksh,*.mksh,*.sh,.bash_aliases,.bash_logout,.bash_profile,.bashrc,.profile}]
+[{zshrc,*.bash,*.bats,*.dash,*.ksh,*.mksh,*.sh,.bash_aliases,.bash_logout,.bash_profile,.bashrc,.profile}]
 indent_size = 2
 indent_style = space
 tab_width = 2

@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   # Needed for macOS Sequoia
   system.stateVersion = 5;
@@ -7,9 +12,8 @@
   # to manage it for us. This tells nix-darwin to just use whatever is running.
   nix = {
     useDaemon = true;
-    package = pkgs.nixVersions.nix_2_24;
+    package = pkgs.nixVersions.nix_2_25;
     settings = {
-      # Probably should be a string
       # Enables flakes
       experimental-features = [
         "nix-command"
@@ -22,6 +26,7 @@
         "https://devenv.cachix.org"
       ];
     };
+    channel.enable = false;
     extraOptions = # bash
       ''
         keep-outputs = false
@@ -37,4 +42,6 @@
     # For wildecard *.test for local development (TODO configure it with nix-darwin)
     dnsmasq
   ];
+  # Set Git commit hash for darwin-version.
+  system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
 }
