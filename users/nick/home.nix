@@ -175,13 +175,17 @@ in
   xdg.configFile = {
     "karabiner/karabiner.json".text = builtins.readFile ./karabiner.json;
     "tmux/tmux.conf".text = builtins.readFile ./tmux.conf;
+    "fzf/light.fzfrc".text = builtins.readFile ./fzf/light.fzfrc;
+    "fzf/dark.fzfrc".text = builtins.readFile ./fzf/dark.fzfrc;
+    # TODO clean up vimrc code
+    "vim/vimrc".text = builtins.readFile ./vimrc;
   };
 
   #---------------------------------------------------------------------
   # Programs
   #---------------------------------------------------------------------
 
-  # TODO fix scripts and ensure key bindings work properly
+  # TODO fix scripts and ensure key bindings work properly or get rid of tmux
   programs.alacritty = {
     enable = !isWSL;
     settings = import ./alacritty/alacritty.nix { inherit lib pkgs; };
