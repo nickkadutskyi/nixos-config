@@ -19,7 +19,6 @@ indent_style = space
 tab_width = 2
 
 
-# Match Nix files, set indent to spaces with width of two
-[*.nix]
+[{*.nix,*.json}]
 indent_style = space
 indent_size = 2

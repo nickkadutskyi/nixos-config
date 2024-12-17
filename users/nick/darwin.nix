@@ -1,4 +1,9 @@
-{ inputs, pkgs, config, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  ...
+}:
 {
   users.users.nick = {
     name = "nick";
@@ -31,12 +36,12 @@
     };
     casks = [
       "1password"
-       {
-         name = "alacritty";
-         args = {
-           no_quarantine = true;
-         };
-       }
+      {
+        name = "alacritty";
+        args = {
+          no_quarantine = true;
+        };
+      }
       "betterzip"
       "bettertouchtool"
       "bibdesk"

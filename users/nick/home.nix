@@ -128,6 +128,13 @@ in
       core = {
         autocrlf = "input";
         editor = "nvim";
+        excludesFile = toString (
+          pkgs.writeText "gitignore_global"
+            # gitignore
+            ''
+              .DS_Store
+            ''
+        );
       };
       gpg = {
         format = "ssh";
@@ -151,5 +158,11 @@ in
   programs.alacritty = {
     enable = !isWSL;
     settings = import ./alacritty/alacritty.nix { inherit lib pkgs; };
+  };
+  home.file = {
+    ".config/karabiner/karabiner.json" = {
+      enable = true;
+      source = ./karabiner.json;
+    };
   };
 }
