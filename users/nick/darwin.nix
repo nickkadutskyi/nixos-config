@@ -71,6 +71,7 @@
       "transmit"
       "tresorit"
       "typeface"
+      "nickkadutskyi/homebrew-cask/upwork"
       "zoom"
     ];
     brews = [ ];
@@ -78,7 +79,7 @@
     onActivation = {
       # Removes unlisted casks and brews.
       cleanup = "zap";
-      # Updates Homebrew and all installed packages.
+      # Updates Homebrew and all formulae.
       autoUpdate = true;
       # Upgrades outdated packages.
       upgrade = true;
@@ -88,5 +89,18 @@
       ];
     };
     taps = builtins.attrNames config.nix-homebrew.taps;
+  };
+  environment.customIcons = {
+    enable = true;
+    icons = [
+      {
+        path = "/Applications/Alacritty.app";
+        icon = ./alacritty/alacritty.icns;
+      }
+      {
+        path = "/Applications/Upwork.app";
+        icon = ./upwork.icns;
+      }
+    ];
   };
 }

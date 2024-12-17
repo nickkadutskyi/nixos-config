@@ -63,6 +63,7 @@ systemFunc rec {
               "homebrew/homebrew-core" = inputs.homebrew-core;
               "homebrew/homebrew-cask" = inputs.homebrew-cask;
               "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
+              "nickkadutskyi/homebrew-cask" = inputs.my-homebrew-cask;
             };
             # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
             mutableTaps = false;
@@ -71,6 +72,9 @@ systemFunc rec {
       else
         { }
     )
+    # Custom icons for macOS
+
+    (if darwin then inputs.darwin-custom-icons.darwinModules.default else { })
 
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.

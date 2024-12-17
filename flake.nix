@@ -28,6 +28,10 @@
       url = "github:homebrew/homebrew-bundle";
       flake = false;
     };
+    my-homebrew-cask = {
+      url = "github:nickkadutskyi/homebrew-cask";
+      flake = false;
+    };
     # For custom icons on macOS
     darwin-custom-icons.url = "github:ryanccn/nix-darwin-custom-icons";
   };
