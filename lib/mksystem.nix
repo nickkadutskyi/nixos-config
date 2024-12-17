@@ -73,7 +73,6 @@ systemFunc rec {
         { }
     )
     # Custom icons for macOS
-
     (if darwin then inputs.darwin-custom-icons.darwinModules.default else { })
 
     # We expose some extra arguments so that our modules can parameterize
