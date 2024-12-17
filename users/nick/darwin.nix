@@ -109,4 +109,10 @@
     auth       optional       ${pkgs.pam-reattach}/lib/pam/pam_reattach.so ignore_ssh
     auth       sufficient     pam_tid.so
   '';
+
+  # i3-like tiling window manager for macOS
+  services.aerospace = {
+    enable = true;
+    settings = { };
+  };
 }
