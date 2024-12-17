@@ -160,7 +160,7 @@ in
     settings = import ./alacritty/alacritty.nix { inherit lib pkgs; };
   };
   home.file = {
-    ".config/karabiner/karabiner.json" = {
+    ".config/karabiner/karabiner.json" = lib.mkIf isDarwin {
       enable = true;
       source = ./karabiner.json;
     };
