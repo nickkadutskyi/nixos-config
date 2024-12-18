@@ -43,24 +43,33 @@
         };
       }
       "betterzip"
+      # Using for window snapping (trying aerospace now)
       "bettertouchtool"
+      # BibDesk is a reference manager for LaTeX
       "bibdesk"
+      # Manages reading materials and e-books
       "calibre"
       "cleanshot"
       "clickup"
       "dash"
+      # DataGrip is a commercial IDE for database management
+      "datagrip"
       "discord"
       "dropbox"
+      # A cross-platform, open-source messenger app for matrix-based chats
       "element"
       "google-chrome"
       "google-drive"
       "gpg-suite"
       "hazel"
       "iina"
+      # TODO remove this when I fully move to Alacritty
       "iterm2@beta"
       "jetbrains-toolbox"
       "karabiner-elements"
       "little-snitch"
+      # Graphical user interface for the 'defaults' command
+      "prefs-editor"
       "protonvpn"
       "rapidapi"
       "sketch"

@@ -1,0 +1,49 @@
+<$publications>
+<$pubType=misc?>
+<$authors?><$authors.abbreviatedNormalizedName.stringByRemovingTeX.stringByAppendingSpaceIfNotEmpty.@componentsJoinedByCommaAndAmpersand/><$fields.Type~podcast?><$authors.@count<2?> (Host).<?$authors.@count?> (Hosts).</$authors.@count?><?$fields.Type?><$fields.Nameaddon?> [<$fields.Nameaddon/>].</$fields.Nameaddon?></$fields.Type?> <?$authors?><$fields.Nameaddon?><$fields.Nameaddon.stringByAppendingSpaceIfNotEmpty/><?$fields.Nameaddon?>*[<$fields.Title/>](x-bdsk://<$citeKey/>)*<$fields.Type?> [<$fields.Type/>]. <?$fields.Type?>. </$fields.Type?></$fields.Nameaddon?></$authors?><$fields.Year?>(<$fields.Year/><$fields.Month.stringByPrependingCommaAndSpaceIfNotEmpty/><$fields.Day.stringByPrependingSpaceIfNotEmpty/>). <?$fields.Year?>(n.d.).</$fields.Year?><$authors?> <$fields.Type~podcast?><?$fields.Type?>*</$fields.Type?>[<$fields.Title/>](x-bdsk://<$citeKey/>)<$fields.Type~podcast?><?$fields.Type?>*</$fields.Type?><$fields.Type?> [<$fields.Type/>].<?$fields.Type?>.</$fields.Type?><$fields.Type~podcast?><$fields.Nameaddon?> In *<$fields.Nameaddon/>*.</$fields.Nameaddon?></$fields.Type?><?$authors?><$fields.Nameaddon?> <$fields.Type~podcast?><?$fields.Type?>*</$fields.Type?>[<$fields.Title/>](x-bdsk://<$citeKey/>)<$fields.Type~podcast?><?$fields.Type?>*</$fields.Type?><$fields.Type?> [<$fields.Type/>].<?$fields.Type?>.</$fields.Type?></$fields.Nameaddon?></$authors?><$fields.Organization.stringByPrependingSpaceIfNotEmpty.stringByAppendingFullStopIfNotEmpty/><$fields.Type~podcast?><?$fields.Type?> Retrieved <$fields.Urlyear?><$fields.Urlmonth.stringByAppendingSpaceIfNotEmpty/><$fields.Urlday.stringByAppendingCommaAndSpaceIfNotEmpty/><$fields.Urlyear.stringByAppendingCommaAndSpaceIfNotEmpty/></$fields.Urlyear?>from</$fields.Type?> [<$fields.Url/>](<$fields.Url/>)
+<$pubType=online?>
+<$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (<$fields.Month/><$fields.Day?> <$fields.Day/></$fields.Day?>, <$fields.Year/>). *[<$fields.Title/>](x-bdsk://<$citeKey/>).* <$fields.Organization?><$fields.Organization/>. </$fields.Organization?>Retrieved <$fields.Lastchecked/> from [<$fields.Url/>](<$fields.Url/>).
+
+<?$pubType=book?>
+<$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (<$fields.Year/>). *[<$fields.Title/><$fields.Edition?> (<$fields.Edition/>)</$fields.Edition?>](x-bdsk://<$citeKey/>).* <$fields.Address?><$fields.Address/>:</$fields.Address?> <$fields.Publisher/>. 
+
+<?$pubType=inbook?>
+<$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (<$fields.Year/>). <$fields.Chapter/>. In <$editors.abbreviatedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/><$editors.@count=0?><?$editors.@count=1?> (Ed.), <?$editors.@count?> (Eds.), </$editors.@count?> *[<$fields.Title/><$fields.Pages?> (pp. <$fields.Pages/>)</$fields.Pages?>](x-bdsk://<$citeKey/>).* <$fields.Address?><$fields.Address/>: </$fields.Address?><$fields.Publisher/>. 
+
+<?$pubType=article?>
+<$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (<$fields.Year/>). *[<$fields.Title/>](x-bdsk://<$citeKey/>).* <$fields.Journal/><$fields.Volume?>, <$fields.Volume/></$fields.Volume?><$fields.Number?>(<$fields.Number/>)</$fields.Number?><$fields.Pages?>, <$fields.Pages/></$fields.Pages?>. <$fields.Url?>[<$fields.Url/>](<$fields.Url/>)</$fields.Url?>
+
+<?$pubType=inproceedings?>
+<$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (<$fields.Year/>). *[<$fields.Title/>](x-bdsk://<$citeKey/>).* In <$fields.Booktitle/><$fields.Address?>, <$fields.Address/>, <$fields.Year/></$fields.Address?><$fields.Pages?> (pp. <$fields.Pages/>)</$fields.Pages?>. <$fields.Publisher?><$fields.Publisher/>.</$fields.Publisher?>
+
+<?$pubType=phdthesis?>
+<$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (<$fields.Year/>). *[<$fields.Title/>](x-bdsk://<$citeKey/>).* Ph.D. dissertation, <$fields.Department?>Department of <$fields.Department/>, </$fields.Department?><$fields.School/>. 	
+
+<?$pubType=mastersthesis?>
+<$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (<$fields.Year/>). *[<$fields.Title/>](x-bdsk://<$citeKey/>).* Masters thesis, <$fields.Department?>Department of <$fields.Department/>, </$fields.Department?><$fields.School/>. 	
+
+<?$pubType=unpublished?>
+<$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (<$fields.Year/>). *[<$fields.Title/>](x-bdsk://<$citeKey/>).* <$fields.Note/>. 
+
+<?$pubType=techreport?>
+<$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (<$fields.Year/>). *[<$fields.Title/>](x-bdsk://<$citeKey/>).* <$fields.Institution/>. 
+
+<?$pubType=electronic?>
+<$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (<$fields.Month/><$fields.Day?> <$fields.Day/></$fields.Day?>, <$fields.Year/>). *[<$fields.Title/>](x-bdsk://<$citeKey/>).* <$fields.Organization/>. Electronic document, [<$fields.Url/>](<$fields.Url/>), accessed <$fields.Lastchecked/>.
+
+<?$pubType=webpage?>
+<$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (<$fields.Month/><$fields.Day?> <$fields.Day/></$fields.Day?>, <$fields.Year/>). *[<$fields.Title/>](x-bdsk://<$citeKey/>).* <$fields.Organization?><$fields.Organization/>. </$fields.Organization?>Retrieved <$fields.Lastchecked/> from [<$fields.Url/>](<$fields.Url/>).
+
+<?$pubType=url?>
+<$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (<$fields.Month/><$fields.Day?> <$fields.Day/></$fields.Day?>, <$fields.Year/>). *[<$fields.Title/>](x-bdsk://<$citeKey/>).* <$fields.Organization?><$fields.Organization/>. </$fields.Organization?>Retrieved <$fields.Lastchecked/> from [<$fields.Url/>](<$fields.Url/>).
+
+
+<?$pubType=online_video?>
+<$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/><$fields.Channel?> [<$fields.Channel/>].</$fields.Channel?> (<$fields.Month/><$fields.Day?> <$fields.Day/></$fields.Day?>, <$fields.Year/>). *[<$fields.Title/>](x-bdsk://<$citeKey/>)* [Video]. <$fields.Organization?><$fields.Organization/>. </$fields.Organization?>Retrieved <$fields.Lastchecked?> <$fields.Lastchecked/>,</$fields.Lastchecked?> from [<$fields.Url/>](<$fields.Url/>).
+
+
+<?$pubType=movie?>
+<$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (Director). (<$fields.Year/>). *[<$fields.Title/>](x-bdsk://<$citeKey/>)* [Film]. <$fields.Organization/>.
+
+</$pubType?>
+</$publications>

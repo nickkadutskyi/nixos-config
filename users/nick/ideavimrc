@@ -1,0 +1,120 @@
+source ~/.vimrc
+
+set NERDTree
+Plug 'machakann/vim-highlightedyank'
+let g:highlightedyank_highlight_duration = "150"
+
+" Enables gcc gc{count}{motion} for commenting
+set commentary
+
+
+" Keymap
+
+" AI Assistant Suggestions
+inoremap <Tab> <Action>(copilot.applyInlays)
+inoremap <A-Tab> :action copilot.applyInlaysNextWord<CR>
+inoremap <S-Tab> <Action>(copilot.applyInlaysNextLine)
+inoremap <A-]> <Action>(copilot.cycleNextInlays)
+inoremap <A-[> <Action>(copilot.cyclePrevInlays)
+inoremap <C-]> :action copilot.disposeInlays<CR>
+
+" Adds common action in IDE
+map <leader>mrp <Action>(ManageRecentProjects)
+
+" Formatting
+nnoremap <leader>rc :action ReformatCode<CR>
+" Depending on the context will either expand Emmet abbreviation or choose
+" first lookup item
+imap <C-Y> <Action>(ExpandLiveTemplateCustom)<Action>(EditorChooseLookupItem)
+
+" Code Completion
+inoremap <C-A> :action CodeCompletion<CR>
+
+" Helpers
+nmap <C-h>  <Action>(QuickImplementations)
+imap <C-h>  <Action>(QuickImplementations)
+nmap <leader>sd <Action>(ShowErrorDescription)
+
+" Search and Switch
+nnoremap <leader>gf :action GotoFile<CR>
+nnoremap <leader>gc :action GotoClass<CR>
+nnoremap <leader>gs :action GotoSymbol<CR>
+nnoremap <leader>gd :action GotoDatabaseObject<CR>
+nnoremap <leader>fp :action FindInPath<CR>
+" Similar to Go to Buffer in my neovim setup
+nnoremap <leader>gb :action Switcher<CR>
+
+" Git
+" Manage status before commit
+nnoremap <leader>avc :action ActivateCommitToolWindow<CR>
+nnoremap <leader>ac :action ActivateCommitToolWindow<CR>
+nnoremap <A-K> :action ActivateCommitToolWindow<CR>
+" Show log for a current file
+nnoremap <leader>avf :action Vcs.ShowTabbedFileHistory<CR>
+" Show log
+nnoremap <leader>avl :action Vcs.Show.Log<CR>
+" Initiate Push
+nmap <S-A-K> <Action>(Vcs.Push)
+nmap <leader>avP <Action>(Vcs.Push)
+" Initiate Pull
+nmap <A-T> <Action>(Vcs.UpdateProject)
+nmap <leader>avp <Action>(Vcs.UpdateProject)
+" Preview hunk
+nmap <leader>sh <Action>(VcsShowCurrentChangeMarker)
+
+" View Modes
+nnoremap <leader>mdf :action ToggleDistractionFreeMode<CR>
+
+" Replace
+" nnoremap <leader>fr
+
+" Running/Debugging
+" noremap <leader>dd :action Debug<CR>
+" [c]hoose [d]ebug configuration
+noremap <leader>cd :action ChooseDebugConfiguration<CR>
+noremap <leader>rr :action Run<CR>
+" [c]hoose [r]un configuration
+noremap <leader>ct :action ChooseRunConfiguration<CR>
+
+" Run
+nnoremap <leader>ar :action ActivateRunToolWindow<CR>
+
+" Problems
+nnoremap <leader>tt :action ActivateProblemsViewToolWindow<CR>
+nnoremap ]d :action GotoNextError<CR>
+nnoremap [d :action GotoPreviousError<CR>
+" nnoremap <leader>xq :action ProblemsView.QuickFixes<CR>
+nnoremap <leader>ca :action ShowIntentionActions<CR>
+
+" Project Window
+nnoremap <leader>ap :action ActivateProjectToolWindow<CR>
+
+" Terminal
+nnoremap <leader>at :action ActivateTerminalToolWindow<CR>
+
+" Navigation
+" Go to Declaration or Usage
+" nnoremap gd :action GotoDeclaration<CR>
+" Go to Declaration
+nnoremap gd :action GotoDeclarationOnly<CR>
+" Go to References
+nnoremap gr :action ShowUsages<CR>
+" Go to Implementation
+nnoremap gi :action GotoImplementation<CR>
+" Forward Jump Pooint
+nnoremap <C-i> :action Forward<CR>
+" Back Jump Point
+nnoremap <C-o> :action Back<CR>
+" Scroll half screen and center
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+nnoremap N Nzzzv
+nnoremap n nzzzv
+
+"false Split Window
+" nnoremap <C-W>s :action SplitHorizontally<CR>
+" nnoremap <C-T>v :action SplitVertically<CR>
+
+" Debugger
+nnoremap <leader>db :action ToggleLineBreakpoint<CR>
+

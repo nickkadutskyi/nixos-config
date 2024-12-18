@@ -136,11 +136,14 @@ in
     (if isDarwin then "$HOME/Tizen/tizen-studio/tools/ide/bin" else "")
     # User-specific executable files
     "$HOME/.local/bin"
+    "$HOME/.local/scripts"
   ];
 
   home.shellAliases = {
     # Navigation
     ll = "ls -lah";
+    le = "eza -lag";
+    # TODO Review these aliases and get rid of them if not needed
     # Tooling
     # sc = # bash
     #   "symfony console";
@@ -177,8 +180,71 @@ in
     "tmux/tmux.conf".text = builtins.readFile ./tmux.conf;
     "fzf/light.fzfrc".text = builtins.readFile ./fzf/light.fzfrc;
     "fzf/dark.fzfrc".text = builtins.readFile ./fzf/dark.fzfrc;
-    # TODO clean up vimrc code
+    # TODO clean up vimrc and ideavimrc config
     "vim/vimrc".text = builtins.readFile ./vimrc;
+    "ideavim/ideavimrc".text = builtins.readFile ./ideavimrc;
+  };
+
+  home.file =
+    let
+      syncHomeDir = config.home.homeDirectory + "/Library/Mobile\ Documents/com\~apple\~CloudDocs/Sync/HOME";
+    in
+    {
+      # Synchronizes spell file between Macs for Neovim
+      ".config/nvim_spell" = lib.mkIf isDarwin {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/nvim_spell");
+      };
+      # Synchronizes macOS's global spelling dictionary (Requires giving AppleSpell service Full Disk Access)
+      "Library/Group\ Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary" = lib.mkIf isDarwin {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (
+          syncHomeDir + "/Library/Group\ Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary"
+        );
+      };
+      # Adds custom BibTeX types and fields to BibDesk
+      "Library/Application\ Support/BibDesk/TypeInfo.plist" = lib.mkIf isDarwin {
+        enable = true;
+        source = ./bibdesk/TypeInfo.plist;
+      };
+      # Adds my custom templates to BibDesk
+      "Library/Application\ Support/BibDesk/Templates/mdApaTemplate.txt" = lib.mkIf isDarwin {
+        enable = true;
+        source = ./bibdesk/Templates/mdApaTemplate.txt;
+      };
+      ".local/scripts" = lib.mkIf isDarwin {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/scripts");
+      };
+    };
+
+  home.activation = {
+    init =
+      # bash
+      ''
+        mkdir -p ~/Developer
+        mkdir -p ~/.local/bin
+        mkdir -p ~/.local/scripts
+      '';
+    checkAppleSpellPermissions =
+      lib.mkIf isDarwin # bash
+        ''
+          YELLOW='\033[0;33m'
+          NC='\033[0m' # No Color
+          SQL="SELECT client,auth_value
+                 FROM access
+                WHERE client='com.apple.AppleSpell'
+                  AND auth_value='2'
+                  AND service='kTCCServiceSystemPolicyAllFiles';"
+          HAS_ACCESS=$(${pkgs.sqlite}/bin/sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "$SQL")
+          if [ -z "$HAS_ACCESS" ]; then
+            echo -e "''${YELLOW}To sync macOS's global spelling dictionary, you need to grant AppleSpell service Full Disk Access."
+            echo "Please go to System Preferences -> Security & Privacy -> Full Disk Access and add AppleSpell service."
+            echo "You can find AppleSpell service in"
+            echo "/System/Library/Services/AppleSpell.service"
+            echo -e "After adding restart AppleSpell service or relogin to system.''${NC}"
+          fi
+        '';
   };
 
   #---------------------------------------------------------------------
