@@ -113,6 +113,62 @@
   # i3-like tiling window manager for macOS
   services.aerospace = {
     enable = true;
-    settings = { };
+    settings = {
+      default-root-container-layout = "tiles";
+      accordion-padding = 0;
+      gaps = {
+        inner.horizontal = 1;
+        inner.vertical = 1;
+        outer.left = 0;
+        outer.bottom = 0;
+        outer.top = 0;
+        outer.right = 0;
+      };
+      mode.main.binding = {
+        alt-slash = "layout tiles horizontal vertical";
+        alt-comma = "layout accordion horizontal vertical";
+        alt-h = "focus left";
+        alt-j = "focus down";
+        alt-k = "focus up";
+        alt-l = "focus right";
+        alt-left ="focus left";
+        alt-down = "focus down";
+        alt-up = "focus up";
+        alt-right = "focus right";
+        alt-shift-h = "move left";
+        alt-shift-j = "move down";
+        alt-shift-k = "move up";
+        alt-shift-l = "move right";
+        alt-shift-minus = "resize smart -50";
+        alt-shift-equal = "resize smart +50";
+        alt-1 = "workspace 1";
+        alt-2 = "workspace 2";
+        alt-3 = "workspace 3";
+        alt-4 = "workspace 4";
+        alt-shift-1 = "move-node-to-workspace 1";
+        alt-shift-2 = "move-node-to-workspace 2";
+        alt-shift-3 = "move-node-to-workspace 3";
+        alt-shift-4 = "move-node-to-workspace 4";
+        alt-shift-semicolon = "mode service";
+      };
+      mode.service.binding = {
+        esc = [
+          "reload-config"
+          "mode main"
+        ];
+        r = [
+          "flatten-workspace-tree"
+          "mode main"
+        ]; # reset layout
+        f = [
+          "layout floating tiling"
+          "mode main"
+        ]; # Toggle between floating and tiling layout
+        backspace = [
+          "close-all-windows-but-current"
+          "mode main"
+        ];
+      };
+    };
   };
 }
