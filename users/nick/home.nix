@@ -216,6 +216,15 @@ in
         enable = true;
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/scripts");
       };
+      # TODO configure intelephense and clickup keys with agenix
+      # ".config/private_php/intelephense_license.txt" = {
+      #   enable = true;
+      #   source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_php/intelephense_license.txt");
+      # };
+      # ".config/private_clickup/key.txt" = {
+      #   enable = true;
+      #   source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_php/key.txt");
+      # };
     };
 
   home.activation = {
@@ -313,6 +322,16 @@ in
     signing = {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUOOm/kpbXdO0Zg7XzDK3W67QUCZ/jutXK8w+pgoZqq";
       signByDefault = true;
+    };
+  };
+  programs.ssh = {
+    enable = true;
+    matchBlocks = {
+      "*" = {
+        extraOptions = {
+          IdentityAgent = "~/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+        };
+      };
     };
   };
 
