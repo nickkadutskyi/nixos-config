@@ -1,4 +1,9 @@
-{ isWSL, inputs, ... }:
+{
+  isWSL,
+  inputs,
+  currentSystemName,
+  ...
+}:
 
 {
   config,
@@ -183,6 +188,28 @@ in
     # TODO clean up vimrc and ideavimrc config
     "vim/vimrc".text = builtins.readFile ./vimrc;
     "ideavim/ideavimrc".text = builtins.readFile ./ideavimrc;
+    "1Password/ssh/agent.toml".text =
+      # toml
+      ''
+          [[ssh-keys]]
+          vault = "Private"
+        ${
+          if currentSystemName == "Nicks-MacBook-Air" then
+            # toml
+            ''
+              [[ssh-keys]]
+              vault = "Nicks-MacBook-Air"
+            ''
+          else if currentSystemName == "Nicks-Mac-mini" then
+            # toml
+            ''
+              [[ssh-keys]]
+              vault = "Nicks-Mac-mini"
+            ''
+          else
+            ""
+        }
+      '';
   };
 
   home.file =
@@ -225,6 +252,23 @@ in
       #   enable = true;
       #   source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_php/key.txt");
       # };
+      ".ssh/hosts" = lib.mkIf isDarwin {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.ssh/hosts");
+      };
+      ".ssh/authorized_keys" = {
+        enable = true;
+        text = ''
+          ${builtins.readFile (
+            if currentSystemName == "Nicks-MacBook-Air" then
+              ./ssh/Nicks-Mac-mini.pub
+            else if currentSystemName == "Nicks-Mac-mini" then
+              ./ssh/Nicks-MacBook-Air.pub
+            else
+              ""
+          )}
+        '';
+      };
     };
 
   home.activation = {
@@ -326,8 +370,13 @@ in
   };
   programs.ssh = {
     enable = true;
-    matchBlocks = {
+    includes = [ "hosts" ];
+    matchBlocks = lib.mkIf isDarwin {
       "*" = {
+        identityFile = [
+          (toString ./ssh + "/${currentSystemName}.pub")
+          (toString ./ssh/EPDS.pub)
+        ];
         extraOptions = {
           IdentityAgent = "~/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";
         };

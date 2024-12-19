@@ -140,7 +140,7 @@
         alt-j = "focus --boundaries-action wrap-around-the-workspace down";
         alt-k = "focus --boundaries-action wrap-around-the-workspace up";
         alt-l = "focus --boundaries-action wrap-around-the-workspace right";
-        alt-left ="focus --boundaries-action wrap-around-the-workspace left";
+        alt-left = "focus --boundaries-action wrap-around-the-workspace left";
         alt-down = "focus --boundaries-action wrap-around-the-workspace down";
         alt-up = "focus --boundaries-action wrap-around-the-workspace up";
         alt-right = "focus --boundaries-action wrap-around-the-workspace right";
