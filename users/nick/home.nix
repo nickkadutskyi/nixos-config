@@ -191,8 +191,8 @@ in
     "1Password/ssh/agent.toml".text =
       # toml
       ''
-          [[ssh-keys]]
-          vault = "Private"
+        [[ssh-keys]]
+        vault = "Private"
         ${
           if currentSystemName == "Nicks-MacBook-Air" then
             # toml
