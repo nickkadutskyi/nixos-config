@@ -51,6 +51,7 @@ systemFunc rec {
       home-manager.useUserPackages = true;
       home-manager.users.${user} = import userHomeConfig {
         currentSystemName = name;
+        currentSystemUser = user;
         isWSL = isWSL;
         inputs = inputs;
       };
