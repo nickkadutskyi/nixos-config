@@ -9,7 +9,7 @@ in
     # it will import light.toml or dark.toml and overwrite first import
     import = [
       ./light.toml
-      "~/.config/alacritty_theme.toml"
+      "~/.config/alacritty/alacritty_theme.toml"
     ];
   };
   window = {

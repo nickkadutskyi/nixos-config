@@ -510,6 +510,10 @@ in
   imports = [
     ./services/home-fzf-theme.nix
     (import ./services/home-snippety-helper.nix { inherit currentSystemUser pkgs config; })
+    (import ./services/home-alacritty-theme.nix {
+      inherit pkgs config;
+      alacritty = toString ./alacritty;
+    })
   ];
 
   #---------------------------------------------------------------------
