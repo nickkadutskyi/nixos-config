@@ -724,6 +724,8 @@ in
       InitialKeyRepeat = 15;
       # Frequency of key repeat
       KeyRepeat = 2;
+      # Save to iCloud (Desktop & Documents Folders)
+      NSDocumentSaveNewDocumentsToCloud = true;
       # Prefer tabs when opening documents (always|fullscreen|never)
       AppleWindowTabbingMode = "always";
       # To have consistent font rendering across all apps (Alacritty, iTerm)
@@ -823,6 +825,9 @@ in
     "com.apple.finder" = {
       ShowPathbar = true;
       ShowStatusBar = true;
+      FXICloudDriveEnabled = true;
+      FXICloudDriveDesktop = true;
+      FXICloudDriveDocuments = true;
       # TODO find how to make it work
       # @ = Cmd; ^ = Control; ~ = Option; $ = Shift
       # NSUserKeyEquivalents = {
