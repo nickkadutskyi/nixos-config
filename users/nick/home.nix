@@ -299,7 +299,7 @@ in
             echo -e "After adding restart AppleSpell service or relogin to system.''${NC}"
           fi
         '';
-      # TODO add similar activation script for checkign full disk access fo bsh fo snippety helper
+    # TODO add similar activation script for checkign full disk access fo bsh fo snippety helper
   };
 
   #---------------------------------------------------------------------
@@ -835,7 +835,14 @@ in
         "Take All Accounts Offline" = "@$m";
         "Take All Accounts Online" = "@$o";
       };
-
+      ConversationViewSortDescending = true;
+      ShowBccHeader = true;
+      ShowCcHeader = true;
+      ShouldShowUnreadMessagesInBold = true;
+      ShowComposeFormatInspectorBar = true;
+      ShowPriorityControl = true;
+      ShowReplyToHeader = false;
+      SignaturePlacedAboveQuotedText = false;
     };
 
     # Keyboard Shortucts

@@ -80,6 +80,7 @@
       "transmit"
       "tresorit"
       "typeface"
+      # Upwork may return 403 error depending on your network.
       "nickkadutskyi/homebrew-cask/upwork"
       "zoom"
     ];
@@ -140,10 +141,6 @@
         alt-j = "focus --boundaries-action wrap-around-the-workspace down";
         alt-k = "focus --boundaries-action wrap-around-the-workspace up";
         alt-l = "focus --boundaries-action wrap-around-the-workspace right";
-        alt-left = "focus --boundaries-action wrap-around-the-workspace left";
-        alt-down = "focus --boundaries-action wrap-around-the-workspace down";
-        alt-up = "focus --boundaries-action wrap-around-the-workspace up";
-        alt-right = "focus --boundaries-action wrap-around-the-workspace right";
         alt-shift-h = "move left";
         alt-shift-j = "move down";
         alt-shift-k = "move up";
