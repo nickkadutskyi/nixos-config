@@ -514,6 +514,7 @@ in
       inherit pkgs config;
       alacritty = toString ./alacritty;
     })
+    ./services/home-nvim-background.nix
   ];
 
   #---------------------------------------------------------------------
@@ -824,6 +825,10 @@ in
       # NSUserKeyEquivalents = {
       #   "\\033File\\033Share…" = "@~s";
       # };
+    };
+
+    "com.apple.ActivityMonitor" = {
+      ShowCategory = 100;
     };
 
     "com.apple.finder" = {

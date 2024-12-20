@@ -10,6 +10,18 @@
     home = "/Users/nick";
     shell = pkgs.zsh;
   };
+  services.dnsmasq = {
+    enable = true;
+    bind = "127.0.0.1";
+    port = 53;
+    addresses = {
+      test = "127.0.0.1";
+    };
+  };
+
+  # imports = [
+  #   ./services/darwin-dnsmasq.nix
+  # ];
 
   homebrew = {
     enable = true;
