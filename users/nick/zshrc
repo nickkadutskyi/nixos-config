@@ -7,8 +7,7 @@ if [ -x "$(command -v fzf)" ]; then
     ( # run in subshell to not pollute top level shell environment
       if [ "$SHELL" != "/bin/sh" ]; then
         # This file is symlinked to current fzf color scheme
-        # TODO bring this file back when fzf theme service is configured
-        # export FZF_DEFAULT_OPTS_FILE=~/.fzfrc
+        export FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc
       fi
       $(whence -p fzf) "$@"
     )
