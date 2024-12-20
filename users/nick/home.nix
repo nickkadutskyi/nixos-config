@@ -280,6 +280,33 @@ in
         mkdir -p ~/.local/bin
         mkdir -p ~/.local/scripts
       '';
+    snippetyHelperInstallation = # Required for snippety-helper
+      lib.hm.dag.entryAfter [ "writeBoundary" ]
+        # bash
+        ''
+          if [ ! -d ~/Downloads/.snippety-helper ]; then
+            cd ~/Downloads && ${pkgs.bash}/bin/bash -c "$(${pkgs.curl}/bin/curl -fsSL https://snippety.app/SnippetyHelper-Installer.sh)"
+          fi
+        '';
+    checkBashPermissions = # Required for snippety-helper
+      lib.mkIf isDarwin # bash
+        ''
+          YELLOW='\033[0;33m'
+          NC='\033[0m' # No Color
+          SQL="SELECT client,auth_value
+                 FROM access
+                WHERE client='/bin/bash'
+                  AND auth_value='2'
+                  AND service='kTCCServiceSystemPolicyAllFiles';"
+          DB="/Library/Application Support/com.apple.TCC/TCC.db"
+          if [ ! -f "$DB" ] || [ -z "$(${pkgs.sqlite}/bin/sqlite3 "$DB" "$SQL")" ]; then
+            echo -e "''${YELLOW}To use snippety-helper LaunchAgent you need to grant bash shell Full Disk Access."
+            echo "Please go to System Preferences -> Security & Privacy -> Full Disk Access and add bash shell."
+            echo "You can find bash shell in"
+            echo "/bin/bash"
+            echo -e "After adding restart snippety-helper LaunchAgent or relogin to system.''${NC}"
+          fi
+        '';
     checkAppleSpellPermissions =
       lib.mkIf isDarwin # bash
         ''
@@ -290,8 +317,8 @@ in
                 WHERE client='com.apple.AppleSpell'
                   AND auth_value='2'
                   AND service='kTCCServiceSystemPolicyAllFiles';"
-          HAS_ACCESS=$(${pkgs.sqlite}/bin/sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "$SQL")
-          if [ -z "$HAS_ACCESS" ]; then
+          DB="/Library/Application Support/com.apple.TCC/TCC.db"
+          if [ ! -f "$DB" ] || [ -z "$(${pkgs.sqlite}/bin/sqlite3 "$DB" "$SQL")" ]; then
             echo -e "''${YELLOW}To sync macOS's global spelling dictionary, you need to grant AppleSpell service Full Disk Access."
             echo "Please go to System Preferences -> Security & Privacy -> Full Disk Access and add AppleSpell service."
             echo "You can find AppleSpell service in"
@@ -299,7 +326,6 @@ in
             echo -e "After adding restart AppleSpell service or relogin to system.''${NC}"
           fi
         '';
-    # TODO add similar activation script for checkign full disk access fo bsh fo snippety helper
   };
 
   #---------------------------------------------------------------------
