@@ -136,7 +136,7 @@
   services.aerospace = {
     enable = true;
     settings = {
-      default-root-container-layout = "tiles";
+      default-root-container-layout = "accordion";
       accordion-padding = 0;
       gaps = {
         inner.horizontal = 1;
