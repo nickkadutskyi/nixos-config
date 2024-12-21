@@ -291,6 +291,22 @@ in
         mkdir -p ~/.local/bin
         mkdir -p ~/.local/scripts
       '';
+    initDarwin = lib.mkIf isDarwin (
+      lib.hm.dag.entryAfter [ "writeBoundary" ]
+        # bash
+        ''
+          CRM_ACCOUNTS=/Users/${currentSystemUser}/Library/Mobile\ Documents/com~apple~CloudDocs/Projects
+          for acc_path in "$CRM_ACCOUNTS"/*/; do
+            acc_name="$(basename "$acc_path")"
+            for project_path in "$acc_path"/*/; do
+              project_name="$(basename "$project_path" | cut -d' ' -f1)"
+              if [[ $project_name =~ ^[0-9]+$ ]] && [ -f "$project_path/.project.json" ]; then
+                mkdir -p "/Users/${currentSystemUser}/Developer/$acc_name/$project_name"
+              fi
+            done
+          done
+        ''
+    );
     snippetyHelperInstallation = # Required for snippety-helper
       lib.hm.dag.entryAfter [ "writeBoundary" ]
         # bash
