@@ -746,6 +746,7 @@
             parameters = [ ];
           };
         };
+
         # Screenshot related shortcuts
         # Save picture of screen as a file (Shift + Command + 3)
         "28" = {
@@ -757,7 +758,7 @@
         };
         # Copy picture of screen to clipboard (Shift + Command + Control + 3)
         "29" = {
-          enabled = 0;
+          enabled = false;
           value = {
             type = 65536;
             parameters = [ ];
@@ -765,7 +766,7 @@
         };
         # Save picture of selected area as a file (Shift + Command + 4)
         "30" = {
-          enabled = 0;
+          enabled = false;
           value = {
             type = 65536;
             parameters = [ ];
@@ -773,7 +774,7 @@
         };
         # Copy picture of selected area to clipboard (Shift + Command + Control + 4)
         "31" = {
-          enabled = 0;
+          enabled = false;
           value = {
             type = 65536;
             parameters = [ ];
@@ -781,10 +782,23 @@
         };
         # Screenshot and recording options (Shift + Command + 5)
         "184" = {
-          enabled = 0;
+          enabled = false;
           value = {
             type = 65536;
             parameters = [ ];
+          };
+        };
+
+        # Disables Spotlight shortcut
+        "64" = {
+          enabled = true;
+          value = {
+            parameters = [
+              32
+              49
+              524288
+            ];
+            type = "standard";
           };
         };
       };

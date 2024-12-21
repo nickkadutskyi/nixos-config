@@ -83,6 +83,7 @@
       # Graphical user interface for the 'defaults' command
       "prefs-editor"
       "protonvpn"
+      "raycast"
       "rapidapi"
       "sketch"
       "splashtop-business"
@@ -138,6 +139,7 @@
     settings = {
       default-root-container-layout = "accordion";
       accordion-padding = 0;
+      after-startup-command = [ "layout accordion" ];
       gaps = {
         inner.horizontal = 1;
         inner.vertical = 1;

@@ -935,45 +935,42 @@ in
         #     parameters = [ ];
         #   };
         # };
+
         # Screenshot related shortcuts
         # Save picture of screen as a file (Shift + Command + 3)
         "28" = {
-          enabled = 0;
-          value = {
-            type = 65536;
-            parameters = [ ];
-          };
+          enabled = false;
         };
         # Copy picture of screen to clipboard (Shift + Command + Control + 3)
         "29" = {
-          enabled = 0;
-          value = {
-            type = 65536;
-            parameters = [ ];
-          };
+          enabled = false;
         };
         # Save picture of selected area as a file (Shift + Command + 4)
         "30" = {
-          enabled = 0;
-          value = {
-            type = 65536;
-            parameters = [ ];
-          };
+          enabled = false;
         };
         # Copy picture of selected area to clipboard (Shift + Command + Control + 4)
         "31" = {
-          enabled = 0;
-          value = {
-            type = 65536;
-            parameters = [ ];
-          };
+          enabled = false;
         };
         # Screenshot and recording options (Shift + Command + 5)
         "184" = {
-          enabled = 0;
+          enabled = false;
+        };
+        # Changes `Show Spotlight Search` shortcut to `Option + Space`
+        "64" = {
+          enabled = true;
+          # value = {
+          #   type = 65536;
+          #   parameters = [ ];
+          # };
           value = {
-            type = 65536;
-            parameters = [ ];
+            parameters = [
+              32
+              49
+              524288
+            ];
+            type = "standard";
           };
         };
       };
