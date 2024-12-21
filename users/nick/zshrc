@@ -34,3 +34,8 @@ fi
 export LSCOLORS="exfxcxdxbxAxAxBxBxExEx"
 export LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=1;30:cd=1;30:su=1;31:sg=1;31:tw=1;34:ow=1;34"
 # ls color end
+
+# 1Password plugins start
+if [ -f ~/.config/op/plugins.sh ]; then
+  source ~/.config/op/plugins.sh
+fi

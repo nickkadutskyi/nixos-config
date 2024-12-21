@@ -270,6 +270,17 @@ in
           )}
         '';
       };
+      ".aws/config".text = ''
+        [default]
+        region = us-west-2
+        output = json
+        [profile epicure-nimbi-staging]
+        region = us-west-2
+        output = json
+        [profile epicure-nimbi-prod]
+        region = us-west-2
+        output = json
+      '';
     };
 
   home.activation = {
@@ -525,6 +536,8 @@ in
     "com.apple.dock" = {
       autohide = true;
       "mru-spaces" = false;
+      # For better Mission Control view when using Aerospace
+      "expose-group-apps" = true;
       # Persistent Dock items on the left (using for frequently used apps)
       "persistent-apps" = [
         {
