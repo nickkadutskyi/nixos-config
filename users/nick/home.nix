@@ -765,8 +765,15 @@ in
       AppleWindowTabbingMode = "fullscreen";
       # To have consistent font rendering across all apps (Alacritty, iTerm)
       AppleFontSmoothing = 0;
+      # @ = Cmd; ^ = Control; ~ = Option; $ = Shift
       NSUserKeyEquivalents = {
         "Move Tab to New Window" = "~$n";
+        "Left" = "~^←";
+        "Right" = "~^→";
+        "Up" = "~^↑";
+        "Down" = "~^↓";
+        "Center" = "~^c";
+        "Fill" = "~^m";
       };
       # Use F1, F2, etc. keys as standard function keys
       "com.apple.keyboard.fnState" = true;
