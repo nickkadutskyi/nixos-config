@@ -285,12 +285,13 @@ in
 
   home.activation = {
     init =
-      # bash
-      ''
-        mkdir -p ~/Developer
-        mkdir -p ~/.local/bin
-        mkdir -p ~/.local/scripts
-      '';
+      lib.hm.dag.entryAfter [ "writeBoundary" ]
+        # bash
+        ''
+          mkdir -p ~/Developer
+          mkdir -p ~/.local/bin
+          mkdir -p ~/.local/scripts
+        '';
     initDarwin = lib.mkIf isDarwin (
       lib.hm.dag.entryAfter [ "writeBoundary" ]
         # bash
