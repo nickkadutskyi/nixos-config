@@ -29,6 +29,7 @@
         mode.main.binding = {
           alt-slash = "layout tiles horizontal vertical";
           alt-comma = "layout accordion horizontal vertical";
+          alt-period = "layout floating tiling";
           alt-h = "focus --boundaries-action wrap-around-the-workspace left";
           alt-j = "focus --boundaries-action wrap-around-the-workspace down";
           alt-k = "focus --boundaries-action wrap-around-the-workspace up";
