@@ -467,16 +467,16 @@ in
         src = pkgs.zsh-completions;
         file = "share/zsh-completions/zsh-completions.plugin.zsh";
       }
-      {
-        name = "git";
-        src = pkgs.oh-my-zsh;
-        file = "share/oh-my-zsh/plugins/git/git.plugin.zsh";
-      }
-      {
-        name = "git-extras";
-        src = pkgs.oh-my-zsh;
-        file = "share/oh-my-zsh/plugins/git-extras/git-extras.plugin.zsh";
-      }
+      # {
+      #   name = "git";
+      #   src = pkgs.oh-my-zsh;
+      #   file = "share/oh-my-zsh/plugins/git/git.plugin.zsh";
+      # }
+      # {
+      #   name = "git-extras";
+      #   src = pkgs.oh-my-zsh;
+      #   file = "share/oh-my-zsh/plugins/git-extras/git-extras.plugin.zsh";
+      # }
       {
         name = "zsh-window-title";
         src = pkgs.oh-my-zsh;
