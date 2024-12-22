@@ -11,17 +11,12 @@
     home = "/Users/nick";
     shell = pkgs.zsh;
   };
-  services.dnsmasq = {
-    enable = true;
-    bind = "127.0.0.1";
-    port = 53;
-    addresses = {
-      test = "127.0.0.1";
-    };
-  };
 
   imports = [
     ./aerospace.nix
+    # Using custom dnsmasq config because launchd ensures
+    # that /nix/store is in path before running the command
+    ./services/darwin-dnsmasq.nix
   ];
 
   homebrew = {

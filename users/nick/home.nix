@@ -944,22 +944,6 @@ in
             type = "standard";
           };
         };
-        # Disables Mission Control: Move left a space
-        # "79" = {
-        #   enabled = 0;
-        #   value = {
-        #     type = 65536;
-        #     parameters = [ ];
-        #   };
-        # };
-        # Disables Mission Control: Move right a space
-        # "81" = {
-        #   enabled = 0;
-        #   value = {
-        #     type = 65536;
-        #     parameters = [ ];
-        #   };
-        # };
 
         # Screenshot related shortcuts
         # Save picture of screen as a file (Shift + Command + 3)
@@ -982,13 +966,9 @@ in
         "184" = {
           enabled = false;
         };
-        # Changes `Show Spotlight Search` shortcut to `Option + Space`
+        # Changes `Show Spotlight Search` shortcut to `⌥ + Space`
         "64" = {
           enabled = true;
-          # value = {
-          #   type = 65536;
-          #   parameters = [ ];
-          # };
           value = {
             parameters = [
               32
