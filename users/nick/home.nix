@@ -768,12 +768,12 @@ in
       # @ = Cmd; ^ = Control; ~ = Option; $ = Shift
       NSUserKeyEquivalents = {
         "Move Tab to New Window" = "~$n";
-        "Left" = "~^←";
-        "Right" = "~^→";
-        "Up" = "~^↑";
-        "Down" = "~^↓";
-        "Center" = "~^c";
-        "Fill" = "~^m";
+        # "Left" = "~^←";
+        # "Right" = "~^→";
+        # "Up" = "~^↑";
+        # "Down" = "~^↓";
+        # "Center" = "~^c";
+        # "Fill" = "~^m";
       };
       # Use F1, F2, etc. keys as standard function keys
       "com.apple.keyboard.fnState" = true;

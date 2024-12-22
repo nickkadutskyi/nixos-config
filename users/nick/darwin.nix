@@ -35,6 +35,7 @@
       "Fonts Ninja" = 1480227114;
       "iA Writer" = 775737590;
       "Keynote" = 409183694;
+      "Magnet" = 441258766;
       "Microsoft Remote Desktop" = 1295203466;
       "Numbers" = 409203825;
       "Pages" = 409201541;
