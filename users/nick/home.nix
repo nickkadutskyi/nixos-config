@@ -389,6 +389,8 @@ in
       ci = "commit";
       br = "branch";
       co = "checkout";
+      p = "push";
+      pl = "pull";
       ignore = "update-index --assume-unchanged";
       unignore = "update-index --no-assume-unchanged";
       ignored = "git ls-files -v | grep \"^[[:lower:]]\"";
