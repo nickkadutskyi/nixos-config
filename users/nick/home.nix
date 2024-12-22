@@ -744,6 +744,8 @@ in
     };
 
     NSGlobalDomain = {
+      # Enable full keyboard access for all controls (Keyboard navigation)
+      AppleKeyboardUIMode = 3;
       # Instead of special char menu repeat the character
       ApplePressAndHoldEnabled = false;
       AppleShowAllExtensions = true;
@@ -859,11 +861,10 @@ in
       PreloadTopHit = true;
       ExtensionsEnabled = true;
       FindOnPageMatchesWordStartsOnly = false;
-      # TODO find how to make it work
       # @ = Cmd; ^ = Control; ~ = Option; $ = Shift
-      # NSUserKeyEquivalents = {
-      #   "\\033File\\033Share…" = "@~s";
-      # };
+      NSUserKeyEquivalents = {
+        "Share…" = "@~s";
+      };
     };
 
     "com.apple.ActivityMonitor" = {
@@ -876,12 +877,10 @@ in
       FXICloudDriveEnabled = true;
       FXICloudDriveDesktop = true;
       FXICloudDriveDocuments = true;
-      # TODO find how to make it work
       # @ = Cmd; ^ = Control; ~ = Option; $ = Shift
-      # NSUserKeyEquivalents = {
-      #   "Tags..." = "~$t";
-      #   "Tags…" = "~$t";
-      # };
+      NSUserKeyEquivalents = {
+        "Tags…" = "~$t";
+      };
     };
 
     "com.apple.mail" = {
