@@ -284,18 +284,6 @@ in
       ".ssh/hosts" = lib.mkIf isDarwin {
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.ssh/hosts");
       };
-      ".ssh/authorized_keys" = {
-        text = ''
-          ${builtins.readFile (
-            if currentSystemName == "Nicks-MacBook-Air" then
-              ./ssh/Nicks-Mac-mini.pub
-            else if currentSystemName == "Nicks-Mac-mini" then
-              ./ssh/Nicks-MacBook-Air.pub
-            else
-              ""
-          )}
-        '';
-      };
       ".aws/config".text = ''
         [default]
         region = us-west-2
