@@ -194,6 +194,10 @@ in
       ''
         [[ssh-keys]]
         vault = "Private"
+        [[ssh-keys]]
+        vault = "Clients"
+        [[ssh-keys]]
+        vault = "EPDS"
         ${
           if currentSystemName == "Nicks-MacBook-Air" then
             # toml
@@ -434,6 +438,7 @@ in
         identityFile = [
           (toString ./ssh + "/${currentSystemName}.pub")
           (toString ./ssh/EPDS.pub)
+          (toString ./ssh/CUTN.pub)
         ];
         extraOptions = {
           IdentityAgent = "~/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";

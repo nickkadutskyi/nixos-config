@@ -10,7 +10,8 @@
     enable = true;
     settings =
       let
-        defaultLayout = if currentSystemName == "Nicks-MacBook-Air" then "accordion" else "tiles";
+        # defaultLayout = if currentSystemName == "Nicks-MacBook-Air" then "accordion" else "tiles";
+        defaultLayout = "accordion";
       in
       {
         enable-normalization-flatten-containers = true;
