@@ -405,6 +405,7 @@ in
       ignored = "git ls-files -v | grep \"^[[:lower:]]\"";
     };
     extraConfig = {
+      pull.rebase = false;
       core = {
         autocrlf = "input";
         editor = "nvim";
