@@ -6,7 +6,7 @@
 
   users.users.nick = {
     openssh.authorizedKeys.keys = [
-      (builtins.readFile ./ssh/Nicks-MacBook-Air.pub)
+      (builtins.readFile ./ssh/Nicks-Mac-mini.pub)
     ];
   };
 }
