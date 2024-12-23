@@ -255,44 +255,36 @@ in
       '';
       # Synchronizes spell file between Macs for Neovim
       ".config/nvim_spell" = lib.mkIf isDarwin {
-        enable = true;
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/nvim_spell");
       };
+      ".hushlogin".text = "";
       # Synchronizes macOS's global spelling dictionary (Requires giving AppleSpell service Full Disk Access)
       "Library/Group\ Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary" = lib.mkIf isDarwin {
-        enable = true;
         source = config.lib.file.mkOutOfStoreSymlink (
           syncHomeDir + "/Library/Group\ Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary"
         );
       };
       # Adds custom BibTeX types and fields to BibDesk
       "Library/Application\ Support/BibDesk/TypeInfo.plist" = lib.mkIf isDarwin {
-        enable = true;
         source = ./bibdesk/TypeInfo.plist;
       };
       # Adds my custom templates to BibDesk
       "Library/Application\ Support/BibDesk/Templates/mdApaTemplate.txt" = lib.mkIf isDarwin {
-        enable = true;
         source = ./bibdesk/Templates/mdApaTemplate.txt;
       };
       ".local/scripts" = lib.mkIf isDarwin {
-        enable = true;
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/scripts");
       };
-      ".config/private_php/intelephense_license.txt" = {
-        enable = true;
+      ".config/private_php/intelephense_license.txt" = lib.mkIf isDarwin {
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_php/intelephense_license.txt");
       };
-      ".config/private_clickup/key.txt" = {
-        enable = true;
+      ".config/private_clickup/key.txt" = lib.mkIf isDarwin {
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_clickup/key.txt");
       };
       ".ssh/hosts" = lib.mkIf isDarwin {
-        enable = true;
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.ssh/hosts");
       };
       ".ssh/authorized_keys" = {
-        enable = true;
         text = ''
           ${builtins.readFile (
             if currentSystemName == "Nicks-MacBook-Air" then
