@@ -42,11 +42,42 @@ in
   home.packages =
     with pkgs;
     [
-      awscli2
-      # cat with syntax highlighting (TODO configure colors)
-      bat
+      # ----------------------------------------------------------------
+      # Development Tooling (Can be moved to project specific flakes)
+      # ----------------------------------------------------------------
+
       # Converts SASS to CSS (EPDS TODO make it project scoped)
       dart-sass
+      # Tunnel for socks5 proxy to http proxy (EPDS TODO make it project scoped)
+      gost
+      # Lints Lua code
+      luajitPackages.luacheck
+      # Nix language server
+      nil
+      # Reformats Nix code
+      nixfmt-rfc-style
+      # Another Nix language server
+      nixd
+      # Runs JavaScript (required by Copilot in Neovim )
+      nodePackages_latest.nodejs
+      # Lints Lua code
+      selene
+      # Reformats shell script
+      shfmt
+      # Reformats Lua code
+      stylua
+      # For testing Stripe API (UPWZ TODO make it project scoped)
+      stripe-cli
+      # Reformats TOML code
+      taplo
+
+      # ----------------------------------------------------------------
+      # Other Packages
+      # ----------------------------------------------------------------
+
+      awscli2
+      # cat with syntax highlighting
+      bat
       # Feature–rich alternative to ls
       eza
       # Faster alternative to find
@@ -58,43 +89,21 @@ in
       gnused
       gnugrep
       google-cloud-sdk
-      # Tunnel for socks5 proxy to http proxy (EPDS TODO make it project scoped)
-      gost
       git
       # System monitoring
       htop
       # Parses JSON
       jq
-      # Lints Lua code (TODO make it *editor scoped* or project scoped)
-      luajitPackages.luacheck
-      # Main editor (TODO make it work on NixOS, nix-darwin, and non-nix systems)
+      # Main editor
       neovim
       # Provides Nerd fonts for icons support
       nerd-fonts.jetbrains-mono
-      # Nix language server (TODO keep only one server and make it project scoped)
-      nil
-      # Nix language server
-      nixd
-      # Reformats Nix code (TODO make it project scoped)
-      nixfmt-rfc-style
-      # Runs JavaScript (required by Copilot in Neovim TODO make it *editor scoped*)
-      nodePackages_latest.nodejs
       # Searching PDF file contents (TODO check if I use this)
       pdfgrep
       # Faster alternative to grep
       ripgrep
-      # Lints Lua code (TODO make it *editor scoped* or project scoped)
-      selene
-      # Reformats shell script (TODO make it *editor scoped*)
-      shfmt
       speedtest-cli
-      # For testing Stripe API (UPWZ TODO make it project scoped)
-      stripe-cli
-      # Reformats Lua code (TODO make it *editor scoped* or project scoped)
-      stylua
-      # Reformats TOML code (TODO make it *editor scoped*)
-      taplo
-      # Multiplexing (TODO configure in system config if I can make it autochange theme)
+      # Multiplexing
       tmux
       # Shows directory structure
       tree
@@ -472,30 +481,11 @@ in
         src = pkgs.zsh-completions;
         file = "share/zsh-completions/zsh-completions.plugin.zsh";
       }
-      # {
-      #   name = "git";
-      #   src = pkgs.oh-my-zsh;
-      #   file = "share/oh-my-zsh/plugins/git/git.plugin.zsh";
-      # }
-      # {
-      #   name = "git-extras";
-      #   src = pkgs.oh-my-zsh;
-      #   file = "share/oh-my-zsh/plugins/git-extras/git-extras.plugin.zsh";
-      # }
       {
         name = "zsh-window-title";
         src = pkgs.oh-my-zsh;
         file = "share/oh-my-zsh/plugins/git-extras/git-extras.plugin.zsh";
       }
-      # {
-      #   name = "zsh-window-title";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "olets";
-      #     repo = "zsh-window-title";
-      #     rev = "main";
-      #     sha256 = "sha256-RqJmb+XYK35o+FjUyqGZHD6r1Ku1lmckX41aXtVIUJQ=";
-      #   };
-      # }
     ];
     history = {
       save = 1000000000;
