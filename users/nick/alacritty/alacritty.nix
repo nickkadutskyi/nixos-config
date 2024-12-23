@@ -2,6 +2,14 @@
 let
   isDarwin = pkgs.stdenv.isDarwin;
   tmuxIntegration = pkgs.writeShellScriptBin "alacritty-tmux-integration" import ./scripts.sh;
+  fzfProjects = pkgs.writeShellScriptBin "navigate-to-project.sh" ''
+    export FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc
+    selected=$(${pkgs.fd}/bin/fd -p ~/Developer --min-depth 4 -d 4 -t d -E "*/.*" | ${pkgs.fzf}/bin/fzf)
+    if [[ -z $selected ]]; then
+        exit 0
+    fi
+    ${pkgs.alacritty}/bin/alacritty msg create-window --working-directory "$selected"
+  '';
 in
 {
   general = {
@@ -69,16 +77,16 @@ in
     unfocused_hollow = true;
     thickness = 0.2;
   };
-  terminal = {
-    shell = {
-      # Always open a shell in the home directory
-      program = "/bin/zsh";
-      args = [
-        "-c"
-        "cd ~; zsh"
-      ];
-    };
-  };
+  # terminal = {
+  #   shell = {
+  #     # Always open a shell in the home directory
+  #     program = "/bin/zsh";
+  #     args = [
+  #       "-c"
+  #       "cd ~; zsh"
+  #     ];
+  #   };
+  # };
   mouse = {
     hide_when_typing = false;
     bindings = [
@@ -118,7 +126,7 @@ in
           ];
         };
       }
-      # Prompts user to select a tmux session to attach to in a new tab
+      # Prompts user to select a project to open in a new tab
       {
         key = "T";
         mods = "Command|Alt";
@@ -126,7 +134,19 @@ in
           program = "/bin/zsh";
           args = [
             "-c"
-            "${./scripts.sh} init-select-pane"
+            "alacritty msg create-window -e ${fzfProjects}/bin/navigate-to-project.sh"
+          ];
+        };
+      }
+      # Creates a new tab with PWD in home directory
+      {
+        key = "N";
+        mods = "Command";
+        command = {
+          program = "/bin/zsh";
+          args = [
+            "-c"
+            "alacritty msg create-window --working-directory ~"
           ];
         };
       }
