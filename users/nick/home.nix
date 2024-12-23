@@ -46,10 +46,16 @@ in
       # Development Tooling (Can be moved to project specific flakes)
       # ----------------------------------------------------------------
 
+      bash-language-server
       # Converts SASS to CSS (EPDS TODO make it project scoped)
       dart-sass
+      # Emmet support based on LSP
+      emmet-ls
       # Tunnel for socks5 proxy to http proxy (EPDS TODO make it project scoped)
       gost
+      # PHP language server (closed source, requires license)
+      intelephense
+      lua-language-server
       # Lints Lua code
       luajitPackages.luacheck
       # Nix language server
@@ -60,6 +66,8 @@ in
       nixd
       # Runs JavaScript (required by Copilot in Neovim )
       nodePackages_latest.nodejs
+      # Another PHP language server (open source)
+      phpactor
       # Lints Lua code
       selene
       # Reformats shell script
@@ -70,6 +78,14 @@ in
       stripe-cli
       # Reformats TOML code
       taplo
+      typescript-language-server
+      # Provides vscode-css-language-server vscode-eslint-language-server
+      # vscode-html-language-server vscode-json-language-server
+      # vscode-markdown-language-server
+      vscode-langservers-extracted
+      # Neeeded for DAP but currently not in nixpkgs TODO package it for nixpkgs
+      # vscode-php-debug
+      vue-language-server
 
       # ----------------------------------------------------------------
       # Other Packages
