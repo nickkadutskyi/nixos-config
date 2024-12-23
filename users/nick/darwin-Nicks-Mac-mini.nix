@@ -14,13 +14,13 @@
 
   homebrew = {
     casks = [
-      # TODO create my own cask for this
-      # "paragon-ntfs" # brew only provides v16 and no v15 so install manually
-      "steam"
-      "vmware-fusion"
+      "adobe-creative-cloud"
       "crossover"
       "hhkb"
-      "adobe-creative-cloud"
+      # is not supported on macOS 15+
+      # "nickkadutskyi/homebrew-cask/paragon-ntfs@15"
+      "steam"
+      "vmware-fusion"
     ];
   };
 }
