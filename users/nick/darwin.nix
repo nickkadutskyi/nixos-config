@@ -77,6 +77,8 @@
       "jetbrains-toolbox"
       "karabiner-elements"
       "little-snitch"
+      # Parallels Desktop for Mac for running Windows and other VMs
+      "parallels"
       # Graphical user interface for the 'defaults' command
       "prefs-editor"
       "protonvpn"
