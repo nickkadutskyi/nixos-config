@@ -4,7 +4,7 @@ let
   tmuxIntegration = pkgs.writeShellScriptBin "alacritty-tmux-integration" import ./scripts.sh;
   fzfProjects = pkgs.writeShellScriptBin "navigate-to-project.sh" ''
     export FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc
-    selected=$(${pkgs.fd}/bin/fd -p ~/Developer --min-depth 4 -d 4 -t d -E "*/.*" | ${pkgs.fzf}/bin/fzf)
+    selected=$(${pkgs.fd}/bin/fd . ~/Developer/*/* ~/.config -d 1 -t d -E "*/.*" | ${pkgs.fzf}/bin/fzf)
     if [[ -z $selected ]]; then
         exit 0
     fi
