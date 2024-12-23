@@ -8,7 +8,8 @@ let
     if [[ -z $selected ]]; then
         exit 0
     fi
-    ${pkgs.alacritty}/bin/alacritty msg create-window --working-directory "$selected"
+    ${pkgs.alacritty}/bin/alacritty msg create-window -e /bin/zsh -c \
+      'cd "'$selected'";eval "$(direnv export zsh)" && ${pkgs.neovim}/bin/nvim .; /bin/zsh'
   '';
 in
 {

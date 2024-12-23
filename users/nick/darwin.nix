@@ -54,8 +54,6 @@
         };
       }
       "betterzip"
-      # Using for window snapping (trying aerospace now)
-      "bettertouchtool"
       # BibDesk is a reference manager for LaTeX
       "bibdesk"
       # Manages reading materials and e-books
