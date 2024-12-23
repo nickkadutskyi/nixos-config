@@ -160,6 +160,9 @@ in
     VISUAL = "nvim";
     GPG_TTY = "$(tty)";
     HOMEBREW_NO_ANALYTICS = "1";
+    # Checks if any nerdfont is installed
+    NERDFONT_ENABLED =
+      if (lib.lists.any (p: (p.meta.homepage or "") == "https://nerdfonts.com/") config.home.packages) then "1" else "0";
   };
 
   home.sessionPath = [
