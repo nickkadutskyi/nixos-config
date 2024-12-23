@@ -377,12 +377,7 @@ in
     nix-direnv.enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
-    stdlib =
-      # bash
-      ''
-        # Makes direnv it silent since
-        export DIRENV_LOG_FORMAT=
-      '';
+    silent = true;
   };
 
   programs.git = {
