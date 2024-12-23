@@ -15,23 +15,15 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     # For managing Homebrew by Nix on macOS
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
-    # Optional: Declarative tap management
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
-    homebrew-cask = {
-      url = "github:homebrew/homebrew-cask";
-      flake = false;
-    };
-    homebrew-bundle = {
-      url = "github:homebrew/homebrew-bundle";
-      flake = false;
-    };
-    my-homebrew-cask = {
-      url = "github:nickkadutskyi/homebrew-cask";
-      flake = false;
-    };
+    # Declarative Homebrew Tap management
+    homebrew-core.url = "github:homebrew/homebrew-core";
+    homebrew-core.flake = false;
+    homebrew-cask.url = "github:homebrew/homebrew-cask";
+    homebrew-cask.flake = false;
+    homebrew-bundle.url = "github:homebrew/homebrew-bundle";
+    homebrew-bundle.flake = false;
+    my-homebrew-cask.url = "github:nickkadutskyi/homebrew-cask";
+    my-homebrew-cask.flake = false;
     # For custom icons on macOS
     darwin-custom-icons.url = "github:ryanccn/nix-darwin-custom-icons";
   };
