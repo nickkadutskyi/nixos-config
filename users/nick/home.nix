@@ -218,6 +218,12 @@ in
       syncHomeDir = config.home.homeDirectory + "/Library/Mobile\ Documents/com\~apple\~CloudDocs/Sync/HOME";
     in
     {
+      # Allows unfree packages for user
+      ".config/nixpkgs/config.nix".text = ''
+        {
+          allowUnfree = true;
+        }
+      '';
       # Synchronizes spell file between Macs for Neovim
       ".config/nvim_spell" = lib.mkIf isDarwin {
         enable = true;
@@ -244,15 +250,14 @@ in
         enable = true;
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/scripts");
       };
-      # TODO configure intelephense and clickup keys with agenix
-      # ".config/private_php/intelephense_license.txt" = {
-      #   enable = true;
-      #   source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_php/intelephense_license.txt");
-      # };
-      # ".config/private_clickup/key.txt" = {
-      #   enable = true;
-      #   source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_php/key.txt");
-      # };
+      ".config/private_php/intelephense_license.txt" = {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_php/intelephense_license.txt");
+      };
+      ".config/private_clickup/key.txt" = {
+        enable = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_clickup/key.txt");
+      };
       ".ssh/hosts" = lib.mkIf isDarwin {
         enable = true;
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.ssh/hosts");
