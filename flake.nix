@@ -56,6 +56,11 @@
         user = "nick";
         darwin = true;
       };
+      darwinConfigurations.Nicks-Mac-mini = mkSystem "Nicks-Mac-mini" {
+        system = "aarch64-darwin";
+        user = "nick";
+        darwin = true;
+      };
       darwinConfigurations = {
         "Nicks-MacBook-Air-Legacy" = nix-darwin.lib.darwinSystem {
           inherit inputs;
@@ -99,7 +104,7 @@
             ]
             ++ [ ];
         };
-        "Nicks-Mac-mini" = nix-darwin.lib.darwinSystem {
+        "Nicks-Mac-mini-Legacy" = nix-darwin.lib.darwinSystem {
           inherit inputs;
           modules =
             [
