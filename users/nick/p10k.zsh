@@ -56,7 +56,7 @@
   # Show If In Nix Shell
   function prompt_in_nix_shell() {
     if echo "$PATH" | grep -qc '/nix/store'; then
-      p10k segment -i '📦' -f yellow -t "nix"
+      p10k segment -i '📦' -f yellow -t ""
     fi
   }
 
@@ -70,7 +70,7 @@
   # Show if Direnv Active
   function prompt_in_direnv() {
     if [[ -n $DIRENV_ACTIVE ]]; then
-      p10k segment -i '📂' -f yellow -t "direnv"
+      p10k segment -i '📂' -f yellow -t ""
     fi
   }
 
