@@ -266,6 +266,9 @@ in
       ".config/nvim_spell" = lib.mkIf isDarwin {
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/nvim_spell");
       };
+      ".config/btt/btt.json" = lib.mkIf isDarwin {
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/btt/btt.json");
+      };
       ".hushlogin".text = "";
       # Synchronizes macOS's global spelling dictionary (Requires giving AppleSpell service Full Disk Access)
       "Library/Group\ Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary" = lib.mkIf isDarwin {
@@ -554,6 +557,7 @@ in
   # System and UI
   #---------------------------------------------------------------------
   targets.darwin.defaults = {
+    "com.hegenberg.BetterTouchTool".BTTAutoLoadPath= "~/.config/btt/btt.json";
     "com.apple.driver.AppleBluetoothMultitouch.mouse" = {
       MouseButtonDivision = 55;
       MouseButtonMode = "TwoButton";
