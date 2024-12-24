@@ -28,6 +28,7 @@ let
   # NixOS vs nix-darwin functions
   systemFunc = if darwin then inputs.nix-darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
   home-manager = if darwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
+  sosps = if darwin then inputs.sops-nix.darwinModules else inputs.sops-nix.nixosModules;
 in
 systemFunc rec {
   inherit system inputs;
@@ -54,6 +55,21 @@ systemFunc rec {
         currentSystemUser = user;
         isWSL = isWSL;
         inputs = inputs;
+      };
+    }
+    sosps.sops
+    {
+      sops = {
+        defaultSopsFile = ../secrets/secrets.yaml;
+        age.keyFile = "/Users/nick/.config/sops/age/key.txt";
+        secrets = {
+          "php/intelephense_license" = {
+            owner = user;
+          };
+          "clickup/api_key" = {
+            owner = user;
+          };
+        };
       };
     }
     # Manages Homebrew on macOS with Nix

@@ -91,6 +91,8 @@ in
       # Other Packages
       # ----------------------------------------------------------------
 
+      # Simple, modern and secure encryption tool
+      age
       awscli2
       # cat with syntax highlighting
       bat
@@ -118,6 +120,10 @@ in
       pdfgrep
       # Faster alternative to grep
       ripgrep
+      # Creates age encrypted file from ssh key
+      ssh-to-age
+      # Manages secrets
+      sops
       speedtest-cli
       # Multiplexing
       tmux
@@ -278,12 +284,12 @@ in
       ".local/scripts" = lib.mkIf isDarwin {
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/scripts");
       };
-      ".config/private_php/intelephense_license.txt" = lib.mkIf isDarwin {
-        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_php/intelephense_license.txt");
-      };
-      ".config/private_clickup/key.txt" = lib.mkIf isDarwin {
-        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_clickup/key.txt");
-      };
+      # ".config/private_php/intelephense_license.txt" = lib.mkIf isDarwin {
+      #   source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_php/intelephense_license.txt");
+      # };
+      # ".config/private_clickup/key.txt" = lib.mkIf isDarwin {
+      #   source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_clickup/key.txt");
+      # };
       ".ssh/hosts" = lib.mkIf isDarwin {
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.ssh/hosts");
       };
@@ -308,6 +314,8 @@ in
           mkdir -p ~/Developer
           mkdir -p ~/.local/bin
           mkdir -p ~/.local/scripts
+          mkdir -p ~/.config/sops/age
+          chmod 700 ~/.config/sops/age
         '';
     initDarwin = lib.mkIf isDarwin (
       lib.hm.dag.entryAfter [ "writeBoundary" ]

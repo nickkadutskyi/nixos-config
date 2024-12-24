@@ -1,0 +1,9 @@
+keys:
+  - &Nicks-MacBook-Air age1n8fm4y5rddnustnkuuvlsqy47ruatq30df73ucm6rjvsw9fjdfvs57vkf4
+  - &Nicks-Mac-mini age1ezk409k4wdtw8p88zqlsjq8wyst5vwt8u9taxkcrn5qy0jzw3ulqedn0ks
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini|sops)$
+    key_groups:
+    - age:
+      - *Nicks-MacBook-Air
+      - *Nicks-Mac-mini

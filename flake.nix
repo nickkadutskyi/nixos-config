@@ -26,6 +26,9 @@
     my-homebrew-cask.flake = false;
     # For custom icons on macOS
     darwin-custom-icons.url = "github:ryanccn/nix-darwin-custom-icons";
+    # For encrypting secrets
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs =
     {
@@ -35,6 +38,7 @@
       home-manager,
       nix-homebrew,
       darwin-custom-icons,
+      sops-nix,
       ...
     }@inputs:
     let
