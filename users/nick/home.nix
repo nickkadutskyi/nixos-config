@@ -209,7 +209,7 @@ in
     vi = "nvim";
     vim = "nvim";
     view = "nvim";
-    vimdiff = "nvim";
+    vimdiff = "nvim -d";
     # EPDS
     # List EPDS AWS EC2 Instances
     epds_ec2 = "aws ec2 describe-instances  --query 'Reservations[].Instances[?not_null(Tags[?Key==\`Name\`].Value)]|[].[State.Name,PrivateIpAddress,PublicIpAddress,InstanceId,Tags[?Key==\`Name\`].Value[]|[0]] | sort_by(@, &[3])'  --output text |  sed '$!N;s/ / /'";
@@ -554,6 +554,17 @@ in
   # System and UI
   #---------------------------------------------------------------------
   targets.darwin.defaults = {
+    "com.apple.driver.AppleBluetoothMultitouch.mouse" = {
+      MouseButtonDivision = 55;
+      MouseButtonMode = "TwoButton";
+      MouseHorizontalScroll = 1;
+      MouseMomentumScroll = 1;
+      MouseOneFingerDoubleTapGesture = 1;
+      MouseTwoFingerDoubleTapGesture = 3;
+      MouseTwoFingerHorizSwipeGesture = 2;
+      MouseVerticalScroll = 1;
+      UserPreferences = 1;
+    };
     # Dock configurations
     "com.apple.dock" = {
       autohide = true;
