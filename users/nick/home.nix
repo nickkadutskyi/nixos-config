@@ -557,7 +557,13 @@ in
   # System and UI
   #---------------------------------------------------------------------
   targets.darwin.defaults = {
-    "com.hegenberg.BetterTouchTool".BTTAutoLoadPath= "~/.config/btt/btt.json";
+    "com.hegenberg.BetterTouchTool" = {
+      BTTAutoLoadPath = "~/.config/btt/btt.json";
+      launchOnStartup = true;
+      showicon = false;
+      borderWidth = 2;
+      previewWindowAnimationDuration = "0.09013051637789098";
+    };
     "com.apple.driver.AppleBluetoothMultitouch.mouse" = {
       MouseButtonDivision = 55;
       MouseButtonMode = "TwoButton";
