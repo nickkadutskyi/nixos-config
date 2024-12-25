@@ -864,31 +864,32 @@ in
     };
 
     "com.apple.Safari" = {
-      IncludeDevelopMenu = true;
-      AutoFillCreditCardData = false;
-      AutoFillPasswords = false;
-      AutoFillMiscellaneousForms = false;
-      AutoFillFromAddressBook = false;
-      AutoOpenSafeDownloads = true;
-      ShowOverlayStatusBar = true;
-      "ShowFavoritesBar-v2" = false;
       AlwaysRestoreSessionAtLaunch = false;
-      HomePage = "";
-      ShowStandaloneTabBar = false;
-      EnableNarrowTabs = true;
-      SuppressSearchSuggestions = false;
+      AutoFillCreditCardData = false;
+      AutoFillFromAddressBook = false;
+      AutoFillMiscellaneousForms = false;
+      AutoFillPasswords = false;
+      AutoOpenSafeDownloads = true;
       CommandClickMakesTabs = true;
-      OpenNewTabsInFront = false;
-      UniversalSearchEnabled = true;
-      SendDoNotTrackHTTPHeader = true;
-      WebKitStorageBlockingPolicy = 1;
-      PreloadTopHit = true;
+      EnableNarrowTabs = true;
       ExtensionsEnabled = true;
       FindOnPageMatchesWordStartsOnly = false;
+      HomePage = "";
+      IncludeDevelopMenu = true;
       # @ = Cmd; ^ = Control; ~ = Option; $ = Shift
       NSUserKeyEquivalents = {
         "Share…" = "@~s";
       };
+      OpenNewTabsInFront = false;
+      PreloadTopHit = true;
+      SearchProviderIdentifier = "org.ecosia.www";
+      SendDoNotTrackHTTPHeader = true;
+      "ShowFavoritesBar-v2" = false;
+      ShowOverlayStatusBar = true;
+      ShowStandaloneTabBar = false;
+      SuppressSearchSuggestions = false;
+      UniversalSearchEnabled = true;
+      WebKitStorageBlockingPolicy = 1;
     };
 
     "com.apple.ActivityMonitor" = {
