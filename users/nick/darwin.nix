@@ -33,7 +33,7 @@
       "iA Writer" = 775737590;
       "Kagi for Safari" = 1622835804;
       "Keynote" = 409183694;
-      "Microsoft Remote Desktop" = 1295203466;
+      "Microsoft Remote Desktop" = 1295203466; # Windows App
       "Numbers" = 409203825;
       "Pages" = 409201541;
       "Parcel - Delivery Tracking" = 639968404;
