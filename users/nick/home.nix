@@ -810,6 +810,12 @@ in
     "com.apple.AppleMultitouchTrackpad" = {
       Clicking = true;
       TrackpadThreeFingerDrag = true;
+      # TrackpadFourFingerHorizSwipeGesture = 0;
+      # TrackpadThreeFingerHorizSwipeGesture = 2;
+    };
+    "com.apple.driver.AppleBluetoothMultitouch.trackpad" = {
+      # TrackpadFourFingerHorizSwipeGesture = 0;
+      # TrackpadThreeFingerHorizSwipeGesture = 2;
     };
 
     # Stage Manager

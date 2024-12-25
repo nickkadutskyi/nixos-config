@@ -39,8 +39,8 @@
           alt-shift-j = "move down";
           alt-shift-k = "move up";
           alt-shift-l = "move right";
-          alt-shift-minus = "resize smart -50";
-          alt-shift-equal = "resize smart +50";
+          alt-shift-ctrl-minus = "resize smart -50";
+          alt-shift-ctrl-equal = "resize smart +50";
           alt-1 = "workspace 1";
           alt-2 = "workspace 2";
           alt-3 = "workspace 3";
