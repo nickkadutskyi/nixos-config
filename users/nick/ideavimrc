@@ -1,4 +1,4 @@
-source ~/.vimrc
+source $XDG_CONFIG_HOME/vim/vimrc
 
 set NERDTree
 Plug 'machakann/vim-highlightedyank'
