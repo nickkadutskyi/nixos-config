@@ -17,3 +17,4 @@ macos-icon = official
 window-padding-balance = true
 window-padding-y = 1
 window-padding-x = 1
+keybind = global:cmd+shift+t=toggle_quick_terminal

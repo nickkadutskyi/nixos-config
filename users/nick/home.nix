@@ -921,7 +921,7 @@ in
     "com.apple.mail" = {
       # @ = Cmd; ^ = Control; ~ = Option; $ = Shift
       NSUserKeyEquivalents = {
-        "Mail Selection to Task" = "@$t";
+        "Mail Selection to Task" = "@$r";
         "Navigate to Mailbox" = "@^n";
         "Move to Mailbox" = "@^m";
         "Get deep links for selected messages" = "@^~d";
