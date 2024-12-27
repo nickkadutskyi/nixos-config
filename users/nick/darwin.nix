@@ -68,6 +68,7 @@
       "dropbox"
       # A cross-platform, open-source messenger app for matrix-based chats
       "element"
+      "nickkadutskyi/homebrew-cask/ghostty@tip"
       "google-chrome"
       "google-drive"
       "gpg-suite"
