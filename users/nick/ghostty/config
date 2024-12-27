@@ -1,0 +1,16 @@
+font-family = "JetBrainsMono Nerd Font"
+font-family = "JetBrainsMono Nerd Font"
+theme = light:jb-light,dark:jb-dark
+shell-integration-features = no-cursor
+mouse-scroll-multiplier = 3
+# background-opacity = 0
+scrollback-limit = 100000
+window-theme = system
+macos-titlebar-style = native
+macos-option-as-alt = left
+macos-icon = custom-style
+adjust-cell-height = 9
+adjust-underline-position = 2
+adjust-cursor-thickness = 2
+# adjust-cursor-height = 9
+adjust-underline-thickness = -1

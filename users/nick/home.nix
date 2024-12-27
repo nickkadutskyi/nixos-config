@@ -216,13 +216,6 @@ in
   };
 
   xdg.configFile = {
-    "karabiner/karabiner.json".text = builtins.readFile ./karabiner.json;
-    "tmux/tmux.conf".text = builtins.readFile ./tmux.conf;
-    "fzf/light.fzfrc".text = builtins.readFile ./fzf/light.fzfrc;
-    "fzf/dark.fzfrc".text = builtins.readFile ./fzf/dark.fzfrc;
-    # TODO clean up vimrc and ideavimrc config
-    "vim/vimrc".text = builtins.readFile ./vimrc;
-    "ideavim/ideavimrc".text = builtins.readFile ./ideavimrc;
     "1Password/ssh/agent.toml".text =
       # toml
       ''
@@ -249,6 +242,17 @@ in
             ""
         }
       '';
+    "fzf/light.fzfrc".text = builtins.readFile ./fzf/light.fzfrc;
+    "fzf/dark.fzfrc".text = builtins.readFile ./fzf/dark.fzfrc;
+    "ghostty" = {
+      source = ./ghostty;
+      recursive = true;
+    };
+    "ideavim/ideavimrc".text = builtins.readFile ./ideavimrc;
+    "karabiner/karabiner.json".text = builtins.readFile ./karabiner.json;
+    "tmux/tmux.conf".text = builtins.readFile ./tmux.conf;
+    # TODO clean up vimrc and ideavimrc config
+    "vim/vimrc".text = builtins.readFile ./vimrc;
   };
 
   home.file =
