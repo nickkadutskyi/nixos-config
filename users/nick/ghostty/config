@@ -8,7 +8,6 @@ scrollback-limit = 100000
 window-theme = system
 macos-titlebar-style = native
 macos-option-as-alt = left
-macos-icon = custom-style
 adjust-cell-height = 9
 adjust-underline-position = 2
 adjust-cursor-thickness = 2
