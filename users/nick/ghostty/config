@@ -1,4 +1,4 @@
-font-family = "JetBrainsMono Nerd Font"
+# font-family = "TX-02-Trial"
 font-family = "JetBrainsMono Nerd Font"
 theme = light:jb-light,dark:jb-dark
 shell-integration-features = no-cursor
