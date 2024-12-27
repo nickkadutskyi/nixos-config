@@ -13,3 +13,7 @@ adjust-underline-position = 2
 adjust-cursor-thickness = 2
 # adjust-cursor-height = 9
 adjust-underline-thickness = -1
+macos-icon = official
+window-padding-balance = true
+window-padding-y = 1
+window-padding-x = 1
