@@ -55,7 +55,10 @@
 
   # Show If In Nix Shell
   function prompt_in_nix_shell() {
-    if echo "$PATH" | grep -qc '/nix/store'; then
+    if [[ -n "$IN_NIX_SHELL" ]]; then
+    # Some apps like nvim or kitty can add /nix/store to PATH
+    # thus making this check useless
+    # if [[ -n "$IN_NIX_SHELL" ]] || echo "$PATH" | grep -qc '/nix/store'; then
       if [[ $NERDFONT_ENABLED == "1" ]]; then
         p10k segment -i '📦' -f yellow -t ""
       else
