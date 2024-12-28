@@ -7,6 +7,7 @@
   inputs = {
     # Source of all packages
     nixpkgs.url = "github:NixOs/nixpkgs/nixpkgs-unstable";
+    nixpkgs-master.url = "github:NixOs/nixpkgs/master";
     # NixOS like configuration for macOS
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -36,6 +37,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-master,
       nix-darwin,
       home-manager,
       nix-homebrew,
@@ -45,7 +47,7 @@
     }@inputs:
     let
       mkSystem = import ./lib/mksystem.nix {
-        inherit nixpkgs inputs;
+        inherit nixpkgs nixpkgs-master inputs;
       };
     in
     {

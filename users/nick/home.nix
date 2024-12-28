@@ -3,6 +3,7 @@
   inputs,
   currentSystemName,
   currentSystemUser,
+  master,
   ...
 }:
 
@@ -93,7 +94,8 @@ in
 
       # Simple, modern and secure encryption tool
       age
-      awscli2
+      # inputs.nixpkgs-master.awscli2
+      master.awscli2
       # cat with syntax highlighting
       bat
       # Feature–rich alternative to ls

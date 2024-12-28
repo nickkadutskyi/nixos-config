@@ -1,6 +1,10 @@
 # This function creates a NixOS system based on our VM setup for a
 # particular architecture.
-{ nixpkgs, inputs }:
+{
+  nixpkgs,
+  nixpkgs-master,
+  inputs,
+}:
 
 name:
 {
@@ -12,6 +16,8 @@ name:
 let
   # True if this is a WSL system.
   isWSL = wsl;
+
+  master = import nixpkgs-master { inherit system; };
 
   # Machine configuration for all users.
   machineConfig = ../machines/${name}.nix;
@@ -55,6 +61,7 @@ systemFunc rec {
         currentSystemUser = user;
         isWSL = isWSL;
         inputs = inputs;
+        master = master;
       };
     }
     sosps.sops
