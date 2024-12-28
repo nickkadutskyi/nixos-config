@@ -28,6 +28,6 @@ palette = 15=#FFFFFF
 window-theme = system
 
 # Seems like this is not working via themes
-macos-icon = custom-style
-macos-icon-ghost-color = BCBEC4
-macos-icon-screen-color = 1E1F22
+# macos-icon = custom-style
+# macos-icon-ghost-color = BCBEC4
+# macos-icon-screen-color = 1E1F22

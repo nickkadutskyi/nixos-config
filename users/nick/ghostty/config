@@ -1,22 +1,11 @@
 # font-family = "TX-02-Trial"
 font-family = "JetBrainsMono Nerd Font"
 theme = light:jb-light,dark:jb-dark
-shell-integration-features = no-cursor
-mouse-scroll-multiplier = 3
-# background-opacity = 0
-scrollback-limit = 100000
-window-theme = system
-macos-titlebar-style = native
 macos-option-as-alt = left
 adjust-cell-height = 9
 adjust-underline-position = 2
-adjust-cursor-thickness = 2
-# adjust-cursor-height = 9
-adjust-underline-thickness = -1
-macos-icon = official
+adjust-cursor-thickness = 1
 window-padding-balance = true
-window-padding-y = 1
-window-padding-x = 1
 keybind = global:cmd+ctrl+t=toggle_quick_terminal
 window-height = 1000
 window-width = 1000
