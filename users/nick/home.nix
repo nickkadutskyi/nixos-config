@@ -14,7 +14,7 @@ let
   # Keep it cross-platform
   isDarwin = pkgs.stdenv.isDarwin;
   isLinux = pkgs.stdenv.isLinux;
-  pkgs-master = import inputs.nixpkgs-master { system = pkgs.system; };
+  pkgs-master = inputs.nixpkgs-master.legacyPackages.${pkgs.system};
 in
 {
   # This value determines the Home Manager release that your
