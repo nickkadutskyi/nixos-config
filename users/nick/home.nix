@@ -211,6 +211,7 @@ in
     vim = "nvim";
     view = "nvim";
     vimdiff = "nvim -d";
+    vimn = toString inputs.neovim-nightly-overlay.packages.${pkgs.system}.default + "/bin/nvim";
     # EPDS
     # List EPDS AWS EC2 Instances
     epds_ec2 = "aws ec2 describe-instances  --query 'Reservations[].Instances[?not_null(Tags[?Key==\`Name\`].Value)]|[].[State.Name,PrivateIpAddress,PublicIpAddress,InstanceId,Tags[?Key==\`Name\`].Value[]|[0]] | sort_by(@, &[3])'  --output text |  sed '$!N;s/ / /'";
