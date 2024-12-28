@@ -1,5 +1,6 @@
 # font-family = "TX-02-Trial"
 font-family = "JetBrainsMono Nerd Font"
+font-size = 13
 theme = light:jb-light,dark:jb-dark
 macos-option-as-alt = left
 adjust-cell-height = 9
@@ -11,3 +12,7 @@ keybind = super+shift+j=write_screen_file:paste
 keybind = super+alt+shift+j=write_screen_file:open
 window-height = 1000
 window-width = 1000
+mouse-hide-while-typing = true
+macos-non-native-fullscreen = visible-menu
+background-opacity = 0.95
+background-blur-radius = 20
