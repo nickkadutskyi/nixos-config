@@ -1,10 +1,14 @@
 # font-family = "TX-02-Trial"
+# adjust-underline-position = 4
+# adjust-underline-thickness = -1
+
 font-family = "JetBrainsMono Nerd Font"
+adjust-underline-position = 2
+
 font-size = 13
 theme = light:jb-light,dark:jb-dark
 macos-option-as-alt = left
-adjust-cell-height = 9
-adjust-underline-position = 2
+adjust-cell-height = 15%
 adjust-cursor-thickness = 1
 window-padding-balance = true
 keybind = global:cmd+ctrl+t=toggle_quick_terminal
