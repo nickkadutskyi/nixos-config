@@ -1,12 +1,9 @@
 {
   isWSL,
   inputs,
-  currentSystemName,
-  currentSystemUser,
-  master,
-  ...
+  systemName,
+  systemUser,
 }:
-
 {
   config,
   lib,
@@ -17,6 +14,7 @@ let
   # Keep it cross-platform
   isDarwin = pkgs.stdenv.isDarwin;
   isLinux = pkgs.stdenv.isLinux;
+  pkgs-master = import inputs.nixpkgs-master { system = pkgs.system; };
 in
 {
   # This value determines the Home Manager release that your
@@ -94,8 +92,7 @@ in
 
       # Simple, modern and secure encryption tool
       age
-      # inputs.nixpkgs-master.awscli2
-      master.awscli2
+      pkgs-master.awscli2
       # cat with syntax highlighting
       bat
       # Feature–rich alternative to ls
@@ -228,13 +225,13 @@ in
         [[ssh-keys]]
         vault = "EPDS"
         ${
-          if currentSystemName == "Nicks-MacBook-Air" then
+          if systemName == "Nicks-MacBook-Air" then
             # toml
             ''
               [[ssh-keys]]
               vault = "Nicks-MacBook-Air"
             ''
-          else if currentSystemName == "Nicks-Mac-mini" then
+          else if systemName == "Nicks-Mac-mini" then
             # toml
             ''
               [[ssh-keys]]
@@ -331,13 +328,13 @@ in
       lib.hm.dag.entryAfter [ "writeBoundary" ]
         # bash
         ''
-          CRM_ACCOUNTS=/Users/${currentSystemUser}/Library/Mobile\ Documents/com~apple~CloudDocs/Projects
+          CRM_ACCOUNTS=/Users/${systemUser}/Library/Mobile\ Documents/com~apple~CloudDocs/Projects
           for acc_path in "$CRM_ACCOUNTS"/*/; do
             acc_name="$(basename "$acc_path")"
             for project_path in "$acc_path"/*/; do
               project_name="$(basename "$project_path" | cut -d' ' -f1)"
               if [[ $project_name =~ ^[0-9]+$ ]] && [ -f "$project_path/.project.json" ]; then
-                mkdir -p "/Users/${currentSystemUser}/Developer/$acc_name/$project_name"
+                mkdir -p "/Users/${systemUser}/Developer/$acc_name/$project_name"
               fi
             done
           done
@@ -463,7 +460,7 @@ in
     matchBlocks = lib.mkIf isDarwin {
       "*" = {
         identityFile = [
-          (toString ./ssh + "/${currentSystemName}.pub")
+          (toString ./ssh + "/${systemName}.pub")
           (toString ./ssh/EPDS.pub)
           (toString ./ssh/CUTN.pub)
         ];
@@ -546,7 +543,7 @@ in
 
   imports = [
     ./services/home-fzf-theme.nix
-    (import ./services/home-snippety-helper.nix { inherit currentSystemUser pkgs config; })
+    (import ./services/home-snippety-helper.nix { inherit systemUser pkgs config; })
     (import ./services/home-alacritty-theme.nix {
       inherit pkgs config;
       alacritty = toString ./alacritty;

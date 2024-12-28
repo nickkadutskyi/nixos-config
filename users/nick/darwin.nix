@@ -2,7 +2,7 @@
   inputs,
   pkgs,
   config,
-  currentSystemName,
+  systemName,
   ...
 }:
 {

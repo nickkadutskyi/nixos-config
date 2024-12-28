@@ -4,37 +4,32 @@
   nixpkgs,
   nixpkgs-master,
   inputs,
+  ...
 }:
 
-name:
+systemName:
 {
   system,
-  user,
-  darwin ? false,
-  wsl ? false,
+  systemUser,
+  isDarwin ? false,
+  isWSL ? false,
 }:
 let
-  # True if this is a WSL system.
-  isWSL = wsl;
-
-  master = import nixpkgs-master { inherit system; };
-
   # Machine configuration for all users.
-  machineConfig = ../machines/${name}.nix;
+  machineConfig = ../machines/${systemName}.nix;
 
   # System configuration for a specific user.
-  userSystemGenericConfig = ../users/${user}/${if darwin then "darwin" else "nixos"}.nix;
-  userSystemSpecificConfig = ../users/${user}/${if darwin then "darwin-${name}.nix" else "nixos-${name}.nix"};
+  userSystemGenericConfig = ../users/${systemUser}/${if isDarwin then "darwin" else "nixos"}.nix;
+  userSystemSpecificConfig = ../users/${systemUser}/${
+    if isDarwin then "darwin-${systemName}.nix" else "nixos-${systemName}.nix"
+  };
   userSystemConfig =
     if builtins.pathExists userSystemSpecificConfig then userSystemSpecificConfig else userSystemGenericConfig;
 
-  # User specific configuration (shared across all machines)
-  userHomeConfig = ../users/${user}/home.nix;
-
   # NixOS vs nix-darwin functions
-  systemFunc = if darwin then inputs.nix-darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
-  home-manager = if darwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
-  sosps = if darwin then inputs.sops-nix.darwinModules else inputs.sops-nix.nixosModules;
+  systemFunc = if isDarwin then inputs.nix-darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
+  home-manager = if isDarwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
+  sosps = if isDarwin then inputs.sops-nix.darwinModules else inputs.sops-nix.nixosModules;
 in
 systemFunc rec {
   inherit system inputs;
@@ -56,13 +51,17 @@ systemFunc rec {
       home-manager.backupFileExtension = "hm-backup";
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.users.${user} = import userHomeConfig {
-        currentSystemName = name;
-        currentSystemUser = user;
-        isWSL = isWSL;
-        inputs = inputs;
-        master = master;
+      # User specific configuration (shared across all machines)
+      home-manager.users.${systemUser} = import ../users/${systemUser}/home.nix {
+        inherit
+          isWSL
+          inputs
+          systemUser
+          systemName
+          ;
       };
+      # home-manager.extraSpecialArgs = {
+      # };
     }
     sosps.sops
     {
@@ -71,24 +70,24 @@ systemFunc rec {
         age.keyFile = "/Users/nick/.config/sops/age/key.txt";
         secrets = {
           "php/intelephense_license" = {
-            owner = user;
+            owner = systemUser;
           };
           "clickup/api_key" = {
-            owner = user;
+            owner = systemUser;
           };
         };
       };
     }
     # Manages Homebrew on macOS with Nix
-    (if darwin then inputs.nix-homebrew.darwinModules.nix-homebrew else { })
+    (if isDarwin then inputs.nix-homebrew.darwinModules.nix-homebrew else { })
     (
-      if darwin then
+      if isDarwin then
         {
           nix-homebrew = {
             enable = true;
             enableRosetta = true;
             # User owning the Homebrew prefix
-            user = user;
+            user = systemUser;
             # Optional: Declarative tap management
             taps = {
               "homebrew/homebrew-core" = inputs.homebrew-core;
@@ -105,16 +104,21 @@ systemFunc rec {
         { }
     )
     # Custom icons for macOS
-    (if darwin then inputs.darwin-custom-icons.darwinModules.default else { })
+    (if isDarwin then inputs.darwin-custom-icons.darwinModules.default else { })
 
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.
     {
       config._module.args = {
-        currentSystem = system;
-        currentSystemName = name;
-        currentSystemUser = user;
-        isWSL = isWSL;
+        inherit
+          system
+          systemName
+          systemUser
+          isWSL
+          ;
+        # currentSystem = system;
+        # currentSystemName = name;
+        # currentSystemUser = user;
       };
     }
   ];

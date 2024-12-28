@@ -53,13 +53,13 @@
     {
       darwinConfigurations.Nicks-MacBook-Air = mkSystem "Nicks-MacBook-Air" {
         system = "aarch64-darwin";
-        user = "nick";
-        darwin = true;
+        systemUser = "nick";
+        isDarwin = true;
       };
       darwinConfigurations.Nicks-Mac-mini = mkSystem "Nicks-Mac-mini" {
         system = "aarch64-darwin";
-        user = "nick";
-        darwin = true;
+        systemUser = "nick";
+        isDarwin = true;
       };
     };
 }

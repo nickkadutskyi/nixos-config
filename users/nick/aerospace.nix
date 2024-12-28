@@ -1,7 +1,7 @@
 {
   config,
   pkgs,
-  currentSystemName,
+  systemName,
   ...
 }:
 {
@@ -10,7 +10,7 @@
     enable = false;
     settings =
       let
-        # defaultLayout = if currentSystemName == "Nicks-MacBook-Air" then "accordion" else "tiles";
+        # defaultLayout = if systemName == "Nicks-MacBook-Air" then "accordion" else "tiles";
         defaultLayout = "accordion";
       in
       {
