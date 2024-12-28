@@ -53,6 +53,7 @@
           no_quarantine = true;
         };
       }
+      "nikitabobko/tap/aerospace"
       "bettertouchtool"
       "betterzip"
       # BibDesk is a reference manager for LaTeX

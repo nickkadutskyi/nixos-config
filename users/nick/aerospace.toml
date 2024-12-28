@@ -1,0 +1,122 @@
+start-at-login = true
+# Generated from aerospace.nix
+accordion-padding = 0
+after-login-command = []
+after-startup-command = ["layout accordion"]
+default-root-container-layout = "accordion"
+default-root-container-orientation = "auto"
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+exec-on-workspace-change = []
+on-focus-changed = []
+on-focused-monitor-changed = ["move-mouse monitor-lazy-center"]
+# on-window-detected = []
+# start-at-login = false
+
+[gaps.inner]
+horizontal = 1
+vertical = 1
+
+[gaps.outer]
+bottom = 0
+left = 0
+right = 0
+top = 0
+
+[key-mapping]
+preset = "qwerty"
+[key-mapping.key-notation-to-key-code]
+
+[mode.main.binding]
+alt-1 = "workspace T"
+alt-2 = "workspace W"
+alt-3 = "workspace M"
+alt-4 = "workspace J"
+alt-comma = "layout accordion horizontal vertical"
+alt-enter = "fullscreen"
+alt-h = "focus --boundaries-action wrap-around-the-workspace left"
+alt-j = "focus --boundaries-action wrap-around-the-workspace down"
+alt-k = "focus --boundaries-action wrap-around-the-workspace up"
+alt-l = "focus --boundaries-action wrap-around-the-workspace right"
+alt-period = "layout floating tiling"
+alt-shift-1 = "move-node-to-workspace T"
+alt-shift-2 = "move-node-to-workspace W"
+alt-shift-3 = "move-node-to-workspace M"
+alt-shift-4 = "move-node-to-workspace J"
+alt-shift-ctrl-equal = "resize smart +50"
+alt-shift-ctrl-minus = "resize smart -50"
+alt-shift-h = "move left"
+alt-shift-j = "move down"
+alt-shift-k = "move up"
+alt-shift-l = "move right"
+alt-shift-semicolon = "mode service"
+alt-slash = "layout tiles horizontal vertical"
+
+[mode.service.binding]
+backspace = ["close-all-windows-but-current", "mode main"]
+esc = ["reload-config", "mode main"]
+f = ["layout floating tiling", "mode main"]
+r = ["flatten-workspace-tree", "mode main"]
+
+
+# Fixes tabs issue in aerospace for Ghostty
+[[on-window-detected]]
+if.app-id = "com.mitchellh.ghostty"
+check-further-callbacks = true
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = "pro.writer.mac"
+check-further-callbacks = true
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = 'move-node-to-workspace T'
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari'
+run = 'move-node-to-workspace W'
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.app-id = 'com.jetbrains.datagrip'
+run = 'move-node-to-workspace 1'
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.app-id = 'pro.writer.mac'
+run = 'move-node-to-workspace J'
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.app-id = 'com.apple.mail'
+run = 'move-node-to-workspace M'
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.app-id = 'com.apple.iCal'
+run = 'move-node-to-workspace M'
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.app-id = 'ru.keepcoder.Telegram'
+run = 'move-node-to-workspace M'
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.app-id = 'com.upwork.Upwork'
+run = 'move-node-to-workspace M'
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.app-id = 'com.clickup.desktop-app'
+run = 'move-node-to-workspace M'
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+run = 'move-node-to-workspace M'
+check-further-callbacks = true
+

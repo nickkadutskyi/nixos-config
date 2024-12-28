@@ -242,6 +242,7 @@ in
             ""
         }
       '';
+    "aerospace/aerospace.toml".text = builtins.readFile ./aerospace.toml;
     "fzf/light.fzfrc".text = builtins.readFile ./fzf/light.fzfrc;
     "fzf/dark.fzfrc".text = builtins.readFile ./fzf/dark.fzfrc;
     "ghostty" = {

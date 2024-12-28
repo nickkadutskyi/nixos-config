@@ -24,6 +24,8 @@
     homebrew-bundle.flake = false;
     my-homebrew-cask.url = "github:nickkadutskyi/homebrew-cask";
     my-homebrew-cask.flake = false;
+    nikitabobko-homebrew-tap.url = "github:nikitabobko/homebrew-tap";
+    nikitabobko-homebrew-tap.flake = false;
     # For custom icons on macOS
     darwin-custom-icons.url = "github:ryanccn/nix-darwin-custom-icons";
     # For encrypting secrets
