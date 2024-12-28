@@ -113,6 +113,8 @@ in
       jq
       # Main editor
       neovim
+      # Not using Neovim Nightly because it's breaking terminal
+      # inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
       # Provides Nerd fonts for icons support
       nerd-fonts.jetbrains-mono
       # Searching PDF file contents (TODO check if I use this)

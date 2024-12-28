@@ -5,33 +5,63 @@
 {
   description = "Default user environment packages";
   inputs = {
-    # Source of all packages
+    # Primary nixpkgs source for the system
     nixpkgs.url = "github:NixOs/nixpkgs/nixpkgs-unstable";
+
+    # Master nixpkgs source for the system to use for
+    # awscli2 because it fails to build on nixpkgs-unstable
     nixpkgs-master.url = "github:NixOs/nixpkgs/master";
+
     # NixOS like configuration for macOS
-    nix-darwin.url = "github:LnL7/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-    # Fro cross-platform user specific configuration
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    # For managing Homebrew by Nix on macOS
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Cross-platform user specific configuration for home directories
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Manages Homebrew on macOS
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+
     # Declarative Homebrew Tap management
-    homebrew-core.url = "github:homebrew/homebrew-core";
-    homebrew-core.flake = false;
-    homebrew-cask.url = "github:homebrew/homebrew-cask";
-    homebrew-cask.flake = false;
-    homebrew-bundle.url = "github:homebrew/homebrew-bundle";
-    homebrew-bundle.flake = false;
-    my-homebrew-cask.url = "github:nickkadutskyi/homebrew-cask";
-    my-homebrew-cask.flake = false;
-    nikitabobko-homebrew-tap.url = "github:nikitabobko/homebrew-tap";
-    nikitabobko-homebrew-tap.flake = false;
-    # For custom icons on macOS
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+    homebrew-bundle = {
+      url = "github:homebrew/homebrew-bundle";
+      flake = false;
+    };
+    nickkadutskyi-homebrew-cask = {
+      url = "github:nickkadutskyi/homebrew-cask";
+      flake = false;
+    };
+    nikitabobko-homebrew-tap = {
+      url = "github:nikitabobko/homebrew-tap";
+      flake = false;
+    };
+
+    # Sets custom icons on macOS
     darwin-custom-icons.url = "github:ryanccn/nix-darwin-custom-icons";
-    # For encrypting secrets
-    sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Encrypts secrets
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Nightly version of Neovim
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+    };
   };
   outputs =
     {
