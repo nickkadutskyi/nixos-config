@@ -114,9 +114,6 @@ systemFunc rec {
           systemUser
           isWSL
           ;
-        # currentSystem = system;
-        # currentSystemName = name;
-        # currentSystemUser = user;
       };
     }
   ];
