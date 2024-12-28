@@ -60,8 +60,6 @@ systemFunc rec {
           systemName
           ;
       };
-      # home-manager.extraSpecialArgs = {
-      # };
     }
     sosps.sops
     {
