@@ -43,6 +43,7 @@
       "Slack for Desktop" = 803453959;
       "Snippety - Snippets Manager" = 1530751461;
       "Telegram" = 747648890;
+      "Xcode" = 497799835;
       "Xdebug Key" = 1441712067;
     };
     casks = [
@@ -69,7 +70,10 @@
       "dropbox"
       # A cross-platform, open-source messenger app for matrix-based chats
       "element"
-      "nickkadutskyi/homebrew-cask/ghostty@tip"
+      {
+        name = "nickkadutskyi/homebrew-cask/ghostty@tip";
+        greedy = true;
+      }
       "google-chrome"
       "google-drive"
       "gpg-suite"

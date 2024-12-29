@@ -18,5 +18,5 @@ window-height = 1000
 window-width = 1000
 mouse-hide-while-typing = true
 macos-non-native-fullscreen = visible-menu
-background-opacity = 0.98
-background-blur-radius = 20
+# background-opacity = 0.98
+# background-blur-radius = 20
