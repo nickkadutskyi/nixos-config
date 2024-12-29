@@ -7,10 +7,9 @@
 {
   # i3-like tiling window manager for macOS
   services.aerospace = {
-    enable = false;
+    enable = true;
     settings =
       let
-        # defaultLayout = if systemName == "Nicks-MacBook-Air" then "accordion" else "tiles";
         defaultLayout = "accordion";
       in
       {
@@ -41,14 +40,14 @@
           alt-shift-l = "move right";
           alt-shift-ctrl-minus = "resize smart -50";
           alt-shift-ctrl-equal = "resize smart +50";
-          alt-1 = "workspace 1";
-          alt-2 = "workspace 2";
-          alt-3 = "workspace 3";
-          alt-4 = "workspace 4";
-          alt-shift-1 = "move-node-to-workspace 1";
-          alt-shift-2 = "move-node-to-workspace 2";
-          alt-shift-3 = "move-node-to-workspace 3";
-          alt-shift-4 = "move-node-to-workspace 4";
+          alt-1 = "workspace T";
+          alt-2 = "workspace W";
+          alt-3 = "workspace M";
+          alt-4 = "workspace J";
+          alt-shift-1 = "move-node-to-workspace T";
+          alt-shift-2 = "move-node-to-workspace W";
+          alt-shift-3 = "move-node-to-workspace M";
+          alt-shift-4 = "move-node-to-workspace J";
           alt-shift-semicolon = "mode service";
           alt-enter = "fullscreen";
         };
@@ -57,11 +56,13 @@
             "reload-config"
             "mode main"
           ];
-          r = [ # P in Colemak keyboard layout
+          r = [
+            # P in Colemak keyboard layout
             "flatten-workspace-tree"
             "mode main"
           ]; # reset layout
-          f = [ # T in Colemak keyboard layout
+          f = [
+            # T in Colemak keyboard layout
             "layout floating tiling"
             "mode main"
           ]; # Toggle between floating and tiling layout
@@ -70,44 +71,100 @@
             "mode main"
           ];
         };
-        key-mapping.key-notation-to-key-code = {
-          # q = "q";
-          # w = "w";
-          # f = "e";
-          # p = "r";
-          # g = "t";
-          # j = "y";
-          # l = "u";
-          # u = "i";
-          # y = "o";
-          # semicolon = "p";
-          # leftSquareBracket = "leftSquareBracket";
-          # rightSquareBracket = "rightSquareBracket";
-          # backslash = "backslash";
-
-          # a = "a";
-          # r = "s";
-          # s = "d";
-          # t = "f";
-          # d = "g";
-          # h = "h";
-          # n = "j";
-          # e = "k";
-          # i = "l";
-          # o = "semicolon";
-          # quote = "quote";
-
-          # z = "z";
-          # x = "x";
-          # c = "c";
-          # v = "v";
-          # b = "b";
-          # k = "n";
-          # m = "m";
-          # comma = "comma";
-          # period = "period";
-          # slash = "slash";
-        };
+        on-window-detected = [
+          {
+            "if" = {
+              app-id = "com.apple.iCal"; # Calendar
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace M"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.clickup.desktop-app"; # ClickUp
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace M"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.jetbrains.datagrip"; # DataGrip
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace 1"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.mitchellh.ghostty"; # Ghostty
+            };
+            check-further-callbacks = true;
+            run = [
+              "layout floating"
+              "move-node-to-workspace T"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "pro.writer.mac"; # iA Writer
+            };
+            check-further-callbacks = true;
+            run = [
+              "layout floating"
+              "move-node-to-workspace J"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.apple.mail"; # Mail
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace M"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.apple.MobileSMS"; # Messages
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace M"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.apple.Safari"; # Safari
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace W"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "ru.keepcoder.Telegram"; # Telegram
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace M"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.upwork.Upwork"; # Upwork
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace M"
+            ];
+          }
+        ];
       };
   };
 }
