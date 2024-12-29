@@ -437,6 +437,8 @@ in
         );
       };
       gpg = {
+        # Sets default signature format to ssh but you can override it
+        # for a single command like this: `git -c "gpg.format=openpgp" commit`
         format = "ssh";
       };
       gpg = {
