@@ -459,7 +459,21 @@ in
     enable = true;
     includes = [ "hosts" ];
     matchBlocks = lib.mkIf isDarwin {
-      "*" = {
+      # Have come first in config to set proper IdentityAgent
+      # Checks if NO1P is set and if so, sets IdentityAgent to default
+      "_no1p" = {
+        match = "host * exec \"[ ! -z \$NO1P ]\"";
+        identityFile = [
+          ("~/.ssh/" + systemName)
+          ("~/.ssh/EPDS")
+          ("~/.ssh/CUTN")
+        ];
+        extraOptions = {
+          IdentityAgent = "SSH_AUTH_SOCK";
+        };
+      };
+      "all" = {
+        host = "*";
         identityFile = [
           (toString ./ssh + "/${systemName}.pub")
           (toString ./ssh/EPDS.pub)
