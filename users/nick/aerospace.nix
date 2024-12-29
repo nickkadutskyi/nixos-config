@@ -99,16 +99,18 @@
               "move-node-to-workspace 1"
             ];
           }
-          {
-            "if" = {
-              app-id = "com.mitchellh.ghostty"; # Ghostty
-            };
-            check-further-callbacks = true;
-            run = [
-              "layout floating"
-              "move-node-to-workspace T"
-            ];
-          }
+          # Disabled for now because it tries to bring quick terminal to
+          # T workspace as well which hides it and breaks the view
+          # {
+          #   "if" = {
+          #     app-id = "com.mitchellh.ghostty"; # Ghostty
+          #   };
+          #   check-further-callbacks = true;
+          #   run = [
+          #     "layout floating"
+          #     "move-node-to-workspace T"
+          #   ];
+          # }
           {
             "if" = {
               app-id = "pro.writer.mac"; # iA Writer
