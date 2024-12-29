@@ -440,10 +440,10 @@ in
         # Sets default signature format to ssh but you can override it
         # for a single command like this: `git -c "gpg.format=openpgp" commit`
         format = "ssh";
-      };
-      gpg = {
         # On macOS 1Password is used for signing using ssh key
         ssh.program = lib.mkIf isDarwin "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+        ssh.defaultKeyCommand = "echo 'key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUOOm/kpbXdO0Zg7XzDK3W67QUCZ/jutXK8w+pgoZqq'";
+        openpgp.program = "gpg";
       };
       init = {
         defaultBranch = "main";
@@ -453,7 +453,7 @@ in
       };
     };
     signing = {
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUOOm/kpbXdO0Zg7XzDK3W67QUCZ/jutXK8w+pgoZqq";
+      # key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUOOm/kpbXdO0Zg7XzDK3W67QUCZ/jutXK8w+pgoZqq";
       signByDefault = true;
     };
   };
