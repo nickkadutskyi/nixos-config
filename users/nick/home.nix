@@ -442,6 +442,8 @@ in
         format = "ssh";
         # On macOS 1Password is used for signing using ssh key
         ssh.program = lib.mkIf isDarwin "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+        # Use this public key for ssh signing while gpg signing will
+        # use the one based on email
         ssh.defaultKeyCommand = "echo 'key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUOOm/kpbXdO0Zg7XzDK3W67QUCZ/jutXK8w+pgoZqq'";
         openpgp.program = "gpg";
       };
@@ -453,7 +455,7 @@ in
       };
     };
     signing = {
-      # key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUOOm/kpbXdO0Zg7XzDK3W67QUCZ/jutXK8w+pgoZqq";
+      key = null;
       signByDefault = true;
     };
   };
