@@ -148,8 +148,6 @@ in
       duti
       # Monitors a directory for changes (required by snippety-helper)
       fswatch
-      # Global mysql and mysqldump for IntelliJ/DataGrip db export/import
-      mariadb
     ])
     ++ (lib.optionals (isLinux && !isWSL) [
       chromium
