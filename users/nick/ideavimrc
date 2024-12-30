@@ -1,5 +1,3 @@
-source $XDG_CONFIG_HOME/vim/vimrc
-
 set NERDTree
 Plug 'machakann/vim-highlightedyank'
 let g:highlightedyank_highlight_duration = "150"

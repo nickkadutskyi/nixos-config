@@ -39,7 +39,7 @@ set synmaxcol=500
 
 " Set <space> as leader key
 let mapleader = " "
-let maplocalleader = " "
+let maplocalleader = "\\"
 
 " Enables line numbers
 set nu

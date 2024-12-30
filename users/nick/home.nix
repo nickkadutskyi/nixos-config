@@ -247,11 +247,14 @@ in
       source = ./ghostty;
       recursive = true;
     };
-    "ideavim/ideavimrc".text = builtins.readFile ./ideavimrc;
+    "ideavim/ideavimrc".text = ''
+      source ${./vimrc}
+      ${builtins.readFile ./ideavimrc}
+    '';
     "karabiner/karabiner.json".text = builtins.readFile ./karabiner.json;
     "tmux/tmux.conf".text = builtins.readFile ./tmux.conf;
     # TODO clean up vimrc and ideavimrc config
-    "vim/vimrc".text = builtins.readFile ./vimrc;
+    "vim/vimrc".source = ./vimrc;
   };
 
   home.file =
