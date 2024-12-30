@@ -701,6 +701,23 @@ in
           };
           "tile-type" = "file-tile";
         }
+        {
+          GUID = 4012255982;
+          "tile-data" = {
+            "bundle-identifier" = "com.mitchellh.ghostty";
+            "dock-extra" = 0;
+            "file-data" = {
+              "_CFURLString" = "file:///Applications/Ghostty.app/";
+              "_CFURLStringType" = 15;
+            };
+            "file-label" = "Ghostty";
+            "file-mod-date" = 234079536063012;
+            "file-type" = 1;
+            "is-beta" = 0;
+            "parent-mod-date" = 249760461660710;
+          };
+          "tile-type" = "file-tile";
+        }
       ];
       # Persistent Dock items on the right (using for quick access folders)
       "persistent-others" = [
