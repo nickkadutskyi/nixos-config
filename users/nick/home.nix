@@ -112,9 +112,8 @@ in
       # Parses JSON
       jq
       # Main editor
-      neovim
-      # Not using Neovim Nightly because it's breaking terminal
-      # inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
+      # neovim
+      inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
       # Provides Nerd fonts for icons support
       nerd-fonts.jetbrains-mono
       # Searching PDF file contents (TODO check if I use this)
@@ -209,7 +208,7 @@ in
     vim = "nvim";
     view = "nvim";
     vimdiff = "nvim -d";
-    vimn = toString inputs.neovim-nightly-overlay.packages.${pkgs.system}.default + "/bin/nvim";
+    # vimn = toString inputs.neovim-nightly-overlay.packages.${pkgs.system}.default + "/bin/nvim";
     # EPDS
     # List EPDS AWS EC2 Instances
     epds_ec2 = "aws ec2 describe-instances  --query 'Reservations[].Instances[?not_null(Tags[?Key==\`Name\`].Value)]|[].[State.Name,PrivateIpAddress,PublicIpAddress,InstanceId,Tags[?Key==\`Name\`].Value[]|[0]] | sort_by(@, &[3])'  --output text |  sed '$!N;s/ / /'";
