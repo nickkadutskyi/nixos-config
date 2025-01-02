@@ -6,6 +6,8 @@ font-family = "JetBrainsMono Nerd Font"
 adjust-underline-position = 2
 
 font-size = 13
+font-feature = -calt
+
 theme = light:jb-light,dark:jb-dark
 macos-option-as-alt = left
 adjust-cell-height = 15%
@@ -19,5 +21,5 @@ window-width = 1000
 mouse-hide-while-typing = true
 macos-non-native-fullscreen = visible-menu
 quick-terminal-animation-duration = 0.05
-# background-opacity = 0.98
-# background-blur-radius = 20
+background-opacity = 0.98
+background-blur-radius = 20
