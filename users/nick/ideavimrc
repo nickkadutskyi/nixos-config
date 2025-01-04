@@ -86,9 +86,10 @@ nnoremap <leader>ca :action ShowIntentionActions<CR>
 
 " Project Window
 nnoremap <leader>ap :action ActivateProjectToolWindow<CR>
-
 " Terminal
 nnoremap <leader>at :action ActivateTerminalToolWindow<CR>
+" Database Explorer
+nnoremap <leader>ad :action ActivateDatabaseToolWindow<CR>
 
 " Navigation
 " Go to Declaration or Usage

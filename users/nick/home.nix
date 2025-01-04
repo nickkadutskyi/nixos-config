@@ -42,16 +42,12 @@ in
     with pkgs;
     [
       # ----------------------------------------------------------------
-      # Development Tooling (Can be moved to project specific flakes)
+      # Development Tooling used across most projects
       # ----------------------------------------------------------------
 
       bash-language-server
-      # Converts SASS to CSS (EPDS TODO make it project scoped)
-      dart-sass
       # Emmet support based on LSP
       emmet-ls
-      # Tunnel for socks5 proxy to http proxy (EPDS TODO make it project scoped)
-      gost
       # PHP language server (closed source, requires license)
       intelephense
       lua-language-server
@@ -71,10 +67,10 @@ in
       selene
       # Reformats shell script
       shfmt
+      # Lints CSS and SCSS
+      stylelint
       # Reformats Lua code
       stylua
-      # For testing Stripe API (UPWZ TODO make it project scoped)
-      stripe-cli
       # Reformats TOML code
       taplo
       typescript-language-server
@@ -85,6 +81,17 @@ in
       # Neeeded for DAP but currently not in nixpkgs TODO package it for nixpkgs
       # vscode-php-debug
       vue-language-server
+
+      # ----------------------------------------------------------------
+      # Development Tooling that can be moved to project specific flakes
+      # ----------------------------------------------------------------
+
+      # Converts SASS to CSS (EPDS TODO make it project scoped)
+      dart-sass
+      # Tunnel for socks5 proxy to http proxy (EPDS TODO make it project scoped)
+      gost
+      # For testing Stripe API (UPWZ TODO make it project scoped)
+      stripe-cli
 
       # ----------------------------------------------------------------
       # Other Packages
