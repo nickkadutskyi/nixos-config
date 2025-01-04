@@ -310,8 +310,9 @@ in
       # ".config/private_clickup/key.txt" = lib.mkIf isDarwin {
       #   source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_clickup/key.txt");
       # };
-      ".ssh/hosts.conf" = lib.mkIf isDarwin {
-        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.ssh/hosts.conf");
+      ".ssh/conf.d" = lib.mkIf isDarwin {
+        recursive = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.ssh/conf.d");
       };
       ".aws/config".text = ''
         [default]
@@ -473,7 +474,7 @@ in
   };
   programs.ssh = {
     enable = true;
-    includes = [ ] ++ (lib.optionals isDarwin [ "hosts.conf" ]);
+    includes = [ ] ++ (lib.optionals isDarwin [ "conf.d/*" ]);
     matchBlocks = lib.mkIf isDarwin {
       # Have come first in config to set proper IdentityAgent
       # Checks if NO1P is set and if so, sets IdentityAgent to default
