@@ -42,12 +42,14 @@
           alt-shift-ctrl-equal = "resize smart +50";
           alt-1 = "workspace T";
           alt-2 = "workspace W";
-          alt-3 = "workspace M";
-          alt-4 = "workspace J";
+          alt-3 = "workspace C";
+          alt-4 = "workspace M";
+          alt-5 = "workspace J";
           alt-shift-1 = "move-node-to-workspace T";
           alt-shift-2 = "move-node-to-workspace W";
-          alt-shift-3 = "move-node-to-workspace M";
-          alt-shift-4 = "move-node-to-workspace J";
+          alt-shift-3 = "move-node-to-workspace C";
+          alt-shift-4 = "move-node-to-workspace M";
+          alt-shift-5 = "move-node-to-workspace J";
           alt-shift-semicolon = "mode service";
           alt-enter = "fullscreen";
         };
@@ -127,7 +129,7 @@
             };
             check-further-callbacks = true;
             run = [
-              "move-node-to-workspace M"
+              "move-node-to-workspace C"
             ];
           }
           {
@@ -136,7 +138,7 @@
             };
             check-further-callbacks = true;
             run = [
-              "move-node-to-workspace M"
+              "move-node-to-workspace C"
             ];
           }
           {
@@ -154,7 +156,7 @@
             };
             check-further-callbacks = true;
             run = [
-              "move-node-to-workspace M"
+              "move-node-to-workspace C"
             ];
           }
           {
@@ -163,7 +165,7 @@
             };
             check-further-callbacks = true;
             run = [
-              "move-node-to-workspace M"
+              "move-node-to-workspace C"
             ];
           }
         ];
