@@ -314,17 +314,18 @@ in
         recursive = true;
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.ssh/conf.d");
       };
-      ".aws/config".text = ''
-        [default]
-        region = us-west-2
-        output = json
-        [profile epicure-nimbi-staging]
-        region = us-west-2
-        output = json
-        [profile epicure-nimbi-prod]
-        region = us-west-2
-        output = json
-      '';
+      ".aws/config".text = # confini
+        ''
+          [default]
+          region = us-west-2
+          output = json
+          [profile epicure-nimbi-staging]
+          region = us-west-2
+          output = json
+          [profile epicure-nimbi-prod]
+          region = us-west-2
+          output = json
+        '';
     };
 
   home.activation = {
