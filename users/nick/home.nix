@@ -211,6 +211,10 @@ in
       "dig +short -4 myip.opendns.com @resolver4.opendns.com";
     ip6a = # bash
       "dig +short -6 myip.opendns.com @resolver1.ipv6-sandbox.opendns.com AAAA";
+    pro = ''
+      cd "$(${pkgs.fd}/bin/fd . ~/Developer/*/* ~/.config -d 1 -t d -E "*/.*" \
+            | FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc ${pkgs.fzf}/bin/fzf)"
+    '';
     vi = "nvim";
     vim = "nvim";
     view = "nvim";
@@ -306,8 +310,8 @@ in
       # ".config/private_clickup/key.txt" = lib.mkIf isDarwin {
       #   source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_clickup/key.txt");
       # };
-      ".ssh/hosts" = lib.mkIf isDarwin {
-        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.ssh/hosts");
+      ".ssh/hosts.conf" = lib.mkIf isDarwin {
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.ssh/hosts.conf");
       };
       ".aws/config".text = ''
         [default]
@@ -469,7 +473,7 @@ in
   };
   programs.ssh = {
     enable = true;
-    includes = [ "hosts" ];
+    includes = [ ] ++ (lib.optionals isDarwin [ "hosts.conf" ]);
     matchBlocks = lib.mkIf isDarwin {
       # Have come first in config to set proper IdentityAgent
       # Checks if NO1P is set and if so, sets IdentityAgent to default
