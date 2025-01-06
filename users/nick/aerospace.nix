@@ -143,6 +143,15 @@
           }
           {
             "if" = {
+              app-id = "com.apple.Notes"; # Notes
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace J"
+            ];
+          }
+          {
+            "if" = {
               app-id = "com.apple.Safari"; # Safari
             };
             check-further-callbacks = true;

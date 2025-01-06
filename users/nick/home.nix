@@ -69,6 +69,7 @@ in
       shfmt
       # Lints CSS and SCSS
       stylelint
+      stylelint-lsp
       # Reformats Lua code
       stylua
       # Reformats TOML code
