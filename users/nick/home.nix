@@ -174,6 +174,8 @@ in
     NERDFONT_ENABLED =
       if (lib.lists.any (p: (p.meta.homepage or "") == "https://nerdfonts.com/") config.home.packages) then "1" else "0";
     STARSHIP_LOG = "error";
+    ZSH_TAB_TITLE_CONCAT_FOLDER_PROCESS = "true";
+    ZSH_TAB_TITLE_PREFIX="$([ $SSH_CONNECTION ] && echo \"[$USER@$HOST]\") ";
   };
 
   home.sessionPath = [
