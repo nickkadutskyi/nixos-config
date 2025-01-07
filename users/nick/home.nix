@@ -173,6 +173,7 @@ in
     # Checks if any nerdfont is installed
     NERDFONT_ENABLED =
       if (lib.lists.any (p: (p.meta.homepage or "") == "https://nerdfonts.com/") config.home.packages) then "1" else "0";
+    STARSHIP_LOG = "error";
   };
 
   home.sessionPath = [
@@ -210,10 +211,6 @@ in
       "dig +short -4 myip.opendns.com @resolver4.opendns.com";
     ip6a = # bash
       "dig +short -6 myip.opendns.com @resolver1.ipv6-sandbox.opendns.com AAAA";
-    pro = ''
-      cd "$(${pkgs.fd}/bin/fd . ~/Developer/*/* ~/.config -d 1 -t d -E "*/.*" \
-            | FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc ${pkgs.fzf}/bin/fzf)"
-    '';
     vi = "nvim";
     vim = "nvim";
     view = "nvim";

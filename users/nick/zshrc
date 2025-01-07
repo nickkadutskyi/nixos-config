@@ -24,13 +24,21 @@ if [ -x "$(command -v fzf)" ]; then
   # fzd - cd to selected directory
   fzd() {
     local dir
-    dir=''$(find ''${1:-.} -path '*/\.*' -prune \
+    dir=$(find "${1:-.}" -path '*/\.*' -prune \
       -o -type d -print 2>/dev/null | fzf +m) &&
-      cd "''$dir"
+      cd "$dir" || exit
   }
   # fzh - search in your command history and execute selected command
   fzh() {
-    eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+    eval "$( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')"
+  }
+  # pro - search in your projects
+  pro() {
+    project="$({
+      fd . ~/Developer/*/* -d 1 -t d -E "*/.*"
+      fd -t d -H '^.git$' ~/.config --min-depth 2 -x echo {//}
+    } | FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc fzf -1 -q "$1")"
+    cd "$project" || exit
   }
 fi
 # fzf end

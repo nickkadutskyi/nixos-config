@@ -7,7 +7,6 @@
 
 {
   add_newline = false;
-  command_timeout = 1000;
   format = pkgs.lib.concatStrings [
     "$username"
     "$hostname"
