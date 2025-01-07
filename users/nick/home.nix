@@ -526,9 +526,13 @@ in
         file = "share/zsh-completions/zsh-completions.plugin.zsh";
       }
       {
-        name = "zsh-window-title";
-        src = pkgs.oh-my-zsh;
-        file = "share/oh-my-zsh/plugins/git-extras/git-extras.plugin.zsh";
+        name = "zsh-tab-title";
+        src = pkgs.fetchFromGitHub {
+          owner = "trystan2k";
+          repo = "zsh-tab-title";
+          rev = "main";
+          sha256 = "sha256-ZEhbQ+yIfCz+vmua7XYBQ4kSVgwoNR8Y4zJyKNypsz0="; # Replace with correct hash
+        };
       }
     ];
     history = {
