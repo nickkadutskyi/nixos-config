@@ -100,7 +100,8 @@ in
 
       # Simple, modern and secure encryption tool
       age
-      pkgs-master.awscli2
+      # pkgs-master.awscli2
+      awscli2
       # cat with syntax highlighting
       bat
       # Feature–rich alternative to ls
@@ -120,8 +121,8 @@ in
       # Parses JSON
       jq
       # Main editor
-      # neovim
-      inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
+      neovim
+      # inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
       # Provides Nerd fonts for icons support
       nerd-fonts.jetbrains-mono
       # Searching PDF file contents (TODO check if I use this)
