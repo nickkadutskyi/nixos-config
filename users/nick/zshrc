@@ -40,6 +40,13 @@ if [ -x "$(command -v fzf)" ]; then
     } | FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc fzf -1 -q "$1")"
     cd "$project" || exit
   }
+  prov() {
+    project="$({
+      fd . ~/Developer/*/* -d 1 -t d -E "*/.*"
+      fd -t d -H '^.git$' ~/.config --min-depth 2 -x echo {//}
+    } | FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc fzf -1 -q "$1")"
+    cd "$project" && eval "$(direnv export zsh)" && nvim .
+  }
 fi
 # fzf end
 
