@@ -595,7 +595,7 @@ in
       autohide = true;
       "mru-spaces" = false;
       # For better Mission Control view when using Aerospace
-      "expose-group-apps" = true;
+      "expose-group-apps" = false;
       # Persistent Dock items on the left (using for frequently used apps)
       "persistent-apps" = [
         {
@@ -1002,6 +1002,30 @@ in
             parameters = [
               51
               20
+              524288
+            ];
+            type = "standard";
+          };
+        };
+        # Option + 4 to Switch to Desktop 4
+        "121" = {
+          enabled = true;
+          value = {
+            parameters = [
+              52
+              21
+              524288
+            ];
+            type = "standard";
+          };
+        };
+        # Option + 5 to Switch to Desktop 5
+        "122" = {
+          enabled = true;
+          value = {
+            parameters = [
+              53
+              23
               524288
             ];
             type = "standard";
