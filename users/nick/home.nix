@@ -121,8 +121,8 @@ in
       # Parses JSON
       jq
       # Main editor
-      neovim
-      # inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
+      # neovim
+      inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
       # Provides Nerd fonts for icons support
       nerd-fonts.jetbrains-mono
       # Searching PDF file contents (TODO check if I use this)
