@@ -7,7 +7,7 @@
 {
   # i3-like tiling window manager for macOS
   services.aerospace = {
-    enable = true;
+    enable = false;
     settings =
       let
         defaultLayout = "accordion";
