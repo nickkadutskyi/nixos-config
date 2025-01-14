@@ -39,14 +39,20 @@ if [ -x "$(command -v fzf)" ]; then
       fd . ~/Developer/*/* -d 1 -t d -E "*/.*"
       fd -t d -H '^.git$' ~/.config --min-depth 2 -x echo {//}
     } | FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc fzf -1 -q "$1")"
-    cd "$project" || exit
+
+    if [[ ! -z $project ]]; then
+      cd "$project" || exit
+    fi
   }
   prov() {
     project="$({
       fd . ~/Developer/*/* -d 1 -t d -E "*/.*"
       fd -t d -H '^.git$' ~/.config --min-depth 2 -x echo {//}
     } | FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc fzf -1 -q "$1")"
-    cd "$project" && eval "$(direnv export zsh)" && nvim .
+
+    if [[ ! -z $project ]]; then
+      cd "$project" && eval "$(direnv export zsh)" && nvim .
+    fi
   }
 fi
 # fzf end
