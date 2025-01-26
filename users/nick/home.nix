@@ -56,10 +56,12 @@ in
       emmet-ls
       # Python linter
       python313Packages.flake8
+      gitlint
       # PHP language server (closed source, requires license)
       intelephense
       # Python code formatter to sort imports
       isort
+      java-language-server
       lua-language-server
       # Lints Lua code
       luajitPackages.luacheck
@@ -81,6 +83,9 @@ in
       pyright
       # Python language server
       python312Packages.python-lsp-server
+      # Ruby linter
+      rubocop
+      ruby
       # Python linter
       ruff
       # Rust language server
@@ -91,6 +96,10 @@ in
       selene
       # Reformats shell script
       shfmt
+      # Ruby language server
+      rubyPackages_3_4.solargraph
+      # Ruby formatter
+      rubyPackages.standard
       # Lints CSS and SCSS
       stylelint
       stylelint-lsp
@@ -106,7 +115,11 @@ in
       # Neeeded for DAP but currently not in nixpkgs TODO package it for nixpkgs
       # vscode-php-debug
       vue-language-server
+      yaml-language-server
+      yamlfmt
+      yamllint
       zig
+      zls
 
       # ----------------------------------------------------------------
       # Development Tooling that can be moved to project specific flakes
