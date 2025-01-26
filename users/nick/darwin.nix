@@ -27,6 +27,7 @@
       "1Blocker - Ad Blocker" = 1365531024;
       "1Password for Safari" = 1569813296;
       "BetterJSON for Safari" = 1511935951;
+      "Clipboard Manager - PastePal" = 1503446680;
       "Core Tunnel" = 1354318707;
       "Easy CSV Editor" = 1171346381;
       "Fonts Ninja" = 1480227114;
@@ -37,7 +38,8 @@
       "Numbers" = 409203825;
       "Pages" = 409201541;
       "Parcel - Delivery Tracking" = 639968404;
-      "Paste - Endless Clipboard" = 967805235;
+      # Switched to PastePal
+      # "Paste - Endless Clipboard" = 967805235;
       "Redirect Web for Safari" = 1571283503;
       "Reeder Classic" = 1529448980;
       "Slack for Desktop" = 803453959;
