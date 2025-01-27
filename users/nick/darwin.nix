@@ -27,7 +27,8 @@
       "1Blocker - Ad Blocker" = 1365531024;
       "1Password for Safari" = 1569813296;
       "BetterJSON for Safari" = 1511935951;
-      "Clipboard Manager - PastePal" = 1503446680;
+      # Switches to Maccy
+      # "Clipboard Manager - PastePal" = 1503446680;
       "Core Tunnel" = 1354318707;
       "Easy CSV Editor" = 1171346381;
       "Fonts Ninja" = 1480227114;
@@ -83,6 +84,7 @@
       "karabiner-elements"
       "little-snitch"
       "logi-options+"
+      "maccy"
       # Parallels Desktop for Mac for running Windows and other VMs
       "parallels"
       # Graphical user interface for the 'defaults' command
