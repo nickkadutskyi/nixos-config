@@ -11,5 +11,7 @@
 <$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (<$fields.Year/>). *[<$fields.Title/><$fields.Edition?> (<$fields.Edition/>)</$fields.Edition?>](x-bdsk://<$citeKey/>).* <$fields.Address?><$fields.Address/>:</$fields.Address?> <$fields.Publisher/>.
 <?$pubType=article?>
 <$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (<$fields.Year/>). *[<$fields.Title/>](x-bdsk://<$citeKey/>).* <$fields.Journal/><$fields.Volume?>, <$fields.Volume/></$fields.Volume?><$fields.Number?>(<$fields.Number/>)</$fields.Number?><$fields.Pages?>, <$fields.Pages/></$fields.Pages?>. <$fields.Url?>[<$fields.Url/>](<$fields.Url/>)</$fields.Url?>
+<?$pubType=online?>
+<$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (<$fields.Year/><$fields.Month.stringByPrependingCommaAndSpaceIfNotEmpty/><$fields.Day.stringByPrependingSpaceIfNotEmpty/>). [<$fields.Title/>](x-bdsk://<$citeKey/>). *<$fields.Organization.stringByAppendingFullStopIfNotEmpty/>* [<$fields.Url/>](<$fields.Url/>)
 </$pubType?>
 </$publications>
