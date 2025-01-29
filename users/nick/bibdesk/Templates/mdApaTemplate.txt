@@ -12,6 +12,6 @@
 <?$pubType=article?>
 <$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (<$fields.Year/>). *[<$fields.Title/>](x-bdsk://<$citeKey/>).* <$fields.Journal/><$fields.Volume?>, <$fields.Volume/></$fields.Volume?><$fields.Number?>(<$fields.Number/>)</$fields.Number?><$fields.Pages?>, <$fields.Pages/></$fields.Pages?>. <$fields.Url?>[<$fields.Url/>](<$fields.Url/>)</$fields.Url?>
 <?$pubType=online?>
-<$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (<$fields.Year/><$fields.Month.stringByPrependingCommaAndSpaceIfNotEmpty/><$fields.Day.stringByPrependingSpaceIfNotEmpty/>). [<$fields.Title/>](x-bdsk://<$citeKey/>). *<$fields.Organization.stringByAppendingFullStopIfNotEmpty/>* [<$fields.Url/>](<$fields.Url/>)
+<$authors.abbreviatedNormalizedName.stringByRemovingTeX.@componentsJoinedByCommaAndAmpersand/> (<$fields.Year/><$fields.Month.stringByPrependingCommaAndSpaceIfNotEmpty/><$fields.Day.stringByPrependingSpaceIfNotEmpty/>). [<$fields.Title/>](x-bdsk://<$citeKey/>).<$fields.Organization?> *<$fields.Organization.stringByAppendingFullStopIfNotEmpty/>*</$fields.Organization?> [<$fields.Url/>](<$fields.Url/>)
 </$pubType?>
 </$publications>
