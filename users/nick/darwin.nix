@@ -27,21 +27,16 @@
       "1Blocker - Ad Blocker" = 1365531024;
       "1Password for Safari" = 1569813296;
       "BetterJSON for Safari" = 1511935951;
-      # Switches to Maccy
-      # "Clipboard Manager - PastePal" = 1503446680;
       "Core Tunnel" = 1354318707;
       "Easy CSV Editor" = 1171346381;
       "Fonts Ninja" = 1480227114;
       "iA Writer" = 775737590;
       "Kagi for Safari" = 1622835804;
       "Keynote" = 409183694;
-      "Microsoft Remote Desktop" = 1295203466; # Windows App
+      "Windows App" = 1295203466; # Microsoft Remote Desktop
       "Numbers" = 409203825;
       "Pages" = 409201541;
       "Parcel - Delivery Tracking" = 639968404;
-      # Switched to PastePal
-      # "Paste - Endless Clipboard" = 967805235;
-      "Redirect Web for Safari" = 1571283503;
       "Reeder Classic" = 1529448980;
       "Slack for Desktop" = 803453959;
       "Snippety - Snippets Manager" = 1530751461;
@@ -51,12 +46,6 @@
     };
     casks = [
       "1password"
-      {
-        name = "alacritty";
-        args = {
-          no_quarantine = true;
-        };
-      }
       "bettertouchtool"
       "betterzip"
       # BibDesk is a reference manager for LaTeX
@@ -72,13 +61,13 @@
       "dropbox"
       # A cross-platform, open-source messenger app for matrix-based chats
       "element"
+      "finicky"
       "nickkadutskyi/homebrew-cask/ghostty@tip"
       "google-chrome"
       "google-drive"
       "gpg-suite"
       "hazel"
       "iina"
-      # TODO remove this when I fully move to Alacritty
       "iterm2@beta"
       "jetbrains-toolbox"
       "karabiner-elements"
@@ -94,7 +83,6 @@
       "rapidapi"
       "sketch"
       "splashtop-business"
-      "spotify"
       "teamviewer"
       "transmission"
       "transmit"
@@ -123,10 +111,6 @@
   environment.customIcons = {
     enable = true;
     icons = [
-      {
-        path = "/Applications/Alacritty.app";
-        icon = ./alacritty/alacritty.icns;
-      }
       {
         path = "/Applications/Upwork.app";
         icon = ./upwork.icns;

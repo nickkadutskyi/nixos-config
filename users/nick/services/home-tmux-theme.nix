@@ -10,7 +10,7 @@ let
       ${tmuxPath} set -g pane-border-style fg=$BORDER_FG
       ${tmuxPath} set -g pane-active-border-style fg=$BORDER_FG
     '';
-  scriptPath = (toString (writeShellScript "home-alacritty-theme.sh" scriptContent));
+  scriptPath = (toString (writeShellScript "home-tmux-theme.sh" scriptContent));
   cmdPath = (toString (lib.getExe dark-mode-notify));
 in
 {

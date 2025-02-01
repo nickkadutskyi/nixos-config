@@ -260,7 +260,7 @@
       NSDocumentSaveNewDocumentsToCloud = true;
       # Prefer tabs when opening documents (always|fullscreen|never)
       AppleWindowTabbingMode = "always";
-      # To have consistent font rendering across all apps (Alacritty, iTerm)
+      # To have consistent font rendering across all apps
       AppleFontSmoothing = 0;
       # @ = Cmd; ^ = Control; ~ = Option; $ = Shift
       NSUserKeyEquivalents = {

@@ -195,6 +195,7 @@ in
     ])
     ++ (lib.optionals (isLinux && !isWSL) [
       chromium
+      ghostty
     ]);
 
   #---------------------------------------------------------------------
@@ -288,6 +289,10 @@ in
             ""
         }
       '';
+    "finicky/finicky.js" = {
+      source = ./finicky.js;
+      onChange = "cat ${config.xdg.configHome}/finicky/finicky.js > ${config.home.homeDirectory}/.finicky.js";
+    };
     "fzf/light.fzfrc".text = builtins.readFile ./fzf/light.fzfrc;
     "fzf/dark.fzfrc".text = builtins.readFile ./fzf/dark.fzfrc;
     "ghostty" = {
@@ -443,11 +448,6 @@ in
   # Programs
   #---------------------------------------------------------------------
 
-  programs.alacritty = {
-    enable = !isWSL;
-    settings = import ./alacritty/alacritty.nix { inherit lib pkgs; };
-  };
-
   programs.bash.enable = true;
 
   # Enables direnv to automatically switch environments in project directories.
@@ -598,10 +598,6 @@ in
 
   imports = [
     ./home-darwin.nix
-    (import ./services/home-alacritty-theme.nix {
-      inherit pkgs config;
-      alacritty = toString ./alacritty;
-    })
     ./services/home-fzf-theme.nix
     ./services/home-nvim-background.nix
     (import ./services/home-snippety-helper.nix { inherit systemUser pkgs config; })
