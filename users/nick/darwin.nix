@@ -26,6 +26,7 @@
     masApps = {
       "1Blocker - Ad Blocker" = 1365531024;
       "1Password for Safari" = 1569813296;
+      "Amazon Kindle" = 302584613;
       "BetterJSON for Safari" = 1511935951;
       "Core Tunnel" = 1354318707;
       "Easy CSV Editor" = 1171346381;
