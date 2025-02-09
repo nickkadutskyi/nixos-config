@@ -70,13 +70,13 @@ if [ -x "$(command -v fzf)" ]; then
       fi
     }
 
-    if tmux has-session -t="$project_name"; then
+    if tmux has-session -t="$project_name" 2>/dev/null; then
       switch_to
-      exit 0
+    else
+      tmux new -ds "$project_name" -c "$project_path" -n "$project_name" \; select-pane -t "$project_name":1.1 -T "$project_name"
+      tmux send-keys -t "$project_name" "ready-tmux" ^M
+      switch_to
     fi
-
-    tmux new -ds "$project_name" -c "$project_path"
-    switch_to
   }
 fi
 # fzf end

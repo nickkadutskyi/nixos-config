@@ -305,7 +305,9 @@ in
       ${builtins.readFile ./ideavimrc}
     '';
     "karabiner/karabiner.json".text = builtins.readFile ./karabiner.json;
-    "tmux/tmux.conf".text = builtins.readFile ./tmux.conf;
+    "tmux/tmux.conf".text = builtins.readFile ./tmux/tmux.conf;
+    "tmux/tmux-light.conf".text = builtins.readFile ./tmux/tmux-light.conf;
+    "tmux/tmux-dark.conf".text = builtins.readFile ./tmux/tmux-dark.conf;
     # TODO clean up vimrc and ideavimrc config
     "vim/vimrc".source = ./vimrc;
   };
