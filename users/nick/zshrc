@@ -54,6 +54,30 @@ if [ -x "$(command -v fzf)" ]; then
       cd "$project" && eval "$(direnv export zsh)" && nvim .
     fi
   }
+  prot() {
+    project_path="$({
+      fd . ~/Developer/*/* -d 1 -t d -E "*/.*"
+      fd -t d -H '^.git$' ~/.config --min-depth 2 -x echo {//}
+    } | FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc fzf -1 -q "$1")"
+
+    project_name=$(basename "$project_path" | tr ":,. " "____")
+
+    switch_to() {
+      if [[ -z "$TMUX" ]]; then
+        tmux attach -t "$project_name"
+      else
+        tmux switchc -t "$project_name"
+      fi
+    }
+
+    if tmux has-session -t="$project_name"; then
+      switch_to
+      exit 0
+    fi
+
+    tmux new -ds "$project_name" -c "$project_path"
+    switch_to
+  }
 fi
 # fzf end
 

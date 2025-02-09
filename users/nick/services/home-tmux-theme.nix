@@ -12,11 +12,12 @@ let
     '';
   scriptPath = (toString (writeShellScript "home-tmux-theme.sh" scriptContent));
   cmdPath = (toString (lib.getExe dark-mode-notify));
+  isDarwin = pkgs.stdenv.isDarwin;
 in
 {
   launchd.agents = {
     "tmux-theme-helper" = {
-      enable = true;
+      enable = isDarwin;
       config = {
         ProgramArguments = [
           "/bin/sh"

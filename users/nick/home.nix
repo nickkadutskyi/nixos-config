@@ -118,6 +118,7 @@ in
       yaml-language-server
       yamlfmt
       yamllint
+      xclip
       zig
       zls
 
@@ -601,5 +602,6 @@ in
     ./services/home-fzf-theme.nix
     ./services/home-nvim-background.nix
     (import ./services/home-snippety-helper.nix { inherit systemUser pkgs config; })
+    ./services/home-tmux-theme.nix
   ];
 }
