@@ -7,6 +7,8 @@
   inputs = {
     # Primary nixpkgs source for the system
     nixpkgs.url = "github:NixOs/nixpkgs/nixpkgs-unstable";
+    # Stable nixpkgs source for the system
+    nixpkgs-stable.url = "github:NixOs/nixpkgs/release-24.11";
 
     # Master nixpkgs source for the system to use for
     # awscli2 because it fails to build on nixpkgs-unstable
