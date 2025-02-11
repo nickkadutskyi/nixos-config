@@ -33,49 +33,79 @@ if [ -x "$(command -v fzf)" ]; then
   fzh() {
     eval "$( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')"
   }
-  # pro - search in your projects
-  pro() {
-    project="$({
+  list_projects() {
+    {
       fd . ~/Developer/*/* -d 1 -t d -E "*/.*"
       fd -t d -H '^.git$' ~/.config --min-depth 2 -x echo {//}
-    } | FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc fzf -1 -q "$1")"
+    }
+  }
+  # pro - search in your projects
+  pro() {
+    project="$(list_projects | FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc fzf -1 -q "$1")"
 
     if [[ ! -z $project ]]; then
       cd "$project" || exit
     fi
   }
+  # prov - search in your projects and open in nvim
   prov() {
-    project="$({
-      fd . ~/Developer/*/* -d 1 -t d -E "*/.*"
-      fd -t d -H '^.git$' ~/.config --min-depth 2 -x echo {//}
-    } | FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc fzf -1 -q "$1")"
+    project="$(list_projects | FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc fzf -1 -q "$1")"
 
     if [[ ! -z $project ]]; then
       cd "$project" && eval "$(direnv export zsh)" && nvim .
     fi
   }
+  # prot - search in your projects and open in tmux
   prot() {
-    project_path="$({
-      fd . ~/Developer/*/* -d 1 -t d -E "*/.*"
-      fd -t d -H '^.git$' ~/.config --min-depth 2 -x echo {//}
-    } | FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc fzf -1 -q "$1")"
+    sessions=$(tmux list-sessions -F "#{session_name}" 2>/dev/null)
+    projects=$(list_projects)
+    project_options=()
+    while read -r project_path; do
+      project_name=$(basename "$project_path" | tr ":,. " "____")
+      project_code=$(dirname "$project_path" | xargs -- basename | sed 's/^0*//')
+      account_code=$(dirname "$project_path" | xargs -- dirname | xargs -- basename)
+      session_name="$account_code$project_code $project_name"
 
-    project_name=$(basename "$project_path" | tr ":,. " "____")
+      has_session=false
+      while read -r session; do
+        if [[ "$session" == "$session_name" ]]; then
+          has_session=true
+          break
+        fi
+      done <<<"$sessions"
+
+      if [[ "$has_session" == true ]]; then
+        project_options+=("$project_path (tmux: $session_name)")
+      else
+        project_options+=("$project_path")
+      fi
+    done<<<"$projects"
+
+    selected_project_path="$(printf "%s\n" "${project_options[@]}" |
+      FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc fzf -1 -q "$1")"
 
     switch_to() {
       if [[ -z "$TMUX" ]]; then
-        tmux attach -t "$project_name"
+        tmux attach -t "$session_name"
       else
-        tmux switchc -t "$project_name"
+        tmux switchc -t "$session_name"
       fi
     }
 
-    if tmux has-session -t="$project_name" 2>/dev/null; then
-      switch_to
-    else
-      tmux new -ds "$project_name" -c "$project_path" -n "$project_name" \; select-pane -t "$project_name":1.1 -T "$project_name"
-      tmux send-keys -t "$project_name" "ready-tmux" ^M
-      switch_to
+    if [[ -n "$selected_project_path" ]]; then
+      selected_project_path=$(echo "$selected_project_path" | sed 's/ (.*)\(.*\)$//g')
+      project_name=$(basename "$selected_project_path" | tr ":,. " "____")
+      project_code=$(dirname "$selected_project_path" | xargs -- basename | sed 's/^0*//')
+      account_code=$(dirname "$selected_project_path" | xargs -- dirname | xargs -- basename)
+
+      session_name="$account_code$project_code $project_name"
+      if tmux has-session -t="$session_name" 2>/dev/null; then
+        switch_to
+      else
+        tmux new -ds "$session_name" -c "$selected_project_path" -n "$session_name" \; select-pane -t "$session_name":1.1 -T "$session_name"
+        tmux send-keys -t "$session_name" "ready-tmux" ^M
+        switch_to
+      fi
     fi
   }
 fi
