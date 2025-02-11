@@ -15,6 +15,7 @@ let
   isDarwin = pkgs.stdenv.isDarwin;
   isLinux = pkgs.stdenv.isLinux;
   pkgs-master = inputs.nixpkgs-master.legacyPackages.${pkgs.system};
+  pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${pkgs.system};
 in
 {
   # This value determines the Home Manager release that your
@@ -102,7 +103,7 @@ in
       rubyPackages.standard
       # Lints CSS and SCSS
       stylelint
-      stylelint-lsp
+      pkgs-stable.stylelint-lsp
       # Reformats Lua code
       stylua
       # Reformats TOML code
