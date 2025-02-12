@@ -7,7 +7,7 @@
 {
   # i3-like tiling window manager for macOS
   services.aerospace = {
-    enable = false;
+    enable = true;
     settings =
       let
         defaultLayout = "accordion";
@@ -40,14 +40,14 @@
           alt-shift-l = "move right";
           alt-shift-ctrl-minus = "resize smart -50";
           alt-shift-ctrl-equal = "resize smart +50";
-          alt-1 = "workspace T";
+          alt-1 = "workspace C";
           alt-2 = "workspace W";
-          alt-3 = "workspace C";
+          alt-3 = "workspace S";
           alt-4 = "workspace M";
           alt-5 = "workspace J";
-          alt-shift-1 = "move-node-to-workspace T";
+          alt-shift-1 = "move-node-to-workspace C";
           alt-shift-2 = "move-node-to-workspace W";
-          alt-shift-3 = "move-node-to-workspace C";
+          alt-shift-3 = "move-node-to-workspace S";
           alt-shift-4 = "move-node-to-workspace M";
           alt-shift-5 = "move-node-to-workspace J";
           alt-shift-semicolon = "mode service";
@@ -98,21 +98,21 @@
             };
             check-further-callbacks = true;
             run = [
-              "move-node-to-workspace 1"
+              "move-node-to-workspace S"
             ];
           }
-          # Disabled for now because it tries to bring quick terminal to
-          # T workspace as well which hides it and breaks the view
-          # {
-          #   "if" = {
-          #     app-id = "com.mitchellh.ghostty"; # Ghostty
-          #   };
-          #   check-further-callbacks = true;
-          #   run = [
-          #     "layout floating"
-          #     "move-node-to-workspace T"
-          #   ];
-          # }
+          # C workspace as well which hides it and breaks the view
+          {
+            "if" = {
+              app-id = "com.mitchellh.ghostty"; # Ghostty
+            };
+            check-further-callbacks = true;
+            run = [
+              "layout floating"
+              # Disabled for now because it tries to bring quick terminal to
+              # "move-node-to-workspace C"
+            ];
+          }
           {
             "if" = {
               app-id = "pro.writer.mac"; # iA Writer
@@ -129,7 +129,7 @@
             };
             check-further-callbacks = true;
             run = [
-              "move-node-to-workspace C"
+              "move-node-to-workspace M"
             ];
           }
           {
@@ -138,7 +138,7 @@
             };
             check-further-callbacks = true;
             run = [
-              "move-node-to-workspace C"
+              "move-node-to-workspace M"
             ];
           }
           {
@@ -165,7 +165,7 @@
             };
             check-further-callbacks = true;
             run = [
-              "move-node-to-workspace C"
+              "move-node-to-workspace M"
             ];
           }
           {
@@ -174,7 +174,7 @@
             };
             check-further-callbacks = true;
             run = [
-              "move-node-to-workspace C"
+              "move-node-to-workspace M"
             ];
           }
         ];
