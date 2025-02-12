@@ -4,7 +4,34 @@
   pkgs,
   ...
 }:
+let
+  isDarwin = pkgs.stdenv.isDarwin;
+in
 {
+  #---------------------------------------------------------------------
+  # Apps
+  #---------------------------------------------------------------------
+
+  # Tizen Studio
+  home.activation = {
+    tizenStudioIcons = lib.mkIf isDarwin (
+      lib.hm.dag.entryAfter [ "writeBoundary" ]
+        # bash
+        ''
+          TIZEN_ICONS_PATH="$HOME/Tizen/tizen-studio/TizenStudio.app/Contents/Eclipse/plugins/org.tizen.product.plugin_*/icons/branding"
+          SIZES="128 16 256 32 512 64"
+          if [ -d $TIZEN_ICONS_PATH ]; then
+            for size in $SIZES; do
+              cp -f "${./icons}/tizen_studio_''${size}.png" $TIZEN_ICONS_PATH/"tizen_studio_''${size}.png"
+            done
+          else
+            echo "Missing Tizen Studio icons path: $TIZEN_ICONS_PATH"
+          fi
+
+        ''
+    );
+  };
+
   #---------------------------------------------------------------------
   # System and UI
   #---------------------------------------------------------------------

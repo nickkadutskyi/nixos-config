@@ -114,7 +114,11 @@
     icons = [
       {
         path = "/Applications/Upwork.app";
-        icon = ./upwork.icns;
+        icon = ./icons/upwork.icns;
+      }
+      {
+        path = "/Users/nick/Tizen/tizen-studio/TizenStudio.app";
+        icon = ./icons/tizen.icns;
       }
     ];
   };
