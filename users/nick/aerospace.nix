@@ -68,7 +68,7 @@
             alt-2 = "workspace W";
             alt-3 = "workspace S";
             alt-4 = "workspace M";
-            alt-5 = "workspace J";
+            alt-5 = "workspace P";
             alt-shift-1 = [
               "exec-and-forget ${switcher} C"
             ];
@@ -82,7 +82,7 @@
               "exec-and-forget ${switcher} M"
             ];
             alt-shift-5 = [
-              "exec-and-forget ${switcher} J"
+              "exec-and-forget ${switcher} P"
             ];
             alt-shift-semicolon = "mode service";
             alt-enter = "fullscreen";
@@ -108,6 +108,38 @@
           ];
         };
         on-window-detected = [
+
+          # ----------------------------------------------------------------
+          # [C]oding workspace
+          # ----------------------------------------------------------------
+          {
+            "if" = {
+              app-id = "com.mitchellh.ghostty"; # Ghostty
+            };
+            check-further-callbacks = true;
+            run = [
+              "layout floating"
+              # Disabled for now because it tries to bring quick terminal to
+              # "move-node-to-workspace C"
+            ];
+          }
+
+          # ----------------------------------------------------------------
+          # [W]eb workspace
+          # ----------------------------------------------------------------
+          {
+            "if" = {
+              app-id = "com.apple.Safari"; # Safari
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace W"
+            ];
+          }
+
+          # ----------------------------------------------------------------
+          # [M]anagement and communication workspace
+          # ----------------------------------------------------------------
           {
             "if" = {
               app-id = "com.apple.iCal"; # Calendar
@@ -124,37 +156,6 @@
             check-further-callbacks = true;
             run = [
               "move-node-to-workspace M"
-            ];
-          }
-          {
-            "if" = {
-              app-id = "com.jetbrains.datagrip"; # DataGrip
-            };
-            check-further-callbacks = true;
-            run = [
-              "move-node-to-workspace S"
-            ];
-          }
-          # C workspace as well which hides it and breaks the view
-          {
-            "if" = {
-              app-id = "com.mitchellh.ghostty"; # Ghostty
-            };
-            check-further-callbacks = true;
-            run = [
-              "layout floating"
-              # Disabled for now because it tries to bring quick terminal to
-              # "move-node-to-workspace C"
-            ];
-          }
-          {
-            "if" = {
-              app-id = "pro.writer.mac"; # iA Writer
-            };
-            check-further-callbacks = true;
-            run = [
-              "layout floating"
-              "move-node-to-workspace J"
             ];
           }
           {
@@ -177,24 +178,6 @@
           }
           {
             "if" = {
-              app-id = "com.apple.Notes"; # Notes
-            };
-            check-further-callbacks = true;
-            run = [
-              "move-node-to-workspace J"
-            ];
-          }
-          {
-            "if" = {
-              app-id = "com.apple.Safari"; # Safari
-            };
-            check-further-callbacks = true;
-            run = [
-              "move-node-to-workspace W"
-            ];
-          }
-          {
-            "if" = {
               app-id = "ru.keepcoder.Telegram"; # Telegram
             };
             check-further-callbacks = true;
@@ -211,13 +194,58 @@
               "move-node-to-workspace M"
             ];
           }
+
+          # ----------------------------------------------------------------
+          # [S]ervices workspace
+          # ----------------------------------------------------------------
+          {
+            "if" = {
+              app-id = "com.jetbrains.datagrip"; # DataGrip
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace S"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.apple.ActivityMonitor";
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace S"
+            ];
+          }
+
+          # ----------------------------------------------------------------
+          # [P]ersonal workspace
+          # ----------------------------------------------------------------
+          {
+            "if" = {
+              app-id = "pro.writer.mac"; # iA Writer
+            };
+            check-further-callbacks = true;
+            run = [
+              "layout floating"
+              "move-node-to-workspace P"
+            ];
+          }
           {
             "if" = {
               app-id = "com.reederapp.5.macOS"; # Reeder
             };
             check-further-callbacks = true;
             run = [
-              "move-node-to-workspace J"
+              "move-node-to-workspace P"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.apple.Notes"; # Notes
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace P"
             ];
           }
         ];
