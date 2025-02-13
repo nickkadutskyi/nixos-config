@@ -55,6 +55,8 @@ in
       clippy
       # Emmet support based on LSP
       emmet-ls
+      # GNU find, xargs, locate, updatedb utilities
+      findutils
       # Python linter
       python313Packages.flake8
       gitlint

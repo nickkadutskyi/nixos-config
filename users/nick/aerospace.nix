@@ -34,12 +34,13 @@
                   # bash
                   ''
                     AS=${pkgs.aerospace}/bin/aerospace
+                    XA=${pkgs.findutils}/bin/xargs
                     APP_FOCUSED=($($AS list-windows --focused --format "%{app-name}%{newline}%{window-id}"))
                     WORKSPACE_ID=$1
                     declare -a APPS=("Ghostty" "Finder")
                     if [[ " ''${APPS[@]} " =~ " ''${APP_FOCUSED[1]} " ]]; then
                       $AS list-windows --all --format "%{window-id}" |
-                        /usr/bin/xargs -I _ $AS move-node-to-workspace $WORKSPACE_ID --window-id _
+                        $XA -I _ $AS move-node-to-workspace $WORKSPACE_ID --window-id _
                       $AS focus --window-id ''${APP_FOCUSED[2]}
                     else
                       $AS move-node-to-workspace $WORKSPACE_ID
@@ -208,6 +209,15 @@
             check-further-callbacks = true;
             run = [
               "move-node-to-workspace M"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.reederapp.5.macOS"; # Reeder
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace J"
             ];
           }
         ];
