@@ -26,33 +26,66 @@
           outer.top = 0;
           outer.right = 0;
         };
-        mode.main.binding = {
-          alt-slash = "layout tiles horizontal vertical";
-          alt-comma = "layout accordion horizontal vertical";
-          alt-period = "layout floating tiling";
-          alt-h = "focus --boundaries-action wrap-around-the-workspace left";
-          alt-j = "focus --boundaries-action wrap-around-the-workspace down";
-          alt-k = "focus --boundaries-action wrap-around-the-workspace up";
-          alt-l = "focus --boundaries-action wrap-around-the-workspace right";
-          alt-shift-h = "move left";
-          alt-shift-j = "move down";
-          alt-shift-k = "move up";
-          alt-shift-l = "move right";
-          alt-shift-ctrl-minus = "resize smart -50";
-          alt-shift-ctrl-equal = "resize smart +50";
-          alt-1 = "workspace C";
-          alt-2 = "workspace W";
-          alt-3 = "workspace S";
-          alt-4 = "workspace M";
-          alt-5 = "workspace J";
-          alt-shift-1 = "move-node-to-workspace C";
-          alt-shift-2 = "move-node-to-workspace W";
-          alt-shift-3 = "move-node-to-workspace S";
-          alt-shift-4 = "move-node-to-workspace M";
-          alt-shift-5 = "move-node-to-workspace J";
-          alt-shift-semicolon = "mode service";
-          alt-enter = "fullscreen";
-        };
+        mode.main.binding =
+          let
+            switcher = (
+              toString (
+                pkgs.writeShellScript "aerospace-switcher.sh"
+                  # bash
+                  ''
+                    AS=${pkgs.aerospace}/bin/aerospace
+                    APP_FOCUSED=($($AS list-windows --focused --format "%{app-name}%{newline}%{window-id}"))
+                    WORKSPACE_ID=$1
+                    declare -a APPS=("Ghostty" "Finder")
+                    if [[ " ''${APPS[@]} " =~ " ''${APP_FOCUSED[1]} " ]]; then
+                      $AS list-windows --all --format "%{window-id}" |
+                        /usr/bin/xargs -I _ $AS move-node-to-workspace $WORKSPACE_ID --window-id _
+                      $AS focus --window-id ''${APP_FOCUSED[2]}
+                    else
+                      $AS move-node-to-workspace $WORKSPACE_ID
+                      $AS workspace $WORKSPACE_ID
+                    fi
+                  ''
+              )
+            );
+          in
+          {
+            alt-slash = "layout tiles horizontal vertical";
+            alt-comma = "layout accordion horizontal vertical";
+            alt-period = "layout floating tiling";
+            alt-h = "focus --boundaries-action wrap-around-the-workspace left";
+            alt-j = "focus --boundaries-action wrap-around-the-workspace down";
+            alt-k = "focus --boundaries-action wrap-around-the-workspace up";
+            alt-l = "focus --boundaries-action wrap-around-the-workspace right";
+            alt-shift-h = "move left";
+            alt-shift-j = "move down";
+            alt-shift-k = "move up";
+            alt-shift-l = "move right";
+            alt-shift-ctrl-minus = "resize smart -50";
+            alt-shift-ctrl-equal = "resize smart +50";
+            alt-1 = "workspace C";
+            alt-2 = "workspace W";
+            alt-3 = "workspace S";
+            alt-4 = "workspace M";
+            alt-5 = "workspace J";
+            alt-shift-1 = [
+              "exec-and-forget ${switcher} C"
+            ];
+            alt-shift-2 = [
+              "exec-and-forget ${switcher} W"
+            ];
+            alt-shift-3 = [
+              "exec-and-forget ${switcher} S"
+            ];
+            alt-shift-4 = [
+              "exec-and-forget ${switcher} M"
+            ];
+            alt-shift-5 = [
+              "exec-and-forget ${switcher} J"
+            ];
+            alt-shift-semicolon = "mode service";
+            alt-enter = "fullscreen";
+          };
         mode.service.binding = {
           esc = [
             "reload-config"
