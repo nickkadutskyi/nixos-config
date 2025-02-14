@@ -210,6 +210,15 @@
           # ----------------------------------------------------------------
           {
             "if" = {
+              app-id = "com.google.Chrome";
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace S"
+            ];
+          }
+          {
+            "if" = {
               app-id = "com.jetbrains.datagrip"; # DataGrip
             };
             check-further-callbacks = true;
@@ -229,6 +238,15 @@
           {
             "if" = {
               app-id = "org.tizen.sdk.ide";
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace S"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "org.tizen.cert.ide";
             };
             check-further-callbacks = true;
             run = [
