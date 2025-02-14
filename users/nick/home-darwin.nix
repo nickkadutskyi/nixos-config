@@ -59,7 +59,7 @@ in
       autohide = true;
       "mru-spaces" = false;
       # For better Mission Control view when using Aerospace
-      "expose-group-apps" = false;
+      "expose-group-apps" = true;
       # Persistent Dock items on the left (using for frequently used apps)
       "persistent-apps" = [
         {
