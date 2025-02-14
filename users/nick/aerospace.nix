@@ -37,7 +37,7 @@
                     XA=${pkgs.findutils}/bin/xargs
                     APP_FOCUSED=($($AS list-windows --focused --format "%{app-name}%{newline}%{window-id}"))
                     WORKSPACE_ID=$1
-                    declare -a APPS=("Ghostty" "Finder")
+                    declare -a APPS=("Ghostty" "Finder" "IntelliJ IDEA")
                     if [[ " ''${APPS[@]} " =~ " ''${APP_FOCUSED[1]} " ]]; then
                       $AS list-windows --all --format "%{window-id}" |
                         $XA -I _ $AS move-node-to-workspace $WORKSPACE_ID --window-id _
@@ -114,13 +114,23 @@
           # ----------------------------------------------------------------
           {
             "if" = {
-              app-id = "com.mitchellh.ghostty"; # Ghostty
+              app-id = "com.mitchellh.ghostty";
             };
             check-further-callbacks = true;
             run = [
               "layout floating"
               # Disabled for now because it tries to bring quick terminal to
               # "move-node-to-workspace C"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.jetbrains.intellij";
+            };
+            check-further-callbacks = true;
+            run = [
+              "layout floating"
+              "move-node-to-workspace C"
             ];
           }
 
@@ -210,6 +220,15 @@
           {
             "if" = {
               app-id = "com.apple.ActivityMonitor";
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace S"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "org.tizen.sdk.ide";
             };
             check-further-callbacks = true;
             run = [
