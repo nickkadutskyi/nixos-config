@@ -216,6 +216,15 @@
               "move-node-to-workspace S"
             ];
           }
+          {
+            "if" = {
+              app-id = "org.tizen.sdk.ide";
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace S"
+            ];
+          }
 
           # ----------------------------------------------------------------
           # [P]ersonal workspace
