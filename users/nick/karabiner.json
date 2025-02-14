@@ -138,7 +138,8 @@
                     ],
                     "optional": [
                       "caps_lock",
-                      "option"
+                      "option",
+                      "command"
                     ]
                   }
                 },
@@ -158,7 +159,8 @@
                     ],
                     "optional": [
                       "caps_lock",
-                      "option"
+                      "option",
+                      "command"
                     ]
                   }
                 },
