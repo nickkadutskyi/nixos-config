@@ -148,64 +148,6 @@
           }
 
           # ----------------------------------------------------------------
-          # [M]anagement and communication workspace
-          # ----------------------------------------------------------------
-          {
-            "if" = {
-              app-id = "com.apple.iCal"; # Calendar
-            };
-            check-further-callbacks = true;
-            run = [
-              "move-node-to-workspace M"
-            ];
-          }
-          {
-            "if" = {
-              app-id = "com.clickup.desktop-app"; # ClickUp
-            };
-            check-further-callbacks = true;
-            run = [
-              "move-node-to-workspace M"
-            ];
-          }
-          {
-            "if" = {
-              app-id = "com.apple.mail"; # Mail
-            };
-            check-further-callbacks = true;
-            run = [
-              "move-node-to-workspace M"
-            ];
-          }
-          {
-            "if" = {
-              app-id = "com.apple.MobileSMS"; # Messages
-            };
-            check-further-callbacks = true;
-            run = [
-              "move-node-to-workspace M"
-            ];
-          }
-          {
-            "if" = {
-              app-id = "ru.keepcoder.Telegram"; # Telegram
-            };
-            check-further-callbacks = true;
-            run = [
-              "move-node-to-workspace M"
-            ];
-          }
-          {
-            "if" = {
-              app-id = "com.upwork.Upwork"; # Upwork
-            };
-            check-further-callbacks = true;
-            run = [
-              "move-node-to-workspace M"
-            ];
-          }
-
-          # ----------------------------------------------------------------
           # [S]ervices workspace
           # ----------------------------------------------------------------
           {
@@ -251,6 +193,73 @@
             check-further-callbacks = true;
             run = [
               "move-node-to-workspace S"
+            ];
+          }
+
+          # ----------------------------------------------------------------
+          # [M]anagement and communication workspace
+          # ----------------------------------------------------------------
+          {
+            "if" = {
+              app-id = "com.apple.iCal"; # Calendar
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace M"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.clickup.desktop-app"; # ClickUp
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace M"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.apple.mail"; # Mail
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace M"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.apple.MobileSMS"; # Messages
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace M"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.apple.reminders";
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace M"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "ru.keepcoder.Telegram"; # Telegram
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace M"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.upwork.Upwork"; # Upwork
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace M"
             ];
           }
 
