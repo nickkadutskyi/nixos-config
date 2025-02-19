@@ -61,9 +61,15 @@ if [ -x "$(command -v fzf)" ]; then
     projects=$(list_projects)
     project_options=()
     while read -r project_path; do
-      project_name=$(basename "$project_path" | tr ":,. " "____")
-      project_code=$(dirname "$project_path" | xargs -- basename | sed 's/^0*//')
-      account_code=$(dirname "$project_path" | xargs -- dirname | xargs -- basename)
+      project_path="${project_path%/}"
+      project_name=${project_path##*/}
+      project_name=${project_name//[:,. ]/____}
+      dir=${project_path%/*}
+      project_code=${dir##*/}
+      project_code=${project_code#"${project_code%%[!0]*}"}
+      temp=${dir%/*}
+      account_code=${temp##*/}
+
       session_name="$account_code$project_code $project_name"
 
       has_session=false
@@ -79,7 +85,7 @@ if [ -x "$(command -v fzf)" ]; then
       else
         project_options+=("$project_path")
       fi
-    done<<<"$projects"
+    done <<<"$projects"
 
     selected_project_path="$(printf "%s\n" "${project_options[@]}" |
       FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc fzf -1 -q "$1")"
