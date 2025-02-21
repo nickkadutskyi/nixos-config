@@ -78,6 +78,7 @@ in
       nodePackages_latest.nodejs
       # Another PHP language server (open source)
       phpactor
+      prettierd
       # Python linter
       pylint
       # Static type checker for Python
@@ -118,6 +119,7 @@ in
       # Neeeded for DAP but currently not in nixpkgs TODO package it for nixpkgs
       # vscode-php-debug
       vue-language-server
+      xmlstarlet
       yaml-language-server
       yamlfmt
       yamllint
