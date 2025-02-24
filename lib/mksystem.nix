@@ -73,6 +73,9 @@ systemFunc rec {
           "clickup/api_key" = {
             owner = systemUser;
           };
+          "anthropic/api_key" = {
+            owner = systemUser;
+          };
         };
       };
     }
