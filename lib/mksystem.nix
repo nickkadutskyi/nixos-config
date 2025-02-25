@@ -65,7 +65,7 @@ systemFunc rec {
     {
       sops = {
         defaultSopsFile = ../secrets/secrets.yaml;
-        age.keyFile = "/Users/nick/.config/sops/age/key.txt";
+        age.keyFile = "/Users/nick/.config/sops/age/keys.txt";
         secrets = {
           "php/intelephense_license" = {
             owner = systemUser;
