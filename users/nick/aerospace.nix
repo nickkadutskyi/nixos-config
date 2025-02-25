@@ -195,6 +195,15 @@
               "move-node-to-workspace S"
             ];
           }
+          {
+            "if" = {
+              app-name-regex-substring = "device-manager";
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace S"
+            ];
+          }
 
           # ----------------------------------------------------------------
           # [M]anagement and communication workspace
