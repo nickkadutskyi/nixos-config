@@ -120,6 +120,14 @@
         path = "/Users/nick/Tizen/tizen-studio/TizenStudio.app";
         icon = ./icons/tizen.icns;
       }
+      {
+        path = "/Users/nick/Tizen/tizen-studio/tools/certificate-manager/Certificate-manager.app";
+        icon = ./icons/certificate_manager.icns;
+      }
+      {
+        path = "/Users/nick/Tizen/tizen-studio/tools/device-manager/bin/device-manager.app";
+        icon = ./icons/device_manager.icns;
+      }
     ];
   };
   # Enable the touch-id authentication for sudo via tmux reattach and in proper file
