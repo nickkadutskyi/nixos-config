@@ -38,7 +38,6 @@ in
             cp "${./icons}/device-256.png" temp_dir/res/
             (cd temp_dir && ${pkgs.zip}/bin/zip -u $DEVICE_MANAGER_PATH/bin/device-ui-3.0.jar res/device-256.png)
             rm -rf temp_dir
-            # ${pkgs.zip}/bin/zip -u $DEVICE_MANAGER_PATH/bin/device-ui-3.0.jar res/device-256.png -j "${./icons}/device-256.png"
             cp -f "${./icons}/device_manager.icns" $DEVICE_MANAGER_ICONS_PATH/"device_manager.icns"
             cp -f "${./icons}/device_manager.ico" $DEVICE_MANAGER_ICONS_PATH/"device_manager.ico"
             for size in $SIZES; do
