@@ -392,13 +392,15 @@ in
       lib.hm.dag.entryAfter [ "writeBoundary" ]
         # bash
         ''
-          CRM_ACCOUNTS=/Users/${systemUser}/Library/Mobile\ Documents/com~apple~CloudDocs/Projects
+          export CRM_ACCOUNTS USER
+          USER=${systemUser}
+          CRM_ACCOUNTS=/Users/$USER/Library/Mobile\ Documents/com~apple~CloudDocs/Projects
           for acc_path in "$CRM_ACCOUNTS"/*/; do
             acc_name="$(basename "$acc_path")"
             for project_path in "$acc_path"/*/; do
               project_name="$(basename "$project_path" | cut -d' ' -f1)"
               if [[ $project_name =~ ^[0-9]+$ ]] && [ -f "$project_path/.project.json" ]; then
-                mkdir -p "/Users/${systemUser}/Developer/$acc_name/$project_name"
+                mkdir -p "/Users/$USER/Developer/$acc_name/$project_name"
               fi
             done
           done
@@ -408,8 +410,11 @@ in
       lib.hm.dag.entryAfter [ "writeBoundary" ]
         # bash
         ''
+          export PKG_CURL PKG_BASH
+          PKG_BASH=${pkgs.bash}
+          PKG_CURL=${pkgs.curl}
           if [ ! -d ~/Downloads/.snippety-helper ]; then
-            cd ~/Downloads && ${pkgs.bash}/bin/bash -c "$(${pkgs.curl}/bin/curl -fsSL https://snippety.app/SnippetyHelper-Installer.sh)"
+            cd ~/Downloads && "$PKG_BASH/bin/bash" -c "$("$PKG_CURL/bin/curl" -fsSL https://snippety.app/SnippetyHelper-Installer.sh)"
           fi
         '';
     checkBashPermissions = # Required for snippety-helper

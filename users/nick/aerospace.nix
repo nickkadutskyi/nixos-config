@@ -204,6 +204,15 @@
               "move-node-to-workspace S"
             ];
           }
+          {
+            "if" = {
+              app-id = "com.panic.Transmit";
+            };
+            check-further-callbacks = true;
+            run = [
+              "move-node-to-workspace S"
+            ];
+          }
 
           # ----------------------------------------------------------------
           # [M]anagement and communication workspace
