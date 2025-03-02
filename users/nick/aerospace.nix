@@ -1,13 +1,18 @@
 {
+  inputs,
   config,
   pkgs,
   systemName,
   ...
 }:
+let
+  pkgs-master = inputs.nixpkgs-master.legacyPackages.${pkgs.system};
+in
 {
   # i3-like tiling window manager for macOS
   services.aerospace = {
     enable = true;
+    package = pkgs-master.aerospace;
     settings =
       let
         defaultLayout = "accordion";
@@ -33,7 +38,7 @@
                 pkgs.writeShellScript "aerospace-switcher.sh"
                   # bash
                   ''
-                    AS=${pkgs.aerospace}/bin/aerospace
+                    AS=${pkgs-master.aerospace}/bin/aerospace
                     XA=${pkgs.findutils}/bin/xargs
                     APP_FOCUSED=($($AS list-windows --focused --format "%{app-name}%{newline}%{window-id}"))
                     WORKSPACE_ID=$1
