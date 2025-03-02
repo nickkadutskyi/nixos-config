@@ -123,9 +123,7 @@ in
             };
             check-further-callbacks = true;
             run = [
-              "layout floating"
-              # Disabled for now because it tries to bring quick terminal to
-              # "move-node-to-workspace C"
+              "move-node-to-workspace C"
             ];
           }
           {
