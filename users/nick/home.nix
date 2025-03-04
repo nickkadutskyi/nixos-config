@@ -448,6 +448,8 @@ in
         ''
           export CRM_ACCOUNTS USER
           USER=${systemUser}
+
+          # Create dev directories for CRM accounts and projects
           CRM_ACCOUNTS=/Users/$USER/Library/Mobile\ Documents/com~apple~CloudDocs/Projects
           for acc_path in "$CRM_ACCOUNTS"/*/; do
             acc_name="$(basename "$acc_path")"
@@ -458,6 +460,11 @@ in
               fi
             done
           done
+
+          # prepare intelephense directory
+          /bin/mkdir -p ~/intelephense
+          # and hide it
+          /usr/bin/chflags hidden ~/intelephense
         ''
     );
     snippetyHelperInstallation = # Required for snippety-helper
