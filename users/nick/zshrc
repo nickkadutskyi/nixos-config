@@ -156,6 +156,22 @@ menu-select-wrap() {
   zle menu-select
 }
 zle -N menu-select-wrap
+wrap(){
+  functions[${1}:old]="$(
+      unfunction ${1} 2> /dev/null
+      builtin autoload +X -Uz ~autocomplete/Functions/Widgets/${1}
+      print -r -- "${functions[${1}]}"
+  )"
+  eval "${1}(){
+    bindkey -M menuselect ${terminfo[kcub1]} ${2}
+    bindkey -M menuselect ${terminfo[kcuf1]} ${3}
+    bindkey -M menuselect '\r' ${4}
+    ${1}:old \$@
+  }"
+}
+wrap .autocomplete__history-search__completion-widget .backward-char .forward-char .accept-line
+wrap .autocomplete__complete-word__completion-widget backward-char forward-char accept-line
+unfunction wrap
 # bindkey              '^I' menu-select
 # bindkey "${terminfo[kcbt]}" menu-select
 # Uses wrapper to fix issue with zsh-autosuggestions
@@ -163,7 +179,7 @@ bindkey              '^I' menu-select-wrap
 bindkey "${terminfo[kcbt]}" menu-select-wrap
 bindkey -M menuselect              '^I'         menu-complete
 bindkey -M menuselect "${terminfo[kcbt]}" reverse-menu-complete
-bindkey -M menuselect  '^[[D' .backward-char  '^[OD' .backward-char
-bindkey -M menuselect  '^[[C'  .forward-char  '^[OC'  .forward-char
+# bindkey -M menuselect  '^[[D' .backward-char  '^[OD' .backward-char
+# bindkey -M menuselect  '^[[C'  .forward-char  '^[OC'  .forward-char
 # zsh-autocomplete end
 

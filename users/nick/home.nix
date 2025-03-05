@@ -630,10 +630,20 @@ in
     # Disable completion for zsh-autocomplete plugin to work
     enableCompletion = false;
     plugins = [
+      # {
+      #   name = "zsh-autocomplete";
+      #   src = pkgs.zsh-autocomplete;
+      #   file = "share/zsh-autocomplete/zsh-autocomplete.plugin.zsh";
+      # }
       {
-        name = "zsh-autocomplete";
-        src = pkgs.zsh-autocomplete;
-        file = "share/zsh-autocomplete/zsh-autocomplete.plugin.zsh";
+        name = "zsh-autocomplete-git";
+        src = pkgs.fetchFromGitHub {
+          owner = "marlonrichert";
+          repo = "zsh-autocomplete";
+          rev = "adfade31a84dfa512a7e3583d567ee19ac4a7936";
+          sha256 = "0d2mxc57zgmf09sprajmp180n7j9rp0i7c1hg5smplyysdcf7hwb";
+        };
+        file = "zsh-autocomplete.plugin.zsh";
       }
       {
         name = "zsh-autosuggestions";
