@@ -152,6 +152,7 @@ ANTHROPIC_API_KEY="$(cat /run/secrets/anthropic/api_key)"
 # API KEYS end
 
 # zsh-auotcomplete start
+setopt interactivecomments
 menu-select-wrap() {
   zle menu-select
 }
@@ -165,8 +166,6 @@ wrap(){
       print -r -- "${functions[${1}]}"
   )"
   eval "${1}(){
-    # bindkey -M menuselect ${terminfo[kcub1]} ${2}
-    # bindkey -M menuselect ${terminfo[kcuf1]} ${3}
     bindkey -M menuselect  '^[[D' ${2}  '^[OD' ${2}
     bindkey -M menuselect  '^[[C'  ${3}  '^[OC'  ${3}
     bindkey -M menuselect '\r' ${4}
@@ -184,7 +183,5 @@ bindkey              '^I' menu-select-wrap
 bindkey "${terminfo[kcbt]}" menu-select-wrap
 bindkey -M menuselect              '^I'         menu-complete
 bindkey -M menuselect "${terminfo[kcbt]}" reverse-menu-complete
-# bindkey -M menuselect  '^[[D' .backward-char  '^[OD' .backward-char
-# bindkey -M menuselect  '^[[C'  .forward-char  '^[OC'  .forward-char
 # zsh-autocomplete end
 
