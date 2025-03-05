@@ -627,8 +627,14 @@ in
 
   programs.zsh = {
     enable = true;
-    enableCompletion = true;
+    # Disable completion for zsh-autocomplete plugin to work
+    enableCompletion = false;
     plugins = [
+      {
+        name = "zsh-autocomplete";
+        src = pkgs.zsh-autocomplete;
+        file = "share/zsh-autocomplete/zsh-autocomplete.plugin.zsh";
+      }
       {
         name = "zsh-autosuggestions";
         src = pkgs.zsh-autosuggestions;
