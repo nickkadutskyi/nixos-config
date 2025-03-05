@@ -317,9 +317,14 @@ in
     view = "nvim";
     vimdiff = "nvim -d";
     # vimn = toString inputs.neovim-nightly-overlay.packages.${pkgs.system}.default + "/bin/nvim";
-    # EPDS
-    # List EPDS AWS EC2 Instances
-    epds_ec2 = "aws ec2 describe-instances  --query 'Reservations[].Instances[?not_null(Tags[?Key==\`Name\`].Value)]|[].[State.Name,PrivateIpAddress,PublicIpAddress,InstanceId,Tags[?Key==\`Name\`].Value[]|[0]] | sort_by(@, &[3])'  --output text |  sed '$!N;s/ / /'";
+    aws_ec2_instances =
+      # bash
+      ''
+        aws ec2 describe-instances \
+        --filters "Name=instance-state-name,Values=running" \
+        --query 'sort_by(Reservations[].Instances[], &Tags[?Key==`Name`].Value|[0] || `z-unnamed`)[].{InstanceID:InstanceId,Type:InstanceType,State:State.Name,PublicIP:PublicIpAddress,PrivateIP:PrivateIpAddress,Name:Tags[?Key==`Name`].Value|[0]}' \
+        --output table
+      '';
   };
 
   xdg.configFile = {
