@@ -158,6 +158,7 @@ menu-select-wrap() {
 zle -N menu-select-wrap
 # bindkey              '^I' menu-select
 # bindkey "${terminfo[kcbt]}" menu-select
+# Uses wrapper to fix issue with zsh-autosuggestions
 bindkey              '^I' menu-select-wrap
 bindkey "${terminfo[kcbt]}" menu-select-wrap
 bindkey -M menuselect              '^I'         menu-complete
