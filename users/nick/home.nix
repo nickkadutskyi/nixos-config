@@ -332,9 +332,8 @@ in
         --deployment-ids $(aws deploy list-deployments --query 'deployments' --output json --max-items 10 | jq -r 'join(" ")') \
         --query 'deploymentsInfo[*].[deploymentId, status, applicationName, creator, createTime, completeTime]' \
         --output json | \
-          jq -r 'def format_date: split("T") | (.[0] | split("-") | .[1] | tonumber) as $month | (.[0] | split("-") | .[2] | tonumber) as $day | (.[0] | split("-") | .[0][-2:] | tonumber) as $year | (.[1] | split(".") | .[0]) as $time | "\($month)/\($day)/\($year) \($time)"; [["ID", "Status", "App", "Initiated", "Started", "Ended"]] + map([.[0], .[1], .[2], .[3], (.[4] | format_date), (.[5] | format_date)]) | map(@tsv) | .[]' | \
+          jq -r 'def format_date: if . then split("T") | (.[0] | split("-") | .[1] | tonumber) as $month | (.[0] | split("-") | .[2] | tonumber) as $day | (.[0] | split("-") | .[0][-2:] | tonumber) as $year | (.[1] | split(".") | .[0]) as $time | "\($month)/\($day)/\($year) \($time)" else "N/A" end; [ ["ID", "Status", "App", "Initiated", "Started", "Ended"] ] + (sort_by(.[4]) | reverse | map([.[0], .[1], .[2], .[3], (.[4] | format_date), (.[5] | format_date)])) | map(@tsv) | .[]' | \
           csvlook --tabs -I
-
       '';
   };
 
