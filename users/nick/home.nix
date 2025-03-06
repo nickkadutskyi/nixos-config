@@ -323,16 +323,25 @@ in
       ''
         aws ec2 describe-instances \
         --filters "Name=instance-state-name,Values=running" \
-        --query 'sort_by(Reservations[].Instances[], &Tags[?Key==`Name`].Value|[0] || `z-unnamed`)[].{InstanceID:InstanceId,Type:InstanceType,State:State.Name,PublicIP:PublicIpAddress,PrivateIP:PrivateIpAddress,Name:Tags[?Key==`Name`].Value|[0]}' \
+        --query 'sort_by(Reservations[].Instances[], &Tags[?Key==`Name`].Value|[0] || `z-unnamed`)
+          [].{InstanceID:InstanceId,Type:InstanceType,State:State.Name,PublicIP:PublicIpAddress,
+          PrivateIP:PrivateIpAddress,Name:Tags[?Key==`Name`].Value|[0]}' \
         --output table
       '';
     aws_cd_deployments = # bash
       ''
         aws deploy batch-get-deployments \
-        --deployment-ids $(aws deploy list-deployments --query 'deployments' --output json --max-items 10 | jq -r 'join(" ")') \
-        --query 'deploymentsInfo[*].[deploymentId, status, applicationName, creator, createTime, completeTime, revision.s3Location.key]' \
+        --deployment-ids $(aws deploy list-deployments --query 'deployments' --output json --max-items 10 | \
+          jq -r 'join(" ")') \
+        --query 'deploymentsInfo[*].[deploymentId, status, applicationName, creator, createTime, completeTime,
+          revision.s3Location.key]' \
         --output json | \
-          jq -r 'def format_date: if . then split("T") | (.[0] | split("-") | .[1] | tonumber) as $month | (.[0] | split("-") | .[2] | tonumber) as $day | (.[0] | split("-") | .[0][-2:] | tonumber) as $year | (.[1] | split(".") | .[0]) as $time | "\($month)/\($day)/\($year) \($time)" else "N/A" end; [ ["ID", "Status", "App", "Initiated", "Started", "Ended", "Revision"] ] + (sort_by(.[4]) | reverse | map([.[0], .[1], .[2], .[3], (.[4] | format_date), (.[5] | format_date), .[6]])) | map(@tsv) | .[]' | \
+          jq -r 'def format_date: if . then split("T") | (.[0] | split("-") | .[1] | tonumber) as $month |
+          (.[0] | split("-") | .[2] | tonumber) as $day | (.[0] | split("-") | .[0][-2:] | tonumber) as $year |
+          (.[1] | split(".") | .[0]) as $time | "\($month)/\($day)/\($year) \($time)" else "N/A" end;
+          [ ["ID", "Status", "App", "Initiated", "Started", "Ended", "Revision"] ] +
+          (sort_by(.[4]) | reverse | map([.[0], .[1], .[2], .[3], (.[4] | format_date), (.[5] | format_date), .[6]])) |
+          map(@tsv) | .[]' | \
           csvlook --tabs -I 2> /dev/null
       '';
   };
