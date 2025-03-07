@@ -184,10 +184,6 @@ in
       # Shows directory structure
       tree
       wget
-      # Suggests entries from history with grey text
-      zsh-autosuggestions
-      # Highlights binaries in terminal emulator
-      zsh-syntax-highlighting
 
       # ----------------------------------------------------------------
       # Script wrappers for non-nix packages
@@ -276,6 +272,7 @@ in
       if (lib.lists.any (p: (p.meta.homepage or "") == "https://nerdfonts.com/") config.home.packages) then "1" else "0";
     STARSHIP_LOG = "error";
     ZSH_TAB_TITLE_PREFIX = "$([ $SSH_CONNECTION ] && echo \"[$USER@$HOST]\") ";
+    HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND = "fg=blue,bg=white,bold";
   };
 
   home.sessionPath = [
@@ -379,6 +376,8 @@ in
     };
     "fzf/light.fzfrc".text = builtins.readFile ./fzf/light.fzfrc;
     "fzf/dark.fzfrc".text = builtins.readFile ./fzf/dark.fzfrc;
+    "zsh-hist-sub/light".text = builtins.readFile ./zsh-hist-sub/light;
+    "zsh-hist-sub/dark".text = builtins.readFile ./zsh-hist-sub/dark;
     "ghostty" = {
       source = ./ghostty;
       recursive = true;
@@ -643,29 +642,28 @@ in
 
   programs.zsh = {
     enable = true;
-    # Disable completion for zsh-autocomplete plugin to work
-    enableCompletion = false;
+    enableCompletion = true;
+    autosuggestion = {
+      enable = true;
+    };
+    syntaxHighlighting = {
+      enable = true;
+      highlighters = [
+        "main"
+        "brackets"
+      ];
+    };
     plugins = [
-      {
-        name = "zsh-autocomplete";
-        src = pkgs.zsh-autocomplete;
-        file = "share/zsh-autocomplete/zsh-autocomplete.plugin.zsh";
-      }
-      {
-        name = "zsh-autosuggestions";
-        src = pkgs.zsh-autosuggestions;
-        file = "share/zsh-autosuggestions/zsh-autosuggestions.zsh";
-      }
-      {
-        name = "zsh-syntax-highlighting";
-        src = pkgs.zsh-syntax-highlighting;
-        file = "share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh";
-      }
       {
         name = "zsh-completions";
         src = pkgs.zsh-completions;
-        file = "share/zsh-completions/zsh-completions.plugin.zsh";
       }
+      {
+        name = "zsh-history-substring-search";
+        src = pkgs.zsh-history-substring-search;
+        file = "share/zsh-history-substring-search/zsh-history-substring-search.zsh";
+      }
+      # Adds SSH connection info to tab title if connected to my computers
       {
         name = "zsh-tab-title";
         src = pkgs.fetchFromGitHub {
@@ -681,6 +679,20 @@ in
       size = 1000000000;
       ignoreAllDups = false;
     };
+    envExtra =
+      # bash
+      ''
+        # Extra commands in .zshenv
+      '';
+    profileExtra =
+      # bash
+      ''
+        # Extra commands in .zprofile
+      '';
+    initExtraBeforeCompInit = # bash
+      ''
+        # Running before compinit
+      '';
     initExtraFirst =
       # bash
       ''
@@ -699,9 +711,9 @@ in
 
   imports = [
     ./home-darwin.nix
-    ./services/home-fzf-theme.nix
-    ./services/home-nvim-background.nix
+    # ./services/home-fzf-theme.nix
+    # ./services/home-nvim-background.nix
     (import ./services/home-snippety-helper.nix { inherit systemUser pkgs config; })
-    ./services/home-tmux-theme.nix
+    ./services/home-theme.nix
   ];
 }
