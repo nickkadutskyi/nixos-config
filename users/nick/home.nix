@@ -174,11 +174,12 @@ in
       pdfgrep
       # Faster alternative to grep
       ripgrep
-      # Creates age encrypted file from ssh key
-      ssh-to-age
       # Manages secrets
       sops
+      sourcemapper
       speedtest-cli
+      # Creates age encrypted file from ssh key
+      ssh-to-age
       # Multiplexing
       tmux
       # Shows directory structure
