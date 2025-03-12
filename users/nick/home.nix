@@ -172,6 +172,7 @@ in
       nerd-fonts.jetbrains-mono
       # Searching PDF file contents (TODO check if I use this)
       pdfgrep
+      python39
       # Faster alternative to grep
       ripgrep
       # Manages secrets

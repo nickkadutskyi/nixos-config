@@ -191,7 +191,9 @@ TAVILY_API_KEY="$(cat /run/secrets/tavily/api_key)"
 #---------------------------------------------------------------------
 # zsh-autosuggestions
 #---------------------------------------------------------------------
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+# bindkey "^[[A" history-beginning-search-backward
+# bindkey "^[[B" history-beginning-search-forward
 
 #---------------------------------------------------------------------
 # zsh-history-substring-search
@@ -215,3 +217,9 @@ history-substring-search-down-wrap() {
 zle -N history-substring-search-down-wrap
 bindkey '^[[A' history-substring-search-up-wrap
 bindkey '^[[B' history-substring-search-down-wrap
+
+#---------------------------------------------------------------------
+# zsh built-in completion menu
+#---------------------------------------------------------------------
+# To select previous completion
+bindkey '^[[Z' reverse-menu-complete
