@@ -76,6 +76,9 @@ systemFunc rec {
           "anthropic/api_key" = {
             owner = systemUser;
           };
+          "tavily/api_key" = {
+            owner = systemUser;
+          };
         };
       };
     }
