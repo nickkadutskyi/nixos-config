@@ -34,6 +34,11 @@ let
       ZSHHS_CONFIG=~/.config/zsh-hist-sub
       ZSHHS_THEME=~/.config/zsh-hist-sub/theme
       /bin/ln -sf "$ZSHHS_CONFIG/$SYSTEM_THEME" "$ZSHHS_THEME"
+
+      # Sets zsh theme (currently for completion matches highlight)
+      ZSH_CONFIG=~/.config/zsh-theme
+      ZSH_THEME=~/.config/zsh-theme/theme
+      /bin/ln -sf "$ZSH_CONFIG/$SYSTEM_THEME" "$ZSH_THEME"
     '';
   scriptPath = (toString (writeShellScript "home-theme.sh" scriptContent));
   cmdPath = (toString (lib.getExe dark-mode-notify));

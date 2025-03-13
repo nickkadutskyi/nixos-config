@@ -380,6 +380,8 @@ in
     "fzf/dark.fzfrc".text = builtins.readFile ./fzf/dark.fzfrc;
     "zsh-hist-sub/light".text = builtins.readFile ./zsh-hist-sub/light;
     "zsh-hist-sub/dark".text = builtins.readFile ./zsh-hist-sub/dark;
+    "zsh-theme/light".text = builtins.readFile ./zsh-theme/light;
+    "zsh-theme/dark".text = builtins.readFile ./zsh-theme/dark;
     "ghostty" = {
       source = ./ghostty;
       recursive = true;

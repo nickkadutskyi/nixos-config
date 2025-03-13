@@ -223,3 +223,14 @@ bindkey '^[[B' history-substring-search-down-wrap
 #---------------------------------------------------------------------
 # To select previous completion
 bindkey '^[[Z' reverse-menu-complete
+
+#---------------------------------------------------------------------
+# zsh theme
+#---------------------------------------------------------------------
+fzf-completion-wrap() {
+  # shellcheck disable=SC1090
+  [ -f ~/.config/zsh-theme/theme ] && source ~/.config/zsh-theme/theme
+  zle fzf-completion
+}
+zle -N fzf-completion-wrap
+bindkey '^I' fzf-completion-wrap
