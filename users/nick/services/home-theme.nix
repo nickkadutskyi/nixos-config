@@ -13,7 +13,7 @@ let
       SYSTEM_THEME=$([ "$DARKMODE" = "1" ] && echo "dark" || echo "light")
 
       # Sets respective Tmux theme
-      $TMUX source "$XDG_CONFIG_HOME/tmux/tmux-$SYSTEM_THEME.conf"
+      $TMUX -L default source "$XDG_CONFIG_HOME/tmux/tmux-$SYSTEM_THEME.conf"
 
       # Sets respective FZF theme
       FZF_CONFIG=~/.config/fzf
