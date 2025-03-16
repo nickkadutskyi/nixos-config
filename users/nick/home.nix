@@ -275,6 +275,8 @@ in
     STARSHIP_LOG = "error";
     ZSH_TAB_TITLE_PREFIX = "$([ $SSH_CONNECTION ] && echo \"[$USER@$HOST]\") ";
     HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND = "fg=blue,bg=white,bold";
+    GREP_COLORS = "mt=01;48;5;223:fn=38;5;16:ln=38;5;244:ms=01;48;5;223:mc=01;48;5;223:sl=0:cx=0:se=0";
+    RIPGREP_CONFIG_PATH = "${config.xdg.configHome}/ripgrep/.ripgreprc";
   };
 
   home.sessionPath = [
@@ -378,6 +380,11 @@ in
     };
     "fzf/light.fzfrc".text = builtins.readFile ./fzf/light.fzfrc;
     "fzf/dark.fzfrc".text = builtins.readFile ./fzf/dark.fzfrc;
+    "grep/grep-colors-light".text = "mt=01;48;5;223:fn=38;5;16:ln=38;5;244:ms=01;48;5;223:mc=01;48;5;223:sl=0:cx=0:se=0";
+    "grep/grep-colors-dark".text =
+      "mt=01;38;5;16;48;5;137:fn=38;5;250:ln=38;5;243:ms=01;38;5;16;48;5;137:mc=01;38;5;16;48;5;137:sl=0:cx=0:se=0";
+    "ripgrep/.ripgreprc-light".text = builtins.readFile ./ripgrep/ripgreprc-light;
+    "ripgrep/.ripgreprc-dark".text = builtins.readFile ./ripgrep/ripgreprc-dark;
     "zsh-hist-sub/light".text = builtins.readFile ./zsh-hist-sub/light;
     "zsh-hist-sub/dark".text = builtins.readFile ./zsh-hist-sub/dark;
     "zsh-theme/light".text = builtins.readFile ./zsh-theme/light;

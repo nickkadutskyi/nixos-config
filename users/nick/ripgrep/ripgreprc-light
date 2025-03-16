@@ -1,0 +1,5 @@
+--colors=match:none
+--colors=match:bg:223
+--colors=match:style:bold
+--colors=path:fg:16
+--colors=line:fg:244

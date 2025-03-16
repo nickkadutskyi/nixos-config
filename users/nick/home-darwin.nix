@@ -212,6 +212,25 @@ in
       # Persistent Dock items on the right (using for quick access folders)
       "persistent-others" = [
         {
+          GUID = 1478090452;
+          "tile-data" = {
+            arrangement = 2;
+            displayas = 0;
+            "file-data" = {
+              "_CFURLString" = "file:///Users/nick/Library/Mobile%20Documents/27N4MQEA55~pro~writer/Documents/Notes/Notepad.md";
+              "_CFURLStringType" = 15;
+            };
+            "file-label" = "Notepad.md";
+            "file-mod-date" = 58376725448597;
+            "file-type" = 40;
+            "is-beta" = 0;
+            "parent-mod-date" = 3824928666;
+            preferreditemsize = "-1";
+            showas = 0;
+          };
+          "tile-type" = "file-tile";
+        }
+        {
           GUID = 354663587;
           "tile-data" = {
             arrangement = 2;
@@ -230,25 +249,25 @@ in
           };
           "tile-type" = "directory-tile";
         }
-        {
-          GUID = 3715713668;
-          "tile-data" = {
-            arrangement = 2;
-            displayas = 0;
-            "file-data" = {
-              "_CFURLString" = "file:///Users/nick/Documents/";
-              "_CFURLStringType" = 15;
-            };
-            "file-label" = "Documents";
-            "file-mod-date" = 3808363796;
-            "file-type" = 2;
-            "is-beta" = 0;
-            "parent-mod-date" = 261124935269833;
-            preferreditemsize = "-1";
-            showas = 0;
-          };
-          "tile-type" = "directory-tile";
-        }
+        # {
+        #   GUID = 3715713668;
+        #   "tile-data" = {
+        #     arrangement = 2;
+        #     displayas = 0;
+        #     "file-data" = {
+        #       "_CFURLString" = "file:///Users/nick/Documents/";
+        #       "_CFURLStringType" = 15;
+        #     };
+        #     "file-label" = "Documents";
+        #     "file-mod-date" = 3808363796;
+        #     "file-type" = 2;
+        #     "is-beta" = 0;
+        #     "parent-mod-date" = 261124935269833;
+        #     preferreditemsize = "-1";
+        #     showas = 0;
+        #   };
+        #   "tile-type" = "directory-tile";
+        # }
         {
           GUID = 2502778041;
           "tile-data" = {

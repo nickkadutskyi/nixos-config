@@ -39,6 +39,16 @@ let
       ZSH_CONFIG=~/.config/zsh-theme
       ZSH_THEME=~/.config/zsh-theme/theme
       /bin/ln -sf "$ZSH_CONFIG/$SYSTEM_THEME" "$ZSH_THEME"
+
+      # Sets grep theme
+      GREP_CONFIG=~/.config/grep
+      GREP_THEME=~/.config/grep/grep-theme
+      /bin/ln -sf "$GREP_CONFIG/grep-colors-$SYSTEM_THEME" "$GREP_THEME"
+
+      # Sets ripgrep theme
+      RG_CONFIG=~/.config/ripgrep
+      RG_THEME=~/.config/ripgrep/.ripgreprc
+      /bin/ln -sf "$RG_CONFIG/.ripgreprc-$SYSTEM_THEME" "$RG_THEME"
     '';
   scriptPath = (toString (writeShellScript "home-theme.sh" scriptContent));
   cmdPath = (toString (lib.getExe dark-mode-notify));

@@ -1,0 +1,6 @@
+--colors=match:none
+--colors=match:fg:8,8,8
+--colors=match:bg:180,152,92
+--colors=match:style:bold
+--colors=path:fg:188,190,196
+--colors=line:fg:122,126,133

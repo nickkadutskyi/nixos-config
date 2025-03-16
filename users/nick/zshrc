@@ -234,3 +234,16 @@ fzf-completion-wrap() {
 }
 zle -N fzf-completion-wrap
 bindkey '^I' fzf-completion-wrap
+
+#---------------------------------------------------------------------
+# grep theme
+#---------------------------------------------------------------------
+function grep() {
+  ( # run in subshell to not pollute top level shell environment
+    if [ "$SHELL" != "/bin/sh" ]; then
+      # This file is symlinked to current fzf color scheme
+      export GREP_COLORS="$(cat ~/.config/grep/grep-theme)"
+    fi
+    $(whence -p grep) "$@"
+  )
+}
