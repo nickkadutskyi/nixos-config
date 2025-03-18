@@ -482,65 +482,65 @@ in
     "com.apple.symbolichotkeys" = {
       AppleSymbolicHotKeys = {
         # Option + 1 to Switch to Desktop 1
-        "118" = {
-          enabled = true;
-          value = {
-            parameters = [
-              49
-              18
-              524288
-            ];
-            type = "standard";
-          };
-        };
+        # "118" = {
+        #   enabled = true;
+        #   value = {
+        #     parameters = [
+        #       49
+        #       18
+        #       524288
+        #     ];
+        #     type = "standard";
+        #   };
+        # };
         # Option + 2 to Switch to Desktop 2
-        "119" = {
-          enabled = true;
-          value = {
-            parameters = [
-              50
-              19
-              524288
-            ];
-            type = "standard";
-          };
-        };
+        # "119" = {
+        #   enabled = true;
+        #   value = {
+        #     parameters = [
+        #       50
+        #       19
+        #       524288
+        #     ];
+        #     type = "standard";
+        #   };
+        # };
         # Option + 3 to Switch to Desktop 3
-        "120" = {
-          enabled = true;
-          value = {
-            parameters = [
-              51
-              20
-              524288
-            ];
-            type = "standard";
-          };
-        };
+        # "120" = {
+        #   enabled = true;
+        #   value = {
+        #     parameters = [
+        #       51
+        #       20
+        #       524288
+        #     ];
+        #     type = "standard";
+        #   };
+        # };
         # Option + 4 to Switch to Desktop 4
-        "121" = {
-          enabled = true;
-          value = {
-            parameters = [
-              52
-              21
-              524288
-            ];
-            type = "standard";
-          };
-        };
+        # "121" = {
+        #   enabled = true;
+        #   value = {
+        #     parameters = [
+        #       52
+        #       21
+        #       524288
+        #     ];
+        #     type = "standard";
+        #   };
+        # };
         # Option + 5 to Switch to Desktop 5
-        "122" = {
-          enabled = true;
-          value = {
-            parameters = [
-              53
-              23
-              524288
-            ];
-            type = "standard";
-          };
-        };
+        # "122" = {
+        #   enabled = true;
+        #   value = {
+        #     parameters = [
+        #       53
+        #       23
+        #       524288
+        #     ];
+        #     type = "standard";
+        #   };
+        # };
 
         # Screenshot related shortcuts
         # Save picture of screen as a file (Shift + Command + 3)
