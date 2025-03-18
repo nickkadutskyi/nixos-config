@@ -280,11 +280,10 @@ in
   };
 
   home.sessionPath = [
-    # For now Tizen is installed only on Macs
-    # (if isDarwin then "$HOME/Tizen/tizen-studio/tools/ide/bin" else "")
     # User-specific executable files
     "$HOME/.local/bin"
     "$HOME/.local/scripts"
+    "/Applications/FlashSpace.app/Contents/Resources"
   ];
 
   home.shellAliases = {
@@ -422,6 +421,12 @@ in
       };
       ".config/btt/btt.json" = lib.mkIf isDarwin {
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/btt/btt.json");
+      };
+      ".config/flashspace/profiles.json" = lib.mkIf isDarwin {
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/flashspace/profiles.json");
+      };
+      ".config/flashspace/settings.json" = lib.mkIf isDarwin {
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/flashspace/settings.json");
       };
       ".hushlogin".text = "";
       # Synchronizes macOS's global spelling dictionary (Requires giving AppleSpell service Full Disk Access)

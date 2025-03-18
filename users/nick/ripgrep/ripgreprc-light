@@ -3,3 +3,5 @@
 --colors=match:style:bold
 --colors=path:fg:16
 --colors=line:fg:244
+--colors=column:fg:244
+--trim

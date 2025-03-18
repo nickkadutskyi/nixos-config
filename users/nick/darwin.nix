@@ -62,6 +62,8 @@
       "dropbox"
       # A cross-platform, open-source messenger app for matrix-based chats
       "element"
+      # Alternative to aerospace fro managing workspaces
+      "flashspace"
       "finicky"
       "nickkadutskyi/homebrew-cask/ghostty@tip"
       "google-chrome"

@@ -4,3 +4,5 @@
 --colors=match:style:bold
 --colors=path:fg:188,190,196
 --colors=line:fg:122,126,133
+--colors=column:fg:122,126,133
+--trim

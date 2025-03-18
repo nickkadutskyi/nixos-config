@@ -11,7 +11,8 @@ in
 {
   # i3-like tiling window manager for macOS
   services.aerospace = {
-    enable = true;
+    # Disabled to try FlashSpace instead
+    enable = false;
     package = pkgs-master.aerospace;
     settings =
       let
