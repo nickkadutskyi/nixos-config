@@ -28,19 +28,6 @@ if [ -x "$(command -v fzf)" ]; then
   # FZF key bindings initialization
   eval "$(fzf --zsh)"
 
-  # Use fzf to search a directory and cd to it
-  fzd() {
-    local dir
-    dir=$(find "${1:-.}" -path '*/\.*' -prune \
-      -o -type d -print 2>/dev/null | fzf +m) &&
-      cd "$dir" || exit
-  }
-
-  # Search in your command history and execute selected command
-  fzh() {
-    eval "$( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')"
-  }
-
   # Lists Developer projects
   list_projects() {
     {
