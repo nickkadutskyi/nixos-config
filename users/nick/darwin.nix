@@ -54,7 +54,6 @@
       # Manages reading materials and e-books
       "calibre"
       "cleanshot"
-      "clickup"
       "dash"
       # DataGrip is a commercial IDE for database management
       "datagrip"
