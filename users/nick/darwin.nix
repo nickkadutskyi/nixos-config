@@ -63,7 +63,6 @@
       "element"
       # Alternative to aerospace fro managing workspaces
       "flashspace"
-      "finicky"
       "nickkadutskyi/homebrew-cask/ghostty@tip"
       "google-chrome"
       "google-drive"
