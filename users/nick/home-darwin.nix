@@ -479,27 +479,12 @@ in
     # Keyboard Shortucts
     "com.apple.symbolichotkeys" = {
       AppleSymbolicHotKeys = {
+        # Enables ^ + -> and ^ + <- to switch between spaces
         "79" = {
           enabled = true;
-          value = {
-            type = "standard";
-            parameters = [
-              65535
-              123
-              134217728
-            ];
-          };
         };
         "81" = {
           enabled = true;
-          value = {
-            type = "standard";
-            parameters = [
-              65535
-              124
-              134217728
-            ];
-          };
         };
         # Screenshot related shortcuts
         # Save picture of screen as a file (Shift + Command + 3)
