@@ -13,7 +13,6 @@
   };
 
   imports = [
-    ./aerospace.nix
     # Using custom dnsmasq config because launchd ensures
     # that /nix/store is in path before running the command
     ./services/darwin-dnsmasq.nix
@@ -25,15 +24,15 @@
     enable = true;
     masApps = {
       "1Blocker - Ad Blocker" = 1365531024;
-      "1Password for Safari" = 1569813296;
-      "Amazon Kindle" = 302584613;
+      "1Password for Safari" = 1569813296; # 1Password Safari extension only
       "BetterJSON for Safari" = 1511935951;
+      # TODO replace core tunnel with SSH command
       "Core Tunnel" = 1354318707;
       "Easy CSV Editor" = 1171346381;
-      "Fonts Ninja" = 1480227114;
       "iA Writer" = 775737590;
       "Kagi for Safari" = 1622835804;
       "Keynote" = 409183694;
+      "Magnet" = 441258766; # Window manager with iCloud sync
       "Windows App" = 1295203466; # Microsoft Remote Desktop
       "Numbers" = 409203825;
       "Pages" = 409201541;
@@ -46,8 +45,7 @@
       "Xdebug Key" = 1441712067;
     };
     casks = [
-      "1password"
-      "bettertouchtool"
+      "1password" # 1Password 8 main app
       "betterzip"
       # BibDesk is a reference manager for LaTeX
       "bibdesk"
@@ -59,9 +57,6 @@
       "datagrip"
       "discord"
       "dropbox"
-      # A cross-platform, open-source messenger app for matrix-based chats
-      "element"
-      # Alternative to aerospace fro managing workspaces
       "flashspace"
       "nickkadutskyi/homebrew-cask/ghostty@tip"
       "google-chrome"
@@ -69,16 +64,13 @@
       "gpg-suite"
       "hazel"
       "iina"
-      "iterm2@beta"
       "jetbrains-toolbox"
       "karabiner-elements"
       "little-snitch"
       "logi-options+"
-      "maccy"
+      "maccy" # Clipboard manager
       # Parallels Desktop for Mac for running Windows and other VMs
       "parallels"
-      # Graphical user interface for the 'defaults' command
-      "prefs-editor"
       "protonvpn"
       "raycast"
       "rapidapi"
@@ -87,7 +79,6 @@
       "teamviewer"
       "transmission"
       "transmit"
-      "tresorit"
       "typeface"
       # Upwork may return 403 error sometimes so run switch again.
       "nickkadutskyi/homebrew-cask/upwork"

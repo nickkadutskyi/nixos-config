@@ -8,7 +8,7 @@
     # Primary nixpkgs source for the system
     nixpkgs.url = "github:NixOs/nixpkgs/nixpkgs-unstable";
     # Stable nixpkgs source for the system
-    nixpkgs-stable.url = "github:NixOs/nixpkgs/release-24.11";
+    nixpkgs-stable.url = "github:NixOs/nixpkgs/nixos-24.11";
 
     # Master nixpkgs source for the system to use for
     # awscli2 because it fails to build on nixpkgs-unstable
@@ -46,10 +46,6 @@
       url = "github:nickkadutskyi/homebrew-cask";
       flake = false;
     };
-    nikitabobko-homebrew-tap = {
-      url = "github:nikitabobko/homebrew-tap";
-      flake = false;
-    };
 
     # Sets custom icons on macOS
     darwin-custom-icons.url = "github:ryanccn/nix-darwin-custom-icons";
@@ -83,12 +79,12 @@
       };
     in
     {
-      darwinConfigurations.Nicks-MacBook-Air = mkSystem "Nicks-MacBook-Air" {
+      darwinConfigurations.Nicks-MacBook-Air-0 = mkSystem "Nicks-MacBook-Air-0" {
         system = "aarch64-darwin";
         systemUser = "nick";
         isDarwin = true;
       };
-      darwinConfigurations.Nicks-Mac-mini = mkSystem "Nicks-Mac-mini" {
+      darwinConfigurations.Nicks-Mac-mini-0 = mkSystem "Nicks-Mac-mini-0" {
         system = "aarch64-darwin";
         systemUser = "nick";
         isDarwin = true;

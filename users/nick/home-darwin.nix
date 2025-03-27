@@ -85,8 +85,6 @@ in
     "com.apple.dock" = {
       autohide = true;
       "mru-spaces" = false;
-      # For better Mission Control view when using Aerospace
-      "expose-group-apps" = true;
       # Persistent Dock items on the left (using for frequently used apps)
       "persistent-apps" = [
         {
@@ -481,67 +479,28 @@ in
     # Keyboard Shortucts
     "com.apple.symbolichotkeys" = {
       AppleSymbolicHotKeys = {
-        # Option + 1 to Switch to Desktop 1
-        # "118" = {
-        #   enabled = true;
-        #   value = {
-        #     parameters = [
-        #       49
-        #       18
-        #       524288
-        #     ];
-        #     type = "standard";
-        #   };
-        # };
-        # Option + 2 to Switch to Desktop 2
-        # "119" = {
-        #   enabled = true;
-        #   value = {
-        #     parameters = [
-        #       50
-        #       19
-        #       524288
-        #     ];
-        #     type = "standard";
-        #   };
-        # };
-        # Option + 3 to Switch to Desktop 3
-        # "120" = {
-        #   enabled = true;
-        #   value = {
-        #     parameters = [
-        #       51
-        #       20
-        #       524288
-        #     ];
-        #     type = "standard";
-        #   };
-        # };
-        # Option + 4 to Switch to Desktop 4
-        # "121" = {
-        #   enabled = true;
-        #   value = {
-        #     parameters = [
-        #       52
-        #       21
-        #       524288
-        #     ];
-        #     type = "standard";
-        #   };
-        # };
-        # Option + 5 to Switch to Desktop 5
-        # "122" = {
-        #   enabled = true;
-        #   value = {
-        #     parameters = [
-        #       53
-        #       23
-        #       524288
-        #     ];
-        #     type = "standard";
-        #   };
-        # };
-
+        "79" = {
+          enabled = true;
+          value = {
+            type = "standard";
+            parameters = [
+              65535
+              123
+              134217728
+            ];
+          };
+        };
+        "81" = {
+          enabled = true;
+          value = {
+            type = "standard";
+            parameters = [
+              65535
+              124
+              134217728
+            ];
+          };
+        };
         # Screenshot related shortcuts
         # Save picture of screen as a file (Shift + Command + 3)
         "28" = {

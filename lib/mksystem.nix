@@ -98,7 +98,6 @@ systemFunc rec {
               "homebrew/homebrew-cask" = inputs.homebrew-cask;
               "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
               "nickkadutskyi/homebrew-cask" = inputs.nickkadutskyi-homebrew-cask;
-              "nikitabobko/homebrew-tap" = inputs.nikitabobko-homebrew-tap;
             };
             # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
             mutableTaps = false;
