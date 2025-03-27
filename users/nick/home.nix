@@ -357,17 +357,17 @@ in
         [[ssh-keys]]
         vault = "EPDS"
         ${
-          if systemName == "Nicks-MacBook-Air" then
+          if systemName == "Nicks-MacBook-Air-0" then
             # toml
             ''
               [[ssh-keys]]
-              vault = "Nicks-MacBook-Air"
+              vault = "Nicks-MacBook-Air-0"
             ''
-          else if systemName == "Nicks-Mac-mini" then
+          else if systemName == "Nicks-Mac-mini-0" then
             # toml
             ''
               [[ssh-keys]]
-              vault = "Nicks-Mac-mini"
+              vault = "Nicks-Mac-mini-0"
             ''
           else
             ""
