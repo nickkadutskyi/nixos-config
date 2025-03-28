@@ -16,6 +16,7 @@ let
   isLinux = pkgs.stdenv.isLinux;
   pkgs-master = inputs.nixpkgs-master.legacyPackages.${pkgs.system};
   pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${pkgs.system};
+  homeDir = config.home.homeDirectory;
 in
 {
   # This value determines the Home Manager release that your
@@ -30,6 +31,22 @@ in
 
   # Enables XDG Base Directory Specification support
   xdg.enable = true;
+
+  #---------------------------------------------------------------------
+  # Services and Modules
+  #---------------------------------------------------------------------
+  imports = [
+    # Separate module for darwin specific home-manager configuration
+    (import ./home-darwin.nix {
+      inherit
+        config
+        lib
+        systemUser
+        systemName
+        pkgs
+        ;
+    })
+  ];
 
   #---------------------------------------------------------------------
   # Packages
@@ -241,17 +258,6 @@ in
       )
 
     ]
-    ++ (lib.optionals isDarwin [
-      _1password-cli
-      # Control bluetooth (TODO check if I need this)
-      blueutil
-      # GNU Coreutils (gtimeout is required by snippety-helper)
-      coreutils-prefixed
-      # Set default applications for doc types and URL schemes (TODO check if I use it)
-      duti
-      # Monitors a directory for changes (required by snippety-helper)
-      fswatch
-    ])
     ++ (lib.optionals (isLinux && !isWSL) [
       chromium
       ghostty
@@ -292,23 +298,12 @@ in
     le = "eza -lag";
     # TODO Review these aliases and get rid of them if not needed
     # Tooling
-    # sc = # bash
-    #   "symfony console";
-    # sym = "symfony";
-    # mfs = # bash
-    #   "php artisan migrate:fresh --seed";
-    # mfss = # bash
-    #   "mfs && php artisan db:seed --class=DevSeeder";
     ip = # bash
       "curl -4 icanhazip.com";
     ip4 = # bash
       "curl -4 icanhazip.com";
     ip6 = # bash
       "curl -6 icanhazip.com";
-    iplan = # bash
-      lib.mkIf isDarwin "ifconfig en0 inet | grep 'inet ' | awk ' { print \$2 } '";
-    ips = # bash
-      lib.mkIf isDarwin "ifconfig -a | perl -nle'/(\\d+\\.\\d+\\.\\d+\\.\\d+)/ && print \$1'";
     ip4a = # bash
       "dig +short -4 myip.opendns.com @resolver4.opendns.com";
     ip6a = # bash
@@ -317,7 +312,6 @@ in
     vim = "nvim";
     view = "nvim";
     vimdiff = "nvim -d";
-    # vimn = toString inputs.neovim-nightly-overlay.packages.${pkgs.system}.default + "/bin/nvim";
     aws_ec2_instances =
       # bash
       ''
@@ -395,154 +389,36 @@ in
     "vim/vimrc".source = ./vim/vimrc;
   };
 
-  home.file =
-    let
-      syncHomeDir = config.home.homeDirectory + "/Library/Mobile\ Documents/com\~apple\~CloudDocs/Sync/HOME";
-    in
-    {
-      # Allows unfree packages for user
-      ".config/nixpkgs/config.nix".text = ''
-        {
-          allowUnfree = true;
-        }
+  home.file = {
+    # Allows unfree packages for user
+    ".config/nixpkgs/config.nix".text = ''
+      {
+        allowUnfree = true;
+      }
+    '';
+    # Synchronizes spell file between Macs for Neovim
+    ".hushlogin".text = "";
+    ".aws/config".text = # confini
+      ''
+        [default]
+        region = us-west-2
+        [profile epicure-nimbi-staging]
+        region = us-west-2
+        [profile epicure-nimbi-prod]
+        region = us-west-2
       '';
-      # Synchronizes spell file between Macs for Neovim
-      ".config/nvim_spell" = lib.mkIf isDarwin {
-        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/nvim_spell");
-      };
-      ".config/btt/btt.json" = lib.mkIf isDarwin {
-        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/btt/btt.json");
-      };
-      ".config/flashspace/profiles.json" = lib.mkIf isDarwin {
-        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/flashspace/profiles.json");
-      };
-      ".config/flashspace/settings.json" = lib.mkIf isDarwin {
-        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/flashspace/settings.json");
-      };
-      ".hushlogin".text = "";
-      # Synchronizes macOS's global spelling dictionary (Requires giving AppleSpell service Full Disk Access)
-      "Library/Group\ Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary" = lib.mkIf isDarwin {
-        source = config.lib.file.mkOutOfStoreSymlink (
-          syncHomeDir + "/Library/Group\ Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary"
-        );
-      };
-      # Adds custom BibTeX types and fields to BibDesk
-      "Library/Application\ Support/BibDesk/TypeInfo.plist" = lib.mkIf isDarwin {
-        source = ./bibdesk/TypeInfo.plist;
-      };
-      # Adds my custom templates to BibDesk
-      "Library/Application\ Support/BibDesk/Templates/mdApaTemplate.txt" = lib.mkIf isDarwin {
-        source = ./bibdesk/Templates/mdApaTemplate.txt;
-      };
-      ".local/scripts" = lib.mkIf isDarwin {
-        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/scripts");
-      };
-      # ".config/private_php/intelephense_license.txt" = lib.mkIf isDarwin {
-      #   source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_php/intelephense_license.txt");
-      # };
-      # ".config/private_clickup/key.txt" = lib.mkIf isDarwin {
-      #   source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/private_clickup/key.txt");
-      # };
-      ".ssh/conf.d" = lib.mkIf isDarwin {
-        recursive = true;
-        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.ssh/conf.d");
-      };
-      ".aws/config".text = # confini
-        ''
-          [default]
-          region = us-west-2
-          [profile epicure-nimbi-staging]
-          region = us-west-2
-          [profile epicure-nimbi-prod]
-          region = us-west-2
-        '';
-    };
+  };
 
   home.activation = {
     init =
       lib.hm.dag.entryAfter [ "writeBoundary" ]
         # bash
         ''
-          mkdir -p ~/Developer
-          mkdir -p ~/.local/bin
-          mkdir -p ~/.local/scripts
-          mkdir -p ~/.config/sops/age
-          chmod 700 ~/.config/sops/age
-        '';
-    initDarwin = lib.mkIf isDarwin (
-      lib.hm.dag.entryAfter [ "writeBoundary" ]
-        # bash
-        ''
-          export CRM_ACCOUNTS USER
-          USER=${systemUser}
-
-          # Create dev directories for CRM accounts and projects
-          CRM_ACCOUNTS=/Users/$USER/Library/Mobile\ Documents/com~apple~CloudDocs/Projects
-          for acc_path in "$CRM_ACCOUNTS"/*/; do
-            acc_name="$(basename "$acc_path")"
-            for project_path in "$acc_path"/*/; do
-              project_name="$(basename "$project_path" | cut -d' ' -f1)"
-              if [[ $project_name =~ ^[0-9]+$ ]] && [ -f "$project_path/.project.json" ]; then
-                mkdir -p "/Users/$USER/Developer/$acc_name/$project_name"
-              fi
-            done
-          done
-
-          # prepare intelephense directory
-          /bin/mkdir -p ~/intelephense
-          # and hide it
-          /usr/bin/chflags hidden ~/intelephense
-        ''
-    );
-    snippetyHelperInstallation = # Required for snippety-helper
-      lib.hm.dag.entryAfter [ "writeBoundary" ]
-        # bash
-        ''
-          export PKG_CURL PKG_BASH
-          PKG_BASH=${pkgs.bash}
-          PKG_CURL=${pkgs.curl}
-          if [ ! -d ~/Downloads/.snippety-helper ]; then
-            # This is huger vulnerability, but I don't care
-            cd ~/Downloads && "$PKG_BASH/bin/bash" -c "$("$PKG_CURL/bin/curl" -fsSL https://snippety.app/SnippetyHelper-Installer.sh)"
-          fi
-        '';
-    checkBashPermissions = # Required for snippety-helper
-      lib.mkIf isDarwin # bash
-        ''
-          YELLOW='\033[0;33m'
-          NC='\033[0m' # No Color
-          SQL="SELECT client,auth_value
-                 FROM access
-                WHERE client='/bin/bash'
-                  AND auth_value='2'
-                  AND service='kTCCServiceSystemPolicyAllFiles';"
-          DB="/Library/Application Support/com.apple.TCC/TCC.db"
-          if [ ! -f "$DB" ] || [ -z "$(${pkgs.sqlite}/bin/sqlite3 "$DB" "$SQL")" ]; then
-            echo -e "''${YELLOW}To use snippety-helper LaunchAgent you need to grant bash shell Full Disk Access."
-            echo "Please go to System Preferences -> Security & Privacy -> Full Disk Access and add bash shell."
-            echo "You can find bash shell in"
-            echo "/bin/bash"
-            echo -e "After adding restart snippety-helper LaunchAgent or relogin to system.''${NC}"
-          fi
-        '';
-    checkAppleSpellPermissions =
-      lib.mkIf isDarwin # bash
-        ''
-          YELLOW='\033[0;33m'
-          NC='\033[0m' # No Color
-          SQL="SELECT client,auth_value
-                 FROM access
-                WHERE client='com.apple.AppleSpell'
-                  AND auth_value='2'
-                  AND service='kTCCServiceSystemPolicyAllFiles';"
-          DB="/Library/Application Support/com.apple.TCC/TCC.db"
-          if [ ! -f "$DB" ] || [ -z "$(${pkgs.sqlite}/bin/sqlite3 "$DB" "$SQL")" ]; then
-            echo -e "''${YELLOW}To sync macOS's global spelling dictionary, you need to grant AppleSpell service Full Disk Access."
-            echo "Please go to System Preferences -> Security & Privacy -> Full Disk Access and add AppleSpell service."
-            echo "You can find AppleSpell service in"
-            echo "/System/Library/Services/AppleSpell.service"
-            echo -e "After adding restart AppleSpell service or relogin to system.''${NC}"
-          fi
+          mkdir -p ${homeDir}/Developer
+          mkdir -p ${homeDir}/.local/bin
+          mkdir -p ${homeDir}/.local/scripts
+          mkdir -p ${homeDir}/.config/sops/age
+          chmod 700 ${homeDir}/.config/sops/age
         '';
   };
 
@@ -593,8 +469,6 @@ in
         # Sets default signature format to ssh but you can override it
         # for a single command like this: `git -c "gpg.format=openpgp" commit`
         format = "ssh";
-        # On macOS 1Password is used for signing using ssh key
-        ssh.program = lib.mkIf isDarwin "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
         # Use this public key for ssh signing while gpg signing will
         # use the one based on email
         ssh.defaultKeyCommand = "echo 'key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUOOm/kpbXdO0Zg7XzDK3W67QUCZ/jutXK8w+pgoZqq'";
@@ -614,33 +488,6 @@ in
   };
   programs.ssh = {
     enable = true;
-    includes = [ ] ++ (lib.optionals isDarwin [ "conf.d/*" ]);
-    matchBlocks = lib.mkIf isDarwin {
-      # Have come first in config to set proper IdentityAgent
-      # Checks if NO1P is set and if so, sets IdentityAgent to default
-      "_no1p" = {
-        match = "host * exec \"[ ! -z \$NO1P ]\"";
-        identityFile = [
-          ("~/.ssh/" + systemName)
-          ("~/.ssh/EPDS")
-          ("~/.ssh/CUTN")
-        ];
-        extraOptions = {
-          IdentityAgent = "SSH_AUTH_SOCK";
-        };
-      };
-      "all" = {
-        host = "*";
-        identityFile = [
-          (toString ./ssh + "/${systemName}.pub")
-          (toString ./ssh/EPDS.pub)
-          (toString ./ssh/CUTN.pub)
-        ];
-        extraOptions = {
-          IdentityAgent = "~/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";
-        };
-      };
-    };
   };
 
   programs.starship = {
@@ -713,13 +560,4 @@ in
       '';
   };
 
-  #---------------------------------------------------------------------
-  # Services and Modules
-  #---------------------------------------------------------------------
-
-  imports = [
-    ./home-darwin.nix
-    (import ./services/home-snippety-helper.nix { inherit systemUser pkgs config; })
-    ./services/home-theme.nix
-  ];
 }

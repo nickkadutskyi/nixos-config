@@ -2,16 +2,49 @@
   config,
   lib,
   pkgs,
+  systemUser,
+  systemName,
   ...
 }:
 let
   isDarwin = pkgs.stdenv.isDarwin;
+  homeDir = config.home.homeDirectory;
 in
 {
   #---------------------------------------------------------------------
+  # Services and Modules
+  #---------------------------------------------------------------------
+  imports = [
+    (import ./services/home-snippety-helper.nix { inherit systemUser pkgs config; })
+    ./services/home-theme.nix
+  ];
+
+  #---------------------------------------------------------------------
+  # Packages
+  #---------------------------------------------------------------------
+  home.packages =
+    [ ]
+    ++ (lib.optionals isDarwin [
+      pkgs._1password-cli
+      # Control bluetooth
+      pkgs.blueutil
+      # GNU Coreutils (gtimeout is required by snippety-helper)
+      pkgs.coreutils-prefixed
+      # Set default applications for doc types and URL schemes
+      pkgs.duti
+      # Monitors a directory for changes (required by snippety-helper)
+      pkgs.fswatch
+    ]);
+
+  #---------------------------------------------------------------------
   # Env vars and dotfiles
   #---------------------------------------------------------------------
-
+  home.shellAliases = {
+    iplan = # bash
+      lib.mkIf isDarwin "ifconfig en0 inet | grep 'inet ' | awk ' { print \$2 } '";
+    ips = # bash
+      lib.mkIf isDarwin "ifconfig -a | perl -nle'/(\\d+\\.\\d+\\.\\d+\\.\\d+)/ && print \$1'";
+  };
   xdg.configFile = {
     "ideavim/ideavimrc" = {
       enable = isDarwin;
@@ -26,6 +59,180 @@ in
     };
   };
 
+  home.file =
+    let
+      syncHomeDir = homeDir + "/Library/Mobile\ Documents/com\~apple\~CloudDocs/Sync/HOME";
+    in
+    {
+      ".config/btt/btt.json" = {
+        enable = isDarwin;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/btt/btt.json");
+      };
+      ".config/flashspace/profiles.json" = {
+        enable = isDarwin;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/flashspace/profiles.json");
+      };
+      ".config/flashspace/settings.json" = {
+        enable = isDarwin;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/flashspace/settings.json");
+      };
+      # Synchronizes macOS's global spelling dictionary (Requires giving AppleSpell service Full Disk Access)
+      "Library/Group\ Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary" = lib.mkIf isDarwin {
+        source = config.lib.file.mkOutOfStoreSymlink (
+          syncHomeDir + "/Library/Group\ Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary"
+        );
+      };
+      # Adds custom BibTeX types and fields to BibDesk
+      "Library/Application\ Support/BibDesk/TypeInfo.plist" = {
+        enable = isDarwin;
+        source = ./bibdesk/TypeInfo.plist;
+      };
+      # Adds my custom templates to BibDesk
+      "Library/Application\ Support/BibDesk/Templates/mdApaTemplate.txt" = {
+        enable = isDarwin;
+        source = ./bibdesk/Templates/mdApaTemplate.txt;
+      };
+      ".local/scripts" = {
+        enable = isDarwin;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/scripts");
+      };
+      ".ssh/conf.d" = {
+        enable = isDarwin;
+        recursive = true;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.ssh/conf.d");
+      };
+      ".config/nvim_spell" = {
+        enable = isDarwin;
+        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/nvim_spell");
+      };
+    };
+
+  #---------------------------------------------------------------------
+  # Workspace
+  #---------------------------------------------------------------------
+
+  home.activation = {
+    initDarwin = lib.mkIf isDarwin (
+      lib.hm.dag.entryAfter [ "writeBoundary" ]
+        # bash
+        ''
+          export CRM_ACCOUNTS
+
+          # Create dev directories for CRM accounts and projects
+          CRM_ACCOUNTS=${homeDir}/Library/Mobile\ Documents/com~apple~CloudDocs/Projects
+          for acc_path in "$CRM_ACCOUNTS"/*/; do
+            acc_name="$(basename "$acc_path")"
+            for project_path in "$acc_path"/*/; do
+              project_name="$(basename "$project_path" | cut -d' ' -f1)"
+              if [[ $project_name =~ ^[0-9]+$ ]] && [ -f "$project_path/.project.json" ]; then
+                mkdir -p "${homeDir}/Developer/$acc_name/$project_name"
+              fi
+            done
+          done
+
+          # prepare intelephense directory
+          /bin/mkdir -p ${homeDir}/intelephense
+          # and hide it
+          /usr/bin/chflags hidden ${homeDir}/intelephense
+        ''
+    );
+    # Required for snippety-helper
+    snippetyHelperInstallation = lib.mkIf isDarwin (
+      lib.hm.dag.entryAfter [ "writeBoundary" ]
+        # bash
+        ''
+          export PKG_CURL PKG_BASH
+          PKG_BASH=${pkgs.bash}
+          PKG_CURL=${pkgs.curl}
+          if [ ! -d ${homeDir}/Downloads/.snippety-helper ]; then
+            # This is huger vulnerability, but I don't care
+            cd ${homeDir}/Downloads && "$PKG_BASH/bin/bash" -c "$("$PKG_CURL/bin/curl" -fsSL https://snippety.app/SnippetyHelper-Installer.sh)"
+          fi
+        ''
+    );
+    # Required for snippety-helper
+    checkBashPermissions =
+      lib.mkIf isDarwin # bash
+        ''
+          YELLOW='\033[0;33m'
+          NC='\033[0m' # No Color
+          SQL="SELECT client,auth_value
+                 FROM access
+                WHERE client='/bin/bash'
+                  AND auth_value='2'
+                  AND service='kTCCServiceSystemPolicyAllFiles';"
+          DB="/Library/Application Support/com.apple.TCC/TCC.db"
+          if [ ! -f "$DB" ] || [ -z "$(${pkgs.sqlite}/bin/sqlite3 "$DB" "$SQL")" ]; then
+            echo -e "''${YELLOW}To use snippety-helper LaunchAgent you need to grant bash shell Full Disk Access."
+            echo "Please go to System Preferences -> Security & Privacy -> Full Disk Access and add bash shell."
+            echo "You can find bash shell in"
+            echo "/bin/bash"
+            echo -e "After adding restart snippety-helper LaunchAgent or relogin to system.''${NC}"
+          fi
+        '';
+    checkAppleSpellPermissions =
+      lib.mkIf isDarwin # bash
+        ''
+          YELLOW='\033[0;33m'
+          NC='\033[0m' # No Color
+          SQL="SELECT client,auth_value
+                 FROM access
+                WHERE client='com.apple.AppleSpell'
+                  AND auth_value='2'
+                  AND service='kTCCServiceSystemPolicyAllFiles';"
+          DB="/Library/Application Support/com.apple.TCC/TCC.db"
+          if [ ! -f "$DB" ] || [ -z "$(${pkgs.sqlite}/bin/sqlite3 "$DB" "$SQL")" ]; then
+            echo -e "''${YELLOW}To sync macOS's global spelling dictionary, you need to grant AppleSpell service Full Disk Access."
+            echo "Please go to System Preferences -> Security & Privacy -> Full Disk Access and add AppleSpell service."
+            echo "You can find AppleSpell service in"
+            echo "/System/Library/Services/AppleSpell.service"
+            echo -e "After adding restart AppleSpell service or relogin to system.''${NC}"
+          fi
+        '';
+  };
+
+  #---------------------------------------------------------------------
+  # Programs
+  #---------------------------------------------------------------------
+  programs.git = {
+    extraConfig = {
+      gpg = {
+        # On macOS 1Password is used for signing using ssh key
+        ssh.program = lib.mkIf isDarwin "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+      };
+    };
+  };
+
+  programs.ssh = {
+    includes = [ ] ++ (lib.optionals isDarwin [ "conf.d/*" ]);
+    matchBlocks = lib.mkIf isDarwin {
+      # Have come first in config to set proper IdentityAgent
+      # Checks if NO1P is set and if so, sets IdentityAgent to default
+      "_no1p" = {
+        match = "host * exec \"[ ! -z \$NO1P ]\"";
+        identityFile = [
+          ("${homeDir}/.ssh/" + systemName)
+          ("${homeDir}/.ssh/EPDS")
+          ("${homeDir}/.ssh/CUTN")
+        ];
+        extraOptions = {
+          IdentityAgent = "SSH_AUTH_SOCK";
+        };
+      };
+      "all" = {
+        host = "*";
+        identityFile = [
+          (toString ./ssh + "/${systemName}.pub")
+          (toString ./ssh/EPDS.pub)
+          (toString ./ssh/CUTN.pub)
+        ];
+        extraOptions = {
+          IdentityAgent = "${homeDir}/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+        };
+      };
+    };
+  };
+
   #---------------------------------------------------------------------
   # Apps
   #---------------------------------------------------------------------
@@ -36,10 +243,10 @@ in
       lib.hm.dag.entryAfter [ "writeBoundary" ]
         # bash
         ''
-          TIZEN_ICONS_PATH="$HOME/Tizen/tizen-studio/TizenStudio.app/Contents/Eclipse/plugins/org.tizen.product.plugin_*/icons/branding"
-          DEVICE_MANAGER_ICONS_PATH="$HOME/Tizen/tizen-studio/tools/device-manager/icons"
-          DEVICE_MANAGER_PATH="$HOME/Tizen/tizen-studio/tools/device-manager"
-          CERTIFICATE_MANAGER_ICONS_PATH="$HOME/Tizen/tizen-studio/tools/certificate-manager/Certificate-manager.app/Contents/Eclipse/plugins/org.tizen.cert.product.plugin_*/icons"
+          TIZEN_ICONS_PATH="${homeDir}/Tizen/tizen-studio/TizenStudio.app/Contents/Eclipse/plugins/org.tizen.product.plugin_*/icons/branding"
+          DEVICE_MANAGER_ICONS_PATH="${homeDir}/Tizen/tizen-studio/tools/device-manager/icons"
+          DEVICE_MANAGER_PATH="${homeDir}/Tizen/tizen-studio/tools/device-manager"
+          CERTIFICATE_MANAGER_ICONS_PATH="${homeDir}/Tizen/tizen-studio/tools/certificate-manager/Certificate-manager.app/Contents/Eclipse/plugins/org.tizen.cert.product.plugin_*/icons"
 
           SIZES="16 32 64 128 256 512"
           if [ -d $TIZEN_ICONS_PATH ]; then
@@ -82,7 +289,7 @@ in
   #---------------------------------------------------------------------
   targets.darwin.defaults = {
     "com.hegenberg.BetterTouchTool" = {
-      BTTAutoLoadPath = "~/.config/btt/btt.json";
+      BTTAutoLoadPath = "${homeDir}/.config/btt/btt.json";
       launchOnStartup = true;
       showicon = false;
       borderWidth = 2;
