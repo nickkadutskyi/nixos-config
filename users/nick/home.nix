@@ -373,13 +373,8 @@ in
             ""
         }
       '';
-    "finicky/finicky.js" = {
-      source = ./finicky.js;
-      onChange = "cat ${config.xdg.configHome}/finicky/finicky.js > ${config.home.homeDirectory}/.finicky.js";
-    };
     "fzf/light.fzfrc".text = builtins.readFile ./fzf/light.fzfrc;
     "fzf/dark.fzfrc".text = builtins.readFile ./fzf/dark.fzfrc;
-    "gitlint/gitlint.ini".text = builtins.readFile ./gitlint.ini;
     "grep/grep-colors-light".text = "mt=01;48;5;223:fn=38;5;16:ln=38;5;244:ms=01;48;5;223:mc=01;48;5;223:sl=0:cx=0:se=0";
     "grep/grep-colors-dark".text =
       "mt=01;38;5;16;48;5;137:fn=38;5;250:ln=38;5;243:ms=01;38;5;16;48;5;137:mc=01;38;5;16;48;5;137:sl=0:cx=0:se=0";
@@ -393,16 +388,11 @@ in
       source = ./ghostty;
       recursive = true;
     };
-    "ideavim/ideavimrc".text = ''
-      source ${./vimrc}
-      ${builtins.readFile ./ideavimrc}
-    '';
-    "karabiner/karabiner.json".text = builtins.readFile ./karabiner.json;
     "tmux/tmux.conf".text = builtins.readFile ./tmux/tmux.conf;
     "tmux/tmux-light.conf".text = builtins.readFile ./tmux/tmux-light.conf;
     "tmux/tmux-dark.conf".text = builtins.readFile ./tmux/tmux-dark.conf;
     # TODO clean up vimrc and ideavimrc config
-    "vim/vimrc".source = ./vimrc;
+    "vim/vimrc".source = ./vim/vimrc;
   };
 
   home.file =
@@ -655,7 +645,7 @@ in
 
   programs.starship = {
     enable = true;
-    settings = import ./starship.nix { inherit config pkgs systemName; };
+    settings = import ./starship/starship.nix { inherit config pkgs systemName; };
   };
 
   programs.zsh = {
@@ -729,8 +719,6 @@ in
 
   imports = [
     ./home-darwin.nix
-    # ./services/home-fzf-theme.nix
-    # ./services/home-nvim-background.nix
     (import ./services/home-snippety-helper.nix { inherit systemUser pkgs config; })
     ./services/home-theme.nix
   ];

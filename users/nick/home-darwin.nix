@@ -9,6 +9,24 @@ let
 in
 {
   #---------------------------------------------------------------------
+  # Env vars and dotfiles
+  #---------------------------------------------------------------------
+
+  xdg.configFile = {
+    "ideavim/ideavimrc" = {
+      enable = isDarwin;
+      text = ''
+        source ${./vim/vimrc}
+        ${builtins.readFile ./vim/ideavimrc}
+      '';
+    };
+    "karabiner/karabiner.json" = {
+      enable = isDarwin;
+      text = builtins.readFile ./karabiner/karabiner.json;
+    };
+  };
+
+  #---------------------------------------------------------------------
   # Apps
   #---------------------------------------------------------------------
 
