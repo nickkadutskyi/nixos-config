@@ -138,6 +138,9 @@ in
     );
     # Required for snippety-helper
     snippetyHelperInstallation = lib.mkIf isDarwin (
+      let
+        installerScript = import ./snippety/snippety-helper-installer.nix { inherit pkgs config; };
+      in
       lib.hm.dag.entryAfter [ "writeBoundary" ]
         # bash
         ''
@@ -145,8 +148,7 @@ in
           PKG_BASH=${pkgs.bash}
           PKG_CURL=${pkgs.curl}
           if [ ! -d ${homeDir}/Downloads/.snippety-helper ]; then
-            # This is huger vulnerability, but I don't care
-            cd ${homeDir}/Downloads && "$PKG_BASH/bin/bash" -c "$("$PKG_CURL/bin/curl" -fsSL https://snippety.app/SnippetyHelper-Installer.sh)"
+            cd ${homeDir}/Downloads && "$PKG_BASH/bin/bash" ${installerScript}
           fi
         ''
     );
