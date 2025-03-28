@@ -186,11 +186,11 @@ export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 # zsh-history-substring-search
 #---------------------------------------------------------------------
 export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="$(cat ~/.config/zsh-hist-sub/theme)"
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="$(cat ~/.config/zsh/zsh-hist-sub-theme)"
 
 # Create a function to update the highlight color without restarting the shell
 update_history_highlight() {
-  HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="$(cat ~/.config/zsh-hist-sub/theme)"
+  HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="$(cat ~/.config/zsh/zsh-hist-sub-theme)"
 }
 history-substring-search-up-wrap() {
   update_history_highlight
@@ -216,7 +216,7 @@ bindkey '^[[Z' reverse-menu-complete
 #---------------------------------------------------------------------
 fzf-completion-wrap() {
   # shellcheck disable=SC1090
-  [ -f ~/.config/zsh-theme/theme ] && source ~/.config/zsh-theme/theme
+  [ -f ~/.config/zsh/zsh-theme-theme ] && source ~/.config/zsh/zsh-theme-theme
   zle fzf-completion
 }
 zle -N fzf-completion-wrap

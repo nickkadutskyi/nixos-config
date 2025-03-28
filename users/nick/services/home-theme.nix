@@ -31,14 +31,14 @@ let
       done)
 
       # Sets zsh-hist-sub theme
-      ZSHHS_CONFIG=~/.config/zsh-hist-sub
-      ZSHHS_THEME=~/.config/zsh-hist-sub/theme
-      /bin/ln -sf "$ZSHHS_CONFIG/$SYSTEM_THEME" "$ZSHHS_THEME"
+      ZSHHS_CONFIG=~/.config/zsh
+      ZSHHS_THEME=~/.config/zsh/zsh-hist-sub-theme
+      /bin/ln -sf "$ZSHHS_CONFIG/zsh-hist-sub-$SYSTEM_THEME" "$ZSHHS_THEME"
 
       # Sets zsh theme (currently for completion matches highlight)
-      ZSH_CONFIG=~/.config/zsh-theme
-      ZSH_THEME=~/.config/zsh-theme/theme
-      /bin/ln -sf "$ZSH_CONFIG/$SYSTEM_THEME" "$ZSH_THEME"
+      ZSH_CONFIG=~/.config/zsh
+      ZSH_THEME=~/.config/zsh/zsh-theme-theme
+      /bin/ln -sf "$ZSH_CONFIG/zsh-theme-$SYSTEM_THEME" "$ZSH_THEME"
 
       # Sets grep theme
       GREP_CONFIG=~/.config/grep

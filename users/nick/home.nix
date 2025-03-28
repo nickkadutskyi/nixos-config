@@ -385,10 +385,10 @@ in
       "mt=01;38;5;16;48;5;137:fn=38;5;250:ln=38;5;243:ms=01;38;5;16;48;5;137:mc=01;38;5;16;48;5;137:sl=0:cx=0:se=0";
     "ripgrep/.ripgreprc-light".text = builtins.readFile ./ripgrep/ripgreprc-light;
     "ripgrep/.ripgreprc-dark".text = builtins.readFile ./ripgrep/ripgreprc-dark;
-    "zsh-hist-sub/light".text = builtins.readFile ./zsh-hist-sub/light;
-    "zsh-hist-sub/dark".text = builtins.readFile ./zsh-hist-sub/dark;
-    "zsh-theme/light".text = builtins.readFile ./zsh-theme/light;
-    "zsh-theme/dark".text = builtins.readFile ./zsh-theme/dark;
+    "zsh/zsh-hist-sub-light".text = builtins.readFile ./zsh/zsh-hist-sub-light;
+    "zsh/zsh-hist-sub-dark".text = builtins.readFile ./zsh/zsh-hist-sub-dark;
+    "zsh/zsh-theme-light".text = builtins.readFile ./zsh/zsh-theme-light;
+    "zsh/zsh-theme-dark".text = builtins.readFile ./zsh/zsh-theme-dark;
     "ghostty" = {
       source = ./ghostty;
       recursive = true;
@@ -512,6 +512,7 @@ in
           PKG_BASH=${pkgs.bash}
           PKG_CURL=${pkgs.curl}
           if [ ! -d ~/Downloads/.snippety-helper ]; then
+            # This is huger vulnerability, but I don't care
             cd ~/Downloads && "$PKG_BASH/bin/bash" -c "$("$PKG_CURL/bin/curl" -fsSL https://snippety.app/SnippetyHelper-Installer.sh)"
           fi
         '';
@@ -718,7 +719,7 @@ in
     initExtra =
       # bash
       ''
-        ${builtins.readFile ./zshrc}
+        ${builtins.readFile ./zsh/zshrc}
       '';
   };
 
