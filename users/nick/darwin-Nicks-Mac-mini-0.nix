@@ -22,6 +22,7 @@
       # is not supported on macOS 15+
       # "nickkadutskyi/homebrew-cask/paragon-ntfs@15"
       "steam"
+      "veracrypt-fuse-t"
       "vmware-fusion"
     ];
   };
