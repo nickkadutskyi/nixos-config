@@ -82,6 +82,7 @@
       "typeface"
       # Upwork may return 403 error sometimes so run switch again.
       "nickkadutskyi/homebrew-cask/upwork"
+      "veracrypt-fuse-t"
       "zoom"
     ];
     brews = [ ];
