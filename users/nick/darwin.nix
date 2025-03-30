@@ -49,14 +49,10 @@
       "betterzip"
       # BibDesk is a reference manager for LaTeX
       "bibdesk"
-      # Manages reading materials and e-books
-      "calibre"
       "cleanshot"
-      "dash"
       # DataGrip is a commercial IDE for database management
       "datagrip"
       "discord"
-      "dropbox"
       "flashspace"
       "nickkadutskyi/homebrew-cask/ghostty@tip"
       "google-chrome"
@@ -69,8 +65,6 @@
       "little-snitch"
       "logi-options+"
       "maccy" # Clipboard manager
-      # Parallels Desktop for Mac for running Windows and other VMs
-      "parallels"
       "protonvpn"
       "raycast"
       "rapidapi"
@@ -80,8 +74,6 @@
       "transmission"
       "transmit"
       "typeface"
-      # Upwork may return 403 error sometimes so run switch again.
-      "nickkadutskyi/homebrew-cask/upwork"
       "zoom"
     ];
     brews = [ ];
@@ -100,27 +92,7 @@
     };
     taps = builtins.attrNames config.nix-homebrew.taps;
   };
-  environment.customIcons = {
-    enable = true;
-    icons = [
-      {
-        path = "/Applications/Upwork.app";
-        icon = ./icons/upwork.icns;
-      }
-      {
-        path = "/Users/nick/Tizen/tizen-studio/TizenStudio.app";
-        icon = ./icons/tizen.icns;
-      }
-      {
-        path = "/Users/nick/Tizen/tizen-studio/tools/certificate-manager/Certificate-manager.app";
-        icon = ./icons/certificate_manager.icns;
-      }
-      {
-        path = "/Users/nick/Tizen/tizen-studio/tools/device-manager/bin/device-manager.app";
-        icon = ./icons/device_manager.icns;
-      }
-    ];
-  };
+
   # Enable the touch-id authentication for sudo via tmux reattach and in proper file
   environment.etc."pam.d/sudo_local".text = ''
     # Managed by Nix-Darwin
