@@ -66,7 +66,6 @@
       "logi-options+"
       "maccy" # Clipboard manager
       "protonvpn"
-      "raycast"
       "rapidapi"
       "sketch"
       "splashtop-business"

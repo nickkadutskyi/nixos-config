@@ -455,25 +455,6 @@ in
           };
           "tile-type" = "directory-tile";
         }
-        # {
-        #   GUID = 3715713668;
-        #   "tile-data" = {
-        #     arrangement = 2;
-        #     displayas = 0;
-        #     "file-data" = {
-        #       "_CFURLString" = "file:///Users/nick/Documents/";
-        #       "_CFURLStringType" = 15;
-        #     };
-        #     "file-label" = "Documents";
-        #     "file-mod-date" = 3808363796;
-        #     "file-type" = 2;
-        #     "is-beta" = 0;
-        #     "parent-mod-date" = 261124935269833;
-        #     preferreditemsize = "-1";
-        #     showas = 0;
-        #   };
-        #   "tile-type" = "directory-tile";
-        # }
         {
           GUID = 2502778041;
           "tile-data" = {
@@ -723,7 +704,8 @@ in
             parameters = [
               32
               49
-              524288
+              # 524288 # option key
+              1048576 # command key
             ];
             type = "standard";
           };
