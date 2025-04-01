@@ -497,6 +497,7 @@ in
 
   programs.zsh = {
     enable = true;
+    dotDir = ".config/zsh";
     enableCompletion = true;
     autosuggestion = {
       enable = true;
@@ -533,6 +534,7 @@ in
       save = 1000000000;
       size = 1000000000;
       ignoreAllDups = false;
+      path = "${config.xdg.dataHome}/zsh/zsh_history";
     };
     envExtra =
       # bash
