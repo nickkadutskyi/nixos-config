@@ -26,8 +26,6 @@
       "1Blocker - Ad Blocker" = 1365531024;
       "1Password for Safari" = 1569813296; # 1Password Safari extension only
       "BetterJSON for Safari" = 1511935951;
-      # TODO replace core tunnel with SSH command
-      "Core Tunnel" = 1354318707;
       "Easy CSV Editor" = 1171346381;
       "iA Writer" = 775737590;
       "Kagi for Safari" = 1622835804;
