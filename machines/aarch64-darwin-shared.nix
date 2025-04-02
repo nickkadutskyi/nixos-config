@@ -6,12 +6,12 @@
 }:
 {
   # Needed for macOS Sequoia
-  system.stateVersion = 5;
+  system.stateVersion = 6;
 
   # We install Nix using a separate installer so we don't want nix-darwin
   # to manage it for us. This tells nix-darwin to just use whatever is running.
   nix = {
-    package = pkgs.nixVersions.nix_2_25;
+    package = pkgs.nixVersions.nix_2_26;
     settings = {
       # Enables flakes
       experimental-features = [
@@ -37,9 +37,8 @@
     zsh
   ];
   # Packages for all users on the system
-  environment.systemPackages = with pkgs; [
-    # For wildecard *.test for local development (TODO configure it with nix-darwin)
-    dnsmasq
+  environment.systemPackages = [
+    pkgs.dnsmasq # wildcard *.test for local development
   ];
   # Set Git commit hash for darwin-version.
   system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
