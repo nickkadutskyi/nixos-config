@@ -633,6 +633,10 @@ in
       ShowCategory = 109;
     };
 
+    "com.apple.iCal" = {
+      "number of hours displayed" = 12;
+    };
+
     "com.apple.finder" = {
       ShowPathbar = true;
       ShowStatusBar = true;

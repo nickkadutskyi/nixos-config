@@ -1,7 +1,7 @@
 { inputs, pkgs, ... }:
 {
   imports = [
-    ./darwin.nix
+    ./darwin-shared.nix
   ];
 
   users.users.nick = {

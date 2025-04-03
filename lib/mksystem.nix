@@ -15,16 +15,17 @@ systemName:
   isWSL ? false,
 }:
 let
-  # Machine configuration for all users.
+  # Machine specific configuration, equivalent to
+  # NixOS configuration.nix and hardware-configuration.nix
   machineConfig = ../machines/${systemName}.nix;
 
-  # System configuration for a specific user.
-  userSystemGenericConfig = ../users/${systemUser}/${if isDarwin then "darwin" else "nixos"}.nix;
-  userSystemSpecificConfig = ../users/${systemUser}/${
+  # OS configuration for a specific user. Currently my systems are
+  # single-user systems thus no OS specific configs.
+  systemGenericConfig = ../users/${systemUser}/${if isDarwin then "darwin" else "nixos"}-shared.nix;
+  systemSpecificConfig = ../users/${systemUser}/${
     if isDarwin then "darwin-${systemName}.nix" else "nixos-${systemName}.nix"
   };
-  userSystemConfig =
-    if builtins.pathExists userSystemSpecificConfig then userSystemSpecificConfig else userSystemGenericConfig;
+  userSystemConfig = if builtins.pathExists systemSpecificConfig then systemSpecificConfig else systemGenericConfig;
 
   # NixOS vs nix-darwin functions
   systemFunc = if isDarwin then inputs.nix-darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
@@ -44,15 +45,18 @@ systemFunc rec {
     }
     # Bring in WSL if this is a WSL build
     (if isWSL then inputs.nixos-wsl.nixosModules.wsl else { })
+    # Machine specific configuration e.g. configuration.nix and hardware-configuration.nix
     machineConfig
+    # OS specific configuration for a specific user in single-user systems
     userSystemConfig
+    # User specific home configuration
     home-manager.home-manager
     {
       home-manager.backupFileExtension = "hm-backup";
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       # User specific configuration (shared across all machines)
-      home-manager.users.${systemUser} = import ../users/${systemUser}/home.nix {
+      home-manager.users.${systemUser} = import ../users/${systemUser}/home-shared.nix {
         inherit
           isWSL
           inputs
@@ -61,11 +65,12 @@ systemFunc rec {
           ;
       };
     }
+    # Secrets management in repo with SOPS
     sosps.sops
     {
       sops = {
         defaultSopsFile = ../secrets/secrets.yaml;
-        age.keyFile = "/Users/nick/.config/sops/age/keys.txt";
+        age.keyFile = "/Users/${systemUser}/.config/sops/age/keys.txt";
         secrets = {
           "php/intelephense_license" = {
             owner = systemUser;

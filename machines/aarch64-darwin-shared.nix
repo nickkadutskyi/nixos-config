@@ -32,9 +32,9 @@
         keep-derivations = true
       '';
   };
-  environment.shells = with pkgs; [
-    bashInteractive
-    zsh
+  environment.shells = [
+    pkgs.bashInteractive
+    pkgs.zsh
   ];
   # Packages for all users on the system
   environment.systemPackages = [
