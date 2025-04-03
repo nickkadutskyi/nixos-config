@@ -81,6 +81,7 @@ in
         source = config.lib.file.mkOutOfStoreSymlink (
           syncHomeDir + "/Library/Group\ Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary"
         );
+        force = true;
       };
       # Adds custom BibTeX types and fields to BibDesk
       "Library/Application\ Support/BibDesk/TypeInfo.plist" = {
@@ -628,7 +629,8 @@ in
     };
 
     "com.apple.ActivityMonitor" = {
-      ShowCategory = 100;
+      # Applications in 12 hours
+      ShowCategory = 109;
     };
 
     "com.apple.finder" = {
