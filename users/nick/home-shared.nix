@@ -165,7 +165,6 @@ in
       awscli2
       # cat with syntax highlighting
       bat
-      csvkit
       # Feature–rich alternative to ls
       eza
       # Faster alternative to find
@@ -205,58 +204,12 @@ in
       wget
 
       # ----------------------------------------------------------------
-      # Script wrappers for non-nix packages
+      # Scripts and wrappers for non-nix packages
       # ----------------------------------------------------------------
-
-      (pkgs.writeShellScriptBin "sdb"
-        # bash
-        ''
-          # Check for Tizen Studio location based on platform
-          if [[ "$OSTYPE" == "darwin"* ]]; then
-            TIZEN_PATH="$HOME/Tizen/tizen-studio/tools/sdb"
-          elif [[ -d "/opt/tizen-studio" ]]; then
-            TIZEN_PATH="/opt/tizen-studio/tools/sdb"
-          elif [[ -d "$HOME/tizen-studio" ]]; then
-            TIZEN_PATH="$HOME/tizen-studio/tools/sdb"
-          else
-            echo "Error: Could not locate Tizen Studio installation" >&2
-            exit 1
-          fi
-
-          # Execute the binary if it exists
-          if [[ -x "$TIZEN_PATH" ]]; then
-            exec "$TIZEN_PATH" "$@"
-          else
-            echo "Error: sdb binary not found at $TIZEN_PATH" >&2
-            exit 1
-          fi
-        ''
-      )
-      (pkgs.writeShellScriptBin "tizen"
-        # bash
-        ''
-          # Check for Tizen Studio location based on platform
-          if [[ "$OSTYPE" == "darwin"* ]]; then
-            TIZEN_PATH="$HOME/Tizen/tizen-studio/tools/ide/bin/tizen"
-          elif [[ -d "/opt/tizen-studio" ]]; then
-            TIZEN_PATH="/opt/tizen-studio/tools/ide/bin/tizen"
-          elif [[ -d "$HOME/tizen-studio" ]]; then
-            TIZEN_PATH="$HOME/tizen-studio/tools/ide/bin/tizen"
-          else
-            echo "Error: Could not locate Tizen Studio installation" >&2
-            exit 1
-          fi
-
-          # Execute the binary if it exists
-          if [[ -x "$TIZEN_PATH" ]]; then
-            exec "$TIZEN_PATH" "$@"
-          else
-            echo "Error: tizen binary not found at $TIZEN_PATH" >&2
-            exit 1
-          fi
-        ''
-      )
-
+      (import ./scripts/aws_cd_deployments.nix { inherit pkgs; })
+      (import ./scripts/aws_ec2_instances.nix { inherit pkgs; })
+      (import ./scripts/tizen-sdb.nix { inherit pkgs; })
+      (import ./scripts/tizen.nix { inherit pkgs; })
     ]
     ++ (lib.optionals (isLinux && !isWSL) [
       chromium
@@ -292,53 +245,25 @@ in
     "/Applications/FlashSpace.app/Contents/Resources"
   ];
 
-  home.shellAliases = {
-    # Navigation
-    ll = "ls -lah";
-    le = "eza -lag";
-    # TODO Review these aliases and get rid of them if not needed
-    # Tooling
-    ip = # bash
-      "curl -4 icanhazip.com";
-    ip4 = # bash
-      "curl -4 icanhazip.com";
-    ip6 = # bash
-      "curl -6 icanhazip.com";
-    ip4a = # bash
-      "dig +short -4 myip.opendns.com @resolver4.opendns.com";
-    ip6a = # bash
-      "dig +short -6 myip.opendns.com @resolver1.ipv6-sandbox.opendns.com AAAA";
-    vi = "nvim";
-    vim = "nvim";
-    view = "nvim";
-    vimdiff = "nvim -d";
-    aws_ec2_instances =
-      # bash
-      ''
-        aws ec2 describe-instances \
-        --filters "Name=instance-state-name,Values=running" \
-        --query 'sort_by(Reservations[].Instances[], &Tags[?Key==`Name`].Value|[0] || `z-unnamed`)
-          [].{InstanceID:InstanceId,Type:InstanceType,State:State.Name,PublicIP:PublicIpAddress,
-          PrivateIP:PrivateIpAddress,Name:Tags[?Key==`Name`].Value|[0]}' \
-        --output table
-      '';
-    aws_cd_deployments = # bash
-      ''
-        aws deploy batch-get-deployments \
-        --deployment-ids $(aws deploy list-deployments --query 'deployments' --output json --max-items 10 | \
-          jq -r 'join(" ")') \
-        --query 'deploymentsInfo[*].[deploymentId, status, applicationName, creator, createTime, completeTime,
-          revision.s3Location.key]' \
-        --output json | \
-          jq -r 'def format_date: if . then split("T") | (.[0] | split("-") | .[1] | tonumber) as $month |
-          (.[0] | split("-") | .[2] | tonumber) as $day | (.[0] | split("-") | .[0][-2:] | tonumber) as $year |
-          (.[1] | split(".") | .[0]) as $time | "\($month)/\($day)/\($year) \($time)" else "N/A" end;
-          [ ["ID", "Status", "App", "Initiated", "Started", "Ended", "Revision"] ] +
-          (sort_by(.[4]) | reverse | map([.[0], .[1], .[2], .[3], (.[4] | format_date), (.[5] | format_date), .[6]])) |
-          map(@tsv) | .[]' | \
-          csvlook --tabs -I 2> /dev/null
-      '';
-  };
+  home.shellAliases =
+    {
+      ll = "ls -lah";
+      le = "eza -lag";
+      vi = "nvim";
+      vim = "nvim";
+      view = "nvim";
+      vimdiff = "nvim -d";
+      g = "git";
+    }
+    // (
+      if isLinux then
+        {
+          pbcopy = "xclip";
+          pbpaste = "xclip -o";
+        }
+      else
+        { }
+    );
 
   xdg.configFile = {
     "1Password/ssh/agent.toml".text =
@@ -442,12 +367,17 @@ in
     userName = "Nick Kadutskyi";
     userEmail = "nick@kadutskyi.com";
     aliases = {
-      st = "status";
-      ci = "commit";
+      a = "add";
       br = "branch";
+      c = "commit";
       co = "checkout";
+      cp = "cherry-pick";
+      d = "diff";
       p = "push";
+      l = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
       pl = "pull";
+      s = "status";
+      t = "tag";
       ignore = "update-index --assume-unchanged";
       unignore = "update-index --no-assume-unchanged";
       ignored = "git ls-files -v | grep \"^[[:lower:]]\"";
