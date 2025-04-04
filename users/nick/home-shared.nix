@@ -17,6 +17,9 @@ let
   pkgs-master = inputs.nixpkgs-master.legacyPackages.${pkgs.system};
   pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${pkgs.system};
   homeDir = config.home.homeDirectory;
+  # Used in scripts for project navigation
+  select-project = (import ./scripts/select-project.nix { inherit pkgs config; });
+  neovim = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
 in
 {
   # This value determines the Home Manager release that your
@@ -57,6 +60,10 @@ in
   # Packages I always want installed, but keep project specific packages
   # in their project specific flake.nix accessible via `nix develop`
   home.packages =
+    let
+      select-project = (import ./scripts/select-project.nix { inherit pkgs config; });
+      neovim = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+    in
     with pkgs;
     [
       # ----------------------------------------------------------------
@@ -210,9 +217,6 @@ in
       (import ./scripts/aws_ec2_instances.nix { inherit pkgs; })
       (import ./scripts/tizen-sdb.nix { inherit pkgs; })
       (import ./scripts/tizen.nix { inherit pkgs; })
-      (import ./scripts/pro.nix { inherit pkgs config; })
-      (import ./scripts/prot.nix { inherit pkgs config; })
-      (import ./scripts/prov.nix { inherit pkgs config inputs; })
     ]
     ++ (lib.optionals (isLinux && !isWSL) [
       chromium
@@ -492,6 +496,31 @@ in
       # bash
       ''
         ${builtins.readFile ./zsh/zshrc}
+
+        # Select and cd to the project directory
+        function select-project() { ${select-project}/bin/select-project $1 }
+        function pro() { local p=$(select-project $1) && [ -n "$p" ] && cd "$p" }
+        function prov() { pro $1 && eval "$(${pkgs.direnv}/bin/direnv export zsh)" && ${neovim}/bin/nvim . }
+        function prot() {
+          local p name code acc sess TMUX_BIN
+          TMUX_BIN=${pkgs.tmux}/bin/tmux
+          p=$(select-project $1)
+          if [ -n "$p" ]; then
+            name="''${p%/}" && name="''${name##*/}" && name="''${name//[:,. ]/_}"
+            code="''${p%/*}" && code=''${code##*/} && code=''${code#"''${code%%[!0]*}"}
+            acc="''${p%/*}" && acc=''${acc%/*} && acc=''${acc##*/}
+            sess="$acc$code $name"
+            if ! $TMUX_BIN has-session -t="$sess" 2>/dev/null; then
+              $TMUX_BIN new -ds "$sess" -c "$p" -n "$sess" \; select-pane -t "$sess":1.1 -T "$sess"
+              $TMUX_BIN send-keys -t "$sess" "ready-tmux" ^M
+            fi
+            if [[ -z "$TMUX" ]]; then
+              $TMUX_BIN attach -t "$sess"
+            else
+              $TMUX_BIN switchc -t "$sess"
+            fi
+          fi
+        }
       '';
   };
 

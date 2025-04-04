@@ -1,15 +1,14 @@
-# List projects -> select one -> start tmux session for that project
 { pkgs, config, ... }:
 let
   confDir = config.xdg.configHome;
 in
-pkgs.writeShellScriptBin "prot"
+pkgs.writeShellScriptBin "select-project"
   # bash
   ''
     TMUX_BIN=${pkgs.tmux}/bin/tmux
     FD=${pkgs.fd}/bin/fd
     FZF=${pkgs.fzf}/bin/fzf
-    XARGS=${pkgs.findutils}/bin/xargs
+    # XARGS=${pkgs.findutils}/bin/xargs
     SED=${pkgs.gnused}/bin/sed
     # Lists Developer projects
     list_projects() {
@@ -24,7 +23,7 @@ pkgs.writeShellScriptBin "prot"
     while read -r project_path; do
       project_path="''${project_path%/}"
       project_name=''${project_path##*/}
-      project_name=''${project_name//[:,. ]/____}
+      project_name=''${project_name//[:,. ]/_}
       dir=''${project_path%/*}
       project_code=''${dir##*/}
       project_code=''${project_code#"''${project_code%%[!0]*}"}
@@ -49,29 +48,9 @@ pkgs.writeShellScriptBin "prot"
     done <<<"$projects"
 
     selected_project_path="$(printf "%s\n" "''${project_options[@]}" |
-      FZF_DEFAULT_OPTS_FILE=${confDir}/fzf/fzfrc $FZF -1 -q "$1")"
-
-    switch_to() {
-      if [[ -z "$TMUX" ]]; then
-        $TMUX_BIN attach -t "$session_name"
-      else
-        $TMUX_BIN switchc -t "$session_name"
-      fi
-    }
+      FZF_DEFAULT_OPTS_FILE=${confDir}/fzf/fzfrc $FZF -1 -q "$1" | $SED 's/ (.*)\(.*\)$//g')"
 
     if [[ -n "$selected_project_path" ]]; then
-      selected_project_path=$(echo "$selected_project_path" | sed 's/ (.*)\(.*\)$//g')
-      project_name=$(basename "$selected_project_path" | tr ":,. " "____")
-      project_code=$(dirname "$selected_project_path" | $XARGS -- basename | $SED 's/^0*//')
-      account_code=$(dirname "$selected_project_path" | $XARGS -- dirname | $XARGS -- basename)
-
-      session_name="$account_code$project_code $project_name"
-      if $TMUX_BIN has-session -t="$session_name" 2>/dev/null; then
-        switch_to
-      else
-        $TMUX_BIN new -ds "$session_name" -c "$selected_project_path" -n "$session_name" \; select-pane -t "$session_name":1.1 -T "$session_name"
-        $TMUX_BIN send-keys -t "$session_name" "ready-tmux" ^M
-        switch_to
-      fi
+      echo $selected_project_path
     fi
   ''
