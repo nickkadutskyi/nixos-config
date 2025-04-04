@@ -210,6 +210,9 @@ in
       (import ./scripts/aws_ec2_instances.nix { inherit pkgs; })
       (import ./scripts/tizen-sdb.nix { inherit pkgs; })
       (import ./scripts/tizen.nix { inherit pkgs; })
+      (import ./scripts/pro.nix { inherit pkgs config; })
+      (import ./scripts/prot.nix { inherit pkgs config; })
+      (import ./scripts/prov.nix { inherit pkgs config inputs; })
     ]
     ++ (lib.optionals (isLinux && !isWSL) [
       chromium

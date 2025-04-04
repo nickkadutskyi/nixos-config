@@ -27,97 +27,6 @@ if [ -x "$(command -v fzf)" ]; then
 
   # FZF key bindings initialization
   eval "$(fzf --zsh)"
-
-  # Lists Developer projects
-  list_projects() {
-    {
-      fd . ~/Developer/*/* -d 1 -t d -E "*/.*"
-      fd -t d -H '^.git$' ~/.config --min-depth 2 -x echo {//}
-    }
-  }
-
-  # Navigate to Developer project
-  pro() {
-    project="$(list_projects | FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc fzf -1 -q "$1")"
-
-    if [[ ! -z $project ]]; then
-      cd "$project" || exit
-    fi
-  }
-
-  # Navigate to Developer project and open in nvim
-  prov() {
-    project="$(list_projects | FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc fzf -1 -q "$1")"
-
-    if [[ -n $project ]]; then
-      if [ -x "$(command -v direnv)" ]; then
-        cd "$project" && eval "$(direnv export zsh)" && nvim .
-      else
-        cd "$project" && nvim .
-      fi
-    fi
-  }
-
-  # Navigate to Developer project and open in tmux
-  prot() {
-    sessions=$(tmux list-sessions -F "#{session_name}" 2>/dev/null)
-    projects=$(list_projects)
-    project_options=()
-    while read -r project_path; do
-      project_path="${project_path%/}"
-      project_name=${project_path##*/}
-      project_name=${project_name//[:,. ]/____}
-      dir=${project_path%/*}
-      project_code=${dir##*/}
-      project_code=${project_code#"${project_code%%[!0]*}"}
-      temp=${dir%/*}
-      account_code=${temp##*/}
-
-      session_name="$account_code$project_code $project_name"
-
-      has_session=false
-      while read -r session; do
-        if [[ "$session" == "$session_name" ]]; then
-          has_session=true
-          break
-        fi
-      done <<<"$sessions"
-
-      if [[ "$has_session" == true ]]; then
-        project_options+=("$project_path (tmux: $session_name)")
-      else
-        project_options+=("$project_path")
-      fi
-    done <<<"$projects"
-
-    selected_project_path="$(printf "%s\n" "${project_options[@]}" |
-      FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc fzf -1 -q "$1")"
-
-    switch_to() {
-      if [[ -z "$TMUX" ]]; then
-        tmux attach -t "$session_name"
-      else
-        tmux switchc -t "$session_name"
-      fi
-    }
-
-    if [[ -n "$selected_project_path" ]]; then
-      selected_project_path=$(echo "$selected_project_path" | sed 's/ (.*)\(.*\)$//g')
-      project_name=$(basename "$selected_project_path" | tr ":,. " "____")
-      project_code=$(dirname "$selected_project_path" | xargs -- basename | sed 's/^0*//')
-      account_code=$(dirname "$selected_project_path" | xargs -- dirname | xargs -- basename)
-
-      session_name="$account_code$project_code $project_name"
-      if tmux has-session -t="$session_name" 2>/dev/null; then
-        switch_to
-      else
-        tmux new -ds "$session_name" -c "$selected_project_path" -n "$session_name" \; select-pane -t "$session_name":1.1 -T "$session_name"
-        tmux send-keys -t "$session_name" "ready-tmux" ^M
-        switch_to
-      fi
-    fi
-  }
-
 fi
 # FZF dependent functions END
 
@@ -140,47 +49,9 @@ export TAVILY_API_KEY
 TAVILY_API_KEY="$([ -f /run/secrets/tavily/api_key ] && cat /run/secrets/tavily/api_key)"
 
 #---------------------------------------------------------------------
-# zsh-autocomplete
-#---------------------------------------------------------------------
-# Currently disabled due to slowness
-# setopt interactivecomments
-# menu-select-wrap() {
-#   zle menu-select
-# }
-# zle -N menu-select-wrap
-#
-# # Wrapper to add bindings only in history menu
-# wrap(){
-#   functions[${1}:old]="$(
-#       unfunction "${1}" 2> /dev/null
-#       builtin autoload +X -Uz ~autocomplete/Functions/Widgets/"${1}"
-#       print -r -- "${functions[${1}]}"
-#   )"
-#   eval "${1}(){
-#     bindkey -M menuselect  '^[[D' ${2}  '^[OD' ${2}
-#     bindkey -M menuselect  '^[[C'  ${3}  '^[OC'  ${3}
-#     bindkey -M menuselect '\r' ${4}
-#     ${1}:old \$@
-#   }"
-# }
-# wrap .autocomplete__history-search__completion-widget .backward-char .forward-char .accept-line
-# wrap .autocomplete__complete-word__completion-widget backward-char forward-char accept-line
-# unfunction wrap
-#
-# # bindkey              '^I' menu-select
-# # bindkey "${terminfo[kcbt]}" menu-select
-# # Uses wrapper to fix issue with zsh-autosuggestions
-# bindkey              '^I' menu-select-wrap
-# bindkey "${terminfo[kcbt]}" menu-select-wrap
-# bindkey -M menuselect              '^I'         menu-complete
-# bindkey -M menuselect "${terminfo[kcbt]}" reverse-menu-complete
-
-#---------------------------------------------------------------------
 # zsh-autosuggestions
 #---------------------------------------------------------------------
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-# bindkey "^[[A" history-beginning-search-backward
-# bindkey "^[[B" history-beginning-search-forward
 
 #---------------------------------------------------------------------
 # zsh-history-substring-search
