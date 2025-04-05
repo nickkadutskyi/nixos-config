@@ -261,6 +261,13 @@ in
       view = "nvim";
       vimdiff = "nvim -d";
       g = "git";
+      ip = "curl -4 icanhazip.com";
+      ip4 = "curl -4 icanhazip.com";
+      ip6 = "curl -6 icanhazip.com";
+      iplan = lib.mkIf isDarwin "ifconfig en0 inet | grep 'inet ' | awk ' { print \$2 } '";
+      ips = lib.mkIf isDarwin "ifconfig -a | perl -nle'/(\\d+\\.\\d+\\.\\d+\\.\\d+)/ && print \$1'";
+      ip4a = "dig +short -4 myip.opendns.com @resolver4.opendns.com";
+      ip6a = "dig +short -6 myip.opendns.com @resolver1.ipv6-sandbox.opendns.com AAAA";
     }
     // (
       if isLinux then
