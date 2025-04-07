@@ -89,5 +89,9 @@
         systemUser = "nick";
         isDarwin = true;
       };
+      nixosConfigurations.Server-x240-0 = mkSystem "Server-x240-0" {
+        system = "x86_64-linux";
+        user = "nick";
+      };
     };
 }
