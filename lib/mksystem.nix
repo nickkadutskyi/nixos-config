@@ -33,8 +33,7 @@ let
   sosps = if isDarwin then inputs.sops-nix.darwinModules else inputs.sops-nix.nixosModules;
 in
 systemFunc {
-  # inputs = nixpkgs.lib.mkIf isDarwin inputs;
-  system = system;
+  inherit system;
   specialArgs = {
     inherit inputs;
   };
