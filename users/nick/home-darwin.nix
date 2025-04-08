@@ -290,7 +290,7 @@ in
   #---------------------------------------------------------------------
   # System and UI
   #---------------------------------------------------------------------
-  targets.darwin.defaults = {
+  targets.darwin.defaults = lib.mkIf isDarwin {
     "com.hegenberg.BetterTouchTool" = {
       BTTAutoLoadPath = "${homeDir}/.config/btt/btt.json";
       launchOnStartup = true;

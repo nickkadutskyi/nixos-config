@@ -7,11 +7,12 @@ NIXUSER ?= nick
 MAKEFILE_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 # The name of the nixosConfiguration in the flake
-NIXNAME ?=
+NIXNAME ?= $(hostname)
 
 # SSH options that are used. These aren't meant to be overridden but are
 # reused a lot so we just store them up here.
-SSH_OPTIONS=-o PubkeyAuthentication=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
+# SSH_OPTIONS=-o PubkeyAuthentication=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
+SSH_OPTIONS=-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
 
 # We need to do some OS switching below.
 UNAME := $(shell uname)
@@ -89,13 +90,13 @@ vm/copy:
 		--exclude='.jj/' \
 		--exclude='iso/' \
 		--rsync-path="sudo rsync" \
-		$(MAKEFILE_DIR)/ $(NIXUSER)@$(NIXADDR):/nix-config
+		$(MAKEFILE_DIR)/ $(NIXUSER)@$(NIXADDR):/nixos-config
 
 # run the nixos-rebuild switch command. This does NOT copy files so you
 # have to run vm/copy before.
 vm/switch:
 	ssh $(SSH_OPTIONS) -p$(NIXPORT) $(NIXUSER)@$(NIXADDR) " \
-		sudo NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild switch --flake \"/nix-config#${NIXNAME}\" \
+		sudo NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild switch --flake \"/nixos-config#${NIXNAME}\" \
 	"
 
 # bootstrap x240 from scratch. Prior to running this, you need to
@@ -126,7 +127,7 @@ x240/bootstrap0:
 		sed --in-place '/system\.stateVersion = .*/a \
 			nix.package = pkgs.nixVersions.latest;\n \
 			nix.extraOptions = \"experimental-features = nix-command flakes\";\n \
-  			services.openssh.enable = true;\n \
+			services.openssh.enable = true;\n \
 			services.openssh.settings.PasswordAuthentication = true;\n \
 			services.openssh.settings.PermitRootLogin = \"yes\";\n \
 			users.users.root.initialPassword = \"root\";\n \
@@ -144,3 +145,59 @@ x240/bootstrap0:
 		nixos-install --no-root-passwd && reboot; \
 	"
 
+# after x240/bootstrap0, run this to finalize. After this, do everything else
+# in the VM unless secrets change.
+x240/bootstrap1:
+	NIXUSER=root $(MAKE) copy
+	# This will fail due to age keys not being present so continue on error
+	NIXNAME="Server-x240-0" NIXUSER=root $(MAKE) remote/switch || true
+	$(MAKE) x240/secrets
+	NIXNAME="Server-x240-0" NIXUSER=root $(MAKE) remote/switch
+	ssh $(SSH_OPTIONS) -p$(NIXPORT) $(NIXUSER)@$(NIXADDR) " \
+		sudo reboot; \
+	"
+
+x240/sync:
+	$(MAKE) copy
+	$(MAKE) x240/secrets
+	NIXNAME="Server-x240-0" $(MAKE) remote/switch
+	ssh $(SSH_OPTIONS) -p$(NIXPORT) $(NIXUSER)@$(NIXADDR) " \
+		sudo reboot; \
+	"
+
+# copy the Nix configurations into the machine.
+copy:
+	rsync -avr -e 'ssh $(SSH_OPTIONS) -p$(NIXPORT)' \
+		--exclude='.git/' \
+		--exclude='.git-crypt/' \
+		--exclude='.DS_Store' \
+		--rsync-path="sudo rsync" \
+		--delete \
+		$(MAKEFILE_DIR)/ $(NIXUSER)@$(NIXADDR):/nixos-config
+
+# run the nixos-rebuild switch command. This does NOT copy files so you
+# have to run copy before.
+remote/switch:
+	ssh $(SSH_OPTIONS) -p$(NIXPORT) $(NIXUSER)@$(NIXADDR) " \
+		[ \"$(uname)\" = \"Darwin\" ] && \
+		  nix run --extra-experimental-features \"nix-command flakes\" nix-darwin -- \
+		    switch --flake \"~/.config/nixos-config/.#${NIXNAME}\" \
+		|| \
+		  sudo NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild \
+		    switch --flake \"/nixos-config#${NIXNAME}\" \
+	"
+
+	# copy our secrets into the machine. TODO: bring machine specific private key from 1Password
+x240/secrets:
+	# GPG keyring
+	# rsync -av -e 'ssh $(SSH_OPTIONS)' \
+	# 	--exclude='.#*' \
+	# 	--exclude='S.*' \
+	# 	--exclude='*.conf' \
+	# 	$(HOME)/.gnupg/ $(NIXUSER)@$(NIXADDR):~/.gnupg
+	# SSH keys
+	op read "op://Server-x240-0/Server-x240-0/private key?ssh-format=openssh" | \
+        ssh $(NIXUSER)@$(NIXADDR) "cat > ~/.ssh/Server-x240-0 && chmod 600 ~/.ssh/Server-x240-0"
+	# rsync -av -e 'ssh $(SSH_OPTIONS)' \
+	# 	--exclude='environment' \
+	# 	$(HOME)/.ssh/ $(NIXUSER)@$(NIXADDR):~/.ssh

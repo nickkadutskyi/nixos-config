@@ -19,7 +19,7 @@ let
   homeDir = config.home.homeDirectory;
   # Used in scripts for project navigation
   select-project = (import ./scripts/select-project.nix { inherit pkgs config; });
-  neovim = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+  # neovim = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
 in
 {
   # This value determines the Home Manager release that your
@@ -60,10 +60,6 @@ in
   # Packages I always want installed, but keep project specific packages
   # in their project specific flake.nix accessible via `nix develop`
   home.packages =
-    let
-      select-project = (import ./scripts/select-project.nix { inherit pkgs config; });
-      neovim = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
-    in
     with pkgs;
     [
       # ----------------------------------------------------------------
@@ -189,8 +185,8 @@ in
       # Parses JSON
       jq
       # Main editor
-      # neovim
-      inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
+      neovim
+      # inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
       # Provides Nerd fonts for icons support
       nerd-fonts.jetbrains-mono
       # Searching PDF file contents (TODO check if I use this)
@@ -358,6 +354,11 @@ in
           mkdir -p ${homeDir}/.local/scripts
           mkdir -p ${homeDir}/.config/sops/age
           chmod 700 ${homeDir}/.config/sops/age
+          ln -sf ${homeDir}/.config/fzf/light.fzfrc ${homeDir}/.config/fzf/fzfrc
+          ln -sf ${homeDir}/.config/zsh/zsh-hist-sub-light ${homeDir}/.config/zsh/zsh-hist-sub-theme
+          ln -sf ${homeDir}/.config/zsh/zsh-theme-light ${homeDir}/.config/zsh/zsh-theme-theme
+          ln -sf ${homeDir}/.config/grep/grep-colors-light ${homeDir}/.config/grep/grep-theme
+          ln -sf ${homeDir}/.config/ripgrep/.ripgreprc-light ${homeDir}/.config/ripgrep/.ripgreprc
         '';
   };
 
@@ -507,7 +508,7 @@ in
         # Select and cd to the project directory
         function select-project() { ${select-project}/bin/select-project $1 }
         function pro() { local p=$(select-project $1) && [ -n "$p" ] && cd "$p" }
-        function prov() { pro $1 && eval "$(${pkgs.direnv}/bin/direnv export zsh)" && ${neovim}/bin/nvim . }
+        function prov() { pro $1 && eval "$(${pkgs.direnv}/bin/direnv export zsh)" && ${pkgs.neovim}/bin/nvim . }
         function prot() {
           local p name code acc sess TMUX_BIN
           TMUX_BIN=${pkgs.tmux}/bin/tmux

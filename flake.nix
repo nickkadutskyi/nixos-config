@@ -57,9 +57,9 @@
     };
 
     # Nightly version of Neovim
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-    };
+    # neovim-nightly-overlay = {
+    #   url = "github:nix-community/neovim-nightly-overlay";
+    # };
   };
   outputs =
     {
@@ -91,7 +91,7 @@
       };
       nixosConfigurations.Server-x240-0 = mkSystem "Server-x240-0" {
         system = "x86_64-linux";
-        user = "nick";
+        systemUser = "nick";
       };
     };
 }
