@@ -5,12 +5,15 @@
     ./x86_64-linux-shared.nix
   ];
 
-  boot.initrd.luks.devices = {
-    rootfs = {
-      name = "rootfs";
-      device = "/dev/sda1";
-      preLVM = true;
+  boot.initrd.luks = {
+    devices = {
+      rootfs = {
+        name = "rootfs";
+        device = "/dev/sda1";
+        preLVM = true;
+      };
     };
+    forceLuksSupportInInitrd = true;
   };
   boot.loader.grub = {
     device = "/dev/sda";
@@ -56,5 +59,31 @@
       '';
     powerEventCommands = # bash
       ''systemctl suspend'';
+  };
+
+  boot.initrd = {
+    availableKernelModules = [
+      "e1000e"
+      "ccm"
+      "ctr"
+      "iwlmvm"
+      "iwlwifi"
+    ];
+    network = {
+      enable = true;
+      ssh = {
+        enable = true;
+        port = 2221;
+        authorizedKeys = [
+          (builtins.readFile ../users/nick/ssh/Nicks-MacBook-Air-0.pub)
+          (builtins.readFile ../users/nick/ssh/Nicks-Mac-mini-0.pub)
+        ];
+        hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
+      };
+      postCommands = ''
+        # Automatically ask for the password on SSH login
+        echo 'cryptsetup-askpass || echo "Unlock was successful; exiting SSH session" && exit 1' >> /root/.profile
+      '';
+    };
   };
 }

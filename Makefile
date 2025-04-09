@@ -148,25 +148,27 @@ x240/bootstrap0:
 # after x240/bootstrap0, run this to finalize. After this, do everything else
 # in the VM unless secrets change.
 x240/bootstrap1:
-	NIXUSER=root $(MAKE) copy
+	NIXUSER=root $(MAKE) remote/copy
+	ssh $(SSH_OPTIONS) -p$(NIXPORT) root@$(NIXADDR) " \
+		sudo mkdir -p /etc/secrets/initrd; \
+		sudo ssh-keygen -t ed25519 -N \"\" -f /etc/secrets/initrd/ssh_host_ed25519_key; \
+	"
 	# This will fail due to age keys not being present so continue on error
 	NIXNAME="Server-x240-0" NIXUSER=root $(MAKE) remote/switch || true
-	$(MAKE) x240/secrets
+	NIXNAME="Server-x240-0" $(MAKE) remote/secrets
+	# Run switch again to configure whatever required the age keys
 	NIXNAME="Server-x240-0" NIXUSER=root $(MAKE) remote/switch
 	ssh $(SSH_OPTIONS) -p$(NIXPORT) $(NIXUSER)@$(NIXADDR) " \
 		sudo reboot; \
 	"
 
 x240/sync:
-	$(MAKE) copy
-	$(MAKE) x240/secrets
+	$(MAKE) remote/copy
+	NIXNAME="Server-x240-0" $(MAKE) remote/secrets
 	NIXNAME="Server-x240-0" $(MAKE) remote/switch
-	ssh $(SSH_OPTIONS) -p$(NIXPORT) $(NIXUSER)@$(NIXADDR) " \
-		sudo reboot; \
-	"
 
 # copy the Nix configurations into the machine.
-copy:
+remote/copy:
 	rsync -avr -e 'ssh $(SSH_OPTIONS) -p$(NIXPORT)' \
 		--exclude='.git/' \
 		--exclude='.git-crypt/' \
@@ -187,17 +189,13 @@ remote/switch:
 		    switch --flake \"/nixos-config#${NIXNAME}\" \
 	"
 
-	# copy our secrets into the machine. TODO: bring machine specific private key from 1Password
-x240/secrets:
-	# GPG keyring
-	# rsync -av -e 'ssh $(SSH_OPTIONS)' \
-	# 	--exclude='.#*' \
-	# 	--exclude='S.*' \
-	# 	--exclude='*.conf' \
-	# 	$(HOME)/.gnupg/ $(NIXUSER)@$(NIXADDR):~/.gnupg
+# copy our secrets into the machine. TODO: bring machine specific private key from 1Password
+remote/secrets:
 	# SSH keys
-	op read "op://Server-x240-0/Server-x240-0/private key?ssh-format=openssh" | \
-        ssh $(NIXUSER)@$(NIXADDR) "cat > ~/.ssh/Server-x240-0 && chmod 600 ~/.ssh/Server-x240-0"
-	# rsync -av -e 'ssh $(SSH_OPTIONS)' \
-	# 	--exclude='environment' \
-	# 	$(HOME)/.ssh/ $(NIXUSER)@$(NIXADDR):~/.ssh
+	op read "op://${NIXNAME}/${NIXNAME}/private key?ssh-format=openssh" | \
+        ssh $(SSH_OPTIONS) -p$(NIXPORT) $(NIXUSER)@$(NIXADDR) \
+          "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat > ~/.ssh/${NIXNAME} && chmod 600 ~/.ssh/${NIXNAME}"
+	# AGE keys
+	op read "op://${NIXNAME}/${NIXNAME}/private key?ssh-format=openssh" | \
+      ssh-to-age -private-key -i - | ssh $(SSH_OPTIONS) -p$(NIXPORT) $(NIXUSER)@$(NIXADDR) \
+        "mkdir -p ~/.config/sops/age && chmod 700 ~/.config/sops/age && cat > ~/.config/sops/age/keys.txt && chmod 600 ~/.config/sops/age/keys.txt"

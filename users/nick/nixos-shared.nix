@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, config, ... }:
 {
   # Add ~/.local/bin to PATH
   environment.localBinInPath = true;
@@ -7,6 +7,7 @@
   programs.zsh.enable = true;
 
   users.users.nick = {
+    hashedPasswordFile = config.sops.secrets."nick/hashed_password".path;
     isNormalUser = true;
     home = "/home/nick";
     extraGroups = [ "wheel" ];

@@ -349,11 +349,9 @@ in
       lib.hm.dag.entryAfter [ "writeBoundary" ]
         # bash
         ''
-          mkdir -p ${homeDir}/Developer
-          mkdir -p ${homeDir}/.local/bin
-          mkdir -p ${homeDir}/.local/scripts
-          mkdir -p ${homeDir}/.config/sops/age
+          mkdir -p ${homeDir}/Developer ${homeDir}/.local/bin ${homeDir}/.local/scripts ${homeDir}/.config/sops/age
           chmod 700 ${homeDir}/.config/sops/age
+          mkdir -p ${homeDir}/.config/fzf ${homeDir}/.config/grep ${homeDir}/.config/ripgrep ${homeDir}/.config/zsh
           ln -sf ${homeDir}/.config/fzf/light.fzfrc ${homeDir}/.config/fzf/fzfrc
           ln -sf ${homeDir}/.config/zsh/zsh-hist-sub-light ${homeDir}/.config/zsh/zsh-hist-sub-theme
           ln -sf ${homeDir}/.config/zsh/zsh-theme-light ${homeDir}/.config/zsh/zsh-theme-theme

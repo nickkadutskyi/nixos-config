@@ -31,6 +31,11 @@ let
   systemFunc = if isDarwin then inputs.nix-darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
   home-manager = if isDarwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
   sosps = if isDarwin then inputs.sops-nix.darwinModules else inputs.sops-nix.nixosModules;
+
+  # Secrets management in repo with SOPS
+  systemGenericSecrets = ../secrets/secrets.yaml;
+  systemSpecificSecrets = ../secrets/${systemName}/secrets.yaml;
+  secretsConfig = if builtins.pathExists systemSpecificSecrets then systemSpecificSecrets else systemGenericSecrets;
 in
 systemFunc {
   inherit system;
@@ -69,14 +74,14 @@ systemFunc {
       };
     }
     # Secrets management in repo with SOPS (currently only for macOS)
-    (if isDarwin then sosps.sops else { })
-    (
-      if isDarwin then
-        {
-          sops = {
-            defaultSopsFile = ../secrets/secrets.yaml;
-            age.keyFile = "/Users/${systemUser}/.config/sops/age/keys.txt";
-            secrets = {
+    sosps.sops
+    {
+      sops = {
+        defaultSopsFile = secretsConfig;
+        age.keyFile = ((if isDarwin then "/Users" else "/home") + "/${systemUser}/.config/sops/age/keys.txt");
+        secrets = (
+          if isDarwin then
+            {
               "php/intelephense_license" = {
                 owner = systemUser;
               };
@@ -89,12 +94,16 @@ systemFunc {
               "tavily/api_key" = {
                 owner = systemUser;
               };
-            };
-          };
-        }
-      else
-        { }
-    )
+            }
+          else
+            {
+              "nick/hashed_password" = {
+                owner = systemUser;
+              };
+            }
+        );
+      };
+    }
     # Manages Homebrew on macOS with Nix
     (if isDarwin then inputs.nix-homebrew.darwinModules.nix-homebrew else { })
     (
