@@ -18,7 +18,6 @@
       # Manages reading materials and e-books
       "calibre"
       "crossover"
-      "dash"
       "dropbox"
       # Required by VeraCrypt on Apple Silicon to mount encrypted volumes
       "fuse-t"
