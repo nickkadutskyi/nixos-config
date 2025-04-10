@@ -24,8 +24,6 @@
       "hhkb"
       # Parallels Desktop for Mac for running Windows and other VMs
       "parallels"
-      # is not supported on macOS 15+
-      # "nickkadutskyi/homebrew-cask/paragon-ntfs@15"
       "steam"
       # Upwork may return 403 error sometimes so run switch again.
       "nickkadutskyi/homebrew-cask/upwork"
