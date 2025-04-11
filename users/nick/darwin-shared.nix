@@ -45,6 +45,7 @@
       "betterzip"
       "bibdesk" # reference manager
       "cleanshot"
+      "clickup"
       "datagrip" # commercial IDE for database management
       "discord"
       "flashspace"
