@@ -74,8 +74,14 @@
       ...
     }@inputs:
     let
+      overlays = [ ];
       mkSystem = import ./lib/mksystem.nix {
-        inherit nixpkgs nixpkgs-master inputs;
+        inherit
+          overlays
+          nixpkgs
+          nixpkgs-master
+          inputs
+          ;
       };
     in
     {

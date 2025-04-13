@@ -1,6 +1,7 @@
 # This function creates a NixOS system based on our VM setup for a
 # particular architecture.
 {
+  overlays,
   nixpkgs,
   nixpkgs-master,
   inputs,
@@ -43,6 +44,7 @@ systemFunc {
     inherit inputs;
   };
   modules = [
+    { nixpkgs.overlays = overlays; }
     {
       nixpkgs = {
         # Allow unfree packages.

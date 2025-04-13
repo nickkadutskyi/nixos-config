@@ -1,5 +1,12 @@
-{ pkgs, inputs, config, ... }:
 {
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
+{
+  nixpkgs.overlays = import ../../lib/overlays.nix ++ [ ];
+
   # Add ~/.local/bin to PATH
   environment.localBinInPath = true;
 

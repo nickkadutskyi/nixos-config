@@ -30,7 +30,7 @@ in
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "25.05";
+  home.stateVersion = "24.11";
 
   # Enables XDG Base Directory Specification support
   xdg.enable = true;
@@ -97,7 +97,7 @@ in
       # Runs JavaScript (required by Copilot in Neovim )
       nodePackages_latest.nodejs
       # Another PHP language server (open source)
-      phpactor
+      pkgs-stable.phpactor
       prettierd
       # Python linter
       pylint
@@ -191,7 +191,7 @@ in
       nerd-fonts.jetbrains-mono
       # Searching PDF file contents (TODO check if I use this)
       pdfgrep
-      python39
+      pkgs.python314
       # Faster alternative to grep
       ripgrep
       # Manages secrets

@@ -6,6 +6,8 @@
   ...
 }:
 {
+  nixpkgs.overlays = import ../../lib/overlays.nix ++ [ ];
+
   users.users.nick = {
     name = "nick";
     home = "/Users/nick";
@@ -24,21 +26,21 @@
     enable = true;
     # Commented out due to mas not working on macOS 15.4 https://github.com/mas-cli/mas/issues/724
     masApps = {
-      # "1Blocker - Ad Blocker" = 1365531024;
-      # "1Password for Safari" = 1569813296; # 1Password Safari extension only
-      # "BetterJSON for Safari" = 1511935951;
-      # "Easy CSV Editor" = 1171346381;
-      # "iA Writer" = 775737590;
-      # "Kagi for Safari" = 1622835804;
-      # "Keynote" = 409183694;
-      # "Magnet" = 441258766; # Window manager with iCloud sync
-      # "Numbers" = 409203825;
-      # "Pages" = 409201541;
-      # "Parcel - Delivery Tracking" = 639968404;
-      # "Reeder Classic" = 1529448980;
-      # "Snippety - Snippets Manager" = 1530751461;
-      # "Xcode" = 497799835;
-      # "Xdebug Key" = 1441712067;
+      "1Blocker - Ad Blocker" = 1365531024;
+      "1Password for Safari" = 1569813296; # 1Password Safari extension only
+      "BetterJSON for Safari" = 1511935951;
+      "Easy CSV Editor" = 1171346381;
+      "iA Writer" = 775737590;
+      "Kagi for Safari" = 1622835804;
+      "Keynote" = 409183694;
+      "Magnet" = 441258766; # Window manager with iCloud sync
+      "Numbers" = 409203825;
+      "Pages" = 409201541;
+      "Parcel - Delivery Tracking" = 639968404;
+      "Reeder Classic" = 1529448980;
+      "Snippety - Snippets Manager" = 1530751461;
+      "Xcode" = 497799835;
+      "Xdebug Key" = 1441712067;
     };
     casks = [
       "1password" # 1Password 8 main app
@@ -73,7 +75,7 @@
       "windows-app"
       "zoom"
     ];
-    brews = [ ];
+    brews = [ "mas" ];
     global.autoUpdate = false;
     onActivation = {
       # Removes unlisted casks and brews.
