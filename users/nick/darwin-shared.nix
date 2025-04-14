@@ -56,6 +56,7 @@
       "google-drive"
       "gpg-suite"
       "hazel"
+      "hiddenbar"
       "iina"
       "jetbrains-toolbox"
       "karabiner-elements"
