@@ -64,10 +64,6 @@ in
       syncHomeDir = homeDir + "/Library/Mobile\ Documents/com\~apple\~CloudDocs/Sync/HOME";
     in
     {
-      ".config/btt/btt.json" = {
-        enable = isDarwin;
-        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/btt/btt.json");
-      };
       ".config/flashspace/profiles.json" = {
         enable = isDarwin;
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/flashspace/profiles.json");
@@ -291,13 +287,6 @@ in
   # System and UI
   #---------------------------------------------------------------------
   targets.darwin.defaults = lib.mkIf isDarwin {
-    "com.hegenberg.BetterTouchTool" = {
-      BTTAutoLoadPath = "${homeDir}/.config/btt/btt.json";
-      launchOnStartup = true;
-      showicon = false;
-      borderWidth = 2;
-      previewWindowAnimationDuration = "0.09013051637789098";
-    };
     "com.apple.driver.AppleBluetoothMultitouch.mouse" = {
       MouseButtonDivision = 55;
       MouseButtonMode = "TwoButton";
