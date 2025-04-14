@@ -34,7 +34,6 @@ in
       pkgs.duti
       # Monitors a directory for changes (required by snippety-helper)
       pkgs.fswatch
-      pkgs.mas
     ]);
 
   #---------------------------------------------------------------------

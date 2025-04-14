@@ -80,8 +80,8 @@
     onActivation = {
       # Removes unlisted casks and brews.
       cleanup = "zap";
-      # Updates Homebrew and all formulae.
-      autoUpdate = true;
+      # Updates Homebrew and all formulae. (taps are flake inputs so update them manually)
+      autoUpdate = false;
       # Upgrades outdated packages.
       upgrade = true;
       extraFlags = [
