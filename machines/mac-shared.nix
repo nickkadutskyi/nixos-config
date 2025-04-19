@@ -1,6 +1,11 @@
 {
   config,
   pkgs,
+  lib,
+
+  system,
+  machine,
+  user,
   inputs,
   ...
 }:
@@ -42,4 +47,35 @@
   ];
   # Set Git commit hash for darwin-version.
   system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
+
+  networking.hostName = machine;
+
+  networking.dns = [
+    "1.1.1.1"
+    "9.9.9.9"
+    "8.8.8.8"
+  ];
+  networking.knownNetworkServices = [
+    "Ethernet"
+    "Wi-Fi"
+  ];
+
+  sops = {
+    defaultSopsFile = ../secrets/mac/secrets.yaml;
+    age.keyFile = "/Users/${user}/.config/sops/age/keys.txt";
+    secrets = {
+      "php/intelephense_license" = {
+        owner = user;
+      };
+      "clickup/api_key" = {
+        owner = user;
+      };
+      "anthropic/api_key" = {
+        owner = user;
+      };
+      "tavily/api_key" = {
+        owner = user;
+      };
+    };
+  };
 }

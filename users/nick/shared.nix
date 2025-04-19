@@ -1,13 +1,13 @@
 {
-  isWSL,
-  inputs,
-  systemName,
-  systemUser,
-}:
-{
   config,
   lib,
   pkgs,
+
+  inputs,
+  machine,
+  system,
+  isWSL,
+  user,
   ...
 }:
 let
@@ -40,15 +40,15 @@ in
   #---------------------------------------------------------------------
   imports = [
     # Separate module for darwin specific home-manager configuration
-    (import ./home-darwin.nix {
-      inherit
-        config
-        lib
-        systemUser
-        systemName
-        pkgs
-        ;
-    })
+    # (import ./home-darwin.nix {
+    #   inherit
+    #     config
+    #     lib
+    #     systemUser
+    #     systemName
+    #     pkgs
+    #     ;
+    # })
   ];
 
   #---------------------------------------------------------------------
@@ -286,13 +286,13 @@ in
         [[ssh-keys]]
         vault = "EPDS"
         ${
-          if systemName == "Nicks-MacBook-Air-0" then
+          if machine == "Nicks-MacBook-Air-0" then
             # toml
             ''
               [[ssh-keys]]
               vault = "Nicks-MacBook-Air-0"
             ''
-          else if systemName == "Nicks-Mac-mini-0" then
+          else if machine == "Nicks-Mac-mini-0" then
             # toml
             ''
               [[ssh-keys]]
@@ -435,7 +435,7 @@ in
 
   programs.starship = {
     enable = true;
-    settings = import ./starship/starship.nix { inherit config pkgs systemName; };
+    settings = import ./starship/starship.nix { inherit config pkgs machine; };
   };
 
   programs.zsh = {

@@ -1,11 +1,18 @@
 {
-  pkgs,
-  inputs,
   config,
+  pkgs,
+  lib,
+
+  system,
+  machine,
+  user,
+  inputs,
   ...
 }:
 {
-  nixpkgs.overlays = import ../../lib/overlays.nix ++ [ ];
+  imports = [
+    ./shared.nix
+  ];
 
   # Add ~/.local/bin to PATH
   environment.localBinInPath = true;
@@ -24,4 +31,5 @@
       (builtins.readFile ./ssh/Nicks-Mac-mini-0.pub)
     ];
   };
+
 }

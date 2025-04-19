@@ -1,8 +1,18 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+
+  system,
+  machine,
+  user,
+  inputs,
+  ...
+}:
 {
   imports = [
-    ./hardware/Server-x240-0.nix
-    ./x86_64-linux-shared.nix
+    ./hardware/Server-ThinkPad-x240-0.nix
+    ./server-shared.nix
   ];
 
   boot.initrd.luks = {
@@ -18,13 +28,6 @@
   boot.loader.grub = {
     device = "/dev/sda";
   };
-
-  # Enable DHCP for enp0s25
-  networking.interfaces.enp0s25.useDHCP = true;
-  # Ensure enp0s25 name persists by tying it to the MAC address
-  services.udev.extraRules = ''
-    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="28:d2:44:c9:08:04", NAME="enp0s25"
-  '';
 
   # Prevent suspend and hibernate
   systemd.sleep.extraConfig = ''
@@ -73,10 +76,9 @@
       enable = true;
       ssh = {
         enable = true;
-        port = 2221;
         authorizedKeys = [
-          (builtins.readFile ../users/nick/ssh/Nicks-MacBook-Air-0.pub)
-          (builtins.readFile ../users/nick/ssh/Nicks-Mac-mini-0.pub)
+          (builtins.readFile ../users/${user}/ssh/Nicks-MacBook-Air-0.pub)
+          (builtins.readFile ../users/${user}/ssh/Nicks-Mac-mini-0.pub)
         ];
         hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
       };
@@ -84,6 +86,20 @@
         # Automatically ask for the password on SSH login
         echo 'cryptsetup-askpass || echo "Unlock was successful; exiting SSH session" && exit 1' >> /root/.profile
       '';
+    };
+  };
+
+  # Ensure enp0s25 name persists by tying it to the MAC address
+  services.udev.extraRules = ''
+    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="28:d2:44:c9:08:04", NAME="enp0s25"
+  '';
+
+  networking = {
+    interfaces = {
+      enp0s25 = {
+        # Enable DHCP for enp0s25
+        useDHCP = true;
+      };
     };
   };
 }

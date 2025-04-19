@@ -1,14 +1,25 @@
-{ inputs, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+
+  inputs,
+  machine,
+  system,
+  isWSL,
+  user,
+  ...
+}:
 {
   imports = [
-    ./darwin-shared.nix
+    ./darwin.nix
   ];
 
   # Nicks-Mac-mini specific configuration
 
-  users.users.nick = {
+  users.users.${user} = {
     openssh.authorizedKeys.keys = [
-      (builtins.readFile ./ssh/Nicks-MacBook-Air-0.pub)
+      (builtins.readFile ../users/${user}/ssh/Nicks-MacBook-Air-0.pub)
     ];
   };
 
@@ -40,16 +51,16 @@
         icon = ./icons/upwork.icns;
       }
       {
-        path = "/Users/nick/Tizen/tizen-studio/TizenStudio.app";
-        icon = ./icons/tizen.icns;
+        path = "/Users/${user}/Tizen/tizen-studio/TizenStudio.app";
+        icon = ../users/${user}/icons/tizen.icns;
       }
       {
-        path = "/Users/nick/Tizen/tizen-studio/tools/certificate-manager/Certificate-manager.app";
-        icon = ./icons/certificate_manager.icns;
+        path = "/Users/${user}/Tizen/tizen-studio/tools/certificate-manager/Certificate-manager.app";
+        icon = ../users/${user}/icons/certificate_manager.icns;
       }
       {
-        path = "/Users/nick/Tizen/tizen-studio/tools/device-manager/bin/device-manager.app";
-        icon = ./icons/device_manager.icns;
+        path = "/Users/${user}/Tizen/tizen-studio/tools/device-manager/bin/device-manager.app";
+        icon = ../users/${user}/icons/device_manager.icns;
       }
     ];
   };

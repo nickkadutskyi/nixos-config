@@ -2,8 +2,12 @@
   config,
   lib,
   pkgs,
-  systemUser,
-  systemName,
+
+  inputs,
+  machine,
+  system,
+  user,
+  isWSL,
   ...
 }:
 let
@@ -15,7 +19,8 @@ in
   # Services and Modules
   #---------------------------------------------------------------------
   imports = [
-    (import ./services/home-snippety-helper.nix { inherit systemUser pkgs config; })
+    ./shared.nix
+    (import ./services/home-snippety-helper.nix { inherit user pkgs config; })
     ./services/home-theme.nix
   ];
 
@@ -210,7 +215,7 @@ in
       "_no1p" = {
         match = "host * exec \"[ ! -z \$NO1P ]\"";
         identityFile = [
-          ("${homeDir}/.ssh/" + systemName)
+          ("${homeDir}/.ssh/" + machine)
           ("${homeDir}/.ssh/EPDS")
           ("${homeDir}/.ssh/CUTN")
         ];
@@ -221,7 +226,7 @@ in
       "all" = {
         host = "*";
         identityFile = [
-          (toString ./ssh + "/${systemName}.pub")
+          (toString ./ssh + "/${machine}.pub")
           (toString ./ssh/EPDS.pub)
           (toString ./ssh/CUTN.pub)
         ];

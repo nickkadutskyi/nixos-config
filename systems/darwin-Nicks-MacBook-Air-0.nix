@@ -1,12 +1,23 @@
-{ inputs, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+
+  inputs,
+  machine,
+  system,
+  isWSL,
+  user,
+  ...
+}:
 {
   imports = [
-    ./darwin-shared.nix
+    ./darwin.nix
   ];
 
-  users.users.nick = {
+  users.users.${user} = {
     openssh.authorizedKeys.keys = [
-      (builtins.readFile ./ssh/Nicks-Mac-mini-0.pub)
+      (builtins.readFile ../users/${user}/ssh/Nicks-Mac-mini-0.pub)
     ];
   };
 

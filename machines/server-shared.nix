@@ -2,8 +2,11 @@
   config,
   pkgs,
   lib,
+
   system,
-  systemName,
+  machine,
+  user,
+  inputs,
   ...
 }:
 {
@@ -31,12 +34,23 @@
     };
   };
 
+  sops = {
+    defaultSopsFile = ../secrets/server/secrets.yaml;
+    age.keyFile = "/home/${user}/.config/sops/age/keys.txt";
+    secrets = {
+      "nick/hashed_password" = {
+        owner = user;
+        neededForUsers = true;
+      };
+    };
+  };
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Define your hostname.
-  networking.hostName = systemName;
+  networking.hostName = machine;
 
   # Enables wireless support via wpa_supplicant.
   networking.wireless = {
@@ -101,7 +115,7 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.openssh.settings.PasswordAuthentication = true;
+  services.openssh.settings.PasswordAuthentication = false;
   services.openssh.settings.PermitRootLogin = "no";
 
   # Open ports in the firewall.

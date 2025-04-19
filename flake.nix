@@ -85,19 +85,21 @@
       };
     in
     {
+      inherit mkSystem;
+      locations = {
+        machines = ./machines;
+        systems = ./systems;
+        users = ./users;
+      };
       darwinConfigurations.Nicks-MacBook-Air-0 = mkSystem "Nicks-MacBook-Air-0" {
         system = "aarch64-darwin";
-        systemUser = "nick";
+        user = "nick";
         isDarwin = true;
       };
       darwinConfigurations.Nicks-Mac-mini-0 = mkSystem "Nicks-Mac-mini-0" {
         system = "aarch64-darwin";
-        systemUser = "nick";
+        user = "nick";
         isDarwin = true;
-      };
-      nixosConfigurations.Server-x240-0 = mkSystem "Server-x240-0" {
-        system = "x86_64-linux";
-        systemUser = "nick";
       };
     };
 }

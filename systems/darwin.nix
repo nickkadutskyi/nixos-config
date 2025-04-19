@@ -1,26 +1,30 @@
 {
-  inputs,
-  pkgs,
   config,
-  systemName,
+  pkgs,
+  lib,
+
+  system,
+  machine,
+  user,
+  inputs,
   ...
 }:
 {
-  nixpkgs.overlays = import ../../lib/overlays.nix ++ [ ];
+  imports = [
+    ./shared.nix
+    # ./darwin-dnsmasq-extension.nix
+    # Using custom dnsmasq config because launchd ensures
+    # that /nix/store is in path before running the command
+    # ../users/nick/services/darwin-dnsmasq.nix
+    # Configures Mac's built-in Apache server as reverse proxy
+    ./darwin-httpd.nix
+  ];
 
   users.users.nick = {
     name = "nick";
     home = "/Users/nick";
     shell = pkgs.zsh;
   };
-
-  imports = [
-    # Using custom dnsmasq config because launchd ensures
-    # that /nix/store is in path before running the command
-    ./services/darwin-dnsmasq.nix
-    # Configures Mac's built-in Apache server as reverse proxy
-    ./darwin-httpd.nix
-  ];
 
   homebrew = {
     enable = true;
@@ -99,4 +103,31 @@
     auth       optional       ${pkgs.pam-reattach}/lib/pam/pam_reattach.so ignore_ssh
     auth       sufficient     pam_tid.so
   '';
+
+  services.dnsmasq = {
+    enable = true;
+    addresses = {
+      test = "127.0.0.1";
+    };
+  };
+
+  # Overriding dnsmasq to use /bin/wait4path
+  launchd.daemons.dnsmasq.serviceConfig.ProgramArguments = lib.mkIf config.services.dnsmasq.enable (
+    let
+      mapA = f: attrs: with builtins; attrValues (mapAttrs f attrs);
+      command =
+        "${config.services.dnsmasq.package}/bin/dnsmasq "
+        + "--listen-address=${config.services.dnsmasq.bind} "
+        + "--port=${toString config.services.dnsmasq.port} "
+        + "--keep-in-foreground "
+        + pkgs.lib.strings.concatMapStrings (x: " " + x) (
+          mapA (domain: addr: "--address=/${domain}/${addr} ") config.services.dnsmasq.addresses
+        );
+    in
+    lib.mkForce [
+      "/bin/sh"
+      "-c"
+      "/bin/wait4path /nix/store &amp;&amp; exec ${command}"
+    ]
+  );
 }

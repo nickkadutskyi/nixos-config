@@ -8,45 +8,60 @@
   ...
 }:
 
-systemName:
+machine:
 {
   system,
-  systemUser,
+  user,
   isDarwin ? false,
   isWSL ? false,
+  # Makes paths overridable to use in other projects
+  machinesLoc ? ../machines,
+  systemsLoc ? ../systems,
+  usersLoc ? ../users,
 }:
 let
+  systemType = if isDarwin then "darwin" else "nixos";
+
+  mkConfPath =
+    {
+      loc,
+      shared ? "shared.nix",
+    }:
+    let
+      byArchMachine = loc + /${system}-${machine}.nix;
+      byTypeMachine = loc + /${systemType}-${machine}.nix;
+      byType = loc + /${systemType}.nix;
+    in
+    if builtins.pathExists byArchMachine then
+      byArchMachine
+    else if builtins.pathExists byTypeMachine then
+      byTypeMachine
+    else if builtins.pathExists byType then
+      byType
+    else
+      loc + /${shared};
+
   # Machine specific configuration, equivalent to
   # NixOS configuration.nix and hardware-configuration.nix
-  machineConfig = ../machines/${systemName}.nix;
+  machineConfig = machinesLoc + /${machine}.nix;
 
-  # OS configuration for a specific user. Currently my systems are
-  # single-user systems thus no OS specific configs.
-  systemGenericConfig = ../users/${systemUser}/${if isDarwin then "darwin" else "nixos"}-shared.nix;
-  systemSpecificConfig = ../users/${systemUser}/${
-    if isDarwin then "darwin-${systemName}.nix" else "nixos-${systemName}.nix"
-  };
-  userSystemConfig = if builtins.pathExists systemSpecificConfig then systemSpecificConfig else systemGenericConfig;
+  # OS configuration
+  systemConfig = mkConfPath { loc = systemsLoc; };
+
+  # Home configuration
+  homeConfig = mkConfPath { loc = usersLoc + /${user}; };
 
   # NixOS vs nix-darwin functions
   systemFunc = if isDarwin then inputs.nix-darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
   home-manager = if isDarwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
   sosps = if isDarwin then inputs.sops-nix.darwinModules else inputs.sops-nix.nixosModules;
-
-  # Secrets management in repo with SOPS
-  systemGenericSecrets = ../secrets/secrets.yaml;
-  systemSpecificSecrets = ../secrets/${systemName}/secrets.yaml;
-  secretsConfig = if builtins.pathExists systemSpecificSecrets then systemSpecificSecrets else systemGenericSecrets;
 in
 systemFunc {
   inherit system;
-  specialArgs = {
-    inherit inputs;
-  };
   modules = [
-    { nixpkgs.overlays = overlays; }
     {
       nixpkgs = {
+        overlays = overlays;
         # Allow unfree packages.
         config.allowUnfree = true;
         # The platform the configuration will be used on.
@@ -57,55 +72,28 @@ systemFunc {
     (if isWSL then inputs.nixos-wsl.nixosModules.wsl else { })
     # Machine specific configuration e.g. configuration.nix and hardware-configuration.nix
     machineConfig
-    # OS specific configuration for a specific user in single-user systems
-    userSystemConfig
+    # OS specific configuration
+    systemConfig
     # User specific home configuration
     home-manager.home-manager
     {
       home-manager.backupFileExtension = "hm-backup";
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      # User specific configuration (shared across all machines)
-      home-manager.users.${systemUser} = import ../users/${systemUser}/home-shared.nix {
+      home-manager.extraSpecialArgs = {
         inherit
-          isWSL
           inputs
-          systemUser
-          systemName
+          machine
+          system
+          isWSL
+          user
           ;
       };
+      # User specific configuration (shared across all machines)
+      home-manager.users.${user} = homeConfig;
     }
-    # Secrets management in repo with SOPS (currently only for macOS)
+    # Secrets management in repo with SOPS
     sosps.sops
-    {
-      sops = {
-        defaultSopsFile = secretsConfig;
-        age.keyFile = ((if isDarwin then "/Users" else "/home") + "/${systemUser}/.config/sops/age/keys.txt");
-        secrets = (
-          if isDarwin then
-            {
-              "php/intelephense_license" = {
-                owner = systemUser;
-              };
-              "clickup/api_key" = {
-                owner = systemUser;
-              };
-              "anthropic/api_key" = {
-                owner = systemUser;
-              };
-              "tavily/api_key" = {
-                owner = systemUser;
-              };
-            }
-          else
-            {
-              "nick/hashed_password" = {
-                owner = systemUser;
-              };
-            }
-        );
-      };
-    }
     # Manages Homebrew on macOS with Nix
     (if isDarwin then inputs.nix-homebrew.darwinModules.nix-homebrew else { })
     (
@@ -115,7 +103,7 @@ systemFunc {
             enable = true;
             enableRosetta = true;
             # User owning the Homebrew prefix
-            user = systemUser;
+            user = user;
             # Optional: Declarative tap management
             taps = {
               "homebrew/homebrew-core" = inputs.homebrew-core;
@@ -136,12 +124,13 @@ systemFunc {
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.
     {
-      config._module.args = {
+      _module.args = {
         inherit
+          inputs
+          machine
           system
-          systemName
-          systemUser
           isWSL
+          user
           ;
       };
     }
