@@ -58,6 +58,7 @@ let
 in
 systemFunc {
   inherit system;
+  specialArgs = { inherit inputs; };
   modules = [
     {
       nixpkgs = {
@@ -126,7 +127,6 @@ systemFunc {
     {
       _module.args = {
         inherit
-          inputs
           machine
           system
           isWSL
