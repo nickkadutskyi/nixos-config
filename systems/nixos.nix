@@ -27,8 +27,8 @@
     extraGroups = [ "wheel" ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
-      (builtins.readFile ./ssh/Nicks-MacBook-Air-0.pub)
-      (builtins.readFile ./ssh/Nicks-Mac-mini-0.pub)
+      (builtins.readFile ../users/${user}/ssh/Nicks-MacBook-Air-0.pub)
+      (builtins.readFile ../users/${user}/ssh/Nicks-Mac-mini-0.pub)
     ];
   };
 
