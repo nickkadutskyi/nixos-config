@@ -38,18 +38,7 @@ in
   #---------------------------------------------------------------------
   # Services and Modules
   #---------------------------------------------------------------------
-  imports = [
-    # Separate module for darwin specific home-manager configuration
-    # (import ./home-darwin.nix {
-    #   inherit
-    #     config
-    #     lib
-    #     systemUser
-    #     systemName
-    #     pkgs
-    #     ;
-    # })
-  ];
+  imports = [ ];
 
   #---------------------------------------------------------------------
   # Packages
