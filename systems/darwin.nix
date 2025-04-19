@@ -108,6 +108,7 @@
     enable = true;
     addresses = {
       test = "127.0.0.1";
+      "kdtsk.com" = "192.168.1.43";
     };
   };
 
