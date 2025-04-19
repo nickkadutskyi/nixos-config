@@ -12,11 +12,6 @@
 {
   imports = [
     ./shared.nix
-    # ./darwin-dnsmasq-extension.nix
-    # Using custom dnsmasq config because launchd ensures
-    # that /nix/store is in path before running the command
-    # ../users/nick/services/darwin-dnsmasq.nix
-    # Configures Mac's built-in Apache server as reverse proxy
     ./darwin-httpd.nix
   ];
 
