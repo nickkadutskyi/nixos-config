@@ -57,23 +57,23 @@ in
 
       bash-language-server
       # Python code formatter
-      black
+      # black
       # Rust package manager
-      cargo
+      # cargo
       # Rust linter
-      clippy
+      # clippy
       # Emmet support based on LSP
       emmet-ls
       # GNU find, xargs, locate, updatedb utilities
       findutils
       # Python linter
-      python313Packages.flake8
+      # python313Packages.flake8
       gitlint
-      # PHP language server (closed source, requires license)
-      intelephense
+      # PHP language server (closed source, requires license), disabled due to hight CPU usage
+      # intelephense
       # Python code formatter to sort imports
-      isort
-      java-language-server
+      # isort
+      # java-language-server
       lua-language-server
       # Lints Lua code
       luajitPackages.luacheck
@@ -84,38 +84,38 @@ in
       # Another Nix language server
       nixd
       # Runs JavaScript (required by Copilot in Neovim )
-      nodePackages_latest.nodejs
+      pkgs.nodejs_23
       # Another PHP language server (open source)
       pkgs-stable.phpactor
       prettierd
       # Python linter
-      pylint
+      # pylint
       # Static type checker for Python
-      pylyzer
+      # pylyzer
       # Python language server
-      pyright
+      # pyright
       # Python language server
-      python312Packages.python-lsp-server
+      # python312Packages.python-lsp-server
       # Ruby linter
-      rubocop
-      ruby
+      # rubocop
+      # ruby
       # Python linter
-      ruff
+      # ruff
       # Rust language server
-      rust-analyzer
+      # rust-analyzer
       # Rust formatter
-      rustfmt
+      # rustfmt
       # Lints Lua code
       selene
       # Reformats shell script
       shfmt
       # Ruby language server
-      rubyPackages_3_4.solargraph
+      # rubyPackages_3_4.solargraph
       # Ruby formatter
-      rubyPackages.standard
+      # rubyPackages.standard
       # Lints CSS and SCSS
-      stylelint
-      pkgs-stable.stylelint-lsp
+      # stylelint
+      # pkgs-stable.stylelint-lsp
       # Reformats Lua code
       stylua
       # Reformats TOML code
@@ -133,8 +133,8 @@ in
       yamlfmt
       yamllint
       xclip
-      zig
-      zls
+      # zig
+      # zls
 
       # ----------------------------------------------------------------
       # Development Tooling that can be moved to project specific flakes
@@ -468,26 +468,7 @@ in
       ignoreAllDups = false;
       path = "${config.xdg.dataHome}/zsh/zsh_history";
     };
-    envExtra =
-      # bash
-      ''
-        # Extra commands in .zshenv
-      '';
-    profileExtra =
-      # bash
-      ''
-        # Extra commands in .zprofile
-      '';
-    initExtraBeforeCompInit = # bash
-      ''
-        # Running before compinit
-      '';
-    initExtraFirst =
-      # bash
-      ''
-        # This is before everything else (initExtraFirst)
-      '';
-    initExtra =
+    initContent =
       # bash
       ''
         ${builtins.readFile ./zsh/zshrc}

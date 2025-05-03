@@ -291,6 +291,11 @@ in
   #---------------------------------------------------------------------
   # System and UI
   #---------------------------------------------------------------------
+  targets.darwin.currentHostDefaults = lib.mkIf isDarwin {
+    "com.apple.controlcenter" = {
+      FocusModes = 18;
+    };
+  };
   targets.darwin.defaults = lib.mkIf isDarwin {
     "com.apple.driver.AppleBluetoothMultitouch.mouse" = {
       MouseButtonDivision = 55;
