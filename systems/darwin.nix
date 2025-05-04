@@ -36,6 +36,7 @@
       "Numbers" = 409203825;
       "Pages" = 409201541;
       "Parcel - Delivery Tracking" = 639968404;
+      "Redirect Web for Safari" = 1571283503;
       "Reeder Classic" = 1529448980;
       "Snippety - Snippets Manager" = 1530751461;
       "Xcode" = 497799835;
