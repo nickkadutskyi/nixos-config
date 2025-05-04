@@ -43,6 +43,7 @@
     };
     casks = [
       "1password" # 1Password 8 main app
+      "balenaetcher"
       "betterzip"
       "bibdesk" # reference manager
       "cleanshot"
@@ -62,7 +63,7 @@
       "little-snitch"
       "logi-options+"
       "maccy" # clipboard manager
-      "protonvpn"
+      "mullvadvpn@beta"
       "rapidapi"
       "sketch"
       "slack"
@@ -72,6 +73,7 @@
       "transmission"
       "transmit"
       "typeface"
+      "webex"
       "windows-app"
       "zoom"
     ];
