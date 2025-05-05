@@ -63,7 +63,7 @@ in
       # Rust linter
       # clippy
       # Emmet support based on LSP
-      emmet-ls
+      # emmet-ls
       # GNU find, xargs, locate, updatedb utilities
       findutils
       # Python linter
@@ -74,7 +74,7 @@ in
       # Python code formatter to sort imports
       # isort
       # java-language-server
-      lua-language-server
+      # lua-language-server
       # Lints Lua code
       luajitPackages.luacheck
       # Nix language server
@@ -86,7 +86,7 @@ in
       # Runs JavaScript (required by Copilot in Neovim )
       pkgs.nodejs_23
       # Another PHP language server (open source)
-      pkgs-stable.phpactor
+      # pkgs-stable.phpactor
       prettierd
       # Python linter
       # pylint
