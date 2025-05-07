@@ -56,25 +56,12 @@ in
       # ----------------------------------------------------------------
 
       bash-language-server
-      # Python code formatter
-      # black
-      # Rust package manager
-      # cargo
-      # Rust linter
-      # clippy
       # Emmet support based on LSP
-      # emmet-ls
+      emmet-ls
       # GNU find, xargs, locate, updatedb utilities
       findutils
-      # Python linter
-      # python313Packages.flake8
       gitlint
-      # PHP language server (closed source, requires license), disabled due to hight CPU usage
-      # intelephense
-      # Python code formatter to sort imports
-      # isort
-      # java-language-server
-      # lua-language-server
+      lua-language-server
       # Lints Lua code
       luajitPackages.luacheck
       # Nix language server
@@ -85,34 +72,11 @@ in
       nixd
       # Runs JavaScript (required by Copilot in Neovim )
       pkgs.nodejs_23
-      # Another PHP language server (open source)
-      # pkgs-stable.phpactor
       prettierd
-      # Python linter
-      # pylint
-      # Static type checker for Python
-      # pylyzer
-      # Python language server
-      # pyright
-      # Python language server
-      # python312Packages.python-lsp-server
-      # Ruby linter
-      # rubocop
-      # ruby
-      # Python linter
-      # ruff
-      # Rust language server
-      # rust-analyzer
-      # Rust formatter
-      # rustfmt
       # Lints Lua code
       selene
       # Reformats shell script
       shfmt
-      # Ruby language server
-      # rubyPackages_3_4.solargraph
-      # Ruby formatter
-      # rubyPackages.standard
       # Lints CSS and SCSS
       # stylelint
       # pkgs-stable.stylelint-lsp
@@ -133,8 +97,6 @@ in
       yamlfmt
       yamllint
       xclip
-      # zig
-      # zls
 
       # ----------------------------------------------------------------
       # Development Tooling that can be moved to project specific flakes
