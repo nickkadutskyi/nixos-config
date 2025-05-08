@@ -56,8 +56,6 @@ in
       # ----------------------------------------------------------------
 
       bash-language-server
-      # Emmet support based on LSP
-      emmet-ls
       # GNU find, xargs, locate, updatedb utilities
       findutils
       gitlint
@@ -97,10 +95,6 @@ in
       # Development Tooling that can be moved to project specific flakes
       # ----------------------------------------------------------------
 
-      # Converts SASS to CSS (EPDS TODO make it project scoped)
-      dart-sass
-      # Tunnel for socks5 proxy to http proxy (EPDS TODO make it project scoped)
-      gost
       # For testing Stripe API (UPWZ TODO make it project scoped)
       stripe-cli
 
