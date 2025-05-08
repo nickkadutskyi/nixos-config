@@ -91,11 +91,6 @@ in
       vscode-langservers-extracted
       # Neeeded for DAP but currently not in nixpkgs TODO package it for nixpkgs
       # vscode-php-debug
-      vue-language-server
-      xmlstarlet
-      yaml-language-server
-      yamlfmt
-      yamllint
       xclip
 
       # ----------------------------------------------------------------
