@@ -28,7 +28,9 @@ in
   # Packages
   #---------------------------------------------------------------------
   home.packages =
-    [ ]
+    [
+      pkgs.imagemagick
+    ]
     ++ (lib.optionals isDarwin [
       pkgs._1password-cli
       # Control bluetooth
