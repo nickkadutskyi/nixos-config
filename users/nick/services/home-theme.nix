@@ -20,16 +20,6 @@ let
       FZF_THEME=~/.config/fzf/fzfrc
       /bin/ln -sf "$FZF_CONFIG/$SYSTEM_THEME.fzfrc" "$FZF_THEME"
 
-      # Sets respective Neovim theme in all Neovim instances
-      (IFS=$'\n'
-      for s in $($NVR --serverlist); do
-          test ! -S "$s" && continue
-          if [[ $s =~ "nvim" ]]; then
-              $NVR --nostart --servername "$s" \
-                   --remote-expr "execute('set background=$SYSTEM_THEME')"
-          fi
-      done)
-
       # Sets zsh-hist-sub theme
       ZSHHS_CONFIG=~/.config/zsh
       ZSHHS_THEME=~/.config/zsh/zsh-hist-sub-theme
