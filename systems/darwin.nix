@@ -74,7 +74,6 @@
       "transmission"
       "transmit"
       "typeface"
-      "webex"
       "windows-app"
       "zoom"
     ];
