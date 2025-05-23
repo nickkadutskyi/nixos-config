@@ -333,7 +333,7 @@ in
       t = "tag";
       ignore = "update-index --assume-unchanged";
       unignore = "update-index --no-assume-unchanged";
-      ignored = "git ls-files -v | grep \"^[[:lower:]]\"";
+      ignored = "!git ls-files -v | grep '^[[:lower:]]'";
     };
     extraConfig = {
       pull.rebase = false;
