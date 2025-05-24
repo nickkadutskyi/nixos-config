@@ -215,7 +215,7 @@ in
       # Have come first in config to set proper IdentityAgent
       # Checks if NO1P is set and if so, sets IdentityAgent to default
       "_no1p" = {
-        match = "host * exec \"[ ! -z \$NO1P ]\"";
+        match = "host * exec \"[ ! -z \\\"\$NO1P\\\" -o ! -z \\\"\$SSH_CONNECTION\\\" ]\"";
         identityFile = [
           ("${homeDir}/.ssh/" + machine)
           ("${homeDir}/.ssh/EPDS")
