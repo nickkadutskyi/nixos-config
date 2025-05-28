@@ -36,6 +36,29 @@
         keep-outputs = false
         keep-derivations = true
       '';
+
+    # Store optimization—hard-link files with the same content to reduce storage
+    optimise.automatic = true;
+    optimise.interval = [
+      # Default config
+      {
+        Hour = 4;
+        Minute = 15;
+        Weekday = 7; # Sunday is 0 and 7
+      }
+    ];
+
+    # Store optimization—clears unneeded store paths
+    gc.automatic = true;
+    gc.interval = [
+      # Default config
+      {
+        Hour = 3;
+        Minute = 15;
+        Weekday = 7;
+      }
+    ];
+    gc.options = "--delete-older-than 30d";
   };
   environment.shells = [
     pkgs.bashInteractive
