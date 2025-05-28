@@ -15,6 +15,8 @@
     ./darwin-httpd.nix
   ];
 
+  system.primaryUser = "nick";
+
   users.users.nick = {
     name = "nick";
     home = "/Users/nick";

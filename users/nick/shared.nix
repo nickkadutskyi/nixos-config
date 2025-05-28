@@ -30,7 +30,7 @@ in
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.05";
 
   # Enables XDG Base Directory Specification support
   xdg.enable = true;
@@ -69,7 +69,7 @@ in
       # Another Nix language server
       nixd
       # Runs JavaScript (required by Copilot in Neovim )
-      pkgs.nodejs_23
+      nodePackages_latest.nodejs
       prettierd
       # Lints Lua code
       selene
