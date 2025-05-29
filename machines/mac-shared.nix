@@ -29,6 +29,10 @@
       substituters = [
         "https://devenv.cachix.org"
       ];
+      extra-trusted-users = [
+        "@admin"
+        user
+      ];
     };
     channel.enable = false;
     extraOptions = # bash

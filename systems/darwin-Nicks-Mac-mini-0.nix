@@ -17,6 +17,23 @@
 
   # Nicks-Mac-mini specific configuration
 
+  nix = {
+    linux-builder = {
+      enable = false;
+      ephemeral = true;
+      maxJobs = 4;
+      config = {
+        virtualisation = {
+          darwin-builder = {
+            diskSize = 30 * 1024;
+            memorySize = 8 * 1024;
+          };
+          cores = 6;
+        };
+      };
+    };
+  };
+
   users.users.${user} = {
     openssh.authorizedKeys.keys = [
       (builtins.readFile ../users/${user}/ssh/Nicks-MacBook-Air-0.pub)
