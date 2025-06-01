@@ -427,7 +427,7 @@ in
         # Select and cd to the project directory
         function select-project() { ${select-project}/bin/select-project $1 }
         function pro() { local p=$(select-project $1) && [ -n "$p" ] && cd "$p" }
-        function prov() { pro $1 && eval "$(${pkgs.direnv}/bin/direnv export zsh)" && ${pkgs.neovim}/bin/nvim . }
+        function prov() { pro $1 && eval "$(${pkgs.direnv}/bin/direnv export zsh)" && ${pkgs.neovim}/bin/nvim }
         function prot() {
           local p name code acc sess TMUX_BIN
           TMUX_BIN=${pkgs.tmux}/bin/tmux
