@@ -434,8 +434,8 @@ in
           p=$(select-project $1)
           if [ -n "$p" ]; then
             name="''${p%/}" && name="''${name##*/}" && name="''${name//[:,. ]/_}"
-            code="''${p%/*}" && code=''${code##*/} && code=''${code#"''${code%%[!0]*}"}
-            acc="''${p%/*}" && acc=''${acc%/*} && acc=''${acc##*/}
+            code="''${p%/*}" && code=''${code##*/} && code=''${code#"''${code%%[!0]*}"} && code="''${code//[:,. ]/_}"
+            acc="''${p%/*}" && acc=''${acc%/*} && acc=''${acc##*/} && acc="''${acc//[:,. ]/_}"
             sess="$acc$code $name"
             if ! $TMUX_BIN has-session -t="$sess" 2>/dev/null; then
               $TMUX_BIN new -ds "$sess" -c "$p" -n "$sess" \; select-pane -t "$sess":1.1 -T "$sess"
