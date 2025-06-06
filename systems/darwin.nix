@@ -34,6 +34,7 @@
       "iA Writer" = 775737590;
       "Kagi for Safari" = 1622835804;
       "Keynote" = 409183694;
+      "Amazon Kindle" = 302584613;
       "Magnet" = 441258766; # Window manager with iCloud sync
       "Numbers" = 409203825;
       "Pages" = 409201541;
