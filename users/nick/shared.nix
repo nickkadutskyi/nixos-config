@@ -56,6 +56,8 @@ in
       # ----------------------------------------------------------------
 
       bash-language-server
+      # TUI AI Assistant
+      claude-code
       # GNU find, xargs, locate, updatedb utilities
       findutils
       gitlint
