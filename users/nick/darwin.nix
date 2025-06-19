@@ -711,8 +711,8 @@ in
             parameters = [
               32
               49
-              # 524288 # option key
-              1048576 # command key
+              524288 # option key
+              # 1048576 # command key
             ];
             type = "standard";
           };

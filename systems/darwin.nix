@@ -69,6 +69,7 @@
       "maccy" # clipboard manager
       "mullvad-vpn"
       "rapidapi"
+      "raycast"
       "sketch"
       "slack"
       "splashtop-business"
