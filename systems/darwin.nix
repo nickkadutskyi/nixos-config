@@ -67,7 +67,7 @@
       "little-snitch"
       "logi-options+"
       "maccy" # clipboard manager
-      "mullvadvpn@beta"
+      "mullvad-vpn"
       "rapidapi"
       "sketch"
       "slack"
