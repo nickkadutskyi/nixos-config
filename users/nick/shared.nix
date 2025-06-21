@@ -427,13 +427,13 @@ in
         ${builtins.readFile ./zsh/zshrc}
 
         # Select and cd to the project directory
-        function select-project() { ${select-project}/bin/select-project $1 }
-        function pro() { local p=$(select-project $1) && [ -n "$p" ] && cd "$p" }
-        function prov() { pro $1 && eval "$(${pkgs.direnv}/bin/direnv export zsh)" && ${pkgs.neovim}/bin/nvim }
+        function select-project() { ${select-project}/bin/select-project "$@" }
+        function pro() { local p=$(select-project "$@") && [ -n "$p" ] && cd "$p" }
+        function prov() { pro "$@" && eval "$(${pkgs.direnv}/bin/direnv export zsh)" && ${pkgs.neovim}/bin/nvim }
         function prot() {
           local p name code acc sess TMUX_BIN
           TMUX_BIN=${pkgs.tmux}/bin/tmux
-          p=$(select-project $1)
+          p=$(select-project "$@")
           if [ -n "$p" ]; then
             name="''${p%/}" && name="''${name##*/}" && name="''${name//[:,. ]/_}"
             code="''${p%/*}" && code=''${code##*/} && code=''${code#"''${code%%[!0]*}"} && code="''${code//[:,. ]/_}"
