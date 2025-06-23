@@ -39,10 +39,10 @@
   git_branch = {
     format = "[$symbol$branch(:$remote_branch)]($style) ";
     symbol = "󰘬 ";
-    style = "white";
+    style = "bright-black";
   };
   git_status = {
-    format = "[($ahead_behind$stashed)[(󰇂$conflicted$untracked$modified$staged$renamed$deleted)](bright-blue)]($style) ";
+    format = "[($ahead_behind$stashed )(󰇂$conflicted$untracked$modified$staged$renamed$deleted)]($style) ";
     style = "bright-black";
     conflicted = "​";
     untracked = "​";
@@ -51,9 +51,9 @@
     renamed = "​";
     deleted = "​";
     stashed = "≡";
-    behind = "[󰦸](bright-blue)";
-    ahead = "[󰧆](bright-green)";
-    diverged = "[󰦸](briht-blue) [󰧆](bright-green)";
+    behind = "󰦸";
+    ahead = "󰧆";
+    diverged = "󰦸 󰧆";
   };
   git_state = {
     format = "\([$state($progress_current/$progress_total)]($style)\) ";
