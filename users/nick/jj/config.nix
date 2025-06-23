@@ -25,4 +25,7 @@
   [aliases]
   b = ["branch"]
   n = ["new"]
+
+  [ui]
+  default-command = "log"
 ''
