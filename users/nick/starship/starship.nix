@@ -42,7 +42,7 @@
     style = "white";
   };
   git_status = {
-    format = "[($ahead_behind$stashed)[( 󰇂$conflicted$untracked$modified$staged$renamed$deleted)](bright-blue)]($style) ";
+    format = "[($ahead_behind$stashed)[(󰇂$conflicted$untracked$modified$staged$renamed$deleted)](bright-blue)]($style) ";
     style = "bright-black";
     conflicted = "​";
     untracked = "​";
@@ -51,9 +51,9 @@
     renamed = "​";
     deleted = "​";
     stashed = "≡";
-    behind = "[󰦸](blue)";
-    ahead = "[󰧆](green)";
-    diverged = "[󰦸](blue) [󰧆](green)";
+    behind = "[󰦸](bright-blue)";
+    ahead = "[󰧆](bright-green)";
+    diverged = "[󰦸](briht-blue) [󰧆](bright-green)";
   };
   git_state = {
     format = "\([$state($progress_current/$progress_total)]($style)\) ";
