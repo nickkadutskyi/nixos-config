@@ -200,7 +200,24 @@ in
       vim = "nvim";
       view = "nvim";
       vimdiff = "nvim -d";
+      # Git
       g = "git";
+      ga = "git add";
+      gaa = "git add --all";
+      gbr = "git branch";
+      gc = "git commit";
+      gco = "git checkout";
+      gcp = "git cherry-pick";
+      gd = "git diff";
+      gl = "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
+      gp = "git push";
+      gpl = "git pull";
+      gs = "git status";
+      gt = "git tag";
+      gignore = "git update-index --assume-unchanged";
+      gunignore = "git update-index --no-assume-unchanged";
+      gignored = "git ls-files -v | grep '^[[:lower:]]'";
+      # IPs
       ip = "curl -4 icanhazip.com";
       ip4 = "curl -4 icanhazip.com";
       ip6 = "curl -6 icanhazip.com";
