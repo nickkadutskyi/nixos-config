@@ -217,6 +217,12 @@ in
       gignore = "git update-index --assume-unchanged";
       gunignore = "git update-index --no-assume-unchanged";
       gignored = "git ls-files -v | grep '^[[:lower:]]'";
+      # JJ
+      jd = "jj desc";
+      jf = "jj git fetch";
+      jn = "jj new";
+      jp = "jj git push";
+      js = "jj st";
       # IPs
       ip = "curl -4 icanhazip.com";
       ip4 = "curl -4 icanhazip.com";
@@ -237,37 +243,16 @@ in
     );
 
   xdg.configFile = {
-    "1Password/ssh/agent.toml".text =
-      # toml
-      ''
-        [[ssh-keys]]
-        vault = "Private"
-        [[ssh-keys]]
-        vault = "Clients"
-        [[ssh-keys]]
-        vault = "EPDS"
-        ${
-          if machine == "Nicks-MacBook-Air-0" then
-            # toml
-            ''
-              [[ssh-keys]]
-              vault = "Nicks-MacBook-Air-0"
-            ''
-          else if machine == "Nicks-Mac-mini-0" then
-            # toml
-            ''
-              [[ssh-keys]]
-              vault = "Nicks-Mac-mini-0"
-            ''
-          else
-            ""
-        }
-      '';
+    "1Password/ssh/agent.toml".text = import ./1p/ssh/agent.nix { inherit machine; };
     "fzf/light.fzfrc".text = builtins.readFile ./fzf/light.fzfrc;
     "fzf/dark.fzfrc".text = builtins.readFile ./fzf/dark.fzfrc;
-    "grep/grep-colors-light".text = "mt=01;48;5;223:fn=38;5;16:ln=38;5;244:ms=01;48;5;223:mc=01;48;5;223:sl=0:cx=0:se=0";
-    "grep/grep-colors-dark".text =
-      "mt=01;38;5;16;48;5;137:fn=38;5;250:ln=38;5;243:ms=01;38;5;16;48;5;137:mc=01;38;5;16;48;5;137:sl=0:cx=0:se=0";
+    "grep/grep-colors-light" = {
+      text = "mt=01;48;5;223:fn=38;5;16:ln=38;5;244:ms=01;48;5;223:mc=01;48;5;223:sl=0:cx=0:se=0";
+    };
+    "grep/grep-colors-dark" = {
+      text = "mt=01;38;5;16;48;5;137:fn=38;5;250:ln=38;5;243:ms=01;38;5;16;48;5;137:mc=01;38;5;16;48;5;137:sl=0:cx=0:se=0";
+    };
+    "jj/config.toml".text = import ./jj/config.nix { inherit pkgs isDarwin; };
     "ripgrep/.ripgreprc-light".text = builtins.readFile ./ripgrep/ripgreprc-light;
     "ripgrep/.ripgreprc-dark".text = builtins.readFile ./ripgrep/ripgreprc-dark;
     "zsh/zsh-hist-sub-light".text = builtins.readFile ./zsh/zsh-hist-sub-light;
@@ -373,6 +358,7 @@ in
         # Sets default signature format to ssh but you can override it
         # for a single command like this: `git -c "gpg.format=openpgp" commit`
         format = "ssh";
+        ssh.allowedSignersFile = builtins.toString ./git/allowed_signers;
         # Use this public key for ssh signing while gpg signing will
         # use the one based on email
         ssh.defaultKeyCommand = "echo 'key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUOOm/kpbXdO0Zg7XzDK3W67QUCZ/jutXK8w+pgoZqq'";
