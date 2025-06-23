@@ -93,20 +93,20 @@ pkgs.writeShellScriptBin "select-project"
                 unpulled=" 󰦸"
               fi
               if [[ "$ahead" != "0" ]]; then
-                unmerged=" 󰧆 "
+                unmerged=" 󰧆"
               fi
             elif [[ "$line" == "1 "* ]]; then
               status_code=$(echo "$line" | cut -d' ' -f2)
               index_status="''${status_code:0:1}"
               working_status="''${status_code:1:1}"
               if [[ "$index_status" != "." || "$working_status" != "." ]]; then
-                is_dirty=" 󰇂 "
+                is_dirty=" 󰇂"
               fi
             fi
           done <<<"$git_status"
 
           if [[ -n "$branch" ]]; then
-            git_info="󰘬 $branch$unpulled$unmerged$is_dirty"
+            git_info="󰘬 $branch$unpulled$unmerged$is_dirty "
           fi
         fi
       fi
