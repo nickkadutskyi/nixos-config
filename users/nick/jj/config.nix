@@ -21,4 +21,8 @@
     else
       ''''
   }
+
+  [aliases]
+  b = ["branch"]
+  n = ["new"]
 ''
