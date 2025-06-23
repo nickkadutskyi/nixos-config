@@ -37,11 +37,12 @@
     vimcmd_symbol = "[❮](green)";
   };
   git_branch = {
-    format = "[$branch]($style)";
-    style = "bright-black";
+    format = "[$symbol$branch(:$remote_branch)]($style) ";
+    symbol = "󰘬 ";
+    style = "white";
   };
   git_status = {
-    format = "[( $ahead_behind$stashed)[( 󰇂$conflicted$untracked$modified$staged$renamed$deleted)](bright-blue)]($style) ";
+    format = "[($ahead_behind$stashed)[( 󰇂$conflicted$untracked$modified$staged$renamed$deleted)](bright-blue)]($style) ";
     style = "bright-black";
     conflicted = "​";
     untracked = "​";
@@ -50,9 +51,9 @@
     renamed = "​";
     deleted = "​";
     stashed = "≡";
-    behind = "󰦸";
-    ahead = "󰧆";
-    diverged = "󰦸󰧆";
+    behind = "[󰦸](blue)";
+    ahead = "[󰧆](green)";
+    diverged = "[󰦸](blue) [󰧆](green)";
   };
   git_state = {
     format = "\([$state($progress_current/$progress_total)]($style)\) ";
