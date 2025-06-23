@@ -124,6 +124,8 @@ in
       git
       # System monitoring
       htop
+      # Alternative VCS
+      jujutsu
       # Parses JSON
       jq
       # Main editor
