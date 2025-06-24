@@ -23,6 +23,16 @@
   }
 
   [aliases]
+  c = ["commit"]
+  ci = ["commit", "--interactive"]
+  e = ["edit"]
+  i = ["git", "init", "--colocate"]
+  nb = ["bookmark", "create", "-r @-"] # "new bookmark"
+  pull = ["git", "fetch"]
+  push = ["git", "push", "--allow-new"]
+  r = ["rebase"]
+  s = ["squash"]
+  si = ["squash", "--interactive"]
   b = ["branch"]
   n = ["new"]
 
@@ -43,4 +53,7 @@
 
   [ui]
   default-command = "log"
+
+  [git]
+  push-new-bookmarks = true
 ''
