@@ -89,8 +89,6 @@ in
       # vscode-html-language-server vscode-json-language-server
       # vscode-markdown-language-server
       vscode-langservers-extracted
-      # Neeeded for DAP but currently not in nixpkgs TODO package it for nixpkgs
-      # vscode-php-debug
       xclip
 
       # ----------------------------------------------------------------
