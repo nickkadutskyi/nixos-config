@@ -133,6 +133,8 @@ in
       # inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
       # Provides Nerd fonts for icons support
       nerd-fonts.jetbrains-mono
+      # TUI AI Assistant
+      opencode
       # Searching PDF file contents (TODO check if I use this)
       pdfgrep
       pkgs.python314
