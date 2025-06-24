@@ -81,7 +81,10 @@
       "windows-app"
       "zoom"
     ];
-    brews = [ "mas" ];
+    brews = [
+      "mas"
+      "sst/homebrew-tap/opencode"
+    ];
     global.autoUpdate = false;
     onActivation = {
       # Removes unlisted casks and brews.

@@ -215,7 +215,8 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable": "nixpkgs-stable",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "sst-homebrew-tap": "sst-homebrew-tap"
       }
     },
     "sops-nix": {
@@ -235,6 +236,22 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "sst-homebrew-tap": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1750725617,
+        "narHash": "sha256-HyE5F8tPBjOvmSk22OzQ9EP754cqA04cTyGFMvx19JM=",
+        "owner": "sst",
+        "repo": "homebrew-tap",
+        "rev": "7fe58d214e77e8d6a3ec52dbee2e2b2187b31e2f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sst",
+        "repo": "homebrew-tap",
         "type": "github"
       }
     }
