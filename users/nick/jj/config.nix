@@ -33,7 +33,7 @@
   r = ["rebase"]
   s = ["squash"]
   si = ["squash", "--interactive"]
-  b = ["branch"]
+  b = ["bookmark"]
   n = ["new"]
 
   # Move the closest bookmark to the current commit. This is useful when
@@ -41,7 +41,7 @@
   # to update the bookmark before pushing.
   tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
 
-  # Rebase the current branch onto the trunk.
+  # Rebase the current bookmark onto the trunk.
   retrunk = ["rebase", "-d", "trunk()"]
 
   [revset-aliases]
