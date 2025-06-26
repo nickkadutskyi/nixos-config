@@ -11,6 +11,7 @@ pkgs.writeShellScriptBin "select-project"
     # XARGS=${pkgs.findutils}/bin/xargs
     SED=${pkgs.gnused}/bin/sed
     GIT=${pkgs.git}/bin/git
+    STARSHIP_JJ="starship-jj"
 
     # Parse arguments
     FETCH_REMOTES=false
@@ -68,53 +69,60 @@ pkgs.writeShellScriptBin "select-project"
         fi
       done <<<"$sessions"
 
-      # Check for git branch and status
-      git_info=""
-      if [[ "$SHOW_GIT_INFO" == true && -d "$project_path/.git" ]]; then
-        # Fetch latest changes from remote to get accurate ahead/behind counts (only if -f flag is used)
-        if [[ "$FETCH_REMOTES" == true ]]; then
-          $GIT -C "$project_path" fetch --quiet 2>/dev/null || true
-        fi
-        git_status=$($GIT -C "$project_path" status --porcelain=2 --branch --show-stash --untracked-files=all 2>/dev/null)
-        if [[ -n "$git_status" ]]; then
-          branch=""
-          unpulled=""
-          unmerged=""
-          is_dirty=""
+      # Check for VCS status (prioritize JJ over Git)
+      vcs_info=""
+      if [[ "$SHOW_GIT_INFO" == true ]]; then
+        # First check for JJ repo
+        jj_status=$($STARSHIP_JJ --ignore-working-copy -R "$project_path" starship prompt 2>/dev/null | $SED 's/\x1b\[[0-9;]*m//g')
+        if [[ $? -eq 0 && -n "$jj_status" ]]; then
+          vcs_info="$jj_status "
+        elif [[ -d "$project_path/.git" ]]; then
+          # Fall back to Git if no JJ repo
+          # Fetch latest changes from remote to get accurate ahead/behind counts (only if -f flag is used)
+          if [[ "$FETCH_REMOTES" == true ]]; then
+            $GIT -C "$project_path" fetch --quiet 2>/dev/null || true
+          fi
+          git_status=$($GIT -C "$project_path" status --porcelain=2 --branch --show-stash --untracked-files=all 2>/dev/null)
+          if [[ -n "$git_status" ]]; then
+            branch=""
+            unpulled=""
+            unmerged=""
+            is_dirty=""
 
-          while IFS= read -r line; do
-            if [[ "$line" == "# branch.head "* ]]; then
-              branch=$(echo "$line" | cut -d' ' -f3)
-            elif [[ "$line" == "# branch.ab "* ]]; then
-              ahead_behind=$(echo "$line" | cut -d' ' -f3-)
-              ahead=$(echo "$ahead_behind" | sed 's/^+\([0-9]*\) -.*/\1/')
-              behind=$(echo "$ahead_behind" | sed 's/^+[0-9]* -\([0-9]*\)/\1/')
-              if [[ "$behind" != "0" ]]; then
-                unpulled=" 󰦸"
+            while IFS= read -r line; do
+              if [[ "$line" == "# branch.head "* ]]; then
+                branch=$(echo "$line" | cut -d' ' -f3)
+              elif [[ "$line" == "# branch.ab "* ]]; then
+                ahead_behind=$(echo "$line" | cut -d' ' -f3-)
+                ahead=$(echo "$ahead_behind" | sed 's/^+\([0-9]*\) -.*/\1/')
+                behind=$(echo "$ahead_behind" | sed 's/^+[0-9]* -\([0-9]*\)/\1/')
+                if [[ "$behind" != "0" ]]; then
+                  unpulled=" 󰦸"
+                fi
+                if [[ "$ahead" != "0" ]]; then
+                  unmerged=" 󰧆"
+                fi
+              elif [[ "$line" == "1 "* ]]; then
+                status_code=$(echo "$line" | cut -d' ' -f2)
+                index_status="''${status_code:0:1}"
+                working_status="''${status_code:1:1}"
+                if [[ "$index_status" != "." || "$working_status" != "." ]]; then
+                  is_dirty=" 󰇂"
+                fi
               fi
-              if [[ "$ahead" != "0" ]]; then
-                unmerged=" 󰧆"
-              fi
-            elif [[ "$line" == "1 "* ]]; then
-              status_code=$(echo "$line" | cut -d' ' -f2)
-              index_status="''${status_code:0:1}"
-              working_status="''${status_code:1:1}"
-              if [[ "$index_status" != "." || "$working_status" != "." ]]; then
-                is_dirty=" 󰇂"
-              fi
+            done <<<"$git_status"
+
+            if [[ -n "$branch" ]]; then
+              vcs_info="󰘬 $branch$unpulled$unmerged$is_dirty "
             fi
-          done <<<"$git_status"
-
-          if [[ -n "$branch" ]]; then
-            git_info="󰘬 $branch$unpulled$unmerged$is_dirty "
           fi
         fi
       fi
 
       if [[ "$has_session" == true ]]; then
-        project_options+=("$project_path ⧉ $session_name  $git_info")
+        project_options+=("$project_path ⧉ $session_name  $vcs_info")
       else
-        project_options+=("$project_path $git_info")
+        project_options+=("$project_path $vcs_info")
       fi
     done <<<"$projects"
 
