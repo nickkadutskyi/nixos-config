@@ -39,13 +39,19 @@
   # Move the closest bookmark to the current commit. This is useful when
   # working on a named branch, creating a bunch of commits, and then needing
   # to update the bookmark before pushing.
-  tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
+  # tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
+
+  # Instead of moving the bookmark to the commit before the working copy,
+  # it moves the bookmark to the closest commit with a description that is
+  # either not empty or a merge.
+  tug = ["bookmark", "move", "--from", "closest_bookmark(@)", "--to", "closest_pushable(@)"]
 
   # Rebase the current bookmark onto the trunk.
   retrunk = ["rebase", "-d", "trunk()"]
 
   [revset-aliases]
   "closest_bookmark(to)" = "heads(::to & bookmarks())"
+  'closest_pushable(to)' = 'heads(::to & ~description(exact:"") & (~empty() | merges()))'
   "fork_history(to, from)" = "fork_point(to | from)..@"
 
   [template-aliases]
