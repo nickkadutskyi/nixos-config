@@ -52,7 +52,8 @@ color = "Yellow"
 
 [[module]]
 type = "Metrics"
-template = "[{changed} {added}{removed}]"
+# template = "[{changed} {added}{removed}]"
+template = "{added}{removed}"
 color = "BrightBlack"
 
 [module.changed_files]
