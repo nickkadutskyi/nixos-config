@@ -140,6 +140,7 @@ in
       sops
       sourcemapper
       speedtest-cli
+      inputs.starship-jj.packages.${pkgs.system}.starship-jj
       # Creates age encrypted file from ssh key
       ssh-to-age
       # Multiplexing
@@ -253,6 +254,7 @@ in
     "jj/config.toml".text = import ./jj/config.nix { inherit pkgs isDarwin; };
     "ripgrep/.ripgreprc-light".text = builtins.readFile ./ripgrep/ripgreprc-light;
     "ripgrep/.ripgreprc-dark".text = builtins.readFile ./ripgrep/ripgreprc-dark;
+    "starship-jj/starship-jj.toml".source = ./jj/starship-jj.toml;
     "zsh/zsh-hist-sub-light".text = builtins.readFile ./zsh/zsh-hist-sub-light;
     "zsh/zsh-hist-sub-dark".text = builtins.readFile ./zsh/zsh-hist-sub-dark;
     "zsh/zsh-theme-light".text = builtins.readFile ./zsh/zsh-theme-light;

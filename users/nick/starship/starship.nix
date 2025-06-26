@@ -13,6 +13,7 @@
     "$git_branch"
     "$git_state"
     "$git_status"
+    "\${custom.jj}"
     "$nix_shell"
     "$direnv"
     "$shlvl"
@@ -58,6 +59,22 @@
   git_state = {
     format = "\([$state($progress_current/$progress_total)]($style)\) ";
     style = "bright-black";
+  };
+  custom = {
+    jj = {
+      command = "prompt";
+      format = "$output";
+      ignore_timeout = true;
+      shell = [
+        "starship-jj"
+        "--ignore-working-copy"
+        "starship"
+      ];
+      use_stdin = false;
+      when = true;
+
+      # symbol = "󱗆 ";
+    };
   };
   nix_shell = {
     format = "[$symbol$state(\\($name\\))]($style) ";
