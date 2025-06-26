@@ -26,27 +26,27 @@ separator = " "
 
 [module.conflict]
 disabled = false
-text = "(CONFLICT)"
+text = "(conflict)"
 color = "Red"
 
 [module.divergent]
 disabled = false
-text = "(DIVERGENT)"
+text = "(divergent)"
 color = "Cyan"
 
 [module.empty]
 disabled = false
-text = "(EMPTY)"
+text = "(empty)"
 color = "Yellow"
 
 [module.immutable]
 disabled = false
-text = "(IMMUTABLE)"
+text = "(immutable)"
 color = "Yellow"
 
 [module.hidden]
 disabled = false
-text = "(HIDDEN)"
+text = "(hidden)"
 color = "Yellow"
 
 [[module]]
