@@ -303,11 +303,11 @@
     "sst-homebrew-tap": {
       "flake": false,
       "locked": {
-        "lastModified": 1750725617,
-        "narHash": "sha256-HyE5F8tPBjOvmSk22OzQ9EP754cqA04cTyGFMvx19JM=",
+        "lastModified": 1750972281,
+        "narHash": "sha256-meTqIr2mJ1SAyvHEdm6UMo0dfEpuZkidEDx++Q4y7w8=",
         "owner": "sst",
         "repo": "homebrew-tap",
-        "rev": "7fe58d214e77e8d6a3ec52dbee2e2b2187b31e2f",
+        "rev": "9ada69d6d35ea1ea0549f1f9ee7bd1ac4c5e0a89",
         "type": "github"
       },
       "original": {
