@@ -147,6 +147,7 @@ in
       tmux
       # Shows directory structure
       tree
+      viddy
       wget
 
       # ----------------------------------------------------------------
