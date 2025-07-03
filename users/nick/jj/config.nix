@@ -27,18 +27,15 @@
   }
 
   [aliases]
-  c = ["commit"]
-  ci = ["commit", "--interactive"]
   e = ["edit"]
   i = ["git", "init", "--colocate"]
   nb = ["bookmark", "create", "-r @-"] # "new bookmark"
-  pull = ["git", "fetch"]
+  fetch = ["git", "fetch"]
   push = ["git", "push", "--allow-new"]
   r = ["rebase"]
   s = ["squash"]
   si = ["squash", "--interactive"]
   b = ["bookmark"]
-  n = ["new"]
 
   # Move the closest bookmark to the current commit. This is useful when
   # working on a named branch, creating a bunch of commits, and then needing

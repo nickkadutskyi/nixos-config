@@ -220,6 +220,8 @@ in
       gunignore = "git update-index --no-assume-unchanged";
       gignored = "git ls-files -v | grep '^[[:lower:]]'";
       # JJ
+      jc = "jj commit";
+      jci = "jj commit --interactive --tool neovim";
       jd = "jj desc";
       jf = "jj git fetch";
       jn = "jj new";
