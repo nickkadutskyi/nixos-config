@@ -635,7 +635,7 @@ in
     };
 
     "com.apple.iCal" = {
-      "number of hours displayed" = 12;
+      "number of hours displayed" = 7;
     };
 
     "com.apple.finder" = {
