@@ -148,6 +148,8 @@ in
       # Shows directory structure
       tree
       viddy
+      # Needed for Jujutsu
+      watchman
       wget
 
       # ----------------------------------------------------------------

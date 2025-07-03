@@ -5,6 +5,10 @@
   email = "nick@kadutskyi.com"
   name = "Nick Kadutskyi"
 
+  [core]
+  fsmonitor = "watchman"
+  watchman.register-snapshot-trigger = true
+
   [signing]
   behavior = "own"
   backend = "ssh"
