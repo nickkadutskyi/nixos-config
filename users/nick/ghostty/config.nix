@@ -12,7 +12,7 @@
         font-size = 14
         adjust-underline-position = 2
         adjust-underline-thickness = -1
-        font-feature = +aalt
+        font-feature = +ss01
       ''
     else
       # ini
