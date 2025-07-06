@@ -257,7 +257,7 @@ in
     "grep/grep-colors-dark" = {
       text = "mt=01;38;5;16;48;5;137:fn=38;5;250:ln=38;5;243:ms=01;38;5;16;48;5;137:mc=01;38;5;16;48;5;137:sl=0:cx=0:se=0";
     };
-    "jj/config.toml".text = import ./jj/config.nix { inherit pkgs isDarwin; };
+    "jj/config.toml".text = import ./jj/config.nix { inherit isDarwin; };
     "ripgrep/.ripgreprc-light".text = builtins.readFile ./ripgrep/ripgreprc-light;
     "ripgrep/.ripgreprc-dark".text = builtins.readFile ./ripgrep/ripgreprc-dark;
     "starship-jj/starship-jj.toml".source = ./jj/starship-jj.toml;
@@ -265,8 +265,9 @@ in
     "zsh/zsh-hist-sub-dark".text = builtins.readFile ./zsh/zsh-hist-sub-dark;
     "zsh/zsh-theme-light".text = builtins.readFile ./zsh/zsh-theme-light;
     "zsh/zsh-theme-dark".text = builtins.readFile ./zsh/zsh-theme-dark;
-    "ghostty" = {
-      source = ./ghostty;
+    "ghostty/config".text = import ./ghostty/config.nix { inherit isDarwin; };
+    "ghostty/themes" = {
+      source = ./ghostty/themes;
       recursive = true;
     };
     "tmux/tmux.conf".text = builtins.readFile ./tmux/tmux.conf;
