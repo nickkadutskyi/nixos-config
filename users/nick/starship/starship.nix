@@ -12,7 +12,6 @@
     "$directory"
     "\${custom.git_branch}"
     "\${custom.jj}"
-    "\${custom.git_metrics}"
     "$git_status"
     "$git_state"
     "$nix_shell"
@@ -39,16 +38,9 @@
     vimcmd_symbol = "[❮](green)";
   };
   git_branch = {
-    disabled = true;
     format = "[$symbol$branch(:$remote_branch)]($style) ";
     symbol = "󰘬 ";
     style = "bright-black";
-  };
-  git_metrics = {
-    disabled = false;
-    added_style = "bright-black";
-    deleted_style = "bright-black";
-    format = "([+$added-$deleted]($added_style)) ";
   };
   git_status = {
     format = "[($ahead_behind$stashed )(󰇂$conflicted$untracked$modified$staged$renamed$deleted)]($style) ";
@@ -73,11 +65,6 @@
       when = true;
       command = "jj root >/dev/null 2>&1 || starship module git_branch";
       description = "Only show git_branch if we're not in a jj repo";
-    };
-    git_metrics = {
-      when = true;
-      command = "jj root >/dev/null 2>&1 || starship module git_metrics";
-      description = "Only show git_metrics if we're not in a jj repo";
     };
     jj = {
       command = "prompt";

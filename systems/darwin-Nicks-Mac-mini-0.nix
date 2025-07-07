@@ -32,6 +32,12 @@
         };
       };
     };
+    settings = {
+      extra-trusted-users = [
+        "@admin"
+        user
+      ];
+    };
   };
 
   users.users.${user} = {

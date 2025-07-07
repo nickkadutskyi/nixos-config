@@ -79,13 +79,6 @@ in
         enable = isDarwin;
         source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/flashspace/settings.json");
       };
-      # Synchronizes macOS's global spelling dictionary (Requires giving AppleSpell service Full Disk Access)
-      "Library/Group\ Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary" = lib.mkIf isDarwin {
-        source = config.lib.file.mkOutOfStoreSymlink (
-          syncHomeDir + "/Library/Group\ Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary"
-        );
-        force = true;
-      };
       # Adds custom BibTeX types and fields to BibDesk
       "Library/Application\ Support/BibDesk/TypeInfo.plist" = {
         enable = isDarwin;
@@ -174,25 +167,6 @@ in
             echo "You can find bash shell in"
             echo "/bin/bash"
             echo -e "After adding restart snippety-helper LaunchAgent or relogin to system.''${NC}"
-          fi
-        '';
-    checkAppleSpellPermissions =
-      lib.mkIf isDarwin # bash
-        ''
-          YELLOW='\033[0;33m'
-          NC='\033[0m' # No Color
-          SQL="SELECT client,auth_value
-                 FROM access
-                WHERE client='com.apple.AppleSpell'
-                  AND auth_value='2'
-                  AND service='kTCCServiceSystemPolicyAllFiles';"
-          DB="/Library/Application Support/com.apple.TCC/TCC.db"
-          if [ ! -f "$DB" ] || [ -z "$(${pkgs.sqlite}/bin/sqlite3 "$DB" "$SQL")" ]; then
-            echo -e "''${YELLOW}To sync macOS's global spelling dictionary, you need to grant AppleSpell service Full Disk Access."
-            echo "Please go to System Preferences -> Security & Privacy -> Full Disk Access and add AppleSpell service."
-            echo "You can find AppleSpell service in"
-            echo "/System/Library/Services/AppleSpell.service"
-            echo -e "After adding restart AppleSpell service or relogin to system.''${NC}"
           fi
         '';
   };
@@ -519,7 +493,7 @@ in
       # Frequency of key repeat
       KeyRepeat = 2;
       # Save to iCloud (Desktop & Documents Folders)
-      NSDocumentSaveNewDocumentsToCloud = true;
+      NSDocumentSaveNewDocumentsToCloud = false;
       # Prefer tabs when opening documents (always|fullscreen|never)
       AppleWindowTabbingMode = "always";
       # To have consistent font rendering across all apps

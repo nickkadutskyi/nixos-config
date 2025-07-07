@@ -16,53 +16,14 @@
   # We install Nix using a separate installer so we don't want nix-darwin
   # to manage it for us. This tells nix-darwin to just use whatever is running.
   nix = {
+    # Handle Nix via Determinate Systems Installer
+    enable = false;
     package = pkgs.nixVersions.latest;
-    settings = {
-      # Enables flakes
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      trusted-public-keys = [
-        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
-      ];
-      substituters = [
-        "https://devenv.cachix.org"
-      ];
-      extra-trusted-users = [
-        "@admin"
-        user
-      ];
-    };
-    channel.enable = false;
-    extraOptions = # bash
-      ''
-        keep-outputs = false
-        keep-derivations = true
-      '';
-
-    # Store optimization—hard-link files with the same content to reduce storage
-    optimise.automatic = true;
-    optimise.interval = [
-      # Default config
-      {
-        Hour = 4;
-        Minute = 15;
-        Weekday = 7; # Sunday is 0 and 7
-      }
-    ];
-
-    # Store optimization—clears unneeded store paths
-    gc.automatic = true;
-    gc.interval = [
-      # Default config
-      {
-        Hour = 3;
-        Minute = 15;
-        Weekday = 7;
-      }
-    ];
-    gc.options = "--delete-older-than 30d";
+    extraOptions = ''
+      experimental-features = nix-command flakes
+      keep-outputs = false
+      keep-derivations = true
+    '';
   };
   environment.shells = [
     pkgs.bashInteractive

@@ -44,6 +44,7 @@ pkgs.writeShellScriptBin "select-project"
       {
         $FD . ~/Developer/*/* -d 1 -t d -E "*/.*"
         $FD -t d -H '^.git$' ~/.config --min-depth 2 -x echo {//}
+        $FD -t d -H '^.git$' ~/Documents --min-depth 2 -x echo {//}
       }
     }
     sessions=$($TMUX_BIN list-sessions -F "#{session_name}" 2>/dev/null)
