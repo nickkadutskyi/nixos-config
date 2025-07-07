@@ -259,7 +259,6 @@
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable": "nixpkgs-stable",
         "sops-nix": "sops-nix",
-        "sst-homebrew-tap": "sst-homebrew-tap",
         "starship-jj": "starship-jj"
       }
     },
@@ -297,22 +296,6 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
-        "type": "github"
-      }
-    },
-    "sst-homebrew-tap": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1751666584,
-        "narHash": "sha256-29K6PjxHf8FsnuysX63iSMLM7yjXtkrQ1oZCA6deDoo=",
-        "owner": "sst",
-        "repo": "homebrew-tap",
-        "rev": "9c2d51db0bf95c8060393891254862375ce47464",
-        "type": "github"
-      },
-      "original": {
-        "owner": "sst",
-        "repo": "homebrew-tap",
         "type": "github"
       }
     },
