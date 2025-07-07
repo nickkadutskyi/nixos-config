@@ -42,10 +42,9 @@ pkgs.writeShellScriptBin "select-project"
     # Lists Developer projects
     list_projects() {
       {
-        $FD . ~/Developer/*/* -d 1 -t d -E "*/.*"
         $FD -t d -H '^.git$' ~/.config --min-depth 2 -x echo {//}
         $FD -t d -H '^.git$' ~/Documents --min-depth 2 -x echo {//}
-      }
+      } | sort -r
     }
     sessions=$($TMUX_BIN list-sessions -F "#{session_name}" 2>/dev/null)
     projects=$(list_projects)
@@ -60,7 +59,7 @@ pkgs.writeShellScriptBin "select-project"
       temp=''${dir%/*}
       account_code=''${temp##*/}
 
-      session_name="$account_code$project_code $project_name"
+      session_name="$project_name"
 
       has_session=false
       while read -r session; do

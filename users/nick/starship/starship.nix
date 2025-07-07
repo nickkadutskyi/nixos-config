@@ -33,9 +33,12 @@
     style = "blue";
   };
   character = {
-    success_symbol = "[❯](purple)";
-    error_symbol = "[❯](red)";
-    vimcmd_symbol = "[❮](green)";
+    # success_symbol = "[❯](purple)";
+    # error_symbol = "[❯](red)";
+    # vimcmd_symbol = "[❮](green)";
+    success_symbol = "[›](purple)";
+    error_symbol = "[›](red)";
+    vimcmd_symbol = "[‹](green)";
   };
   git_branch = {
     format = "[$symbol$branch(:$remote_branch)]($style) ";

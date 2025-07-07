@@ -6,13 +6,16 @@
     if isDarwin then
       # ini
       ''
-        font-family = "TX-02"
-        # As fallback
-        font-family = "JetBrainsMonoNL Nerd Font"
-        font-size = 14
-        adjust-underline-position = 2
-        adjust-underline-thickness = -1
-        font-feature = +ss01
+        font-size = 13
+        adjust-underline-position = -1
+
+        # font-family = "TX-02"
+        # # As fallback
+        # font-family = "JetBrainsMonoNL Nerd Font"
+        # font-size = 14
+        # adjust-underline-position = 2
+        # adjust-underline-thickness = -1
+        # font-feature = +ss01
       ''
     else
       # ini
