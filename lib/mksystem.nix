@@ -111,7 +111,6 @@ systemFunc {
               "homebrew/homebrew-cask" = inputs.homebrew-cask;
               "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
               "nickkadutskyi/homebrew-cask" = inputs.nickkadutskyi-homebrew-cask;
-              "sst/homebrew-tap" = inputs.sst-homebrew-tap;
             };
             # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
             mutableTaps = false;

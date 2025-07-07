@@ -71,7 +71,8 @@ in
       # Another Nix language server
       nixd
       # Runs JavaScript (required by Copilot in Neovim )
-      nodePackages_latest.nodejs
+      nodejs
+      opencode
       prettierd
       # Lints Lua code
       selene

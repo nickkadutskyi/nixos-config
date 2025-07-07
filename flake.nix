@@ -46,10 +46,6 @@
       url = "github:nickkadutskyi/homebrew-cask";
       flake = false;
     };
-    sst-homebrew-tap = {
-      url = "github:sst/homebrew-tap";
-      flake = false;
-    };
 
     # Sets custom icons on macOS
     darwin-custom-icons.url = "github:ryanccn/nix-darwin-custom-icons";
