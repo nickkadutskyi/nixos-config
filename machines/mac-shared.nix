@@ -18,12 +18,6 @@
   nix = {
     # Handle Nix via Determinate Systems Installer
     enable = false;
-    package = pkgs.nixVersions.latest;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-      keep-outputs = false
-      keep-derivations = true
-    '';
   };
   environment.shells = [
     pkgs.bashInteractive
