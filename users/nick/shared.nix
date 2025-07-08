@@ -391,11 +391,11 @@ in
   programs.starship = {
     enable = true;
     settings = import ./starship/starship.nix { inherit config pkgs machine; };
-    enableNushellIntegration = true;
+    # enableNushellIntegration = true;
   };
 
   programs.nushell = {
-    enable = true;
+    enable = false;
     configFile.source = ./nu/config.nu;
     # shellAliases = shellAliases;
 
