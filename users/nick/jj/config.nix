@@ -27,20 +27,11 @@
   }
 
   [aliases]
-  e = ["edit"]
-  i = ["git", "init", "--colocate"]
-  nb = ["bookmark", "create", "-r @-"] # "new bookmark"
-  fetch = ["git", "fetch"]
-  push = ["git", "push", "--allow-new"]
+  b = ["bookmark"]
+  n = ["new"]
+
   r = ["rebase"]
   s = ["squash"]
-  si = ["squash", "--interactive"]
-  b = ["bookmark"]
-
-  # Move the closest bookmark to the current commit. This is useful when
-  # working on a named branch, creating a bunch of commits, and then needing
-  # to update the bookmark before pushing.
-  # tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
 
   # Instead of moving the bookmark to the commit before the working copy,
   # it moves the bookmark to the closest commit with a description that is

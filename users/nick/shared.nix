@@ -221,8 +221,6 @@ in
       gunignore = "git update-index --no-assume-unchanged";
       gignored = "git ls-files -v | grep '^[[:lower:]]'";
       # JJ
-      jc = "jj commit";
-      jci = "jj commit --interactive --tool neovim";
       jd = "jj desc";
       jf = "jj git fetch";
       jn = "jj new";
@@ -235,8 +233,6 @@ in
       ip6 = "curl -6 icanhazip.com";
       iplan = lib.mkIf isDarwin "ifconfig en0 inet | grep 'inet ' | awk ' { print \$2 } '";
       ips = lib.mkIf isDarwin "ifconfig -a | perl -nle'/(\\d+\\.\\d+\\.\\d+\\.\\d+)/ && print \$1'";
-      ip4a = "dig +short -4 myip.opendns.com @resolver4.opendns.com";
-      ip6a = "dig +short -6 myip.opendns.com @resolver1.ipv6-sandbox.opendns.com AAAA";
     }
     // (
       if isLinux then
