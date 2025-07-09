@@ -8,7 +8,7 @@
       ''
         font-family = "TX-02"
         # As fallback
-        font-family = "JetBrainsMonoNL Nerd Font"
+        # font-family = "JetBrainsMonoNL Nerd Font"
         font-size = 14
         adjust-underline-position = 2
         adjust-underline-thickness = -1
