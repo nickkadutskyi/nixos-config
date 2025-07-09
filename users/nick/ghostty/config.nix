@@ -27,7 +27,7 @@
 
   theme = light:jb-light,dark:jb-dark
   macos-option-as-alt = left
-  adjust-cell-height = 15%
+  adjust-cell-height = 25%
   # Required for Neovim to not being covered by vertical lines
   adjust-cursor-thickness = 2
   window-padding-balance = true
