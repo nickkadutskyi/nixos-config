@@ -9,6 +9,9 @@
   fsmonitor = "watchman"
   watchman.register-snapshot-trigger = true
 
+  [snapshot]
+  max-new-file-size = 2097152
+
   [signing]
   behavior = "own"
   backend = "ssh"
