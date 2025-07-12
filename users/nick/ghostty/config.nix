@@ -9,13 +9,10 @@
         font-family = "TX-02"
         # As fallback
         font-family = "Symbols Nerd Font"
-        # font-family = "JetBrainsMonoNL Nerd Font"
-        # font-family = "JetBrainsMono Nerd Font"
-        # font-family = "JetBrainsMonoNL Nerd Font Propo"
         font-size = 14
         adjust-underline-position = 2
         adjust-underline-thickness = -1
-        # font-feature = +ss01
+        font-feature = +ss01
       ''
     else
       # ini
