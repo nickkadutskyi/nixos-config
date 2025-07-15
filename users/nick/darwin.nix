@@ -473,6 +473,7 @@ in
     };
 
     NSGlobalDomain = {
+      _HIHideMenuBar = true;
       # Enable full keyboard access for all controls (Keyboard navigation)
       AppleKeyboardUIMode = 3;
       # Instead of special char menu repeat the character
