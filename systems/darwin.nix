@@ -34,7 +34,6 @@
       "iA Writer" = 775737590;
       "Kagi for Safari" = 1622835804;
       "Keynote" = 409183694;
-      "Amazon Kindle" = 302584613;
       "Magnet" = 441258766; # Window manager with iCloud sync
       "Numbers" = 409203825;
       "Pages" = 409201541;
@@ -42,8 +41,6 @@
       "Redirect Web for Safari" = 1571283503;
       "Reeder Classic" = 1529448980;
       "Snippety - Snippets Manager" = 1530751461;
-      "Xcode" = 497799835;
-      "Xdebug Key" = 1441712067;
     };
     casks = [
       "1password" # 1Password 8 main app
@@ -60,8 +57,8 @@
       "google-drive"
       "gpg-suite"
       "hazel"
-      "hiddenbar"
       "iina"
+      "istat-menus"
       "jetbrains-toolbox"
       "karabiner-elements"
       "little-snitch"
@@ -91,7 +88,7 @@
       # Updates Homebrew and all formulae. (taps are flake inputs so update them manually)
       autoUpdate = false;
       # Upgrades outdated packages.
-      upgrade = true;
+      upgrade = false;
       extraFlags = [
         "--verbose"
         "--force"
