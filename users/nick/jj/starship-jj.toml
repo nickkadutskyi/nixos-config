@@ -18,7 +18,7 @@ behind_symbol = "↑"
 
 [[module]]
 type = "Commit"
-max_length = 35
+max_length = 20
 color = "BrightBlack"
 
 [[module]]

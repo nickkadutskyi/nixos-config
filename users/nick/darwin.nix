@@ -594,7 +594,7 @@ in
       };
       OpenNewTabsInFront = false;
       PreloadTopHit = true;
-      SearchProviderIdentifier = "org.ecosia.www";
+      SearchProviderIdentifier = "com.google.www";
       SendDoNotTrackHTTPHeader = true;
       "ShowFavoritesBar-v2" = false;
       ShowOverlayStatusBar = true;

@@ -32,7 +32,6 @@
       "BetterJSON for Safari" = 1511935951;
       "Easy CSV Editor" = 1171346381;
       "iA Writer" = 775737590;
-      "Kagi for Safari" = 1622835804;
       "Keynote" = 409183694;
       "Magnet" = 441258766; # Window manager with iCloud sync
       "Numbers" = 409203825;
