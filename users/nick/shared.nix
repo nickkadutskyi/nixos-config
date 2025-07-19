@@ -73,7 +73,6 @@ in
       # Runs JavaScript (required by Copilot in Neovim )
       nodejs
       opencode
-      prettierd
       # Lints Lua code
       selene
       # Reformats shell script
