@@ -70,8 +70,8 @@ in
     pkgs.nixd
     # Runs JavaScript (required by Copilot in Neovim )
     pkgs.nodejs
-    pkgs-master.opencode
-    # pkgs.opencode
+    # pkgs-master.opencode
+    pkgs.opencode
     # Lints Lua code
     pkgs.selene
     # Reformats shell script
