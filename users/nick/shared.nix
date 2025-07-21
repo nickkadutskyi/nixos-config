@@ -48,122 +48,121 @@ in
 
   # Packages I always want installed, but keep project specific packages
   # in their project specific flake.nix accessible via `nix develop`
-  home.packages =
-    with pkgs;
-    [
-      # ----------------------------------------------------------------
-      # Development Tooling used across most projects
-      # ----------------------------------------------------------------
+  home.packages = [
+    # ----------------------------------------------------------------
+    # Development Tooling used across most projects
+    # ----------------------------------------------------------------
 
-      bash-language-server
-      # TUI AI Assistant
-      claude-code
-      # GNU find, xargs, locate, updatedb utilities
-      findutils
-      gitlint
-      lua-language-server
-      # Lints Lua code
-      luajitPackages.luacheck
-      # Nix language server
-      nil
-      # Reformats Nix code
-      nixfmt-rfc-style
-      # Another Nix language server
-      nixd
-      # Runs JavaScript (required by Copilot in Neovim )
-      nodejs
-      opencode
-      # Lints Lua code
-      selene
-      # Reformats shell script
-      shfmt
-      # Lints CSS and SCSS
-      # stylelint
-      # pkgs-stable.stylelint-lsp
-      # Reformats Lua code
-      stylua
-      # Reformats TOML code
-      taplo
-      typescript-language-server
-      # Provides vscode-css-language-server vscode-eslint-language-server
-      # vscode-html-language-server vscode-json-language-server
-      # vscode-markdown-language-server
-      vscode-langservers-extracted
-      xclip
+    pkgs.bash-language-server
+    # TUI AI Assistant
+    pkgs.claude-code
+    # GNU find, xargs, locate, updatedb utilities
+    pkgs.findutils
+    pkgs.gitlint
+    pkgs.lua-language-server
+    # Lints Lua code
+    pkgs.luajitPackages.luacheck
+    # Nix language server
+    pkgs.nil
+    # Reformats Nix code
+    pkgs.nixfmt-rfc-style
+    # Another Nix language server
+    pkgs.nixd
+    # Runs JavaScript (required by Copilot in Neovim )
+    pkgs.nodejs
+    # pkgs-master.opencode
+    pkgs.opencode
+    # Lints Lua code
+    pkgs.selene
+    # Reformats shell script
+    pkgs.shfmt
+    # Lints CSS and SCSS
+    # stylelint
+    # pkgs-stable.stylelint-lsp
+    # Reformats Lua code
+    pkgs.stylua
+    # Reformats TOML code
+    pkgs.taplo
+    pkgs.typescript-language-server
+    # Provides vscode-css-language-server vscode-eslint-language-server
+    # vscode-html-language-server vscode-json-language-server
+    # vscode-markdown-language-server
+    pkgs.vscode-langservers-extracted
+    pkgs.xclip
 
-      # ----------------------------------------------------------------
-      # Development Tooling that can be moved to project specific flakes
-      # ----------------------------------------------------------------
+    # ----------------------------------------------------------------
+    # Development Tooling that can be moved to project specific flakes
+    # ----------------------------------------------------------------
 
-      # For testing Stripe API (UPWZ TODO make it project scoped)
-      stripe-cli
+    # For testing Stripe API (UPWZ TODO make it project scoped)
+    pkgs.stripe-cli
 
-      # ----------------------------------------------------------------
-      # Other Packages
-      # ----------------------------------------------------------------
+    # ----------------------------------------------------------------
+    # Other Packages
+    # ----------------------------------------------------------------
 
-      # Simple, modern and secure encryption tool
-      age
-      # pkgs-master.awscli2
-      awscli2
-      # cat with syntax highlighting
-      bat
-      # Feature–rich alternative to ls
-      eza
-      # Faster alternative to find
-      fd
-      # Fuzzy finder
-      fzf
-      # GNU Tools for consistency across systems
-      gnutar
-      gnused
-      gnugrep
-      google-cloud-sdk
-      git
-      # System monitoring
-      htop
-      # Alternative VCS
-      jujutsu
-      # Parses JSON
-      jq
-      # Main editor
-      neovim
-      # inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
-      # Provides Nerd fonts for icons support
-      nerd-fonts.jetbrains-mono
-      # Searching PDF file contents (TODO check if I use this)
-      pdfgrep
-      pkgs.python314
-      # Faster alternative to grep
-      ripgrep
-      # Manages secrets
-      sops
-      sourcemapper
-      speedtest-cli
-      inputs.starship-jj.packages.${pkgs.system}.starship-jj
-      # Creates age encrypted file from ssh key
-      ssh-to-age
-      # Multiplexing
-      tmux
-      # Shows directory structure
-      tree
-      viddy
-      # Needed for Jujutsu
-      watchman
-      wget
+    # Simple, modern and secure encryption tool
+    pkgs.age
+    # pkgs-master.awscli2
+    pkgs.awscli2
+    # cat with syntax highlighting
+    pkgs.bat
+    # Feature–rich alternative to ls
+    pkgs.eza
+    # Faster alternative to find
+    pkgs.fd
+    # Fuzzy finder
+    pkgs.fzf
+    # GNU Tools for consistency across systems
+    pkgs.gnutar
+    pkgs.gnused
+    pkgs.gnugrep
+    pkgs.google-cloud-sdk
+    pkgs.git
+    # System monitoring
+    pkgs.htop
+    # Alternative VCS
+    pkgs.jujutsu
+    # Parses JSON
+    pkgs.jq
+    # Main editor
+    pkgs.neovim
+    # inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
+    # Provides Nerd fonts for icons support
+    pkgs.nerd-fonts.jetbrains-mono
+    # Searching PDF file contents (TODO check if I use this)
+    pkgs.pdfgrep
+    pkgs.python314
+    # Faster alternative to grep
+    pkgs.ripgrep
+    # Manages secrets
+    pkgs.sops
+    pkgs.sourcemapper
+    pkgs.speedtest-cli
+    inputs.starship-jj.packages.${pkgs.system}.starship-jj
+    # Creates age encrypted file from ssh key
+    pkgs.ssh-to-age
+    # Multiplexing
+    pkgs.tmux
+    # Shows directory structure
+    pkgs.tree
+    pkgs.viddy
+    # Needed for Jujutsu
+    pkgs.watchman
+    pkgs.wget
 
-      # ----------------------------------------------------------------
-      # Scripts and wrappers for non-nix packages
-      # ----------------------------------------------------------------
-      (import ./scripts/aws_cd_deployments.nix { inherit pkgs; })
-      (import ./scripts/aws_ec2_instances.nix { inherit pkgs; })
-      (import ./scripts/tizen-sdb.nix { inherit pkgs; })
-      (import ./scripts/tizen.nix { inherit pkgs; })
-    ]
-    ++ (lib.optionals (isLinux && !isWSL) [
-      chromium
-      ghostty
-    ]);
+    # ----------------------------------------------------------------
+    # Scripts and wrappers for non-nix packages
+    # ----------------------------------------------------------------
+    (import ./scripts/aws_cd_deployments.nix { inherit pkgs; })
+    (import ./scripts/aws_ec2_instances.nix { inherit pkgs; })
+    (import ./scripts/tizen-sdb.nix { inherit pkgs; })
+    (import ./scripts/tizen.nix { inherit pkgs; })
+  ]
+  ++ (lib.optionals (isLinux && !isWSL) [
+    pkgs.chromium
+    pkgs.ghostty
+  ]);
 
   #---------------------------------------------------------------------
   # Env vars and dotfiles
@@ -194,54 +193,53 @@ in
     "/Applications/FlashSpace.app/Contents/Resources"
   ];
 
-  home.shellAliases =
-    {
-      ll = "ls -lah";
-      le = "eza -lag";
-      vi = "nvim";
-      vim = "nvim";
-      view = "nvim";
-      vimdiff = "nvim -d";
-      # Git
-      g = "git";
-      ga = "git add";
-      gaa = "git add --all";
-      gbr = "git branch";
-      gc = "git commit";
-      gco = "git checkout";
-      gcp = "git cherry-pick";
-      gd = "git diff";
-      gl = "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
-      gp = "git push";
-      gpl = "git pull";
-      gs = "git status";
-      gt = "git tag";
-      gignore = "git update-index --assume-unchanged";
-      gunignore = "git update-index --no-assume-unchanged";
-      gignored = "git ls-files -v | grep '^[[:lower:]]'";
-      # JJ
-      jd = "jj desc";
-      jf = "jj git fetch";
-      jn = "jj new";
-      jp = "jj git push";
-      js = "jj st";
-      jt = "jj tug";
-      # IPs
-      ip = "curl -4 icanhazip.com";
-      ip4 = "curl -4 icanhazip.com";
-      ip6 = "curl -6 icanhazip.com";
-      iplan = lib.mkIf isDarwin "ifconfig en0 inet | grep 'inet ' | awk ' { print \$2 } '";
-      ips = lib.mkIf isDarwin "ifconfig -a | perl -nle'/(\\d+\\.\\d+\\.\\d+\\.\\d+)/ && print \$1'";
-    }
-    // (
-      if isLinux then
-        {
-          pbcopy = "xclip";
-          pbpaste = "xclip -o";
-        }
-      else
-        { }
-    );
+  home.shellAliases = {
+    ll = "ls -lah";
+    le = "eza -lag";
+    vi = "nvim";
+    vim = "nvim";
+    view = "nvim";
+    vimdiff = "nvim -d";
+    # Git
+    g = "git";
+    ga = "git add";
+    gaa = "git add --all";
+    gbr = "git branch";
+    gc = "git commit";
+    gco = "git checkout";
+    gcp = "git cherry-pick";
+    gd = "git diff";
+    gl = "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
+    gp = "git push";
+    gpl = "git pull";
+    gs = "git status";
+    gt = "git tag";
+    gignore = "git update-index --assume-unchanged";
+    gunignore = "git update-index --no-assume-unchanged";
+    gignored = "git ls-files -v | grep '^[[:lower:]]'";
+    # JJ
+    jd = "jj desc";
+    jf = "jj git fetch";
+    jn = "jj new";
+    jp = "jj git push";
+    js = "jj st";
+    jt = "jj tug";
+    # IPs
+    ip = "curl -4 icanhazip.com";
+    ip4 = "curl -4 icanhazip.com";
+    ip6 = "curl -6 icanhazip.com";
+    iplan = lib.mkIf isDarwin "ifconfig en0 inet | grep 'inet ' | awk ' { print \$2 } '";
+    ips = lib.mkIf isDarwin "ifconfig -a | perl -nle'/(\\d+\\.\\d+\\.\\d+\\.\\d+)/ && print \$1'";
+  }
+  // (
+    if isLinux then
+      {
+        pbcopy = "xclip";
+        pbpaste = "xclip -o";
+      }
+    else
+      { }
+  );
 
   xdg.configFile = {
     "1Password/ssh/agent.toml".text = import ./1p/ssh/agent.nix { inherit machine; };
