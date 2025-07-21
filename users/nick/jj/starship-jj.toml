@@ -15,10 +15,13 @@ type = "Bookmarks"
 separator = " "
 color = "BrightBlack"
 behind_symbol = "↑"
+surround_with_quotes = false
 
 [[module]]
 type = "Commit"
 max_length = 20
+empty_text = "no description"
+surround_with_quotes = false
 color = "BrightBlack"
 
 [[module]]
