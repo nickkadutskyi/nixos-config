@@ -25,6 +25,8 @@
 
   font-feature = -calt
 
+  font-synthetic-style =
+
   theme = light:jb-light,dark:jb-dark
   macos-option-as-alt = left
   adjust-cell-height = 25%
@@ -42,4 +44,5 @@
   # disables title to allow zsh plugin to work properly
   shell-integration-features = cursor,no-sudo,no-title
   # window-inherit-working-directory = false
+
 ''
