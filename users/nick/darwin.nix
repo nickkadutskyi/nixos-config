@@ -27,21 +27,20 @@ in
   #---------------------------------------------------------------------
   # Packages
   #---------------------------------------------------------------------
-  home.packages =
-    [
-      pkgs.imagemagick
-    ]
-    ++ (lib.optionals isDarwin [
-      pkgs._1password-cli
-      # Control bluetooth
-      pkgs.blueutil
-      # GNU Coreutils (gtimeout is required by snippety-helper)
-      pkgs.coreutils-prefixed
-      # Set default applications for doc types and URL schemes
-      pkgs.duti
-      # Monitors a directory for changes (required by snippety-helper)
-      pkgs.fswatch
-    ]);
+  home.packages = [
+    pkgs.imagemagick
+  ]
+  ++ (lib.optionals isDarwin [
+    pkgs._1password-cli
+    # Control bluetooth
+    pkgs.blueutil
+    # GNU Coreutils (gtimeout is required by snippety-helper)
+    pkgs.coreutils-prefixed
+    # Set default applications for doc types and URL schemes
+    pkgs.duti
+    # Monitors a directory for changes (required by snippety-helper)
+    pkgs.fswatch
+  ]);
 
   #---------------------------------------------------------------------
   # Env vars and dotfiles
@@ -595,6 +594,7 @@ in
       OpenNewTabsInFront = false;
       PreloadTopHit = true;
       SearchProviderIdentifier = "com.google.www";
+      SearchProviderShortName = "Google";
       SendDoNotTrackHTTPHeader = true;
       "ShowFavoritesBar-v2" = false;
       ShowOverlayStatusBar = true;
