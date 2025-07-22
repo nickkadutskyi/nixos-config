@@ -70,8 +70,7 @@ in
     pkgs.nixd
     # Runs JavaScript (required by Copilot in Neovim )
     pkgs.nodejs
-    pkgs-master.opencode
-    # pkgs.opencode
+    pkgs.opencode
     # Lints Lua code
     pkgs.selene
     # Reformats shell script
@@ -103,7 +102,6 @@ in
 
     # Simple, modern and secure encryption tool
     pkgs.age
-    # pkgs-master.awscli2
     pkgs.awscli2
     # cat with syntax highlighting
     pkgs.bat

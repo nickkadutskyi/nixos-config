@@ -10,7 +10,7 @@
   watchman.register-snapshot-trigger = true
 
   [snapshot]
-  max-new-file-size = 2097152
+  max-new-file-size = 3097152
 
   [signing]
   behavior = "own"
