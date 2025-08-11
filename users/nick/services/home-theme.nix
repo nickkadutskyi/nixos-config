@@ -52,7 +52,7 @@ in
         ProgramArguments = [
           "/bin/zsh"
           "-c"
-          "/bin/wait4path ${cmdPath} &amp;&amp; ${cmdPath} ${scriptPath}"
+          "/bin/wait4path ${cmdPath} && ${cmdPath} ${scriptPath}"
         ];
         KeepAlive = true;
         RunAtLoad = true;

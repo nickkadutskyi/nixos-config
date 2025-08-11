@@ -17,7 +17,7 @@ in
         "/bin/bash"
         "-c"
         ''
-          mkdir -p /Users/${user}/.local/state/snippety &amp;&amp; \
+          mkdir -p /Users/${user}/.local/state/snippety && \
           /Users/${user}/Downloads/.snippety-helper/bin/snippety-helper.sh \
           >/Users/${user}/.local/state/snippety/org.nixos.snippety-helper.stdout.log \
           2>/Users/${user}/.local/state/snippety/org.nixos.snippety-helper.stderr.log
