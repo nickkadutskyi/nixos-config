@@ -38,7 +38,7 @@
   keybind = super+alt+shift+j=write_screen_file:open
   mouse-hide-while-typing = true
   macos-non-native-fullscreen = visible-menu
-  background-opacity = 0.975
+  background-opacity = 0.9
   background-blur-radius = 20
   cursor-style = bar
   # disables title to allow zsh plugin to work properly

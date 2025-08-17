@@ -27,6 +27,7 @@
     enable = true;
     # Commented out due to mas not working on macOS 15.4 https://github.com/mas-cli/mas/issues/724
     masApps = {
+      "#blockit: Block distractions" = 1492879257;
       "1Blocker - Ad Blocker" = 1365531024;
       "1Password for Safari" = 1569813296; # 1Password Safari extension only
       "BetterJSON for Safari" = 1511935951;
