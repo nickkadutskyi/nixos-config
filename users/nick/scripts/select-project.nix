@@ -16,6 +16,7 @@ pkgs.writeShellScriptBin "select-project"
     # Parse arguments
     FETCH_REMOTES=false
     SHOW_GIT_INFO=false
+    SHOW_TMUX_INFO=false
     QUERY=""
     while [[ $# -gt 0 ]]; do
       case $1 in
@@ -32,6 +33,10 @@ pkgs.writeShellScriptBin "select-project"
           FETCH_REMOTES=true
           shift
           ;;
+        -t)
+          SHOW_TMUX_INFO=true
+          shift
+          ;;
         *)
           QUERY="$1"
           shift
@@ -42,11 +47,16 @@ pkgs.writeShellScriptBin "select-project"
     # Lists Developer projects
     list_projects() {
       {
-        $FD -t d -H '^.git$' ~/.config --min-depth 2 -x echo {//}
-        $FD -t d -H '^.git$' ~/Documents --min-depth 2 -x echo {//}
+        $FD -t d -H '^.git$' ~/.config --min-depth 2 --max-depth 3 -x echo {//}
+        $FD -t d -H '^.git$' ~/Documents --min-depth 2 --max-depth 3 -x echo {//}
       } | sort -r
     }
-    sessions=$($TMUX_BIN list-sessions -F "#{session_name}" 2>/dev/null)
+
+    sessions=""
+    if [[ "$SHOW_TMUX_INFO" == true ]]; then
+      sessions=$($TMUX_BIN list-sessions -F "#{session_name}" 2>/dev/null)
+    fi
+
     projects=$(list_projects)
     project_options=()
     while read -r project_path; do
@@ -62,12 +72,14 @@ pkgs.writeShellScriptBin "select-project"
       session_name="$project_name"
 
       has_session=false
-      while read -r session; do
-        if [[ "$session" == "$session_name" ]]; then
-          has_session=true
-          break
-        fi
-      done <<<"$sessions"
+      if [[ "$SHOW_TMUX_INFO" == true ]]; then
+        while read -r session; do
+          if [[ "$session" == "$session_name" ]]; then
+            has_session=true
+            break
+          fi
+        done <<<"$sessions"
+      fi
 
       # Check for VCS status (prioritize JJ over Git)
       vcs_info=""
@@ -119,7 +131,7 @@ pkgs.writeShellScriptBin "select-project"
         fi
       fi
 
-      if [[ "$has_session" == true ]]; then
+      if [[ "$has_session" == true && "$SHOW_TMUX_INFO" == true ]]; then
         project_options+=("$project_path ⧉ $session_name  $vcs_info")
       else
         project_options+=("$project_path $vcs_info")
