@@ -450,7 +450,7 @@ in
         function prot() {
           local p name code acc sess TMUX_BIN
           TMUX_BIN=${pkgs.tmux}/bin/tmux
-          p=$(select-project "$@")
+          p=$(select-project -t "$@")
           if [ -n "$p" ]; then
             name="''${p%/}" && name="''${name##*/}" && name="''${name//[:,. ]/_}"
             code="''${p%/*}" && code=''${code##*/} && code=''${code#"''${code%%[!0]*}"} && code="''${code//[:,. ]/_}"
