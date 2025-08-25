@@ -128,7 +128,7 @@
     lib.mkForce [
       "/bin/sh"
       "-c"
-      "/bin/wait4path /nix/store &amp;&amp; exec ${command}"
+      "/bin/wait4path /nix/store && exec ${command}"
     ]
   );
 }
