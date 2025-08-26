@@ -57,6 +57,7 @@
 
   [git]
   push-new-bookmarks = true
+  private-commits = "description(glob:'private:*')"
 
   [merge-tools.neovim]
   program = "sh"
