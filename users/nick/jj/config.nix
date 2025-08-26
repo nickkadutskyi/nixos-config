@@ -46,7 +46,7 @@
 
   [revset-aliases]
   "closest_bookmark(to)" = "heads(::to & bookmarks())"
-  'closest_pushable(to)' = 'heads(::to & ~description(exact:"") & (~empty() | merges()))'
+  'closest_pushable(to)' = 'heads(::to & ~description(exact:"") & ~description(glob:"private:*") & (~empty() | merges()))'
   "fork_history(to, from)" = "fork_point(to | from)..@"
 
   [template-aliases]
