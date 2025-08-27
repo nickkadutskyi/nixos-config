@@ -57,9 +57,9 @@
     };
 
     # Nightly version of Neovim
-    # neovim-nightly-overlay = {
-    #   url = "github:nix-community/neovim-nightly-overlay";
-    # };
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+    };
 
     # Starship plugin for JJ
     starship-jj = {
@@ -72,6 +72,7 @@
       self,
       nixpkgs,
       nixpkgs-master,
+      neovim-nightly-overlay,
       nix-darwin,
       home-manager,
       nix-homebrew,
@@ -80,7 +81,7 @@
       ...
     }@inputs:
     let
-      overlays = [ ];
+      overlays = [ neovim-nightly-overlay.overlays.default ];
       mkSystem = import ./lib/mksystem.nix {
         inherit
           overlays
