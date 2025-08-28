@@ -105,6 +105,7 @@ in
     pkgs.awscli2
     # cat with syntax highlighting
     pkgs.bat
+    pkgs.chafa
     # Feature–rich alternative to ls
     pkgs.eza
     # Faster alternative to find
