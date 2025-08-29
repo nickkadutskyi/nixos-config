@@ -81,7 +81,9 @@
       ...
     }@inputs:
     let
-      overlays = [ neovim-nightly-overlay.overlays.default ];
+      overlays = [
+        #  neovim-nightly-overlay.overlays.default
+      ];
       mkSystem = import ./lib/mksystem.nix {
         inherit
           overlays
