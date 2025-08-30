@@ -54,6 +54,7 @@
 
   [ui]
   default-command = "log"
+  merge-editor = "neovim"
 
   [git]
   push-new-bookmarks = true
@@ -77,6 +78,71 @@
       git -C "$right" restore . # undo changes in modified files
       git -C "$right" reset .   # undo --intent-to-add
       git -C "$right" clean -q -df # remove untracked files
+    """
+  ]
+  merge-args = [
+    "-c",
+    """
+      # 3-way merge helper for jj resolve using Neovim + diffview.nvim
+      # $left   – OURS   side
+      # $base   – BASE   side (merge ancestor)
+      # $right  – THEIRS side
+      # $output – file path where jj expects the merged result
+
+      set -eu
+
+      # Introduce output variable for clarity
+      output="$output"
+      # Extract file extension from output path to preserve syntax highlighting
+      extension="''${output##*.}"
+      if [ "$extension" = "$output" ]; then
+        # No extension found, use txt as fallback
+        merge_file="merge.txt"
+      else
+        merge_file="merge.$extension"
+      fi
+
+      # Create a temporary directory that will double as a tiny git repo
+      work="$(mktemp -d)"
+      trap 'rm -rf "$work"' EXIT
+
+      (
+        cd "$work"
+        git init -q
+        git config user.name "Merge Tool"
+        git config user.email "merge@example.com"
+
+        # Create base commit with the common ancestor
+        cat "$base" > "$merge_file"
+        git add "$merge_file"
+        git commit -q -m "base"
+
+        # Create "ours" branch with our changes
+        git checkout -q -b ours
+        cat "$left" > "$merge_file"
+        git add "$merge_file"
+        git commit -q -m "ours"
+
+        # Create "theirs" branch with their changes
+        git checkout -q main
+        git checkout -q -b theirs
+        cat "$right" > "$merge_file"
+        git add "$merge_file"
+        git commit -q -m "theirs"
+
+        # Create a merge conflict by attempting to merge theirs into ours
+        git checkout -q ours
+        git merge --no-commit theirs || true
+
+        # Now we have a conflicted file that Diffview's merge tool can handle
+        # Launch Neovim with Diffview - it will detect the merge state and open merge tool
+        nvim -c "lua require('lazy').load({plugins={'diffview.nvim'}})" \
+             -c 'DiffviewOpen' \
+             "$merge_file"
+
+        # Copy the resolved text back to the path jj provided
+        cat "$merge_file" > "$output"
+      )
     """
   ]
 ''
