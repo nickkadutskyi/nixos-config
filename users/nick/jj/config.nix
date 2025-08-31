@@ -91,16 +91,13 @@
 
       set -eu
 
-      # Introduce output variable for clarity
-      output="$output"
-      # Extract file extension from output path to preserve syntax highlighting
-      extension="''${output##*.}"
-      if [ "$extension" = "$output" ]; then
-        # No extension found, use txt as fallback
-        merge_file="merge.txt"
-      else
-        merge_file="merge.$extension"
-      fi
+      # Extract the actual filename from jj's output path
+      # $output has format: /path/to/temp/output_filename.ext
+      output_basename="$(basename "$output")"
+      actual_filename="''${output_basename#output_}"
+
+      # Use the actual filename to preserve original name and extension
+      merge_file="$actual_filename"
 
       # Create a temporary directory that will double as a tiny git repo
       work="$(mktemp -d)"
