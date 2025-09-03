@@ -54,7 +54,6 @@
       "flashspace"
       "nickkadutskyi/homebrew-cask/ghostty@tip" # using mine because official doesn't add terminfo
       "google-chrome"
-      "google-drive"
       "gpg-suite"
       "hazel"
       "iina"
@@ -64,13 +63,11 @@
       "little-snitch"
       "logi-options+"
       "maccy" # clipboard manager
-      "mullvad-vpn"
       "rapidapi"
       "raycast"
       "sketch"
       "slack"
       "splashtop-business"
-      "teamviewer"
       "telegram"
       "transmission"
       "transmit"
