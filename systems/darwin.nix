@@ -68,6 +68,7 @@
       "sketch"
       "slack"
       "splashtop-business"
+      "teamviewer"
       "telegram"
       "transmission"
       "transmit"
