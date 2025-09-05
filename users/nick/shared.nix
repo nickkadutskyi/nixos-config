@@ -222,6 +222,7 @@ in
     jp = "jj git push";
     js = "jj st";
     jt = "jj tug";
+    jr = "jj retrunk";
     # IPs
     ip = "curl -4 icanhazip.com";
     ip4 = "curl -4 icanhazip.com";
