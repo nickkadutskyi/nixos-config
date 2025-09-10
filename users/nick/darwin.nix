@@ -680,15 +680,15 @@ in
         "184" = {
           enabled = false;
         };
-        # Changes `Show Spotlight Search` shortcut to `⌥ + Space`
+        # Changes `Show Spotlight Search` shortcut to `Command + Space`
         "64" = {
           enabled = true;
           value = {
             parameters = [
               32
               49
-              524288 # option key
-              # 1048576 # command key
+              # 524288 # option key
+              1048576 # command key
             ];
             type = "standard";
           };

@@ -25,7 +25,6 @@
 
   homebrew = {
     enable = true;
-    # Commented out due to mas not working on macOS 15.4 https://github.com/mas-cli/mas/issues/724
     masApps = {
       "#blockit: Block distractions" = 1492879257;
       "1Blocker - Ad Blocker" = 1365531024;
@@ -39,7 +38,7 @@
       "Pages" = 409201541;
       "Parcel - Delivery Tracking" = 639968404;
       "Redirect Web for Safari" = 1571283503;
-      "Reeder Classic" = 1529448980;
+      "Reeder" = 6475002485;
       "Snippety - Snippets Manager" = 1530751461;
     };
     casks = [
@@ -57,14 +56,11 @@
       "gpg-suite"
       "hazel"
       "iina"
-      "istat-menus"
       "jetbrains-toolbox"
       "karabiner-elements"
       "little-snitch"
       "logi-options+"
-      "maccy" # clipboard manager
       "rapidapi"
-      "raycast"
       "sketch"
       "slack"
       "splashtop-business"
