@@ -71,6 +71,10 @@ in
     pkgs.stylua
     # Reformats TOML code
     pkgs.taplo
+    # Provides vscode-css-language-server vscode-eslint-language-server
+    # vscode-html-language-server vscode-json-language-server
+    # vscode-markdown-language-server
+    pkgs.vscode-langservers-extracted
     pkgs.xclip
 
     # ----------------------------------------------------------------
