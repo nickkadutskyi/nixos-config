@@ -43,7 +43,6 @@
     };
     casks = [
       "1password" # 1Password 8 main app
-      "balenaetcher"
       "betterzip"
       "bibdesk" # reference manager
       "cleanshot"
@@ -61,7 +60,6 @@
       "little-snitch"
       "logi-options+"
       "rapidapi"
-      "sketch"
       "slack"
       "splashtop-business"
       "teamviewer"

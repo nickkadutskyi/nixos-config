@@ -54,39 +54,23 @@ in
     # ----------------------------------------------------------------
 
     pkgs.bash-language-server
-    # TUI AI Assistant
-    pkgs.claude-code
     # GNU find, xargs, locate, updatedb utilities
     pkgs.findutils
-    pkgs.gitlint
     pkgs.lua-language-server
-    # Lints Lua code
-    pkgs.luajitPackages.luacheck
-    # Nix language server
-    pkgs.nil
     # Reformats Nix code
     pkgs.nixfmt-rfc-style
-    # Another Nix language server
+    # Nix language server
     pkgs.nixd
     # Runs JavaScript (required by Copilot in Neovim )
     pkgs.nodejs
+    # TUI AI Assistant
     pkgs.opencode
-    # Lints Lua code
-    pkgs.selene
     # Reformats shell script
     pkgs.shfmt
-    # Lints CSS and SCSS
-    # stylelint
-    # pkgs-stable.stylelint-lsp
     # Reformats Lua code
     pkgs.stylua
     # Reformats TOML code
     pkgs.taplo
-    pkgs.typescript-language-server
-    # Provides vscode-css-language-server vscode-eslint-language-server
-    # vscode-html-language-server vscode-json-language-server
-    # vscode-markdown-language-server
-    pkgs.vscode-langservers-extracted
     pkgs.xclip
 
     # ----------------------------------------------------------------
@@ -94,7 +78,7 @@ in
     # ----------------------------------------------------------------
 
     # For testing Stripe API (UPWZ TODO make it project scoped)
-    pkgs.stripe-cli
+    # pkgs.stripe-cli
 
     # ----------------------------------------------------------------
     # Other Packages
@@ -103,8 +87,6 @@ in
     # Simple, modern and secure encryption tool
     pkgs.age
     pkgs.awscli2
-    # cat with syntax highlighting
-    pkgs.bat
     # Feature–rich alternative to ls
     pkgs.eza
     # Faster alternative to find
@@ -130,13 +112,11 @@ in
     pkgs.nerd-fonts.jetbrains-mono
     # Searching PDF file contents (TODO check if I use this)
     pkgs.pdfgrep
-    pkgs.python314
     # Faster alternative to grep
     pkgs.ripgrep
     # Manages secrets
     pkgs.sops
     pkgs.sourcemapper
-    pkgs.speedtest-cli
     inputs.starship-jj.packages.${pkgs.system}.starship-jj
     # Creates age encrypted file from ssh key
     pkgs.ssh-to-age
@@ -144,6 +124,7 @@ in
     pkgs.tmux
     # Shows directory structure
     pkgs.tree
+    # To watch commands
     pkgs.viddy
     # Needed for Jujutsu
     pkgs.watchman
