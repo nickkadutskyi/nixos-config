@@ -24,8 +24,9 @@
   }
 
   font-feature = -calt
-
   font-synthetic-style =
+
+  macos-titlebar-style = tabs
 
   theme = light:jb-light,dark:jb-dark
   macos-option-as-alt = left
