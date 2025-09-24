@@ -649,6 +649,15 @@ in
       SignaturePlacedAboveQuotedText = false;
     };
 
+    "com.mitchellh.ghostty" = {
+      # @ = Cmd; ^ = Control; ~ = Option; $ = Shift
+      NSUserKeyEquivalents = {
+        "New Term Tab in Home" = "@~t";
+        "New Term Window in Home" = "@~n";
+        "New Term Split Down in Home" = "@$~d";
+      };
+    };
+
     # Keyboard Shortucts
     "com.apple.symbolichotkeys" = {
       AppleSymbolicHotKeys = {
