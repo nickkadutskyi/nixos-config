@@ -27,6 +27,8 @@
   font-synthetic-style =
 
   macos-titlebar-style = tabs
+  bell-features = no-system,no-audio,attention,title,border
+
 
   theme = light:jb-light,dark:jb-dark
   macos-option-as-alt = left
