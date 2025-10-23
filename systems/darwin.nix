@@ -52,6 +52,7 @@
       "flashspace"
       "nickkadutskyi/homebrew-cask/ghostty@tip" # using mine because official doesn't add terminfo
       "google-chrome"
+      "google-earth-pro"
       "gpg-suite"
       "hazel"
       "iina"
