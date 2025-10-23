@@ -67,6 +67,7 @@
       "transmission"
       "transmit"
       "typeface"
+      "ungoogled-chromium"
       "windows-app"
       "zoom"
     ];
