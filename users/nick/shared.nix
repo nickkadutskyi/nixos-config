@@ -308,25 +308,27 @@ in
 
   programs.git = {
     enable = true;
-    userName = "Nick Kadutskyi";
-    userEmail = "nick@kadutskyi.com";
-    aliases = {
-      a = "add";
-      br = "branch";
-      c = "commit";
-      co = "checkout";
-      cp = "cherry-pick";
-      d = "diff";
-      p = "push";
-      l = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
-      pl = "pull";
-      s = "status";
-      t = "tag";
-      ignore = "update-index --assume-unchanged";
-      unignore = "update-index --no-assume-unchanged";
-      ignored = "!git ls-files -v | grep '^[[:lower:]]'";
-    };
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Nick Kadutskyi";
+        email = "nick@kadutskyi.com";
+      };
+      aliases = {
+        a = "add";
+        br = "branch";
+        c = "commit";
+        co = "checkout";
+        cp = "cherry-pick";
+        d = "diff";
+        p = "push";
+        l = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
+        pl = "pull";
+        s = "status";
+        t = "tag";
+        ignore = "update-index --assume-unchanged";
+        unignore = "update-index --no-assume-unchanged";
+        ignored = "!git ls-files -v | grep '^[[:lower:]]'";
+      };
       pull.rebase = false;
       core = {
         autocrlf = "input";
@@ -356,6 +358,8 @@ in
         followTags = true;
       };
     };
+    # extraConfig = {
+    # };
     signing = {
       key = null;
       signByDefault = true;

@@ -174,7 +174,7 @@ in
   # Programs
   #---------------------------------------------------------------------
   programs.git = {
-    extraConfig = {
+    settings = {
       gpg = {
         # On macOS 1Password is used for signing using ssh key
         ssh.program = lib.mkIf isDarwin "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
