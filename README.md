@@ -46,4 +46,5 @@ Use import to include other system configurations into your machine config if ne
 
 **Users** represent user-level configurations located in `/users`.
 These configurations can have types of configs similar to systems with the same priority
-but located in user-specific directories `/users/[username]/`.
+but located in user-specific directories `/users/[username]/` and will serve as
+home-manager configurations for the particular user.
