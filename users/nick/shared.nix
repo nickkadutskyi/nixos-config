@@ -437,10 +437,10 @@ in
         function select-project() { ${select-project}/bin/select-project "$@" }
         function pro() { local p=$(select-project "$@") && [ -n "$p" ] && cd "$p" }
         function prov() { pro "$@" && eval "$(${pkgs.direnv}/bin/direnv export zsh)" && ${pkgs.neovim}/bin/nvim }
-        function prot() {
+        function handle-tmux(){
           local p name code acc sess TMUX_BIN
           TMUX_BIN=${pkgs.tmux}/bin/tmux
-          p=$(select-project -t "$@")
+          p="$1"
           if [ -n "$p" ]; then
             name="''${p%/}" && name="''${name##*/}" && name="''${name//[:,. ]/_}"
             code="''${p%/*}" && code=''${code##*/} && code=''${code#"''${code%%[!0]*}"} && code="''${code//[:,. ]/_}"
@@ -455,6 +455,34 @@ in
             else
               $TMUX_BIN switchc -t "$sess"
             fi
+          else
+            echo "No project provided."
+          fi
+        }
+        function prot() {
+          local p name code acc sess TMUX_BIN
+          p=$(select-project -t "$@")
+          handle-tmux "$p"
+        }
+        function prd() {
+          local p name code acc sess TMUX_BIN
+          p=$(select-project -t "$@")
+          read -r first rest <<< "$p"
+
+          if [[ "$first" == "p" ]]; then
+            p="$rest"
+            if [ -n "$p" ]; then
+              cd "$p"
+            fi
+          elif [[ "$first" == "t" ]]; then
+            p="$rest"
+            handle-tmux "$p"
+          else
+            if [ -n "$p" ]; then
+              cd "$p"
+            fi
+            eval "$(${pkgs.direnv}/bin/direnv export zsh)"
+            ${pkgs.neovim}/bin/nvim
           fi
         }
       '';
