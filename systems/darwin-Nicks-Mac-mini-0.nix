@@ -51,7 +51,7 @@
       "adobe-creative-cloud"
       # Manages reading materials and e-books
       "calibre"
-      "crossover"
+      # "crossover" # keeping specific version instead of latest
       "dropbox"
       # Required by VeraCrypt on Apple Silicon to mount encrypted volumes
       "fuse-t"
