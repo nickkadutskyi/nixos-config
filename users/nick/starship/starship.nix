@@ -70,15 +70,18 @@
       description = "Only show git_branch if we're not in a jj repo";
     };
     jj = {
-      command = "prompt";
+      # Output the jj prompt using starship-jj, removing spaces after color codes
+      # to prevent unwanted gaps in the prompt. Empty gaps appear due to empty
+      # modules in starship-jj outputting spaces with color codes. (can't disable)
+      command = '''''echo $(starship-jj --ignore-working-copy starship prompt | sed -E 's/(\x1b\[[0-9;]*m) /\1/g' | xargs) ''''';
       format = "$output";
       ignore_timeout = true;
-      shell = [
-        "starship-jj"
-        "--ignore-working-copy"
-        "starship"
-      ];
-      use_stdin = false;
+      # shell = [
+      #   "starship-jj"
+      #   "--ignore-working-copy"
+      #   "starship"
+      # ];
+      # use_stdin = false;
       when = true;
 
       # symbol = "󱗆 ";

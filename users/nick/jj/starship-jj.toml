@@ -1,4 +1,5 @@
 module_separator = " "
+reset_color = true
 
 [bookmarks]
 search_depth = 100
@@ -21,7 +22,7 @@ surround_with_quotes = false
 type = "Commit"
 max_length = 20
 # empty_text = "no description"
-empty_text = "n/d"
+empty_text = ""
 surround_with_quotes = false
 color = "BrightBlack"
 
