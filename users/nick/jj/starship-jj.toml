@@ -57,7 +57,9 @@ color = "Yellow"
 [[module]]
 type = "Metrics"
 # template = "[{changed} {added}{removed}]"
-template = "{added}{removed}"
+# template = "{added}{removed}"
+# Disabled this metrics module to reduce clutter
+template = ""
 color = "BrightBlack"
 
 [module.changed_files]
