@@ -40,7 +40,8 @@
   keybind = super+shift+j=write_screen_file:paste
   keybind = super+alt+shift+j=write_screen_file:open
   mouse-hide-while-typing = true
-  macos-non-native-fullscreen = visible-menu
+  macos-non-native-fullscreen = padded-notch
+  # macos-non-native-fullscreen = visible-menu
   background-opacity = 0.95
   background-blur-radius = 20
   cursor-style = bar
