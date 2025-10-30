@@ -12,7 +12,8 @@
     "$directory"
     "\${custom.git_branch}"
     "\${custom.jj}"
-    "$git_status"
+    "\${custom.git_status}"
+    # "$git_status"
     "$git_state"
     "$nix_shell"
     "$direnv"
@@ -69,24 +70,33 @@
       command = "jj root >/dev/null 2>&1 || starship module git_branch";
       description = "Only show git_branch if we're not in a jj repo";
     };
+    git_status = {
+      when = true;
+      command = "jj root >/dev/null 2>&1 || starship module git_status";
+      description = "Only show git_branch if we're not in a jj repo";
+    };
     jj = {
+      # We do not add a whitespace at the end of the prompt here, because
+      # starship-jj already includes a trailing space in its output.
+      format = "$output ";
+      ignore_timeout = true;
+      when = true;
+
       # Output the jj prompt using starship-jj, removing spaces after color codes
       # to prevent unwanted gaps in the prompt. Empty gaps appear due to empty
       # modules in starship-jj outputting spaces with color codes. (can't disable)
-
       command =
         # bash
         ''out=$(starship-jj --ignore-working-copy starship prompt 2>/dev/null) && printf "%s" "$out" | sed -E 's/(\x1b\[[0-9;]*m) /\1/g' | xargs || exit $?'';
-      ignore_timeout = true;
+
+      # Default usage produces unwanted gaps in the prompt
+      # command = "prompt";
       # shell = [
       #   "starship-jj"
       #   "--ignore-working-copy"
       #   "starship"
       # ];
       # use_stdin = false;
-      when = true;
-
-      # symbol = "󱗆 ";
     };
   };
   nix_shell = {

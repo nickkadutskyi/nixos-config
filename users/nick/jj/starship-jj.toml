@@ -7,7 +7,6 @@ exclude = []
 
 [[module]]
 type = "Symbol"
-# symbol = "󱗆"
 symbol = "󰘬"
 color = "BrightBlack"
 
@@ -20,9 +19,8 @@ surround_with_quotes = false
 
 [[module]]
 type = "Commit"
-max_length = 20
-# empty_text = "no description"
-empty_text = ""
+max_length = 24
+empty_text = "—"
 surround_with_quotes = false
 color = "BrightBlack"
 
@@ -41,7 +39,7 @@ text = "(divergent)"
 color = "Cyan"
 
 [module.empty]
-disabled = false
+disabled = true
 text = "∅"
 color = "Yellow"
 
@@ -58,15 +56,14 @@ color = "Yellow"
 [[module]]
 type = "Metrics"
 # template = "[{changed} {added}{removed}]"
-# template = "{added}{removed}"
-# Disabled this metrics module to reduce clutter
-template = ""
-color = "BrightBlack"
+template = "{changed}"
+color = "Yellow"
 
 [module.changed_files]
-prefix = ""
+# prefix = "󰇂 "
+prefix = " "
 suffix = ""
-color = "BrightBlack"
+color = "Yellow"
 
 [module.added_lines]
 prefix = "+"
