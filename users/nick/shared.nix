@@ -64,7 +64,7 @@ in
     # Runs JavaScript (required by Copilot in Neovim )
     pkgs.nodejs
     # TUI AI Assistant
-    pkgs.opencode
+    pkgs-master.opencode
     # Reformats shell script
     pkgs.shfmt
     # Reformats Lua code
