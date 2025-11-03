@@ -25,8 +25,6 @@ palette = 13=#E617E6
 palette = 14=#15C1C1
 palette = 15=#C9C9C9
 
-window-theme = system
-
 # Seems like this is not working via themes
 # macos-icon = custom-style
 # macos-icon-ghost-color = 000000
