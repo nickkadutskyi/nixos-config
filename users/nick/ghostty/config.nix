@@ -26,7 +26,7 @@
   font-feature = -calt
   font-synthetic-style =
 
-  macos-titlebar-style = tabs
+  macos-titlebar-style = native
   bell-features = no-system,no-audio,attention,title,border
 
 
