@@ -469,7 +469,7 @@ in
           p=$(select-project -t "$@")
           read -r first rest <<< "$p"
 
-          if [[ -z "$rest" ]]; then
+          if [[ -n "$rest" ]]; then
             echo "No project selected."
             return
           fi
