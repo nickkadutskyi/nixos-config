@@ -469,25 +469,28 @@ in
           p=$(select-project -t "$@")
           read -r first rest <<< "$p"
 
-          if [[ -n "$rest" ]]; then
-            echo "No project selected."
-            return
-          fi
-
           if [[ "$first" == "p" ]]; then
             p="$rest"
             if [ -n "$p" ]; then
               cd "$p"
+            else
+              echo "No project provided."
             fi
           elif [[ "$first" == "t" ]]; then
             p="$rest"
-            handle-tmux "$p"
+            if [ -n "$p" ]; then
+              handle-tmux "$p"
+            else
+              echo "No project provided."
+            fi
           else
             if [ -n "$p" ]; then
               cd "$p"
+              eval "$(${pkgs.direnv}/bin/direnv export zsh)"
+              ${pkgs.neovim}/bin/nvim
+            else
+              echo "No project provided."
             fi
-            eval "$(${pkgs.direnv}/bin/direnv export zsh)"
-            ${pkgs.neovim}/bin/nvim
           fi
         }
       '';
