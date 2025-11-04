@@ -14,12 +14,12 @@ let
   # Keep it cross-platform
   isDarwin = pkgs.stdenv.isDarwin;
   isLinux = pkgs.stdenv.isLinux;
-  pkgs-master = inputs.nixpkgs-master.legacyPackages.${pkgs.system};
-  pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${pkgs.system};
+  pkgs-master = inputs.nixpkgs-master.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
   homeDir = config.home.homeDirectory;
   # Used in scripts for project navigation
   select-project = (import ./scripts/select-project.nix { inherit pkgs config; });
-  # neovim = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+  # neovim = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   # This value determines the Home Manager release that your
@@ -111,7 +111,7 @@ in
     pkgs.jq
     # Main editor
     pkgs.neovim
-    # inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
+    # inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default
     # Provides Nerd fonts for icons support
     pkgs.nerd-fonts.jetbrains-mono
     # Searching PDF file contents (TODO check if I use this)
@@ -121,7 +121,7 @@ in
     # Manages secrets
     pkgs.sops
     pkgs.sourcemapper
-    inputs.starship-jj.packages.${pkgs.system}.starship-jj
+    inputs.starship-jj.packages.${pkgs.stdenv.hostPlatform.system}.starship-jj
     # Creates age encrypted file from ssh key
     pkgs.ssh-to-age
     # Multiplexing
