@@ -469,6 +469,11 @@ in
           p=$(select-project -t "$@")
           read -r first rest <<< "$p"
 
+          if [[ -z "$rest" ]]; then
+            echo "No project selected."
+            return
+          fi
+
           if [[ "$first" == "p" ]]; then
             p="$rest"
             if [ -n "$p" ]; then
