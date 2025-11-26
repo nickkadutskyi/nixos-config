@@ -1,0 +1,47 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "lsp": {
+    "php intelephense": {
+      "disabled": false,
+      "extensions": [
+        ".php",
+        ".phtml",
+        ".php3",
+        ".php4",
+        ".php5",
+        ".phps",
+        ".blade.php"
+      ],
+      "command": [
+        "intelephense",
+        "--stdio"
+      ],
+      "initialization": {
+        "licenceKey": "/run/secrets/php/intelephense_license",
+        "files": {
+          "exclude": [
+            "**/.devenv/**",
+            "**/.direnv/**",
+            "**/.jj/**",
+            "**/.idea/**",
+            "**/.git/**",
+            "**/.svn/**",
+            "**/.hg/**",
+            "**/CVS/**",
+            "**/.DS_Store/**",
+            "**/node_modules/**",
+            "**/bower_components/**",
+            "**/vendor/**/{Tests,tests}/**",
+            "**/.history/**",
+            "**/vendor/**/vendor/**",
+            "**/public/wp/**",
+            "**/public/content/plugins/vendor-**",
+            "**/public/content/mu-plugins/vendor-**",
+            "**/public/content/themes/vendor-**",
+          ],
+          "maxSize": 10000000,
+        },
+      }
+    }
+  }
+}

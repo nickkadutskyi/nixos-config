@@ -248,6 +248,7 @@ in
       source = ./ghostty/themes;
       recursive = true;
     };
+    "opencode/opencode.json".text = builtins.readFile ./opencode/opencode.json;
     "tmux/tmux.conf".text = builtins.readFile ./tmux/tmux.conf;
     "tmux/tmux-light.conf".text = builtins.readFile ./tmux/tmux-light.conf;
     "tmux/tmux-dark.conf".text = builtins.readFile ./tmux/tmux-dark.conf;
