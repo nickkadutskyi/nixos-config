@@ -8,7 +8,7 @@
     # Primary nixpkgs source for the system
     nixpkgs.url = "github:NixOs/nixpkgs/nixpkgs-unstable";
     # Stable nixpkgs source for the system
-    nixpkgs-stable.url = "github:NixOs/nixpkgs/nixos-25.05";
+    nixpkgs-stable.url = "github:NixOs/nixpkgs/nixos-25.11";
 
     # Master nixpkgs source for the system to use for
     # awscli2 because it fails to build on nixpkgs-unstable
