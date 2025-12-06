@@ -49,6 +49,7 @@
       "clickup"
       "datagrip" # commercial IDE for database management
       "discord"
+      "dropbox"
       "flashspace"
       "nickkadutskyi/homebrew-cask/ghostty@tip" # using mine because official doesn't add terminfo
       "google-chrome"
