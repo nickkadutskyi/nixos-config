@@ -57,8 +57,11 @@
   merge-editor = "neovim"
 
   [git]
-  push-new-bookmarks = true
   private-commits = "description(glob:'private:*')"
+
+  [remotes.origin]
+  # Automatically track all bookmarks from origin
+  auto-track-bookmarks = "glob:*"
 
   [merge-tools.neovim]
   program = "sh"
