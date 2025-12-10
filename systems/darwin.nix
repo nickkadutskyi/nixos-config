@@ -76,6 +76,11 @@
     ];
     brews = [
       "mas"
+      {
+        name = "caddy";
+        restart_service = "changed";
+        start_service = true;
+      }
     ];
     global.autoUpdate = false;
     onActivation = {
