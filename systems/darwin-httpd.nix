@@ -30,11 +30,11 @@ in
              )
     declare -a addAfterKey=(
               "    DirectoryIndex index.html"
-              "    Listen 80"
+              "    Listen 81"
               )
     declare -a addAfterValue=(
               "# nix-darwin: ${option}\n    DirectoryIndex index.html index.php"
-              "# nix-darwin: ${option}\n    Listen 443"
+              "# nix-darwin: ${option}\n    Listen 444"
               )
 
     ${if enabled then ''
