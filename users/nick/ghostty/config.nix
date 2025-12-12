@@ -53,5 +53,7 @@
   # disables title to allow zsh plugin to work properly
   shell-integration-features = cursor,no-sudo,no-title
   # window-inherit-working-directory = false
+  auto-update = download
+  auto-update-channel = tip
 
 ''
