@@ -128,6 +128,7 @@ in
     pkgs.tmux
     # Shows directory structure
     pkgs.tree
+    inputs.tree-sitter.packages.${pkgs.stdenv.hostPlatform.system}.default
     # To watch commands
     pkgs.viddy
     # Needed for Jujutsu

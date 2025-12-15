@@ -61,6 +61,10 @@
       url = "github:nix-community/neovim-nightly-overlay";
     };
 
+    tree-sitter = {
+      url = "github:tree-sitter/tree-sitter";
+    };
+
     # Starship plugin for JJ
     starship-jj = {
       url = "gitlab:lanastara_foss/starship-jj";
