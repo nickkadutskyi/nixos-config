@@ -47,6 +47,7 @@
       "bibdesk" # reference manager
       "cleanshot"
       "clickup"
+      "dash"
       "datagrip" # commercial IDE for database management
       "discord"
       "dropbox"

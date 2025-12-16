@@ -665,6 +665,11 @@ in
         "Sticky Note" = "@~s";
         "Rectangle" = "@r";
         "Rounded Rectangle" = "@$r";
+        "Oval" = "@o";
+        "Diamond" = "@$d";
+        "Quote Bubble" = "@b";
+        "Line" = "@$l";
+        "Connection Line" = "@$~l";
       };
     };
 
