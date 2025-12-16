@@ -318,6 +318,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1756787288,
+        "narHash": "sha256-rw/PHa1cqiePdBxhF66V7R+WAP8WekQ0mCDG4CFqT8Y=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d0fc30899600b9b3466ddb260fd83deb486c32f1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "darwin-custom-icons": "darwin-custom-icons",
@@ -333,7 +349,8 @@
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable": "nixpkgs-stable",
         "sops-nix": "sops-nix",
-        "starship-jj": "starship-jj"
+        "starship-jj": "starship-jj",
+        "tree-sitter": "tree-sitter"
       }
     },
     "rust-analyzer-src": {
@@ -408,6 +425,24 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tree-sitter": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1765834010,
+        "narHash": "sha256-IYrI6vDq8+9NQy36dpbwd53R/dsIUfqvFnDFhvpvs0Y=",
+        "owner": "tree-sitter",
+        "repo": "tree-sitter",
+        "rev": "69676405719dc20eb6c57e8dd177d3cc3c267c69",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tree-sitter",
+        "repo": "tree-sitter",
         "type": "github"
       }
     }

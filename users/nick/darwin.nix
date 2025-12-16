@@ -658,6 +658,16 @@ in
       };
     };
 
+    "com.apple.freeform" = {
+      # @ = Cmd; ^ = Control; ~ = Option; $ = Shift
+      NSUserKeyEquivalents = {
+        "Text Box" = "@$t";
+        "Sticky Note" = "@~s";
+        "Rectangle" = "@r";
+        "Rounded Rectangle" = "@$r";
+      };
+    };
+
     # Keyboard Shortucts
     "com.apple.symbolichotkeys" = {
       AppleSymbolicHotKeys = {
