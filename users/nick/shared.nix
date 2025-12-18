@@ -139,8 +139,9 @@ in
     # ----------------------------------------------------------------
     # Scripts and wrappers for non-nix packages
     # ----------------------------------------------------------------
-    (import ./scripts/aws_cd_deployments.nix { inherit pkgs; })
-    (import ./scripts/aws_ec2_instances.nix { inherit pkgs; })
+    # 2025-12-18: Switched those to stable because csvkit in nixpkgs-ustable is broken
+    (import ./scripts/aws_cd_deployments.nix { pkgs = pkgs-stable; })
+    (import ./scripts/aws_ec2_instances.nix { pkgs = pkgs-stable; })
     (import ./scripts/tizen-sdb.nix { inherit pkgs; })
     (import ./scripts/tizen.nix { inherit pkgs; })
   ]
