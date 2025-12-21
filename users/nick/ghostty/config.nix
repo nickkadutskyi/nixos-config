@@ -45,7 +45,7 @@
   mouse-hide-while-typing = true
   macos-non-native-fullscreen = padded-notch
   # macos-non-native-fullscreen = visible-menu
-  background-opacity = 0.95
+  background-opacity = 0.97
   background-blur-radius = 20
   cursor-style = bar
   quick-terminal-position = bottom
