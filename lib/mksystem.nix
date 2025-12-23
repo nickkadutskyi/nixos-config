@@ -121,6 +121,8 @@ systemFunc {
     )
     # Custom icons for macOS
     (if isDarwin then inputs.darwin-custom-icons.darwinModules.default else { })
+    # macOS built-in Apache HTTP Server module
+    (if isDarwin then ../modules/services/web-servers/darwin-apache-httpd.nix else { })
 
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.

@@ -12,7 +12,13 @@
 {
   imports = [
     ./shared.nix
-    ./darwin-httpd.nix
+  ];
+
+  # Enable macOS built-in Apache
+  services.httpd-darwin.enable = true;
+  services.httpd-darwin.listen = [
+    81
+    444
   ];
 
   system.primaryUser = "nick";
