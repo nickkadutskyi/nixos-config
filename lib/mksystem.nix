@@ -3,7 +3,6 @@
 {
   overlays,
   nixpkgs,
-  nixpkgs-master,
   inputs,
   ...
 }:

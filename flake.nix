@@ -87,6 +87,10 @@
     let
       overlays = [
         #  neovim-nightly-overlay.overlays.default
+        (final: prev: rec {
+          # awscli2 from unstable would not build due to bugs in csvkit
+          # awscli2 = inputs.nixpkgs-stable.legacyPackages.${prev.system}.awscli2;
+        })
       ];
       mkSystem = import ./lib/mksystem.nix {
         inherit

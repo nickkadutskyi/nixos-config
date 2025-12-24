@@ -14,8 +14,6 @@ let
   # Keep it cross-platform
   isDarwin = pkgs.stdenv.isDarwin;
   isLinux = pkgs.stdenv.isLinux;
-  pkgs-master = inputs.nixpkgs-master.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-  pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
   homeDir = config.home.homeDirectory;
   # Used in scripts for project navigation
   select-project = (import ./scripts/select-project.nix { inherit pkgs config; });
@@ -141,8 +139,8 @@ in
     # Scripts and wrappers for non-nix packages
     # ----------------------------------------------------------------
     # 2025-12-18: Switched those to stable because csvkit in nixpkgs-ustable is broken
-    (import ./scripts/aws_cd_deployments.nix { pkgs = pkgs-stable; })
-    (import ./scripts/aws_ec2_instances.nix { pkgs = pkgs-stable; })
+    (import ./scripts/aws_cd_deployments.nix { inherit pkgs; })
+    (import ./scripts/aws_ec2_instances.nix { inherit pkgs; })
     (import ./scripts/tizen-sdb.nix { inherit pkgs; })
     (import ./scripts/tizen.nix { inherit pkgs; })
   ]

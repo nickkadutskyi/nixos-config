@@ -10,7 +10,6 @@
   ...
 }:
 {
-  nixpkgs.overlays = import ../lib/overlays.nix ++ [ ];
   environment.systemPackages = [
     pkgs.btop
   ];
