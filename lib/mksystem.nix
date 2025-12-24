@@ -56,7 +56,6 @@ let
 
   # NixOS vs nix-darwin functions
   systemFunc = if isDarwin then inputs.nix-darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
-  home-manager = if isDarwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
 in
 systemFunc {
   inherit system;
@@ -80,6 +79,7 @@ systemFunc {
             inputs.nix-homebrew.darwinModules.nix-homebrew
             inputs.darwin-custom-icons.darwinModules.default
             inputs.sops-nix.darwinModules.sops
+            inputs.home-manager.darwinModules.home-manager
             # My custom nix-darwin modules
             ../modules/darwin
           ];
@@ -94,6 +94,7 @@ systemFunc {
           imports = [
             # Third-party NixOS modules
             inputs.sops-nix.nixosModules.sops
+            inputs.home-manager.nixosModules.home-manager
             # My custom NixOS modules
             ../modules/nixos
           ];
@@ -101,9 +102,6 @@ systemFunc {
       else
         { }
     )
-
-    # User specific home configuration
-    home-manager.home-manager
 
     # -------------------------------------------------------------------------
     # MODULE CONFIGURATIONS
@@ -118,29 +116,28 @@ systemFunc {
         # The platform the configuration will be used on.
         hostPlatform = system;
       };
-    }
-    # Machine specific configuration e.g. configuration.nix and hardware-configuration.nix
-    machineConfig
-    # OS specific configuration
-    systemConfig
-
-    # We configure home-manager for our user
-    {
-      home-manager.backupFileExtension = "hm-backup";
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = {
-        inherit
-          inputs
-          machine
-          system
-          isWSL
-          user
-          ;
+      home-manager = {
+        backupFileExtension = "hm-backup";
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        sharedModules = [ ../modules/home-manager ];
+        extraSpecialArgs = {
+          inherit
+            inputs
+            machine
+            system
+            isWSL
+            user
+            ;
+        };
+        # User-specific configuration (shared across all machines)
+        users.${user} = homeConfig;
       };
-      # User specific configuration (shared across all machines)
-      home-manager.users.${user} = homeConfig;
     }
+    # Machine-specific configuration e.g. configuration.nix and hardware-configuration.nix
+    machineConfig
+    # OS-specific configuration
+    systemConfig
 
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.
