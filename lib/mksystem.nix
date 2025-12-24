@@ -22,6 +22,9 @@ machine:
 let
   systemType = if isDarwin then "darwin" else "nixos";
 
+  isLinux = !isDarwin && !isWSL;
+  isNixOS = !isDarwin;
+
   mkConfPath =
     {
       loc,
@@ -54,12 +57,59 @@ let
   # NixOS vs nix-darwin functions
   systemFunc = if isDarwin then inputs.nix-darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
   home-manager = if isDarwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
-  sosps = if isDarwin then inputs.sops-nix.darwinModules else inputs.sops-nix.nixosModules;
 in
 systemFunc {
   inherit system;
   specialArgs = { inherit inputs; };
   modules = [
+
+    # -------------------------------------------------------------------------
+    # MODULE DEFINITIONS
+    # -------------------------------------------------------------------------
+
+    # WSL-specific modules
+    (if isWSL then { imports = [ inputs.nixos-wsl.nixosModules.wsl ]; } else { })
+    # Linux-specific modules
+    (if isLinux then { imports = [ ]; } else { })
+    # Darwin-specific modules and configuration
+    (
+      if isDarwin then
+        {
+          imports = [
+            # Third-party nix-darwin modules
+            inputs.nix-homebrew.darwinModules.nix-homebrew
+            inputs.darwin-custom-icons.darwinModules.default
+            inputs.sops-nix.darwinModules.sops
+            # My custom nix-darwin modules
+            ../modules/darwin
+          ];
+        }
+      else
+        { }
+    )
+    # NixOS-specific modules and configuration
+    (
+      if isNixOS then
+        {
+          imports = [
+            # Third-party NixOS modules
+            inputs.sops-nix.nixosModules.sops
+            # My custom NixOS modules
+            ../modules/nixos
+          ];
+        }
+      else
+        { }
+    )
+
+    # User specific home configuration
+    home-manager.home-manager
+
+    # -------------------------------------------------------------------------
+    # MODULE CONFIGURATIONS
+    # -------------------------------------------------------------------------
+
+    # Shared configuration across all systems and machines
     {
       nixpkgs = {
         overlays = overlays;
@@ -69,14 +119,12 @@ systemFunc {
         hostPlatform = system;
       };
     }
-    # Bring in WSL if this is a WSL build
-    (if isWSL then inputs.nixos-wsl.nixosModules.wsl else { })
     # Machine specific configuration e.g. configuration.nix and hardware-configuration.nix
     machineConfig
     # OS specific configuration
     systemConfig
-    # User specific home configuration
-    home-manager.home-manager
+
+    # We configure home-manager for our user
     {
       home-manager.backupFileExtension = "hm-backup";
       home-manager.useGlobalPkgs = true;
@@ -93,36 +141,6 @@ systemFunc {
       # User specific configuration (shared across all machines)
       home-manager.users.${user} = homeConfig;
     }
-    # Secrets management in repo with SOPS
-    sosps.sops
-    # Manages Homebrew on macOS with Nix
-    (if isDarwin then inputs.nix-homebrew.darwinModules.nix-homebrew else { })
-    (
-      if isDarwin then
-        {
-          nix-homebrew = {
-            enable = true;
-            enableRosetta = true;
-            # User owning the Homebrew prefix
-            user = user;
-            # Optional: Declarative tap management
-            taps = {
-              "homebrew/homebrew-core" = inputs.homebrew-core;
-              "homebrew/homebrew-cask" = inputs.homebrew-cask;
-              "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
-              "nickkadutskyi/homebrew-cask" = inputs.nickkadutskyi-homebrew-cask;
-            };
-            # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
-            mutableTaps = false;
-          };
-        }
-      else
-        { }
-    )
-    # Custom icons for macOS
-    (if isDarwin then inputs.darwin-custom-icons.darwinModules.default else { })
-    # macOS built-in Apache HTTP Server module
-    (if isDarwin then ../modules/services/web-servers/darwin-apache-httpd.nix else { })
 
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.

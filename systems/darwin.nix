@@ -29,6 +29,22 @@
     shell = pkgs.zsh;
   };
 
+  nix-homebrew = {
+    enable = true;
+    enableRosetta = true;
+    # User owning the Homebrew prefix
+    user = user;
+    # Optional: Declarative tap management
+    taps = {
+      "homebrew/homebrew-core" = inputs.homebrew-core;
+      "homebrew/homebrew-cask" = inputs.homebrew-cask;
+      "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
+      "nickkadutskyi/homebrew-cask" = inputs.nickkadutskyi-homebrew-cask;
+    };
+    # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
+    mutableTaps = false;
+  };
+
   homebrew = {
     enable = true;
     masApps = {
