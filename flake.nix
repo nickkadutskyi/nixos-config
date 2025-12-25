@@ -77,19 +77,14 @@
       nixpkgs,
       nixpkgs-master,
       neovim-nightly-overlay,
-      nix-darwin,
-      home-manager,
-      nix-homebrew,
-      darwin-custom-icons,
-      sops-nix,
       ...
     }@inputs:
     let
       overlays = [
         #  neovim-nightly-overlay.overlays.default
         (final: prev: rec {
-          # awscli2 from unstable would not build due to bugs in csvkit
-          # awscli2 = inputs.nixpkgs-stable.legacyPackages.${prev.system}.awscli2;
+          # csvkit 2.2.0 on unstable won't build so using 2.1.0 from stable
+          csvkit = inputs.nixpkgs-stable.legacyPackages.${prev.system}.csvkit;
         })
       ];
       mkSystem = import ./lib/mksystem.nix {
