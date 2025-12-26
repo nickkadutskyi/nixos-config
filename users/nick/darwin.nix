@@ -20,13 +20,17 @@ in
   #---------------------------------------------------------------------
   imports = [
     ./shared.nix
-    (import ./services/home-snippety-helper.nix { inherit user pkgs config; })
   ];
 
   #---------------------------------------------------------------------
   # Tool Theme Switching
   #---------------------------------------------------------------------
   targets.darwin.services.tool-theme.enable = isDarwin;
+
+  #---------------------------------------------------------------------
+  # Snippety Helper
+  #---------------------------------------------------------------------
+  targets.darwin.services.snippety-helper.enable = isDarwin;
 
   #---------------------------------------------------------------------
   # Packages
@@ -38,12 +42,8 @@ in
     pkgs._1password-cli
     # Control bluetooth
     pkgs.blueutil
-    # GNU Coreutils (gtimeout is required by snippety-helper)
-    pkgs.coreutils-prefixed
     # Set default applications for doc types and URL schemes
     pkgs.duti
-    # Monitors a directory for changes (required by snippety-helper)
-    pkgs.fswatch
   ]);
 
   #---------------------------------------------------------------------
@@ -136,42 +136,6 @@ in
           /usr/bin/chflags hidden ${homeDir}/intelephense
         ''
     );
-    # Required for snippety-helper
-    snippetyHelperInstallation = lib.mkIf isDarwin (
-      let
-        installerScript = import ./snippety/snippety-helper-installer.nix { inherit pkgs config; };
-      in
-      lib.hm.dag.entryAfter [ "writeBoundary" ]
-        # bash
-        ''
-          export PKG_CURL PKG_BASH
-          PKG_BASH=${pkgs.bash}
-          PKG_CURL=${pkgs.curl}
-          if [ ! -d ${homeDir}/Downloads/.snippety-helper ]; then
-            cd ${homeDir}/Downloads && "$PKG_BASH/bin/bash" ${installerScript}
-          fi
-        ''
-    );
-    # Required for snippety-helper
-    checkBashPermissions =
-      lib.mkIf isDarwin # bash
-        ''
-          YELLOW='\033[0;33m'
-          NC='\033[0m' # No Color
-          SQL="SELECT client,auth_value
-                 FROM access
-                WHERE client='/bin/bash'
-                  AND auth_value='2'
-                  AND service='kTCCServiceSystemPolicyAllFiles';"
-          DB="/Library/Application Support/com.apple.TCC/TCC.db"
-          if [ ! -f "$DB" ] || [ -z "$(${pkgs.sqlite}/bin/sqlite3 "$DB" "$SQL")" ]; then
-            echo -e "''${YELLOW}To use snippety-helper LaunchAgent you need to grant bash shell Full Disk Access."
-            echo "Please go to System Preferences -> Security & Privacy -> Full Disk Access and add bash shell."
-            echo "You can find bash shell in"
-            echo "/bin/bash"
-            echo -e "After adding restart snippety-helper LaunchAgent or relogin to system.''${NC}"
-          fi
-        '';
   };
 
   #---------------------------------------------------------------------
