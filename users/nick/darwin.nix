@@ -21,8 +21,12 @@ in
   imports = [
     ./shared.nix
     (import ./services/home-snippety-helper.nix { inherit user pkgs config; })
-    ./services/home-theme.nix
   ];
+
+  #---------------------------------------------------------------------
+  # Tool Theme Switching
+  #---------------------------------------------------------------------
+  targets.darwin.services.tool-theme.enable = isDarwin;
 
   #---------------------------------------------------------------------
   # Packages
