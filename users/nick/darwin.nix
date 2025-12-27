@@ -579,7 +579,7 @@ in
     };
 
     "com.apple.iCal" = {
-      "number of hours displayed" = 7;
+      "number of hours displayed" = 6;
     };
 
     "com.apple.finder" = {
