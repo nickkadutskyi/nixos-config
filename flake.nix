@@ -84,7 +84,7 @@
         #  neovim-nightly-overlay.overlays.default
         (final: prev: rec {
           # csvkit 2.2.0 on unstable won't build so using 2.1.0 from stable
-          csvkit = inputs.nixpkgs-stable.legacyPackages.${prev.system}.csvkit;
+          csvkit = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.csvkit;
         })
       ];
       mkSystem = import ./lib/mksystem.nix {

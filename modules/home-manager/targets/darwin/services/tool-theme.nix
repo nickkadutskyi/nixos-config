@@ -47,7 +47,8 @@ let
       makeWarning =
         v:
         let
-          missingFiles = [ ]
+          missingFiles =
+            [ ]
             ++ optional (!v.lightTheme.exists && !v.lightTheme.managed) "light theme (${v.lightTheme.absPath})"
             ++ optional (!v.darkTheme.exists && !v.darkTheme.managed) "dark theme (${v.darkTheme.absPath})";
         in
@@ -192,6 +193,9 @@ in
 
   config = mkIf cfg.enable {
     warnings = generateWarnings;
+    assertions = [
+      (lib.hm.assertions.assertPlatform "targets.darwin.tool-theme" pkgs lib.platforms.darwin)
+    ];
 
     launchd.agents.tool-theme-helper = mkIf (validTools != [ ]) {
       enable = true;

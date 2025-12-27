@@ -17,7 +17,6 @@ let
   homeDir = config.home.homeDirectory;
   # Used in scripts for project navigation
   select-project = (import ./scripts/select-project.nix { inherit pkgs config; });
-  # neovim = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   # This value determines the Home Manager release that your
@@ -110,7 +109,6 @@ in
     pkgs.lnav
     # Main editor
     pkgs.neovim
-    # inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default
     # Provides Nerd fonts for icons support
     pkgs.nerd-fonts.jetbrains-mono
     # Searching PDF file contents (TODO check if I use this)
@@ -127,7 +125,6 @@ in
     pkgs.tmux
     # Shows directory structure
     pkgs.tree
-    # inputs.tree-sitter.packages.${pkgs.stdenv.hostPlatform.system}.default
     pkgs.tree-sitter
     # To watch commands
     pkgs.viddy
