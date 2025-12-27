@@ -8,13 +8,15 @@ with lib;
 let
   cfg = config.targets.darwin.services.tool-theme;
 
+  homeDir = config.home.homeDirectory;
+  # Helper to convert relative paths to absolute
+  toAbsPath = filePath: if lib.hasPrefix "/" filePath then filePath else "${homeDir}/${filePath}";
   # Helper function to check if a file exists or is managed by home-manager
   fileExistsOrManaged =
-    path:
+    filePath:
     let
-      homeDir = config.home.homeDirectory;
       # Convert relative path to absolute
-      absPath = if lib.hasPrefix "/" path then path else "${homeDir}/${path}";
+      absPath = toAbsPath filePath;
       # Check if file is managed by home-manager via xdg.configFile or home.file
       managedViaXdgConfig = config.xdg.configFile ? ${lib.removePrefix "${config.xdg.configHome}/" absPath};
       managedViaHomeFile = config.home.file ? ${lib.removePrefix "${homeDir}/" absPath};
@@ -24,7 +26,6 @@ let
       exists = builtins.pathExists absPath;
       managed = managedViaXdgConfig || managedViaHomeFile;
     };
-
   # Helper function to validate tool configuration
   validateToolConfig =
     toolName: toolCfg:
@@ -66,10 +67,6 @@ let
   # Generate theme switching script content
   scriptContent =
     let
-      homeDir = config.home.homeDirectory;
-
-      # Helper to convert relative paths to absolute
-      toAbsPath = path: if lib.hasPrefix "/" path then path else "${homeDir}/${path}";
 
       # Generate switching logic for each valid tool
       generateToolSwitch =
