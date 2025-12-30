@@ -101,8 +101,7 @@
       "mas"
       {
         name = "caddy";
-        restart_service = "changed";
-        start_service = true;
+        restart_service = true;
       }
     ];
     global.autoUpdate = false;
