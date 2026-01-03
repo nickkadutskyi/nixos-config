@@ -11,8 +11,7 @@
     nixpkgs-stable.url = "github:NixOs/nixpkgs/nixos-25.11";
 
     # Master nixpkgs source for the system to use for
-    # awscli2 because it fails to build on nixpkgs-unstable
-    nixpkgs-master.url = "github:NixOs/nixpkgs/master";
+    # nixpkgs-master.url = "github:NixOs/nixpkgs/master";
 
     # NixOS like configuration for macOS
     nix-darwin = {
@@ -57,13 +56,9 @@
     };
 
     # Nightly version of Neovim
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-    };
-
-    tree-sitter = {
-      url = "github:tree-sitter/tree-sitter";
-    };
+    # neovim-nightly-overlay = {
+    #   url = "github:nix-community/neovim-nightly-overlay";
+    # };
 
     # Starship plugin for JJ
     starship-jj = {
@@ -75,8 +70,8 @@
     {
       self,
       nixpkgs,
-      nixpkgs-master,
-      neovim-nightly-overlay,
+      # nixpkgs-master,
+      # neovim-nightly-overlay,
       ...
     }@inputs:
     let
@@ -91,7 +86,7 @@
         inherit
           overlays
           nixpkgs
-          nixpkgs-master
+          # nixpkgs-master
           inputs
           ;
       };
