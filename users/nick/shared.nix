@@ -351,9 +351,6 @@ in
         ssh.defaultKeyCommand = "echo 'key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUOOm/kpbXdO0Zg7XzDK3W67QUCZ/jutXK8w+pgoZqq'";
         openpgp.program = "gpg";
       };
-      init = {
-        defaultBranch = "main";
-      };
       push = {
         followTags = true;
       };
