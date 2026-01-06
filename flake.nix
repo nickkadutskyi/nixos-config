@@ -11,7 +11,7 @@
     nixpkgs-stable.url = "github:NixOs/nixpkgs/nixos-25.11";
 
     # Master nixpkgs source for the system to use for
-    # nixpkgs-master.url = "github:NixOs/nixpkgs/master";
+    nixpkgs-master.url = "github:NixOs/nixpkgs/master";
 
     # NixOS like configuration for macOS
     nix-darwin = {
@@ -70,7 +70,8 @@
     {
       self,
       nixpkgs,
-      # nixpkgs-master,
+      nixpkgs-master,
+      nixpkgs-stable,
       # neovim-nightly-overlay,
       ...
     }@inputs:
@@ -79,7 +80,9 @@
         #  neovim-nightly-overlay.overlays.default
         (final: prev: rec {
           # csvkit 2.2.0 on unstable won't build so using 2.1.0 from stable
-          csvkit = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.csvkit;
+          csvkit = nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.csvkit;
+          # Latest opencode from master nixpkgs
+          opencode = nixpkgs-master.legacyPackages.${prev.stdenv.hostPlatform.system}.opencode;
         })
       ];
       mkSystem = import ./lib/mksystem.nix {
