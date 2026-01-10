@@ -82,7 +82,7 @@
           # csvkit 2.2.0 on unstable won't build so using 2.1.0 from stable
           csvkit = nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.csvkit;
           # Latest opencode from master nixpkgs
-          opencode = nixpkgs-master.legacyPackages.${prev.stdenv.hostPlatform.system}.opencode;
+          # opencode = nixpkgs-master.legacyPackages.${prev.stdenv.hostPlatform.system}.opencode;
         })
       ];
       mkSystem = import ./lib/mksystem.nix {
