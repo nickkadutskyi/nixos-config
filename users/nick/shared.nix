@@ -66,6 +66,7 @@ in
     pkgs.shfmt
     # Reformats Lua code
     pkgs.stylua
+    pkgs.tailspin
     # Reformats TOML code
     pkgs.taplo
     # Provides vscode-css-language-server vscode-eslint-language-server
