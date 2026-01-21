@@ -55,7 +55,7 @@ in
     pkgs.findutils
     pkgs.lua-language-server
     # Reformats Nix code
-    pkgs.nixfmt-rfc-style
+    pkgs.nixfmt
     # Nix language server
     pkgs.nixd
     # Runs JavaScript (required by Copilot in Neovim )
