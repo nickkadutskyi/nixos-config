@@ -74,7 +74,8 @@
       "discord"
       "dropbox"
       "flashspace"
-      "nickkadutskyi/homebrew-cask/ghostty@tip" # using mine because official doesn't add terminfo
+      # "nickkadutskyi/homebrew-cask/ghostty@tip" # using mine because official doesn't add terminfo
+      "ghostty@tip"
       "google-chrome"
       "gpg-suite"
       "hazel"
