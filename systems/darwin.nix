@@ -98,11 +98,12 @@
       "zoom"
     ];
     brews = [
-      "mas"
       {
         name = "caddy";
         restart_service = true;
       }
+      "mas"
+      "ncurses"
     ];
     global.autoUpdate = false;
     onActivation = {

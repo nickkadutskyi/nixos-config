@@ -51,7 +51,7 @@
   quick-terminal-position = bottom
   quick-terminal-animation-duration = 0
   # disables title to allow zsh plugin to work properly
-  shell-integration-features = cursor,no-sudo,no-title
+  shell-integration-features = cursor,no-sudo,no-title,ssh-terminfo
   # window-inherit-working-directory = false
   auto-update = download
   auto-update-channel = tip
