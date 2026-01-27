@@ -83,13 +83,14 @@
           csvkit = nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.csvkit;
           # Latest opencode from master nixpkgs
           # opencode = nixpkgs-master.legacyPackages.${prev.stdenv.hostPlatform.system}.opencode;
+          # dark-mode-notify from nixpkgs-unstable doesn't work due to failed build of swift-5.10.1
+          dark-mode-notify = nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.dark-mode-notify;
         })
       ];
       mkSystem = import ./lib/mksystem.nix {
         inherit
           overlays
           nixpkgs
-          # nixpkgs-master
           inputs
           ;
       };
