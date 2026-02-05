@@ -339,6 +339,7 @@ in
             # gitignore
             ''
               .DS_Store
+              tmp
             ''
         );
       };
