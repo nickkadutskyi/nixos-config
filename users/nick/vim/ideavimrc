@@ -39,8 +39,8 @@ nnoremap <leader>gc :action GotoClass<CR>
 nnoremap <leader>gs :action GotoSymbol<CR>
 nnoremap <leader>gd :action GotoDatabaseObject<CR>
 nnoremap <leader>fp :action FindInPath<CR>
-" Similar to Go to Buffer in my neovim setup
-nnoremap <leader>gb :action Switcher<CR>
+" Similar to Go to Recent Files in my neovim setup
+nnoremap <leader>gr :action Switcher<CR>
 
 " Git
 " Manage status before commit
