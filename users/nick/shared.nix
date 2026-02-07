@@ -201,13 +201,17 @@ in
     gunignore = "git update-index --no-assume-unchanged";
     gignored = "git ls-files -v | grep '^[[:lower:]]'";
     # JJ
-    jd = "jj desc";
-    jf = "jj git fetch";
-    jn = "jj new";
-    jp = "jj git push";
     js = "jj st";
-    jt = "jj tug";
+    jn = "jj new";
+    je = "jj edit";
+    jd = "jj desc";
+    # jf -> jr to get the latest changes from the remote and rebase
+    # the current bookmark on top of the latest trunk.
+    jf = "jj git fetch";
     jr = "jj retrunk";
+    # jt -> jp to push the current bookmark to the remote.
+    jt = "jj tug";
+    jp = "jj git push";
     # IPs
     ip = "curl -4 icanhazip.com";
     ip4 = "curl -4 icanhazip.com";
