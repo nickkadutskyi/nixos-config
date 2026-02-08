@@ -95,11 +95,11 @@ nnoremap <leader>ad :action ActivateDatabaseToolWindow<CR>
 " Go to Declaration or Usage
 " nnoremap gd :action GotoDeclaration<CR>
 " Go to Declaration
-nnoremap gd :action GotoDeclarationOnly<CR>
+nnoremap grd :action GotoDeclarationOnly<CR>
 " Go to References
-nnoremap gr :action ShowUsages<CR>
+nnoremap gru :action ShowUsages<CR>
 " Go to Implementation
-nnoremap gi :action GotoImplementation<CR>
+nnoremap gri :action GotoImplementation<CR>
 " Forward Jump Pooint
 nnoremap <C-i> :action Forward<CR>
 " Back Jump Point
