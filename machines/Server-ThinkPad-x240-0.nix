@@ -38,11 +38,15 @@
   '';
 
   # Prevent lid switch from suspending
-  services.logind = {
-    lidSwitch = "ignore";
-    extraConfig = ''
-      HandlePowerKey=ignore
-    '';
+  # services.logind = {
+  #   lidSwitch = "ignore";
+  #   extraConfig = ''
+  #     HandlePowerKey=ignore
+  #   '';
+  # };
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandlePowerKey = "ignore";
   };
 
   services.acpid = {
