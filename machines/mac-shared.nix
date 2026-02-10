@@ -22,12 +22,10 @@
   environment.shells = [
     pkgs.bashInteractive
     pkgs.zsh
-    # pkgs.nushell
   ];
   # Packages for all users on the system
   environment.systemPackages = [
     pkgs.dnsmasq # wildcard *.test for local development
-    # pkgs.nushell
   ];
   # Set Git commit hash for darwin-version.
   system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;

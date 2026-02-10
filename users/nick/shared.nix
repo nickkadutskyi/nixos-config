@@ -375,19 +375,6 @@ in
   programs.starship = {
     enable = true;
     settings = import ./starship/starship.nix { inherit config pkgs machine; };
-    # enableNushellIntegration = true;
-  };
-
-  programs.nushell = {
-    enable = false;
-    configFile.source = ./nu/config.nu;
-    # shellAliases = shellAliases;
-
-    # # This is appended at the end of the config file and we need to do
-    # # this to override OMP's transient prompt command.
-    # extraConfig = ''
-    #   $env.TRANSIENT_PROMPT_COMMAND = null
-    # '';
   };
 
   programs.zsh = {

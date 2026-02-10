@@ -55,7 +55,7 @@
   # Enables wireless support via wpa_supplicant.
   networking.wireless = {
     enable = true;
-    userControlled.enable = true;
+    userControlled = true;
   }; # using wpa_supplicant.conf
 
   # Set your time zone.
