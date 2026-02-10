@@ -420,8 +420,8 @@ in
         src = pkgs.fetchFromGitHub {
           owner = "trystan2k";
           repo = "zsh-tab-title";
-          rev = "main";
-          sha256 = "sha256-ZEhbQ+yIfCz+vmua7XYBQ4kSVgwoNR8Y4zJyKNypsz0="; # Replace with correct hash
+          rev = "5e56b9e2d4fdb042b979fee75de6bfa4aa80a8a1";
+          sha256 = "sha256-EbgHIH1EeaoES+w14kVynomUrmyOahFnxMgzrI1mOig="; # Replace with correct hash
         };
       }
     ];
