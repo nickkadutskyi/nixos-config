@@ -85,6 +85,8 @@
           # opencode = nixpkgs-master.legacyPackages.${prev.stdenv.hostPlatform.system}.opencode;
           # dark-mode-notify from nixpkgs-unstable doesn't work due to failed build of swift-5.10.1
           dark-mode-notify = nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.dark-mode-notify;
+          # Using stable due to failing build of folly dep on nixpkgs-unstable
+          watchman = nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.watchman;
         })
       ];
       mkSystem = import ./lib/mksystem.nix {
