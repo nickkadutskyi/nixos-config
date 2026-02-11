@@ -83,6 +83,7 @@
         authorizedKeys = [
           (builtins.readFile ../users/${user}/ssh/Nicks-MacBook-Air-0.pub)
           (builtins.readFile ../users/${user}/ssh/Nicks-Mac-mini-0.pub)
+          (builtins.readFile ../users/${user}/ssh/Nicks-iPhone-0.pub)
         ];
         hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
       };
