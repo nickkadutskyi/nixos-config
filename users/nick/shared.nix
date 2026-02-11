@@ -88,6 +88,7 @@ in
 
     # Simple, modern and secure encryption tool
     pkgs.age
+    pkgs.attic-client # For binary cache backup
     pkgs.awscli2
     # Feature–rich alternative to ls
     pkgs.eza
