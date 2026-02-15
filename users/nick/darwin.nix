@@ -13,6 +13,8 @@
 let
   isDarwin = pkgs.stdenv.isDarwin;
   homeDir = config.home.homeDirectory;
+  syncHomeDir = homeDir + "/Library/Mobile\ Documents/com\~apple\~CloudDocs/Sync/HOME";
+  cfgSync = syncHomeDir + "/.config";
 in
 {
   #---------------------------------------------------------------------
@@ -22,120 +24,70 @@ in
     ./shared.nix
   ];
 
-  #---------------------------------------------------------------------
   # Tool Theme Switching
-  #---------------------------------------------------------------------
-  targets.darwin.services.tool-theme.enable = isDarwin;
-
-  #---------------------------------------------------------------------
+  targets.darwin.services.tool-theme.enable = true;
   # Snippety Helper
-  #---------------------------------------------------------------------
-  targets.darwin.services.snippety-helper.enable = isDarwin;
+  targets.darwin.services.snippety-helper.enable = true;
+  # Development
+  tools.development.enable = true;
+  # Web Development
+  tools.development.web.enable = true;
+  # Tizen Development
+  tools.development.tizen.enable = true;
 
   #---------------------------------------------------------------------
   # Packages
   #---------------------------------------------------------------------
   home.packages = [
-    pkgs.imagemagick
-  ]
-  ++ (lib.optionals isDarwin [
+    # ----------------------------------------------------------------
+    # Tooling
+    # ----------------------------------------------------------------
     pkgs._1password-cli
-    # Control bluetooth
-    pkgs.blueutil
-    # Set default applications for doc types and URL schemes
-    pkgs.duti
-  ]);
+    pkgs.blueutil # Control bluetooth
+    pkgs.duti # Set default apps for doc types and URL schemes
+    pkgs.lua-language-server
+    # Reformats Lua code
+    pkgs.stylua
+    # Provides vscode-css-language-server vscode-eslint-language-server
+    # vscode-html-language-server vscode-json-language-server
+    # vscode-markdown-language-server
+    pkgs.vscode-langservers-extracted
+  ];
 
   #---------------------------------------------------------------------
   # Env vars and dotfiles
   #---------------------------------------------------------------------
-  home.shellAliases = {
-    iplan = # bash
-      lib.mkIf isDarwin "ifconfig en0 inet | grep 'inet ' | awk ' { print \$2 } '";
-    ips = # bash
-      lib.mkIf isDarwin "ifconfig -a | perl -nle'/(\\d+\\.\\d+\\.\\d+\\.\\d+)/ && print \$1'";
+  home.sessionVariables = {
+    HOMEBREW_NO_ANALYTICS = "1";
   };
+
+  home.sessionPath = [
+    "/Applications/FlashSpace.app/Contents/Resources"
+  ];
+
   xdg.configFile = {
-    "ideavim/ideavimrc" = {
-      enable = isDarwin;
-      text = ''
-        source ${./vim/vimrc}
-        ${builtins.readFile ./vim/ideavimrc}
-      '';
-    };
-    "karabiner/karabiner.json" = {
-      enable = isDarwin;
-      text = builtins.readFile ./karabiner/karabiner.json;
+    "1Password/ssh/agent.toml".text = import ./1p/ssh/agent.nix { inherit machine; };
+    "karabiner/karabiner.json".source = ./karabiner/karabiner.json;
+    "flashspace/profiles.json".source = config.lib.file.mkOutOfStoreSymlink (cfgSync + "/flashspace/profiles.json");
+    "flashspace/settings.json".source = config.lib.file.mkOutOfStoreSymlink (cfgSync + "/flashspace/settings.json");
+    "nvim_spell".source = config.lib.file.mkOutOfStoreSymlink (cfgSync + "/nvim_spell");
+    "ghostty/config".text = import ./ghostty/config.nix { inherit isDarwin; };
+    "ghostty/themes" = {
+      source = ./ghostty/themes;
+      recursive = true;
     };
   };
 
-  home.file =
-    let
-      syncHomeDir = homeDir + "/Library/Mobile\ Documents/com\~apple\~CloudDocs/Sync/HOME";
-    in
-    {
-      ".config/flashspace/profiles.json" = {
-        enable = isDarwin;
-        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/flashspace/profiles.json");
-      };
-      ".config/flashspace/settings.json" = {
-        enable = isDarwin;
-        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/flashspace/settings.json");
-      };
-      # Adds custom BibTeX types and fields to BibDesk
-      "Library/Application\ Support/BibDesk/TypeInfo.plist" = {
-        enable = isDarwin;
-        source = ./bibdesk/TypeInfo.plist;
-      };
-      # Adds my custom templates to BibDesk
-      "Library/Application\ Support/BibDesk/Templates/mdApaTemplate.txt" = {
-        enable = isDarwin;
-        source = ./bibdesk/Templates/mdApaTemplate.txt;
-      };
-      ".local/scripts" = {
-        enable = isDarwin;
-        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/scripts");
-      };
-      ".ssh/conf.d" = {
-        enable = isDarwin;
-        recursive = true;
-        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.ssh/conf.d");
-      };
-      ".config/nvim_spell" = {
-        enable = isDarwin;
-        source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.config/nvim_spell");
-      };
+  home.file = {
+    # Adds custom BibTeX types and fields to BibDesk
+    "Library/Application\ Support/BibDesk/TypeInfo.plist".source = ./bibdesk/TypeInfo.plist;
+    # Adds my custom templates to BibDesk
+    "Library/Application\ Support/BibDesk/Templates/mdApaTemplate.txt".source = ./bibdesk/Templates/mdApaTemplate.txt;
+    ".local/scripts".source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/scripts");
+    ".ssh/conf.d" = {
+      recursive = true;
+      source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.ssh/conf.d");
     };
-
-  #---------------------------------------------------------------------
-  # Workspace
-  #---------------------------------------------------------------------
-
-  home.activation = {
-    initDarwin = lib.mkIf isDarwin (
-      lib.hm.dag.entryAfter [ "writeBoundary" ]
-        # bash
-        ''
-          export CRM_ACCOUNTS
-
-          # Create dev directories for CRM accounts and projects
-          CRM_ACCOUNTS=${homeDir}/Library/Mobile\ Documents/com~apple~CloudDocs/Projects
-          for acc_path in "$CRM_ACCOUNTS"/*/; do
-            acc_name="$(basename "$acc_path")"
-            for project_path in "$acc_path"/*/; do
-              project_name="$(basename "$project_path" | cut -d' ' -f1)"
-              if [[ $project_name =~ ^[0-9]+$ ]] && [ -f "$project_path/.project.json" ]; then
-                mkdir -p "${homeDir}/Developer/$acc_name/$project_name"
-              fi
-            done
-          done
-
-          # prepare intelephense directory
-          /bin/mkdir -p ${homeDir}/intelephense
-          # and hide it
-          /usr/bin/chflags hidden ${homeDir}/intelephense
-        ''
-    );
   };
 
   #---------------------------------------------------------------------
@@ -181,55 +133,16 @@ in
     };
   };
 
-  #---------------------------------------------------------------------
-  # Apps
-  #---------------------------------------------------------------------
-
-  # Tizen Studio
-  home.activation = {
-    tizenStudioIcons = lib.mkIf isDarwin (
-      lib.hm.dag.entryAfter [ "writeBoundary" ]
-        # bash
-        ''
-          TIZEN_ICONS_PATH="${homeDir}/Tizen/tizen-studio/TizenStudio.app/Contents/Eclipse/plugins/org.tizen.product.plugin_*/icons/branding"
-          DEVICE_MANAGER_ICONS_PATH="${homeDir}/Tizen/tizen-studio/tools/device-manager/icons"
-          DEVICE_MANAGER_PATH="${homeDir}/Tizen/tizen-studio/tools/device-manager"
-          CERTIFICATE_MANAGER_ICONS_PATH="${homeDir}/Tizen/tizen-studio/tools/certificate-manager/Certificate-manager.app/Contents/Eclipse/plugins/org.tizen.cert.product.plugin_*/icons"
-
-          SIZES="16 32 64 128 256 512"
-          if [ -d $TIZEN_ICONS_PATH ]; then
-            cp -f "${./icons}/tizen_studio_64.png" $TIZEN_ICONS_PATH/"tizen_studio_48.png"
-            for size in $SIZES; do
-              cp -f "${./icons}/tizen_studio_''${size}.png" $TIZEN_ICONS_PATH/"tizen_studio_''${size}.png"
-            done
-          else
-            echo "Missing Tizen Studio icons path: $TIZEN_ICONS_PATH"
-          fi
-          SIZES="128 256"
-          if [ -d $DEVICE_MANAGER_ICONS_PATH ]; then
-            mkdir -p temp_dir/res
-            cp "${./icons}/device-256.png" temp_dir/res/
-            (cd temp_dir && ${pkgs.zip}/bin/zip -u $DEVICE_MANAGER_PATH/bin/device-ui-3.0.jar res/device-256.png)
-            rm -rf temp_dir
-            cp -f "${./icons}/device_manager.icns" $DEVICE_MANAGER_ICONS_PATH/"device_manager.icns"
-            cp -f "${./icons}/device_manager.ico" $DEVICE_MANAGER_ICONS_PATH/"device_manager.ico"
-            for size in $SIZES; do
-              cp -f "${./icons}/device_manager_''${size}.png" $DEVICE_MANAGER_ICONS_PATH/"device_manager_''${size}.png"
-            done
-          else
-            echo "Missing Device Manager icons path: $DEVICE_MANAGER_ICONS_PATH"
-          fi
-          SIZES="16 32"
-          if [ -d $CERTIFICATE_MANAGER_ICONS_PATH ]; then
-            cp -f "${./icons}/icon_certificate_512.png" $CERTIFICATE_MANAGER_ICONS_PATH/"icon_certificate_48.png"
-            for size in $SIZES; do
-              cp -f "${./icons}/icon_certificate_''${size}.png" $CERTIFICATE_MANAGER_ICONS_PATH/"icon_certificate_''${size}.png"
-            done
-          else
-            echo "Missing  Certificate Manager icons path: $CERTIFICATE_MANAGER_ICONS_PATH"
-          fi
-        ''
-    );
+  programs.zsh = {
+    initContent =
+      # bash
+      ''
+        # 1Password plugins initialization
+        if [ -f ~/.config/op/plugins.sh ]; then
+          # shellcheck disable=SC1090
+          source ~/.config/op/plugins.sh
+        fi
+      '';
   };
 
   #---------------------------------------------------------------------

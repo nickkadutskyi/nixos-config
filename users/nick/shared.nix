@@ -15,8 +15,6 @@ let
   isDarwin = pkgs.stdenv.isDarwin;
   isLinux = pkgs.stdenv.isLinux;
   homeDir = config.home.homeDirectory;
-  # Used in scripts for project navigation
-  select-project = (import ./scripts/select-project.nix { inherit pkgs config; });
 in
 {
   # This value determines the Home Manager release that your
@@ -33,54 +31,25 @@ in
   xdg.enable = true;
 
   #---------------------------------------------------------------------
-  # Services and Modules
-  #---------------------------------------------------------------------
-  imports = [ ];
-
-  #---------------------------------------------------------------------
   # Packages
   #---------------------------------------------------------------------
-
-  # TODO Package Tizen Studio and install via Nix or Homebrew
 
   # Packages I always want installed, but keep project specific packages
   # in their project specific flake.nix accessible via `nix develop`
   home.packages = [
     # ----------------------------------------------------------------
-    # Development Tooling used across most projects
+    # Tooling
     # ----------------------------------------------------------------
-
     pkgs.bash-language-server
-    # GNU find, xargs, locate, updatedb utilities
-    pkgs.findutils
-    pkgs.lua-language-server
-    # Reformats Nix code
-    pkgs.nixfmt
-    # Nix language server
-    pkgs.nixd
+    pkgs.nixfmt # Reformats Nix code
+    pkgs.nixd # Nix language server
     # Runs JavaScript (required by Copilot in Neovim )
     pkgs.nodejs
-    # TUI AI Assistant
-    pkgs.opencode
     # Reformats shell script
     pkgs.shfmt
-    # Reformats Lua code
-    pkgs.stylua
-    pkgs.tailspin
-    # Reformats TOML code
-    pkgs.taplo
-    # Provides vscode-css-language-server vscode-eslint-language-server
-    # vscode-html-language-server vscode-json-language-server
-    # vscode-markdown-language-server
-    pkgs.vscode-langservers-extracted
+    pkgs.tailspin # Highlight log files
+    pkgs.taplo # Reformats TOML code
     pkgs.xclip
-
-    # ----------------------------------------------------------------
-    # Development Tooling that can be moved to project specific flakes
-    # ----------------------------------------------------------------
-
-    # For testing Stripe API (UPWZ TODO make it project scoped)
-    # pkgs.stripe-cli
 
     # ----------------------------------------------------------------
     # Other Packages
@@ -92,61 +61,21 @@ in
     pkgs.awscli2
     # Feature–rich alternative to ls
     pkgs.eza
-    # Faster alternative to find
-    pkgs.fd
     # Fuzzy finder
     pkgs.fzf
-    # GNU Tools for consistency across systems
-    pkgs.gnutar
-    pkgs.gnused
-    pkgs.gnugrep
     pkgs.google-cloud-sdk
-    pkgs.git
-    # System monitoring
-    pkgs.htop
-    # Alternative VCS
-    pkgs.jujutsu
-    # Parses JSON
-    pkgs.jq
-    pkgs.lnav
-    # Main editor
-    pkgs.neovim
+    pkgs.jq # Parses JSON
+    pkgs.lnav # Log file viewer with SQL-like querying
     # Provides Nerd fonts for icons support
     pkgs.nerd-fonts.jetbrains-mono
-    # Searching PDF file contents (TODO check if I use this)
-    pkgs.pdfgrep
-    # Faster alternative to grep
-    pkgs.ripgrep
     # Manages secrets
     pkgs.sops
-    pkgs.sourcemapper
-    inputs.starship-jj.packages.${pkgs.stdenv.hostPlatform.system}.starship-jj
     # Creates age encrypted file from ssh key
     pkgs.ssh-to-age
-    # Multiplexing
-    pkgs.tmux
-    # Shows directory structure
-    pkgs.tree
     pkgs.tree-sitter
     # To watch commands
     pkgs.viddy
-    # Needed for Jujutsu
-    pkgs.watchman
-    pkgs.wget
-
-    # ----------------------------------------------------------------
-    # Scripts and wrappers for non-nix packages
-    # ----------------------------------------------------------------
-    # 2025-12-18: Switched those to stable because csvkit in nixpkgs-ustable is broken
-    (import ./scripts/aws_cd_deployments.nix { inherit pkgs; })
-    (import ./scripts/aws_ec2_instances.nix { inherit pkgs; })
-    (import ./scripts/tizen-sdb.nix { inherit pkgs; })
-    (import ./scripts/tizen.nix { inherit pkgs; })
-  ]
-  ++ (lib.optionals (isLinux && !isWSL) [
-    pkgs.chromium
-    pkgs.ghostty
-  ]);
+  ];
 
   #---------------------------------------------------------------------
   # Env vars and dotfiles
@@ -159,7 +88,6 @@ in
     EDITOR = "nvim";
     VISUAL = "nvim";
     GPG_TTY = "$(tty)";
-    HOMEBREW_NO_ANALYTICS = "1";
     # Checks if any nerdfont is installed
     NERDFONT_ENABLED =
       if (lib.lists.any (p: (p.meta.homepage or "") == "https://nerdfonts.com/") config.home.packages) then "1" else "0";
@@ -174,7 +102,6 @@ in
     # User-specific executable files
     "$HOME/.local/bin"
     "$HOME/.local/scripts"
-    "/Applications/FlashSpace.app/Contents/Resources"
   ];
 
   home.shellAliases = {
@@ -185,40 +112,69 @@ in
     view = "nvim";
     vimdiff = "nvim -d";
     # Git
-    g = "git";
-    ga = "git add";
-    gaa = "git add --all";
     gbr = "git branch";
-    gc = "git commit";
     gco = "git checkout";
-    gcp = "git cherry-pick";
     gd = "git diff";
     gl = "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
-    gp = "git push";
-    gpl = "git pull";
     gs = "git status";
-    gt = "git tag";
-    gignore = "git update-index --assume-unchanged";
-    gunignore = "git update-index --no-assume-unchanged";
-    gignored = "git ls-files -v | grep '^[[:lower:]]'";
-    # JJ
-    js = "jj st";
-    jn = "jj new";
-    je = "jj edit";
-    jd = "jj desc";
-    # jf -> jr to get the latest changes from the remote and rebase
-    # the current bookmark on top of the latest trunk.
-    jf = "jj git fetch";
-    jr = "jj retrunk";
-    # jt -> jp to push the current bookmark to the remote.
-    jt = "jj tug";
-    jp = "jj git push";
     # IPs
-    ip = "curl -4 icanhazip.com";
-    ip4 = "curl -4 icanhazip.com";
-    ip6 = "curl -6 icanhazip.com";
-    iplan = lib.mkIf isDarwin "ifconfig en0 inet | grep 'inet ' | awk ' { print \$2 } '";
-    ips = lib.mkIf isDarwin "ifconfig -a | perl -nle'/(\\d+\\.\\d+\\.\\d+\\.\\d+)/ && print \$1'";
+    ip4 = "curl -4 icanhazip.com -s";
+    ip6 = "curl -6 icanhazip.com -s";
+    ipl =
+      if isLinux then
+        # bash
+        ''
+          DEFAULT_IF=$(ip -o route show default | awk '{print $5}' | head -1); \
+          ip -brief addr show scope global up | \
+          awk -v def="$DEFAULT_IF" '
+          {
+              iface=$1; state=toupper($2); ip=(NF>=3)?$3:"-";
+              c="\033["; r=c"0m"; cyan=c"1;36m"; green=c"1;32m"; red=c"1;31m"; purp=c"1;35m"; yel=c"1;33m";
+              s=(state=="UP")?green"UP"r:red"DOWN"r;
+              p=(ip!="-")?purp ip r:ip;
+              if (iface==def && state=="UP") printf "%s%-10s%s  %-8s  %s  %s← default%s\n", cyan,iface,r,s,p,yel,r;
+              else printf "%s%-10s%s  %-8s  %s\n", cyan,iface,r,s,p;
+          }'
+        ''
+
+      else if isDarwin then
+        # bash
+        ''
+          DEFAULT_IF=$(route -n get default | awk '/interface:/ {print $2}')
+          ifconfig -a | awk -v def="$DEFAULT_IF" '
+            /^[a-z]+[0-9]+:/ {
+              if (NR > 1 && length(ip) > 0) {
+                state = (act == 1) ? "\033[1;32mUP\033[0m" : "\033[1;31mDOWN\033[0m";
+                if (iface == def) {
+                  printf "\033[1;33m%-10s\033[0m %-8s \033[1;35m%s\033[0m  ← default\n", iface, state, ip;
+                } else {
+                  printf "\033[1;36m%-10s\033[0m %-8s \033[1;35m%s\033[0m\n", iface, state, ip;
+                }
+              }
+              iface = substr($1, 1, length($1)-1);
+              ip = "";
+              act = 0;
+              next
+            }
+            /status: active/ { act = 1; next }
+            /inet / && $2 !~ /^127\./ {
+              if (ip == "") ip = $2;
+            }
+            END {
+              if (length(ip) > 0) {
+                state = (act == 1) ? "\033[1;32mUP\033[0m" : "\033[1;31mDOWN\033[0m";
+                if (iface == def) {
+                  printf "\033[1;33m%-10s\033[0m %-8s \033[1;35m%s\033[0m  ← default\n", iface, state, ip;
+                } else {
+                  printf "\033[1;36m%-10s\033[0m %-8s \033[1;35m%s\033[0m\n", iface, state, ip;
+                }
+              }
+            }
+          '
+        ''
+      else
+        "echo 'Unsupported OS'";
+    ips = "echo \"IPv4: $(ip4)\nIPv6: $(ip6)\n$(ipl)\"";
   }
   // (
     if isLinux then
@@ -231,7 +187,6 @@ in
   );
 
   xdg.configFile = {
-    "1Password/ssh/agent.toml".text = import ./1p/ssh/agent.nix { inherit machine; };
     "fzf/light.fzfrc".text = builtins.readFile ./fzf/light.fzfrc;
     "fzf/dark.fzfrc".text = builtins.readFile ./fzf/dark.fzfrc;
     "grep/grep-colors-light" = {
@@ -240,25 +195,16 @@ in
     "grep/grep-colors-dark" = {
       text = "mt=01;38;5;16;48;5;137:fn=38;5;250:ln=38;5;243:ms=01;38;5;16;48;5;137:mc=01;38;5;16;48;5;137:sl=0:cx=0:se=0";
     };
-    "jj/config.toml".text = import ./jj/config.nix { inherit isDarwin; };
     "ripgrep/.ripgreprc-light".text = builtins.readFile ./ripgrep/ripgreprc-light;
     "ripgrep/.ripgreprc-dark".text = builtins.readFile ./ripgrep/ripgreprc-dark;
-    "starship-jj/starship-jj.toml".source = ./jj/starship-jj.toml;
     "zsh/zsh-hist-sub-light".text = builtins.readFile ./zsh/zsh-hist-sub-light;
     "zsh/zsh-hist-sub-dark".text = builtins.readFile ./zsh/zsh-hist-sub-dark;
     "zsh/zsh-theme-light".text = builtins.readFile ./zsh/zsh-theme-light;
     "zsh/zsh-theme-dark".text = builtins.readFile ./zsh/zsh-theme-dark;
-    "ghostty/config".text = import ./ghostty/config.nix { inherit isDarwin; };
-    "ghostty/themes" = {
-      source = ./ghostty/themes;
-      recursive = true;
-    };
-    "opencode/opencode.json".text = builtins.readFile ./opencode/opencode.json;
     "tmux/tmux.conf".text = builtins.readFile ./tmux/tmux.conf;
     "tmux/tmux-light.conf".text = builtins.readFile ./tmux/tmux-light.conf;
     "tmux/tmux-dark.conf".text = builtins.readFile ./tmux/tmux-dark.conf;
-    # TODO clean up vimrc and ideavimrc config
-    "vim/vimrc".source = ./vim/vimrc;
+    "vim/vimrc".source = ../../modules/home-manager/tools/development/vim/vimrc;
   };
 
   home.file = {
@@ -270,15 +216,6 @@ in
     '';
     # Synchronizes spell file between Macs for Neovim
     ".hushlogin".text = "";
-    ".aws/config".text = # confini
-      ''
-        [default]
-        region = us-west-2
-        [profile epicure-nimbi-staging]
-        region = us-west-2
-        [profile epicure-nimbi-prod]
-        region = us-west-2
-      '';
   };
 
   home.activation = {
@@ -286,7 +223,7 @@ in
       lib.hm.dag.entryAfter [ "writeBoundary" ]
         # bash
         ''
-          mkdir -p ${homeDir}/Developer ${homeDir}/.local/bin ${homeDir}/.local/scripts ${homeDir}/.config/sops/age
+          mkdir -p ${homeDir}/.local/bin ${homeDir}/.local/scripts ${homeDir}/.config/sops/age
           chmod 700 ${homeDir}/.config/sops/age
           mkdir -p ${homeDir}/.config/fzf ${homeDir}/.config/grep ${homeDir}/.config/ripgrep ${homeDir}/.config/zsh
           ln -sf ${homeDir}/.config/fzf/light.fzfrc ${homeDir}/.config/fzf/fzfrc
@@ -302,15 +239,6 @@ in
   #---------------------------------------------------------------------
 
   programs.bash.enable = true;
-
-  # Enables direnv to automatically switch environments in project directories.
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-    enableBashIntegration = true;
-    enableZshIntegration = true;
-    silent = true;
-  };
 
   programs.git = {
     enable = true;
@@ -362,8 +290,6 @@ in
         followTags = true;
       };
     };
-    # extraConfig = {
-    # };
     signing = {
       key = null;
       signByDefault = true;
@@ -375,7 +301,14 @@ in
 
   programs.starship = {
     enable = true;
-    settings = import ./starship/starship.nix { inherit config pkgs machine; };
+    settings = import ./starship/starship.nix {
+      inherit
+        config
+        lib
+        pkgs
+        machine
+        ;
+    };
   };
 
   programs.zsh = {
@@ -423,68 +356,6 @@ in
       # bash
       ''
         ${builtins.readFile ./zsh/zshrc}
-
-        # Select and cd to the project directory
-        function select-project() { ${select-project}/bin/select-project "$@" }
-        function pro() { local p=$(select-project "$@") && [ -n "$p" ] && cd "$p" }
-        function prov() { pro "$@" && eval "$(${pkgs.direnv}/bin/direnv export zsh)" && ${pkgs.neovim}/bin/nvim }
-        function handle-tmux(){
-          local p name code acc sess TMUX_BIN
-          TMUX_BIN=${pkgs.tmux}/bin/tmux
-          p="$1"
-          if [ -n "$p" ]; then
-            name="''${p%/}" && name="''${name##*/}" && name="''${name//[:,. ]/_}"
-            code="''${p%/*}" && code=''${code##*/} && code=''${code#"''${code%%[!0]*}"} && code="''${code//[:,. ]/_}"
-            acc="''${p%/*}" && acc=''${acc%/*} && acc=''${acc##*/} && acc="''${acc//[:,. ]/_}"
-            sess="$name"
-            if ! $TMUX_BIN has-session -t="$sess" 2>/dev/null; then
-              $TMUX_BIN new -ds "$sess" -c "$p" -n "$sess" \; select-pane -t "$sess":1.1 -T "$sess"
-              $TMUX_BIN send-keys -t "$sess" "ready-tmux" ^M
-            fi
-            if [[ -z "$TMUX" ]]; then
-              $TMUX_BIN attach -t "$sess"
-            else
-              $TMUX_BIN switchc -t "$sess"
-            fi
-          else
-            echo "No project provided."
-          fi
-        }
-        function prot() {
-          local p name code acc sess TMUX_BIN
-          p=$(select-project -t "$@")
-          handle-tmux "$p"
-        }
-        function prd() {
-          local p name code acc sess TMUX_BIN
-          p=$(select-project -t "$@")
-          read -r first rest <<< "$p"
-
-          if [[ "$first" == "p" ]]; then
-            p="$rest"
-            if [ -n "$p" ]; then
-              cd "$p"
-            else
-              echo "No project provided."
-            fi
-          elif [[ "$first" == "t" ]]; then
-            p="$rest"
-            if [ -n "$p" ]; then
-              handle-tmux "$p"
-            else
-              echo "No project provided."
-            fi
-          else
-            if [ -n "$p" ]; then
-              cd "$p"
-              eval "$(${pkgs.direnv}/bin/direnv export zsh)"
-              ${pkgs.neovim}/bin/nvim
-            else
-              echo "No project provided."
-            fi
-          fi
-        }
       '';
   };
-
 }

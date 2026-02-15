@@ -30,8 +30,11 @@ let
       shared ? "shared.nix",
     }:
     let
+      # e.g. aarch64-darwin-Nicks-MacBook-Air-0.nix
       byArchMachine = loc + /${system}-${machine}.nix;
+      # e.g. darwin-Nicks-MacBook-Air-0.nix
       byTypeMachine = loc + /${systemType}-${machine}.nix;
+      # e.g. darwin.nix or nixos.nix
       byType = loc + /${systemType}.nix;
     in
     if builtins.pathExists byArchMachine then

@@ -1,28 +1,43 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }:
 
 {
   add_newline = false;
-  format = pkgs.lib.concatStrings [
-    "$username"
-    "$hostname"
-    "$directory"
-    "\${custom.git_branch}"
-    "\${custom.jj}"
-    "\${custom.git_status}"
-    # "$git_status"
-    "$git_state"
-    "$nix_shell"
-    "$direnv"
-    "$shlvl"
-    "$sudo"
-    "$cmd_duration"
-    "$line_break"
-    "$character"
-  ];
+  format = pkgs.lib.concatStrings (
+    [
+      "$username"
+      "$hostname"
+      "$directory"
+    ]
+    ++ (
+      if config.tools.development.enable then
+        [
+          "\${custom.git_branch}"
+          "\${custom.jj}"
+          "\${custom.git_status}"
+        ]
+      else
+        [
+          "$git_branch"
+          "$git_status"
+        ]
+    )
+    ++ [
+      # "$git_status"
+      "$git_state"
+      "$nix_shell"
+      "$direnv"
+      "$shlvl"
+      "$sudo"
+      "$cmd_duration"
+      "$line_break"
+      "$character"
+    ]
+  );
   username = {
     format = "[$user]($style) at ";
   };
@@ -86,8 +101,9 @@
       # to prevent unwanted gaps in the prompt. Empty gaps appear due to empty
       # modules in starship-jj outputting spaces with color codes. (can't disable)
       command =
-        # bash
-        ''out=$(starship-jj --ignore-working-copy starship prompt 2>/dev/null) && printf "%s" "$out" | sed -E 's/(\x1b\[[0-9;]*m) /\1/g' | xargs || exit $?'';
+        lib.mkIf config.tools.development.enable
+          # bash
+          ''out=$(starship-jj --ignore-working-copy starship prompt 2>/dev/null) && printf "%s" "$out" | sed -E 's/(\x1b\[[0-9;]*m) /\1/g' | xargs || exit $?'';
 
       # Default usage produces unwanted gaps in the prompt
       # command = "prompt";

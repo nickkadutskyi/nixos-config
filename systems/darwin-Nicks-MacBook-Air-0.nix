@@ -33,14 +33,4 @@
       "veracrypt-fuse-t"
     ];
   };
-
-  environment.customIcons = {
-    enable = true;
-    icons = [
-      {
-        path = "/Applications/Upwork.app";
-        icon = ./icons/upwork.icns;
-      }
-    ];
-  };
 }

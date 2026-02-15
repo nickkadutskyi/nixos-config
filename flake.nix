@@ -87,6 +87,7 @@
           dark-mode-notify = nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.dark-mode-notify;
           # Using stable due to failing build of folly dep on nixpkgs-unstable
           watchman = nixpkgs-master.legacyPackages.${prev.stdenv.hostPlatform.system}.watchman;
+          starship-jj = inputs.starship-jj.packages.${prev.stdenv.hostPlatform.system}.starship-jj;
         })
       ];
       mkSystem = import ./lib/mksystem.nix {

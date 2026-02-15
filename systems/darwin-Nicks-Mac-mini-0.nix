@@ -68,20 +68,16 @@
     enable = true;
     icons = [
       {
-        path = "/Applications/Upwork.app";
-        icon = ./icons/upwork.icns;
-      }
-      {
         path = "/Users/${user}/Tizen/tizen-studio/TizenStudio.app";
-        icon = ../users/${user}/icons/tizen.icns;
+        icon = ../modules/home-manager/tools/tizen/icons/tizen.icns;
       }
       {
         path = "/Users/${user}/Tizen/tizen-studio/tools/certificate-manager/Certificate-manager.app";
-        icon = ../users/${user}/icons/certificate_manager.icns;
+        icon = ../modules/home-manager/tools/tizen/icons/certificate_manager.icns;
       }
       {
         path = "/Users/${user}/Tizen/tizen-studio/tools/device-manager/bin/device-manager.app";
-        icon = ../users/${user}/icons/device_manager.icns;
+        icon = ../modules/home-manager/tools/tizen/icons/device_manager.icns;
       }
     ];
   };

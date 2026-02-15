@@ -34,20 +34,6 @@ fi
 export LSCOLORS="exfxcxdxbxAxAxBxBxExEx"
 export LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=1;30:cd=1;30:su=1;31:sg=1;31:tw=1;34:ow=1;34"
 
-# 1Password plugins initialization
-if [ -f ~/.config/op/plugins.sh ]; then
-  # shellcheck disable=SC1090
-  source ~/.config/op/plugins.sh
-fi
-
-# Adds Anthropics API key to environment for avante.nvim
-export ANTHROPIC_API_KEY
-ANTHROPIC_API_KEY="$([ -f /run/secrets/anthropic/api_key ] && cat /run/secrets/anthropic/api_key)"
-
-# Adds Tavily API key to environment for avante.nvim
-export TAVILY_API_KEY
-TAVILY_API_KEY="$([ -f /run/secrets/tavily/api_key ] && cat /run/secrets/tavily/api_key)"
-
 #---------------------------------------------------------------------
 # zsh-autosuggestions
 #---------------------------------------------------------------------
