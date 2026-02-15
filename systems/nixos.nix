@@ -17,6 +17,8 @@
   # Add ~/.local/bin to PATH
   environment.localBinInPath = true;
 
+  environment.systemPackages = [ pkgs.ghostty.terminfo ];
+
   # Since we're using zsh as our shell
   programs.zsh.enable = true;
 

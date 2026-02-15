@@ -103,7 +103,6 @@ in
   };
 
   programs.ssh = {
-    enableDefaultConfig = false;
     includes = [ ] ++ (lib.optionals isDarwin [ "conf.d/*" ]);
     matchBlocks = lib.mkIf isDarwin {
       # Have come first in config to set proper IdentityAgent
