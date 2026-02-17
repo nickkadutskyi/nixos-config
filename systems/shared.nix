@@ -21,7 +21,6 @@
     pkgs.gnutar
     pkgs.gnused
     pkgs.gnugrep
-    pkgs.neovim
     # Faster alternative to grep
     pkgs.ripgrep
     # Multiplexing

@@ -14,6 +14,26 @@
     ./shared.nix
   ];
 
+  determinateNix = {
+    # Enable Determinate Nix to handle your Nix configuration rather than nix-darwin
+    enable = true;
+    # Custom settings written to /etc/nix/nix.custom.conf
+    customSettings = {
+      eval-cores = 0;
+      extra-trusted-users = "nick";
+      extra-substituters = [
+        "https://nix-community.cachix.org"
+      ];
+      extra-trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
+    };
+  };
+
+  environment.systemPackages = [
+    inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
+  ];
+
   # Enable macOS built-in Apache
   services.httpd-darwin.enable = true;
   services.httpd-darwin.listen = [

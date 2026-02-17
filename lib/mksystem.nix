@@ -82,6 +82,7 @@ systemFunc {
             inputs.darwin-custom-icons.darwinModules.default
             inputs.sops-nix.darwinModules.sops
             inputs.home-manager.darwinModules.home-manager
+            inputs.determinate.darwinModules.default
             # My custom nix-darwin modules
             ../modules/darwin
           ];

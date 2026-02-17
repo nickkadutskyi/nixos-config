@@ -19,6 +19,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+
     # Cross-platform user specific configuration for home directories
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -56,9 +58,9 @@
     };
 
     # Nightly version of Neovim
-    # neovim-nightly-overlay = {
-    #   url = "github:nix-community/neovim-nightly-overlay";
-    # };
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+    };
 
     # Starship plugin for JJ
     starship-jj = {
@@ -72,7 +74,7 @@
       nixpkgs,
       nixpkgs-master,
       nixpkgs-stable,
-      # neovim-nightly-overlay,
+      neovim-nightly-overlay,
       ...
     }@inputs:
     let
