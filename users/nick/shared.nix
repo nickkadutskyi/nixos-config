@@ -271,8 +271,26 @@ in
           pkgs.writeText "gitignore_global"
             # gitignore
             ''
+               # Dev environment
+              .envrc.local
+              .direnv/
+              .devenv/
+              /.env.local
+              /.env.local.php
+              /.env.*.local
+              # macOS
               .DS_Store
               tmp
+              # Neovim
+              *.otter.*
+              .*.swp
+              .swp
+              # IDE specific
+              /.fleet
+              /.idea
+              /.nova
+              /.vscode
+              /.zed
             ''
         );
       };
