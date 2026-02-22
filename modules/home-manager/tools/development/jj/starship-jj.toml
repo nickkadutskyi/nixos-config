@@ -19,7 +19,7 @@ surround_with_quotes = false
 
 [[module]]
 type = "Commit"
-max_length = 24
+max_length = 18
 empty_text = ""
 surround_with_quotes = false
 color = "BrightBlack"
