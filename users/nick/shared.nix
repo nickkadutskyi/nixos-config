@@ -246,7 +246,7 @@ in
         name = "Nick Kadutskyi";
         email = "nick@kadutskyi.com";
       };
-      aliases = {
+      alias = {
         a = "add";
         br = "branch";
         c = "commit";
