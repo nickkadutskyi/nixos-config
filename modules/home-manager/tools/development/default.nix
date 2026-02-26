@@ -110,8 +110,6 @@ in
 
           # Select and cd to the project directory
           function select-project() { ${select-project}/bin/select-project "$@" }
-          function pro() { local p=$(select-project "$@") && [ -n "$p" ] && cd "$p" }
-          function prov() { pro "$@" && eval "$(${pkgs.direnv}/bin/direnv export zsh)" && ${pkgs.neovim}/bin/nvim }
           function handle-tmux(){
             local p name code acc sess TMUX_BIN
             TMUX_BIN=${pkgs.tmux}/bin/tmux
@@ -162,7 +160,7 @@ in
               if [ -n "$p" ]; then
                 cd "$p"
                 eval "$(${pkgs.direnv}/bin/direnv export zsh)"
-                ${pkgs.neovim}/bin/nvim
+                nvim
               else
                 echo "No project provided."
               fi
