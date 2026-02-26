@@ -41,10 +41,9 @@ in
     # Tooling
     # ----------------------------------------------------------------
     pkgs.bash-language-server
+    pkgs.copilot-language-server
     pkgs.nixfmt # Reformats Nix code
     pkgs.nixd # Nix language server
-    # Runs JavaScript (required by Copilot in Neovim )
-    pkgs.nodejs
     # Reformats shell script
     pkgs.shfmt
     pkgs.tailspin # Highlight log files
