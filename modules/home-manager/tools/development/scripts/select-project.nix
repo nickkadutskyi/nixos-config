@@ -48,8 +48,8 @@ pkgs.writeShellScriptBin "select-project"
     list_projects() {
       {
         $FD -t d -H '^.git$' ~/.config --min-depth 2 --max-depth 3 -x echo {//}
-        $FD -t d -H '^.git$' ~/Documents --min-depth 2 --max-depth 3 -x echo {//}
-      } | sort -r
+        $FD -t d -H '^(\.git|\.jj)$' ~/Documents --min-depth 2 --max-depth 4 -x echo {//}
+      } | sort -ru
     }
 
     sessions=""
