@@ -32,8 +32,6 @@ in
   tools.development.enable = true;
   # Web Development
   tools.development.web.enable = true;
-  # Tizen Development
-  tools.development.tizen.enable = true;
 
   #---------------------------------------------------------------------
   # Packages
