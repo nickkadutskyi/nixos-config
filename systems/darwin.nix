@@ -75,10 +75,10 @@
       "BetterJSON for Safari" = 1511935951;
       "Easy CSV Editor" = 1171346381;
       "iA Writer" = 775737590;
-      "Keynote" = 409183694;
+      "Keynote" = 361285480;
       "Magnet" = 441258766; # Window manager with iCloud sync
-      "Numbers" = 409203825;
-      "Pages" = 409201541;
+      "Numbers" = 361304891;
+      "Pages" = 361309726;
       "Parcel - Delivery Tracking" = 375589283;
       "Redirect Web for Safari" = 1571283503;
       "Reeder" = 6475002485;
