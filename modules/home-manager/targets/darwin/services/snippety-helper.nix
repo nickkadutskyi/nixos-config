@@ -287,11 +287,14 @@ in
           "-c"
           ''
             mkdir -p ${homeDir}/.local/state/snippety && \
-            ${helperDir}/bin/snippety-helper.sh \
+            eval "$(/bin/cat ${helperDir}/bin/snippety-helper.sh)" \
             >${homeDir}/.local/state/snippety/org.nixos.snippety-helper.stdout.log \
             2>${homeDir}/.local/state/snippety/org.nixos.snippety-helper.stderr.log
           ''
         ];
+        # Note: Using 'eval "$(cat ...)"' instead of direct execution bypasses macOS
+        # com.apple.provenance restriction on files in ~/Downloads that causes
+        # "Operation not permitted" errors when launchd tries to execute scripts
         EnvironmentVariables = {
           PATH = "/etc/profiles/per-user/${config.home.username}/bin:/run/current-system/sw/bin:/usr/bin:/bin:/usr/sbin:/sbin";
         };
