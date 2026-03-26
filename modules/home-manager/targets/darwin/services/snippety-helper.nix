@@ -84,7 +84,7 @@ let
             $CAT <<EOT > "$BIN_DIR/snippety-helper.sh"
         #!/bin/bash
         echo -e "\033[92mSnippety Helper is running...\033[0m"
-        fswatch -o "$INPUT_FILE" | xargs -n1 -I{} "$BIN_DIR/processor.sh"
+        fswatch -o "$INPUT_FILE" | /usr/bin/xargs -n1 -I{} "$BIN_DIR/processor.sh"
         EOT
 
             chmod a+x "$BIN_DIR/snippety-helper.sh"
@@ -94,7 +94,7 @@ let
             cat <<EOT > "$BIN_DIR/processor.sh"
         #!/bin/bash
         rm "$OUTPUT_FILE" 2>/dev/null
-        result=\$(gtimeout $COMMAND_TIMEOUT sh "$INPUT_FILE")
+        result=\$(gtimeout $COMMAND_TIMEOUT /bin/sh "$INPUT_FILE")
 
         if [ ! \$? -eq 0 ]; then
             echo "#TIMEOUT#" > "$OUTPUT_FILE"
@@ -176,6 +176,7 @@ let
             mkdir -p data
 
             touch "$INPUT_FILE"
+            chmod a+x "$INPUT_FILE"
         }
 
         install_snippety_helper () {
@@ -295,7 +296,7 @@ in
       config = {
         ProgramArguments = [
           "/bin/bash"
-          "-c"
+          "-c"#CANCELLED#, #CANCELLED#
           ''
             mkdir -p ${homeDir}/.local/state/snippety && \
             ${helperDir}/bin/snippety-helper.sh \
