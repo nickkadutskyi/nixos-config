@@ -296,7 +296,7 @@ in
       config = {
         ProgramArguments = [
           "/bin/bash"
-          "-c"#CANCELLED#, #CANCELLED#
+          "-c"
           ''
             mkdir -p ${homeDir}/.local/state/snippety && \
             ${helperDir}/bin/snippety-helper.sh \
