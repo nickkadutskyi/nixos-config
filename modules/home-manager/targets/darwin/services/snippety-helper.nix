@@ -250,8 +250,19 @@ in
           if [ ! -f "$DB" ] || [ -z "$(${pkgs.sqlite}/bin/sqlite3 "$DB" "$SQL")" ]; then
             echo -e "''${YELLOW}To use snippety-helper LaunchAgent you need to grant bash shell Full Disk Access."
             echo "Please go to System Preferences -> Security & Privacy -> Full Disk Access and add bash shell."
-            echo "You can find bash shell in"
-            echo "/bin/bash"
+            echo "You can find bash shell in /bin/bash"
+            echo -e "After adding restart snippety-helper LaunchAgent or relogin to system.''${NC}"
+          fi
+          SQL="SELECT client,auth_value
+                 FROM access
+                WHERE client='/bin/sh'
+                  AND auth_value='2'
+                  AND service='kTCCServiceSystemPolicyAllFiles';"
+          DB="/Library/Application Support/com.apple.TCC/TCC.db"
+          if [ ! -f "$DB" ] || [ -z "$(${pkgs.sqlite}/bin/sqlite3 "$DB" "$SQL")" ]; then
+            echo -e "''${YELLOW}To use snippety-helper LaunchAgent you need to grant sh shell Full Disk Access."
+            echo "Please go to System Preferences -> Security & Privacy -> Full Disk Access and add sh shell."
+            echo "You can find sh shell in /bin/sh"
             echo -e "After adding restart snippety-helper LaunchAgent or relogin to system.''${NC}"
           fi
         '';
@@ -287,14 +298,11 @@ in
           "-c"
           ''
             mkdir -p ${homeDir}/.local/state/snippety && \
-            eval "$(/bin/cat ${helperDir}/bin/snippety-helper.sh)" \
+            ${helperDir}/bin/snippety-helper.sh \
             >${homeDir}/.local/state/snippety/org.nixos.snippety-helper.stdout.log \
             2>${homeDir}/.local/state/snippety/org.nixos.snippety-helper.stderr.log
           ''
         ];
-        # Note: Using 'eval "$(cat ...)"' instead of direct execution bypasses macOS
-        # com.apple.provenance restriction on files in ~/Downloads that causes
-        # "Operation not permitted" errors when launchd tries to execute scripts
         EnvironmentVariables = {
           PATH = "/etc/profiles/per-user/${config.home.username}/bin:/run/current-system/sw/bin:/usr/bin:/bin:/usr/sbin:/sbin";
         };
