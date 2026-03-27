@@ -124,6 +124,7 @@
         name = "caddy";
         restart_service = true;
       }
+      "coreutils"
       "mas"
       "ncurses"
     ];

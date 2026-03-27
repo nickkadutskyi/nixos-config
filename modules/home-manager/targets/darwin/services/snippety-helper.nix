@@ -22,8 +22,7 @@ let
         PS=${pkgs.ps}/bin/ps
         GREP=${pkgs.gnugrep}/bin/grep
         AWK=${pkgs.gawk}/bin/awk
-        RM=${pkgs.uutils-coreutils-noprefix}/bin/rm
-        CAT=${pkgs.uutils-coreutils-noprefix}/bin/cat
+        CAT=/bin/cat
         WHICH=${pkgs.which}/bin/which
 
         OUTPUT_FILE=$HELPER_DIR/data/output
@@ -217,7 +216,7 @@ in
     # Install required packages
     home.packages = [
       # GNU Coreutils (gtimeout is required by snippety-helper)
-      pkgs.coreutils-prefixed
+      # pkgs.coreutils-prefixed
       # Monitors a directory for changes (required by snippety-helper)
       pkgs.fswatch
     ];
@@ -268,6 +267,27 @@ in
           fi
         '';
 
+    # Check gtimeout permissions for Full Disk Access
+    home.activation.checkGtimeoutPermissions =
+      lib.hm.dag.entryAfter [ "checkBashPermissions" ]
+        # bash
+        ''
+          YELLOW='\033[0;33m'
+          NC='\033[0m' # No Color
+          SQL="SELECT client,auth_value
+                 FROM access
+                WHERE client LIKE '%gtimeout'
+                  AND auth_value='2'
+                  AND service='kTCCServiceSystemPolicyAllFiles';"
+          DB="/Library/Application Support/com.apple.TCC/TCC.db"
+          if [ ! -f "$DB" ] || [ -z "$(${pkgs.sqlite}/bin/sqlite3 "$DB" "$SQL")" ]; then
+            echo -e "''${YELLOW}To use snippety-helper LaunchAgent you need to grant gtimeout Full Disk Access."
+            echo "Please go to System Preferences -> Security & Privacy -> Full Disk Access and add gtimeout."
+            echo "You can find xargs in /opt/homebrew/bin/gtimeout"
+            echo -e "After adding restart snippety-helper LaunchAgent or relogin to system.''${NC}"
+          fi
+        '';
+
     # Check xargs permissions for Full Disk Access
     home.activation.checkXargsPermissions =
       lib.hm.dag.entryAfter [ "checkBashPermissions" ]
@@ -305,7 +325,7 @@ in
           ''
         ];
         EnvironmentVariables = {
-          PATH = "/etc/profiles/per-user/${config.home.username}/bin:/run/current-system/sw/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+          PATH = "/opt/homebrew/bin:/etc/profiles/per-user/${config.home.username}/bin:/run/current-system/sw/bin:/usr/bin:/bin:/usr/sbin:/sbin";
         };
         RunAtLoad = true;
         KeepAlive = true;
