@@ -58,9 +58,9 @@
     };
 
     # Nightly version of Neovim
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-    };
+    # neovim-nightly-overlay = {
+    #   url = "github:nix-community/neovim-nightly-overlay";
+    # };
 
     # Starship plugin for JJ
     starship-jj = {
@@ -74,24 +74,11 @@
       nixpkgs,
       nixpkgs-master,
       nixpkgs-stable,
-      neovim-nightly-overlay,
       ...
     }@inputs:
     let
       overlays = [
-        #  neovim-nightly-overlay.overlays.default
         (final: prev: rec {
-          # csvkit 2.2.0 on unstable won't build so using 2.1.0 from stable
-          # csvkit = nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.csvkit;
-          # Direnv is currently broken and PR is not in nixpkgs-unstable yet
-          direnv = nixpkgs-master.legacyPackages.${prev.stdenv.hostPlatform.system}.direnv;
-          nix-direnv = nixpkgs-master.legacyPackages.${prev.stdenv.hostPlatform.system}.nix-direnv;
-          # Latest opencode from master nixpkgs
-          # opencode = nixpkgs-master.legacyPackages.${prev.stdenv.hostPlatform.system}.opencode;
-          # dark-mode-notify from nixpkgs-unstable doesn't work due to failed build of swift-5.10.1
-          # dark-mode-notify = nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.dark-mode-notify;
-          # Using stable due to failing build of folly dep on nixpkgs-unstable
-          # watchman = nixpkgs-master.legacyPackages.${prev.stdenv.hostPlatform.system}.watchman;
           starship-jj = inputs.starship-jj.packages.${prev.stdenv.hostPlatform.system}.starship-jj;
         })
       ];
