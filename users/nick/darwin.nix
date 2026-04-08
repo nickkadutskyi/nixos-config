@@ -536,20 +536,20 @@ in
       };
     };
 
-    "com.apple.freeform" = {
-      # @ = Cmd; ^ = Control; ~ = Option; $ = Shift
-      NSUserKeyEquivalents = {
-        "Text Box" = "@$t";
-        "Sticky Note" = "@~s";
-        "Rectangle" = "@r";
-        "Rounded Rectangle" = "@$r";
-        "Oval" = "@o";
-        "Diamond" = "@$d";
-        "Quote Bubble" = "@b";
-        "Line" = "@$l";
-        "Connection Line" = "@$~l";
-      };
-    };
+    # "com.apple.freeform" = {
+    #   # @ = Cmd; ^ = Control; ~ = Option; $ = Shift
+    #   NSUserKeyEquivalents = {
+    #     "Text Box" = "@$t";
+    #     "Sticky Note" = "@~s";
+    #     "Rectangle" = "@r";
+    #     "Rounded Rectangle" = "@$r";
+    #     "Oval" = "@o";
+    #     "Diamond" = "@$d";
+    #     "Quote Bubble" = "@b";
+    #     "Line" = "@$l";
+    #     "Connection Line" = "@$~l";
+    #   };
+    # };
 
     # Keyboard Shortucts
     "com.apple.symbolichotkeys" = {
