@@ -30,12 +30,12 @@
   };
 
   # Prevent suspend and hibernate
-  systemd.sleep.extraConfig = ''
-    AllowSuspend=no
-    AllowHibernation=no
-    AllowHybridSleep=no
-    AllowSuspendThenHibernate=no
-  '';
+  systemd.sleep.settings.Sleep = {
+    AllowSuspend = "no";
+    AllowHibernation = "no";
+    AllowHybridSleep = "no";
+    AllowSuspendThenHibernate = "no";
+  };
 
   # Prevent lid switch from suspending
   # services.logind = {
@@ -65,7 +65,7 @@
         fi
       '';
     powerEventCommands = # bash
-      ''systemctl suspend'';
+      "systemctl suspend";
   };
 
   boot.initrd = {
