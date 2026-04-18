@@ -47,6 +47,14 @@
       url = "github:nickkadutskyi/homebrew-cask";
       flake = false;
     };
+    dunglas-homebrew-frankenphp = {
+      url = "github:dunglas/homebrew-frankenphp";
+      flake = false;
+    };
+    shivammathur-homebrew-php= {
+      url = "github:shivammathur/homebrew-php";
+      flake = false;
+    };
 
     # Sets custom icons on macOS
     darwin-custom-icons.url = "github:ryanccn/nix-darwin-custom-icons";
