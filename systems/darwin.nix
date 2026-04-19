@@ -128,7 +128,7 @@
       "coreutils"
       "mas"
       "ncurses"
-      # "dunglas/frankenphp/frankenphp"
+      "dunglas/frankenphp/frankenphp"
     ];
     global.autoUpdate = false;
     onActivation = {
