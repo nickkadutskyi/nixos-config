@@ -89,6 +89,22 @@
         "url": "https://install.determinate.systems/determinate-nixd/tag/v3.17.3/x86_64-linux"
       }
     },
+    "dunglas-homebrew-frankenphp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1775740371,
+        "narHash": "sha256-AT0y/7fiqbQqujsCZ2w6H1lpAUc1vkfALivNDFzS92g=",
+        "owner": "dunglas",
+        "repo": "homebrew-frankenphp",
+        "rev": "4244e057f441f49dc58d7f1902d7a5ba71d38a8a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dunglas",
+        "repo": "homebrew-frankenphp",
+        "type": "github"
+      }
+    },
     "fenix": {
       "inputs": {
         "nixpkgs": [
@@ -450,6 +466,7 @@
       "inputs": {
         "darwin-custom-icons": "darwin-custom-icons",
         "determinate": "determinate",
+        "dunglas-homebrew-frankenphp": "dunglas-homebrew-frankenphp",
         "home-manager": "home-manager",
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",
@@ -460,6 +477,7 @@
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable": "nixpkgs-stable",
+        "shivammathur-homebrew-php": "shivammathur-homebrew-php",
         "sops-nix": "sops-nix",
         "starship-jj": "starship-jj"
       }
@@ -478,6 +496,22 @@
         "owner": "rust-lang",
         "ref": "nightly",
         "repo": "rust-analyzer",
+        "type": "github"
+      }
+    },
+    "shivammathur-homebrew-php": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1776920104,
+        "narHash": "sha256-QZymZHqUQTg3lurlUDJHnigro+BzWiODG3bBM3NtD3k=",
+        "owner": "shivammathur",
+        "repo": "homebrew-php",
+        "rev": "46cadacb623b633550cb7b26296b5f32b38042e8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "shivammathur",
+        "repo": "homebrew-php",
         "type": "github"
       }
     },

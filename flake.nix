@@ -51,7 +51,7 @@
       url = "github:dunglas/homebrew-frankenphp";
       flake = false;
     };
-    shivammathur-homebrew-php= {
+    shivammathur-homebrew-php = {
       url = "github:shivammathur/homebrew-php";
       flake = false;
     };
@@ -66,13 +66,15 @@
     };
 
     # Nightly version of Neovim
-    # neovim-nightly-overlay = {
-    #   url = "github:nix-community/neovim-nightly-overlay";
-    # };
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+    };
 
     # Starship plugin for JJ
     starship-jj = {
-      url = "gitlab:lanastara_foss/starship-jj";
+      #   url = "gitlab:lanastara_foss/starship-jj";
+      # Keep this branch for now to test the issue
+      url = "gitlab:lanastara_foss/starship-jj/feature/finer_grained_timing";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -89,6 +91,7 @@
         (final: prev: rec {
           starship-jj = inputs.starship-jj.packages.${prev.stdenv.hostPlatform.system}.starship-jj;
         })
+        inputs.neovim-nightly-overlay.overlays.default
       ];
       mkSystem = import ./lib/mksystem.nix {
         inherit
