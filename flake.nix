@@ -55,6 +55,10 @@
       url = "github:shivammathur/homebrew-php";
       flake = false;
     };
+    shivammathur-homebrew-extensions = {
+      url = "github:shivammathur/homebrew-extensions";
+      flake = false;
+    };
 
     # Sets custom icons on macOS
     darwin-custom-icons.url = "github:ryanccn/nix-darwin-custom-icons";

@@ -50,6 +50,13 @@ in
     # vscode-html-language-server vscode-json-language-server
     # vscode-markdown-language-server
     pkgs.vscode-langservers-extracted
+
+    # TODO: configure it
+    # Provides php-debug
+    (pkgs.writeShellScriptBin "php-debug-adapter" ''
+      exec ${pkgs.nodejs}/bin/node \
+        ${pkgs.vscode-extensions.xdebug.php-debug}/share/vscode/extensions/xdebug.php-debug/out/phpDebug.js "$@"
+    '')
   ];
 
   #---------------------------------------------------------------------

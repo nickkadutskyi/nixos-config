@@ -62,6 +62,7 @@
       "nickkadutskyi/homebrew-cask" = inputs.nickkadutskyi-homebrew-cask;
       "dunglas/homebrew-frankenphp" = inputs.dunglas-homebrew-frankenphp;
       "shivammathur/homebrew-php" = inputs.shivammathur-homebrew-php;
+      "shivammathur/homebrew-extensions" = inputs.shivammathur-homebrew-extensions;
     };
     # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
     mutableTaps = false;
