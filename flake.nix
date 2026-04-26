@@ -94,6 +94,7 @@
       overlays = [
         (final: prev: rec {
           starship-jj = inputs.starship-jj.packages.${prev.stdenv.hostPlatform.system}.starship-jj;
+          direnv = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.direnv;
         })
         inputs.neovim-nightly-overlay.overlays.default
       ];
