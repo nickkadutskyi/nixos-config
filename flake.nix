@@ -76,9 +76,9 @@
 
     # Starship plugin for JJ
     starship-jj = {
-      url = "gitlab:lanastara_foss/starship-jj";
+      #   url = "gitlab:lanastara_foss/starship-jj";
       # Keep this branch for now to test the issue
-      # url = "gitlab:lanastara_foss/starship-jj/feature/finer_grained_timing";
+      url = "gitlab:lanastara_foss/starship-jj/feature/finer_grained_timing";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
