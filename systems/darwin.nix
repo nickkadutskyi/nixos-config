@@ -81,7 +81,6 @@
       "Magnet" = 441258766; # Window manager with iCloud sync
       "Numbers" = 361304891;
       "Pages" = 361309726;
-      "Parcel - Delivery Tracking" = 375589283;
       "Redirect Web for Safari" = 1571283503;
       "Reeder" = 6475002485;
       "Snippety - Snippets Manager" = 1530751461;
