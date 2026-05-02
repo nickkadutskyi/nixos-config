@@ -74,6 +74,14 @@
       url = "github:nix-community/neovim-nightly-overlay";
     };
 
+    # Latest Opencode dev build
+    opencode = {
+      url = "github:anomalyco/opencode";
+    };
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+    };
+
     # Starship plugin for JJ
     starship-jj = {
       #   url = "gitlab:lanastara_foss/starship-jj";
@@ -95,6 +103,7 @@
         (final: prev: rec {
           starship-jj = inputs.starship-jj.packages.${prev.stdenv.hostPlatform.system}.starship-jj;
           direnv = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.direnv;
+          opencode = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.opencode;
         })
         inputs.neovim-nightly-overlay.overlays.default
       ];
