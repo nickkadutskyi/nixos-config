@@ -256,6 +256,7 @@ in
         p = "push";
         l = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
         pl = "pull";
+        pr = "!f() { git fetch -fu \${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pull/$1 && true disabled_this_for_now git checkout pr/$1; }; f";
         s = "status";
         t = "tag";
         ignore = "update-index --assume-unchanged";
