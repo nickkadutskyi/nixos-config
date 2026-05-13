@@ -46,8 +46,11 @@
 
   [revset-aliases]
   "closest_bookmark(to)" = "heads(::to & bookmarks())"
-  'closest_pushable(to)' = 'heads(::to & ~description(exact:"") & ~description(glob:"private:*") & (~empty() | merges()))'
+  "closest_pushable(to)" = 'heads(::to & ~description(exact:"") & ~description(glob:"private:*") & (~empty() | merges()))'
   "fork_history(to, from)" = "fork_point(to | from)..@"
+
+  [revsets]
+  bookmark-advance-to = 'closest_pushable(@)'
 
   [template-aliases]
   "format_timestamp(timestamp)" = "timestamp.ago()"

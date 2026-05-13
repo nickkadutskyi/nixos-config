@@ -41,8 +41,9 @@ in
       # the current bookmark on top of the latest trunk.
       jf = "jj git fetch";
       jr = "jj retrunk";
-      # jt -> jp to push the current bookmark to the remote.
-      jt = "jj tug";
+      # ja -> jp to push the current bookmark to the remote.
+      jt = "jj bookmark advance";
+      ja = "jj bookmark advance";
       jp = "jj git push";
     };
 
