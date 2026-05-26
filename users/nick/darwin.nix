@@ -115,9 +115,9 @@ in
       "no1p" = {
         header = "Match host * exec \"[ ! -z \\\"\$NO1P\\\" -o ! -z \\\"\$SSH_CONNECTION\\\" ]\"";
         IdentityFile = [
-          ("${homeDir}/.ssh/" + machine)
-          ("${homeDir}/.ssh/EPDS")
-          ("${homeDir}/.ssh/CUTN")
+          "${homeDir}/.ssh/${machine}"
+          "${homeDir}/.ssh/EPDS"
+          "${homeDir}/.ssh/CUTN"
         ];
         IdentityAgent = "SSH_AUTH_SOCK";
         IdentitiesOnly = "yes";
