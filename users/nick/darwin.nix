@@ -112,24 +112,25 @@ in
     settings = lib.mkIf isDarwin {
       # Have come first in config to set proper IdentityAgent
       # Checks if NO1P is set and if so, sets IdentityAgent to default
-      # "_no1p" = {
-      #   match = "host * exec \"[ ! -z \\\"\$NO1P\\\" -o ! -z \\\"\$SSH_CONNECTION\\\" ]\"";
-      #   identityFile = [
-      #     ("${homeDir}/.ssh/" + machine)
-      #     ("${homeDir}/.ssh/EPDS")
-      #     ("${homeDir}/.ssh/CUTN")
-      #   ];
-      #   extraOptions = {
-      #     IdentityAgent = "SSH_AUTH_SOCK";
-      #   };
-      # };
-      "Host *" = {
-        identityFile = [
+      "no1p" = {
+        header = "Match host * exec \"[ ! -z \\\"\$NO1P\\\" -o ! -z \\\"\$SSH_CONNECTION\\\" ]\"";
+        IdentityFile = [
+          ("${homeDir}/.ssh/" + machine)
+          ("${homeDir}/.ssh/EPDS")
+          ("${homeDir}/.ssh/CUTN")
+        ];
+        IdentityAgent = "SSH_AUTH_SOCK";
+        IdentitiesOnly = "yes";
+      };
+      "all" = {
+        header = "Host *";
+        IdentityFile = [
           (toString ./ssh + "/${machine}.pub")
           (toString ./ssh/EPDS.pub)
           (toString ./ssh/CUTN.pub)
         ];
         IdentityAgent = "${homeDir}/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+        IdentitiesOnly = "yes";
       };
     };
   };
