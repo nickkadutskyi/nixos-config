@@ -109,30 +109,27 @@ in
 
   programs.ssh = {
     includes = [ ] ++ (lib.optionals isDarwin [ "conf.d/*" ]);
-    matchBlocks = lib.mkIf isDarwin {
+    settings = lib.mkIf isDarwin {
       # Have come first in config to set proper IdentityAgent
       # Checks if NO1P is set and if so, sets IdentityAgent to default
-      "_no1p" = {
-        match = "host * exec \"[ ! -z \\\"\$NO1P\\\" -o ! -z \\\"\$SSH_CONNECTION\\\" ]\"";
-        identityFile = [
-          ("${homeDir}/.ssh/" + machine)
-          ("${homeDir}/.ssh/EPDS")
-          ("${homeDir}/.ssh/CUTN")
-        ];
-        extraOptions = {
-          IdentityAgent = "SSH_AUTH_SOCK";
-        };
-      };
-      "all" = {
-        host = "*";
+      # "_no1p" = {
+      #   match = "host * exec \"[ ! -z \\\"\$NO1P\\\" -o ! -z \\\"\$SSH_CONNECTION\\\" ]\"";
+      #   identityFile = [
+      #     ("${homeDir}/.ssh/" + machine)
+      #     ("${homeDir}/.ssh/EPDS")
+      #     ("${homeDir}/.ssh/CUTN")
+      #   ];
+      #   extraOptions = {
+      #     IdentityAgent = "SSH_AUTH_SOCK";
+      #   };
+      # };
+      "Host *" = {
         identityFile = [
           (toString ./ssh + "/${machine}.pub")
           (toString ./ssh/EPDS.pub)
           (toString ./ssh/CUTN.pub)
         ];
-        extraOptions = {
-          IdentityAgent = "${homeDir}/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";
-        };
+        IdentityAgent = "${homeDir}/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";
       };
     };
   };

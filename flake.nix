@@ -103,6 +103,8 @@
         (final: prev: rec {
           starship-jj = inputs.starship-jj.packages.${prev.stdenv.hostPlatform.system}.starship-jj;
           direnv = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.direnv;
+          # folly = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.folly;
+          watchman = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.watchman;
           opencode = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.opencode;
         })
         inputs.neovim-nightly-overlay.overlays.default
