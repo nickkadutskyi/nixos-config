@@ -124,11 +124,11 @@ in
       };
       "forwarding" = lib.hm.dag.entryBefore [ "no1p" ] {
         header = "Match host * exec \"test -n \\\"\$SSH_AUTH_SOCK\\\" -a -n \\\"\$SSH_CONNECTION\\\"\"";
-        IdentityFile = [
-          "${homeDir}/.ssh/${machine}"
-          "${homeDir}/.ssh/EPDS"
-          "${homeDir}/.ssh/CUTN"
-        ];
+        # IdentityFile = [
+        #   "${homeDir}/.ssh/${machine}"
+        #   "${homeDir}/.ssh/EPDS"
+        #   "${homeDir}/.ssh/CUTN"
+        # ];
         IdentityAgent = "SSH_AUTH_SOCK";
         IdentitiesOnly = "yes";
       };
