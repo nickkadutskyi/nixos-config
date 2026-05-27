@@ -112,7 +112,7 @@ in
     settings = lib.mkIf isDarwin {
       # Have come first in config to set proper IdentityAgent
       # Checks if NO1P is set and if so, sets IdentityAgent to default
-      "no1p" = {
+      "no1p" = lib.hm.dag.entryBefore [ "all" ] {
         header = "Match host * exec \"[ ! -z \\\"\$NO1P\\\" -o ! -z \\\"\$SSH_CONNECTION\\\" ]\"";
         IdentityFile = [
           "${homeDir}/.ssh/${machine}"
