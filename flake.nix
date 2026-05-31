@@ -8,7 +8,7 @@
     # Primary nixpkgs source for the system
     nixpkgs.url = "github:NixOs/nixpkgs/nixpkgs-unstable";
     # Stable nixpkgs source for the system
-    nixpkgs-stable.url = "github:NixOs/nixpkgs/nixos-25.11";
+    nixpkgs-stable.url = "github:NixOs/nixpkgs/nixos-26.05";
 
     # Master nixpkgs source for the system to use for
     nixpkgs-master.url = "github:NixOs/nixpkgs/master";
@@ -102,7 +102,7 @@
       overlays = [
         (final: prev: rec {
           starship-jj = inputs.starship-jj.packages.${prev.stdenv.hostPlatform.system}.starship-jj;
-          direnv = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.direnv;
+          # direnv = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.direnv;
           # folly = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.folly;
           watchman = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.watchman;
           opencode = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.opencode;

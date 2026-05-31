@@ -101,7 +101,7 @@
       "google-chrome"
       "gpg-suite"
       "hazel"
-      "iina"
+      # "iina" # broken cask file
       "jetbrains-toolbox"
       "karabiner-elements"
       "little-snitch"
