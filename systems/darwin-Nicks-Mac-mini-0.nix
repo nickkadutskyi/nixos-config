@@ -51,7 +51,6 @@
     casks = [
       "adobe-creative-cloud"
       # Manages reading materials and e-books
-      "calibre"
       # "crossover" # keeping specific version instead of latest
       # Required by VeraCrypt on Apple Silicon to mount encrypted volumes
       "fuse-t"

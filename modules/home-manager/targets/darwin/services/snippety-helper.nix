@@ -216,7 +216,7 @@ in
     # Install required packages
     home.packages = [
       # GNU Coreutils (gtimeout is required by snippety-helper)
-      # pkgs.coreutils-prefixed
+      pkgs.coreutils-prefixed
       # Monitors a directory for changes (required by snippety-helper)
       pkgs.fswatch
     ];

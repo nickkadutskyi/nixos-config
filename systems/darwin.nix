@@ -51,6 +51,14 @@
 
   nix-homebrew = {
     enable = true;
+    package = lib.mkDefault (
+      inputs.brew-src
+      // {
+        # when updating the flake input change this too
+        name = "brew-5.1.15";
+        version = "5.1.15";
+      }
+    );
     enableRosetta = true;
     # User owning the Homebrew prefix
     user = user;
@@ -93,23 +101,16 @@
       "clickup"
       "dash"
       "datagrip" # commercial IDE for database management
-      "discord"
       "dropbox"
       "flashspace"
-      # "nickkadutskyi/homebrew-cask/ghostty@tip" # using mine because official doesn't add terminfo
       "ghostty@tip"
       "google-chrome"
       "gpg-suite"
       "hazel"
-      # "iina" # broken cask file
       "jetbrains-toolbox"
-      "karabiner-elements"
       "little-snitch"
-      "logi-options+"
       "rapidapi"
-      "slack"
       "splashtop-business"
-      "teamviewer"
       "telegram"
       "transmission"
       "transmit"
@@ -125,8 +126,8 @@
         name = "caddy";
         restart_service = true;
       }
-      "coreutils"
-      "mas"
+      # "coreutils"
+      # "mas"
       "ncurses"
       "dunglas/frankenphp/frankenphp"
     ];

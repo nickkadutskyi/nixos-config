@@ -27,6 +27,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    brew-src = {
+      url = "github:Homebrew/brew/5.1.15";
+      flake = false;
+    };
+
     # Manages Homebrew on macOS
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
