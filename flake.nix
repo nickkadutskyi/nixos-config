@@ -107,10 +107,48 @@
       overlays = [
         (final: prev: rec {
           starship-jj = inputs.starship-jj.packages.${prev.stdenv.hostPlatform.system}.starship-jj;
-          # direnv = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.direnv;
-          # folly = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.folly;
           watchman = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.watchman;
-          opencode = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.opencode;
+          opencode = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.opencode.overrideAttrs (
+            _:
+            let
+              # Map nix system to release asset name
+              platformMap = {
+                x86_64-linux = {
+                  asset = "opencode-linux-x64.tar.gz";
+                  isZip = false;
+                };
+                aarch64-linux = {
+                  asset = "opencode-linux-arm64.tar.gz";
+                  isZip = false;
+                };
+                x86_64-darwin = {
+                  asset = "opencode-darwin-x64.zip";
+                  isZip = true;
+                };
+                aarch64-darwin = {
+                  asset = "opencode-darwin-arm64.zip";
+                  isZip = true;
+                };
+              };
+              hashes = {
+                x86_64-linux = "sha256-cyfIVWmxDp7FJJqWQ/D9R34RfbVsRndtlXN8vASG+VA=";
+                aarch64-linux = "sha256-cyfIVWmxDp7FJJqWQ/D9R34RfbVsRndtlXN8vASG+VA=";
+                x86_64-darwin = "sha256-cyfIVWmxDp7FJJqWQ/D9R34RfbVsRndtlXN8vASG+VA=";
+                # only this hash is proper one
+                aarch64-darwin = "sha256-cyfIVWmxDp7FJJqWQ/D9R34RfbVsRndtlXN8vASG+VA=";
+              };
+              platform = prev.stdenv.hostPlatform.system;
+              version = "1.17.0";
+              platformInfo = platformMap.${platform} or (throw "Unsupported system: ${platform}");
+            in
+            {
+              version = version;
+              src = prev.fetchurl {
+                url = "https://github.com/anomalyco/opencode/releases/download/v${version}/${platformInfo.asset}";
+                hash = hashes.${platform};
+              };
+            }
+          );
         })
         inputs.neovim-nightly-overlay.overlays.default
       ];
