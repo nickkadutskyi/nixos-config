@@ -51,6 +51,13 @@
     shell = pkgs.zsh;
   };
 
+  programs.zsh = {
+    # Home Manager populates fpath and initializes the prompt later, so the
+    # global nix-darwin defaults just do the same work twice.
+    enableGlobalCompInit = false;
+    promptInit = "";
+  };
+
   nix-homebrew = {
     enable = true;
     package = lib.mkDefault (
