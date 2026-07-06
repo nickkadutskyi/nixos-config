@@ -46,8 +46,6 @@ in
     pkgs.nixd # Nix language server
     # Reformats shell script
     pkgs.shfmt
-    pkgs.tailspin # Highlight log files
-    pkgs.taplo # Reformats TOML code
     pkgs.xclip
 
     # ----------------------------------------------------------------
@@ -64,7 +62,6 @@ in
     pkgs.fzf
     pkgs.google-cloud-sdk
     pkgs.jq # Parses JSON
-    pkgs.lnav # Log file viewer with SQL-like querying
     # Provides Nerd fonts for icons support
     pkgs.nerd-fonts.jetbrains-mono
     # Manages secrets

@@ -50,6 +50,7 @@
   homebrew = {
     casks = [
       "adobe-creative-cloud"
+      "dropbox"
       # Manages reading materials and e-books
       # "crossover" # keeping specific version instead of latest
       # Required by VeraCrypt on Apple Silicon to mount encrypted volumes

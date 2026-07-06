@@ -32,6 +32,10 @@
     };
   };
 
+  # fixes https://github.com/nix-darwin/nix-darwin/issues/1817
+  documentation.enable = false;
+  system.tools.darwin-uninstaller.enable = false;
+
   environment.systemPackages = [
     pkgs.neovim
   ];
@@ -110,7 +114,6 @@
       "clickup"
       "dash"
       "datagrip" # commercial IDE for database management
-      "dropbox"
       "flashspace"
       "ghostty@tip"
       "google-chrome"
