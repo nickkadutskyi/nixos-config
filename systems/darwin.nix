@@ -32,10 +32,6 @@
     };
   };
 
-  # fixes https://github.com/nix-darwin/nix-darwin/issues/1817
-  documentation.enable = false;
-  system.tools.darwin-uninstaller.enable = false;
-
   environment.systemPackages = [
     pkgs.neovim
   ];
