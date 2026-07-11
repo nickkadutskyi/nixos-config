@@ -109,7 +109,6 @@
       "cleanshot"
       "clickup"
       "dash"
-      "datagrip" # commercial IDE for database management
       "flashspace"
       "ghostty@tip"
       "google-chrome"
