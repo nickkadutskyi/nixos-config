@@ -56,8 +56,6 @@
       # Required by VeraCrypt on Apple Silicon to mount encrypted volumes
       "fuse-t"
       "hhkb"
-      # Parallels Desktop for Mac for running Windows and other VMs
-      "parallels"
       "steam"
       "veracrypt-fuse-t"
       "vmware-fusion"

@@ -26,8 +26,6 @@
     casks = [
       # Required by VeraCrypt on Apple Silicon to mount encrypted volumes
       "fuse-t"
-      # Parallels Desktop for Mac for running Windows and other VMs
-      # "parallels"
       "veracrypt-fuse-t"
     ];
   };
