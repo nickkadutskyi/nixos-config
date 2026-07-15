@@ -6,8 +6,8 @@
     if isDarwin then
       # ini
       ''
-        font-family = "TX-02 Retina Condensed"
-        # As fallback
+        font-family = "TX-02 Retina"
+        # As fallback to provide icons from Nerd Font
         font-family = "Symbols Nerd Font"
         font-size = 14
         adjust-underline-position = 2
