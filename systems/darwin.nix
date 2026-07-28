@@ -116,6 +116,7 @@
       "hazel"
       "jetbrains-toolbox"
       "little-snitch"
+      "mullvad-vpn"
       "rapidapi"
       "splashtop-business"
       "telegram"
