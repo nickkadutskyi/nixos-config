@@ -44,10 +44,6 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
-    homebrew-bundle = {
-      url = "github:homebrew/homebrew-bundle";
-      flake = false;
-    };
     nickkadutskyi-homebrew-cask = {
       url = "github:nickkadutskyi/homebrew-cask";
       flake = false;

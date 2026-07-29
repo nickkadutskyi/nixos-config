@@ -60,14 +60,14 @@
 
   nix-homebrew = {
     enable = true;
-    package = lib.mkDefault (
-      inputs.brew-src
-      // {
-        # when updating the flake input change this too
-        name = "brew-5.1.15";
-        version = "5.1.15";
-      }
-    );
+    # package = lib.mkDefault (
+    #   inputs.brew-src
+    #   // {
+    #     # when updating the flake input change this too
+    #     name = "brew-6.0.13";
+    #     version = "6.0.13";
+    #   }
+    # );
     enableRosetta = true;
     # User owning the Homebrew prefix
     user = user;
@@ -75,7 +75,6 @@
     taps = {
       "homebrew/homebrew-core" = inputs.homebrew-core;
       "homebrew/homebrew-cask" = inputs.homebrew-cask;
-      "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
       "nickkadutskyi/homebrew-cask" = inputs.nickkadutskyi-homebrew-cask;
       "dunglas/homebrew-frankenphp" = inputs.dunglas-homebrew-frankenphp;
       "shivammathur/homebrew-php" = inputs.shivammathur-homebrew-php;
@@ -83,6 +82,19 @@
     };
     # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
     mutableTaps = false;
+    trust = {
+      formulae = [ ];
+      casks = [ ];
+      commands = [ ];
+      taps = [
+        "homebrew/homebrew-core"
+        "homebrew/homebrew-cask"
+        "nickkadutskyi/homebrew-cask"
+        "dunglas/homebrew-frankenphp"
+        "shivammathur/homebrew-php"
+        "shivammathur/homebrew-extensions"
+      ];
+    };
   };
 
   homebrew = {
@@ -96,11 +108,13 @@
       "iA Writer" = 775737590;
       "Keynote" = 361285480;
       "Magnet" = 441258766; # Window manager with iCloud sync
+      "MsgFiler 4" = 6478043112;
       "Numbers" = 361304891;
       "Pages" = 361309726;
       "Redirect Web for Safari" = 1571283503;
       "Reeder" = 6475002485;
       "Snippety - Snippets Manager" = 1530751461;
+      "TestFlight" = 899247664;
     };
     casks = [
       "1password" # 1Password 8 main app
@@ -112,9 +126,10 @@
       "flashspace"
       "ghostty@tip"
       "google-chrome"
-      "gpg-suite"
+      # "gpg-suite"
       "hazel"
       "jetbrains-toolbox"
+      "karabiner-elements"
       "little-snitch"
       "mullvad-vpn"
       "rapidapi"
@@ -127,7 +142,7 @@
       # Upwork may return 403 error sometimes so run switch again.
       "nickkadutskyi/homebrew-cask/upwork"
       "windows-app"
-      "zoom"
+      # "zoom"
     ];
     brews = [
       {
