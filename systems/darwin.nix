@@ -122,7 +122,6 @@
       "bibdesk" # reference manager
       "cleanshot"
       "clickup"
-      "dash"
       "flashspace"
       "ghostty@tip"
       "google-chrome"
