@@ -299,10 +299,10 @@ in
             arrangement = 2;
             displayas = 0;
             "file-data" = {
-              "_CFURLString" = "file:///Users/nick/Desktop/";
+              "_CFURLString" = "file:///Users/nick/Library/Mobile Documents/com~apple~CloudDocs/Desk/";
               "_CFURLStringType" = 15;
             };
-            "file-label" = "Desktop";
+            "file-label" = "Desk";
             "file-mod-date" = 3807722698;
             "file-type" = 2;
             "is-beta" = 0;
