@@ -100,7 +100,6 @@
   homebrew = {
     enable = true;
     masApps = {
-      "#blockit: Block distractions" = 1492879257;
       "1Blocker - Ad Blocker" = 1365531024;
       "1Password for Safari" = 1569813296; # 1Password Safari extension only
       "BetterJSON for Safari" = 1511935951;
@@ -114,7 +113,6 @@
       "Redirect Web for Safari" = 1571283503;
       "Reeder" = 6475002485;
       "Snippety - Snippets Manager" = 1530751461;
-      "TestFlight" = 899247664;
     };
     casks = [
       "1password" # 1Password 8 main app
@@ -125,7 +123,7 @@
       "flashspace"
       "ghostty@tip"
       "google-chrome"
-      # "gpg-suite"
+      "gpg-suite"
       "hazel"
       "jetbrains-toolbox"
       "karabiner-elements"
@@ -141,7 +139,7 @@
       # Upwork may return 403 error sometimes so run switch again.
       "nickkadutskyi/homebrew-cask/upwork"
       "windows-app"
-      # "zoom"
+      "zoom"
     ];
     brews = [
       {
