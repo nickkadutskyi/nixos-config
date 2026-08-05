@@ -10,8 +10,8 @@
     # Stable nixpkgs source for the system
     nixpkgs-stable.url = "github:NixOs/nixpkgs/nixos-26.05";
 
-    # Master nixpkgs source for the system to use for
-    nixpkgs-master.url = "github:NixOs/nixpkgs/master";
+    # # Master nixpkgs source for the system to use for
+    # nixpkgs-master.url = "github:NixOs/nixpkgs/master";
 
     # NixOS like configuration for macOS
     nix-darwin = {
@@ -19,7 +19,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+    determinate = {
+      url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nix.inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Cross-platform user specific configuration for home directories
     home-manager = {
@@ -33,7 +37,10 @@
     };
 
     # Manages Homebrew on macOS
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    nix-homebrew = {
+      url = "github:zhaofengli-wip/nix-homebrew";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Declarative Homebrew Tap management
     homebrew-core = {
@@ -73,14 +80,17 @@
     # Nightly version of Neovim
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Latest Opencode dev build
     opencode = {
       url = "github:anomalyco/opencode";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Starship plugin for JJ
@@ -93,7 +103,7 @@
     {
       self,
       nixpkgs,
-      nixpkgs-master,
+      # nixpkgs-master,
       nixpkgs-stable,
       ...
     }@inputs:
