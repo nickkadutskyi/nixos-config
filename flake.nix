@@ -39,7 +39,8 @@
     # Manages Homebrew on macOS
     nix-homebrew = {
       url = "github:zhaofengli-wip/nix-homebrew";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # it doesn't have nixpkgs input so no need for follows here
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Declarative Homebrew Tap management
