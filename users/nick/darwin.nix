@@ -294,7 +294,7 @@ in
       # Persistent Dock items on the right (using for quick access folders)
       "persistent-others" = [
         {
-          GUID = 354663587;
+          GUID = 354663588;
           "tile-data" = {
             arrangement = 2;
             displayas = 0;
