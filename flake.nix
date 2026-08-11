@@ -138,6 +138,10 @@
         user = "nick";
         isDarwin = true;
       };
+      darwinConfigurations.Nicks-MacBook-Air-1 = mkSystem "Nicks-MacBook-Air-1" {
+        system = "x86_64-linux";
+        user = "nick";
+      };
       darwinConfigurations.Nicks-Mac-mini-0 = mkSystem "Nicks-Mac-mini-0" {
         system = "aarch64-darwin";
         user = "nick";
