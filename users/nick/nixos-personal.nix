@@ -29,4 +29,11 @@ in
       };
     };
   };
+
+  dconf.settings = {
+    "org/gnome/desktop/wm/preferences" = {
+      # button-layout = "close,maximize:menu";
+      button-layout = "close:menu";
+    };
+  };
 }
