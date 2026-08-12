@@ -24,7 +24,7 @@ Configurations are split into layers: machine, system, user.
 **Machines** represent physical or virtual devices and located in `/machines`.
 These configurations can have:
 - shared configs for devices with similar purpose or where it makes sense, name
-  them after purpose `server-shared.nix` or device type, e.g. `mac-shared.nix`
+  them after purpose `server.nix`, device type, e.g. `darwin.nix` or combo `darwin-personal.nix`
 - machine-specific configs for particular devices, name after hostname of the device
 - hardware-specific configs for machines running NixOS. Put these configurations
   into `/machines/hardware/` directory and import them into your machine config.

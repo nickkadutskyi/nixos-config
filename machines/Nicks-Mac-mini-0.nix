@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ./mac-shared.nix
+    ./shared.nix
+    ./darwin-personal.nix
   ];
   networking.computerName = "Nick's Mac mini 0";
 }

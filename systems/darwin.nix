@@ -33,7 +33,8 @@
   };
 
   environment.systemPackages = [
-    pkgs.neovim
+    inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default
+    # pkgs.neovim
   ];
 
   # Enable macOS built-in Apache

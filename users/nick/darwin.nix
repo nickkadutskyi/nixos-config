@@ -22,16 +22,13 @@ in
   #---------------------------------------------------------------------
   imports = [
     ./shared.nix
+    ./personal.nix
   ];
 
   # Tool Theme Switching
   targets.darwin.services.tool-theme.enable = true;
   # Snippety Helper
   targets.darwin.services.snippety-helper.enable = true;
-  # Development
-  tools.development.enable = true;
-  # Web Development
-  tools.development.web.enable = true;
 
   #---------------------------------------------------------------------
   # Packages
@@ -40,16 +37,8 @@ in
     # ----------------------------------------------------------------
     # Tooling
     # ----------------------------------------------------------------
-    pkgs._1password-cli
     pkgs.blueutil # Control bluetooth
     pkgs.duti # Set default apps for doc types and URL schemes
-    pkgs.lua-language-server
-    # Reformats Lua code
-    pkgs.stylua
-    # Provides vscode-css-language-server vscode-eslint-language-server
-    # vscode-html-language-server vscode-json-language-server
-    # vscode-markdown-language-server
-    pkgs.vscode-langservers-extracted
 
     # TODO: configure it
     # Provides php-debug
@@ -71,16 +60,10 @@ in
   ];
 
   xdg.configFile = {
-    "1Password/ssh/agent.toml".text = import ./1p/ssh/agent.nix { inherit machine; };
     "karabiner/karabiner.json".source = ./karabiner/karabiner.json;
     "flashspace/profiles.json".source = config.lib.file.mkOutOfStoreSymlink (cfgSync + "/flashspace/profiles.json");
     "flashspace/settings.json".source = config.lib.file.mkOutOfStoreSymlink (cfgSync + "/flashspace/settings.json");
     "nvim_spell".source = config.lib.file.mkOutOfStoreSymlink (cfgSync + "/nvim_spell");
-    "ghostty/config".text = import ./ghostty/config.nix { inherit isDarwin; };
-    "ghostty/themes" = {
-      source = ./ghostty/themes;
-      recursive = true;
-    };
   };
 
   home.file = {

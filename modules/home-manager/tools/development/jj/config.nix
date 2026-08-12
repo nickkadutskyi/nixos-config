@@ -1,4 +1,4 @@
-{ isDarwin, ... }:
+{ isDarwin, lib, pkgs, ... }:
 # toml
 ''
   [user]
@@ -19,6 +19,7 @@
 
   ${
     if isDarwin then
+      # toml
       ''
         [signing.backends.ssh]
         # This value will vary by OS and can be obtained by following this step:
@@ -26,7 +27,13 @@
         program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
       ''
     else
-      ''''
+      # toml
+      ''
+        [signing.backends.ssh]
+        # This value will vary by OS and can be obtained by following this step:
+        # https://developer.1password.com/docs/ssh/git-commit-signing/#step-1-configure-git-commit-signing-with-ssh
+        program = "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}"
+      ''
   }
 
   [aliases]

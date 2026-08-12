@@ -20,6 +20,12 @@
         [[ssh-keys]]
         vault = "Nicks-Mac-mini-0"
       ''
+    else if machine == "Nicks-MacBook-Air-1" then
+      # toml
+      ''
+        [[ssh-keys]]
+        vault = "Nicks-MacBook-Air-1"
+      ''
     else
       ""
   }

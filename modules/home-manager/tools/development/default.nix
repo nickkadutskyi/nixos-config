@@ -55,7 +55,7 @@ in
         source ${./vim/vimrc}
         ${builtins.readFile ./vim/ideavimrc}
       '';
-      "jj/config.toml".text = import ./jj/config.nix { inherit isDarwin; };
+      "jj/config.toml".text = import ./jj/config.nix { inherit isDarwin lib pkgs; };
       "starship-jj/starship-jj.toml".source = ./jj/starship-jj.toml;
       "opencode/opencode.json".source = ./opencode/opencode.json;
     };

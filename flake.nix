@@ -116,7 +116,7 @@
           awscli2 = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.awscli2;
           opencode = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.opencode;
         })
-        inputs.neovim-nightly-overlay.overlays.default
+        # inputs.neovim-nightly-overlay.overlays.default
       ];
       mkSystem = import ./lib/mksystem.nix {
         inherit
@@ -138,7 +138,7 @@
         user = "nick";
         isDarwin = true;
       };
-      darwinConfigurations.Nicks-MacBook-Air-1 = mkSystem "Nicks-MacBook-Air-1" {
+      nixosConfigurations.Nicks-MacBook-Air-1 = mkSystem "Nicks-MacBook-Air-1" {
         system = "x86_64-linux";
         user = "nick";
       };

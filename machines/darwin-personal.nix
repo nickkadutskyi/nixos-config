@@ -30,8 +30,6 @@
   # Set Git commit hash for darwin-version.
   system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
 
-  networking.hostName = machine;
-
   networking.dns = [
     "1.1.1.1"
     "9.9.9.9"

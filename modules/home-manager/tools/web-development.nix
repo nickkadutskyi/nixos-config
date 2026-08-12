@@ -28,14 +28,15 @@ in
     #-------------------------------------------------------------------------
     # PHP
     #-------------------------------------------------------------------------
-    home.activation.initIntelephense =
-      lib.hm.dag.entryAfter [ "writeBoundary" ]
+    # TODO: make this cross-platform
+    home.activation.initIntelephense = lib.mkIf isDarwin
+      (lib.hm.dag.entryAfter [ "writeBoundary" ]
         # bash
         ''
           # prepare intelephense directory
           /bin/mkdir -p ${homeDir}/intelephense
           # and hide it
           /usr/bin/chflags hidden ${homeDir}/intelephense
-        '';
+        '');
   };
 }

@@ -12,7 +12,8 @@
 {
   imports = [
     ./hardware/Server-ThinkPad-x240-0.nix
-    ./server-shared.nix
+    ./shared.nix
+    ./server.nix
   ];
 
   boot.initrd.luks = {

@@ -17,9 +17,13 @@
     else
       # ini
       ''
-        # font-family = "JetBrainsMonoNL Nerd Font"
-        font-size = 13
-        adjust-underline-position = -1
+        font-family = "TX-02"
+        font-family = "Symbols Nerd Font"
+        font-family = "JetBrainsMonoNL Nerd Font"
+        font-size = 12
+        adjust-underline-position = 2
+        adjust-underline-thickness = -1
+        font-feature = +ss01
       ''
   }
 
@@ -45,8 +49,8 @@
   mouse-hide-while-typing = true
   macos-non-native-fullscreen = padded-notch
   # macos-non-native-fullscreen = visible-menu
-  background-opacity = 0.95
-  background-blur-radius = 20
+  # background-opacity = 0.95
+  # background-blur-radius = 20
   cursor-style = bar
   quick-terminal-position = bottom
   quick-terminal-animation-duration = 0
