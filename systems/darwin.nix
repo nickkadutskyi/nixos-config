@@ -119,8 +119,10 @@
       "1password" # 1Password 8 main app
       "betterzip"
       "bibdesk" # reference manager
+      "chatgpt"
       "cleanshot"
       "clickup"
+      "codex"
       "flashspace"
       "ghostty@tip"
       "google-chrome"
