@@ -38,7 +38,8 @@
   window-theme = system
 
   macos-option-as-alt = left
-  adjust-cell-height = 25%
+  # adjust-cell-height = 25%
+  adjust-cell-height = 30%
   # Required for Neovim to not being covered by vertical lines
   adjust-cursor-thickness = 2
   window-padding-balance = true
