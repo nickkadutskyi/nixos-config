@@ -12,7 +12,7 @@
         # As fallback to provide icons from Nerd Font
         font-family = "Symbols Nerd Font"
         font-size = 14
-        adjust-underline-position = 2
+        adjust-underline-position = -2
         adjust-underline-thickness = -1
         font-feature = +ss01
       ''
