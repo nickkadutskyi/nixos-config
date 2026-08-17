@@ -30,7 +30,7 @@ in
     # Tooling
     # ----------------------------------------------------------------
     pkgs._1password-cli
-    pkgs.lua-language-server
+    pkgs.emmylua-ls
     # Reformats Lua code
     pkgs.stylua
     # Provides vscode-css-language-server vscode-eslint-language-server
