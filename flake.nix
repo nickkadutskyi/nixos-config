@@ -84,6 +84,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    emmylua-ls = {
+      url = "github:EmmyLuaLs/emmylua-analyzer-rust";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Latest Opencode dev build
     opencode = {
       url = "github:anomalyco/opencode";
@@ -115,6 +120,7 @@
           watchman = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.watchman;
           awscli2 = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.awscli2;
           opencode = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.opencode;
+          emmylua-ls = inputs.emmylua-ls.packages.${prev.stdenv.hostPlatform.system}.default;
         })
         # inputs.neovim-nightly-overlay.overlays.default
       ];
