@@ -45,6 +45,7 @@
   # Required for Neovim to not being covered by vertical lines
   adjust-cursor-thickness = 2
   window-padding-balance = true
+  window-padding-x = 6
   # window-padding-color = extend
   keybind = global:cmd+ctrl+t=toggle_quick_terminal
   keybind = super+shift+j=write_screen_file:paste
