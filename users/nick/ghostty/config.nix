@@ -37,6 +37,7 @@
 
 
   theme = light:jb-light,dark:jb-dark
+  minimum-contrast = 1.1
   window-theme = system
 
   macos-option-as-alt = left
