@@ -12,8 +12,8 @@
 }:
 let
   # Keep it cross-platform
-  isDarwin = pkgs.stdenv.isDarwin;
-  isLinux = pkgs.stdenv.isLinux;
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+  isLinux = pkgs.stdenv.hostPlatform.isLinux;
   homeDir = config.home.homeDirectory;
 in
 {

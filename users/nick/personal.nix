@@ -12,7 +12,7 @@
 }:
 let
   homeDir = config.home.homeDirectory;
-  isDarwin = pkgs.stdenv.isDarwin;
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
 in
 {
   #---------------------------------------------------------------------

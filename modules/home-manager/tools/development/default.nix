@@ -76,6 +76,7 @@ in
     #---------------------------------------------------------------------
     home.packages = [
       pkgs.opencode # TUI AI Assistant
+      pkgs.opencode2 # TUI AI Assistant
       pkgs.jujutsu # Alternative VCS
       pkgs.starship-jj
       pkgs.watchman # Needed for Jujutsu register-snapshot-trigger

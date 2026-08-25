@@ -11,7 +11,7 @@
   ...
 }:
 let
-  isDarwin = pkgs.stdenv.isDarwin;
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
   homeDir = config.home.homeDirectory;
   syncHomeDir = homeDir + "/Library/Mobile\ Documents/com\~apple\~CloudDocs/Sync/HOME";
   cfgSync = syncHomeDir + "/.config";

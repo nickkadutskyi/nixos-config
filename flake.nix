@@ -84,11 +84,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    emmylua-ls = {
-      url = "github:EmmyLuaLs/emmylua-analyzer-rust";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Latest Opencode dev build
     opencode = {
       url = "github:anomalyco/opencode";
@@ -96,12 +91,6 @@
     };
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Starship plugin for JJ
-    starship-jj = {
-      url = "gitlab:lanastara_foss/starship-jj";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -116,11 +105,11 @@
     let
       overlays = [
         (final: prev: rec {
-          starship-jj = inputs.starship-jj.packages.${prev.stdenv.hostPlatform.system}.starship-jj;
           watchman = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.watchman;
+          tmux = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.tmux;
           awscli2 = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.awscli2;
           opencode = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.opencode;
-          emmylua-ls = inputs.emmylua-ls.packages.${prev.stdenv.hostPlatform.system}.default;
+          opencode2 = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.opencode2;
         })
         # inputs.neovim-nightly-overlay.overlays.default
       ];
