@@ -8,8 +8,7 @@
     # Primary nixpkgs source for the system
     nixpkgs.url = "github:NixOs/nixpkgs/nixpkgs-unstable";
     # Stable nixpkgs source for the system
-    nixpkgs-stable.url = "github:NixOs/nixpkgs/nixos-26.05";
-
+    # nixpkgs-stable.url = "github:NixOs/nixpkgs/nixos-26.05";
     # # Master nixpkgs source for the system to use for
     # nixpkgs-master.url = "github:NixOs/nixpkgs/master";
 
@@ -99,15 +98,12 @@
       self,
       nixpkgs,
       # nixpkgs-master,
-      nixpkgs-stable,
+      # nixpkgs-stable,
       ...
     }@inputs:
     let
       overlays = [
         (final: prev: rec {
-          watchman = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.watchman;
-          tmux = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.tmux;
-          awscli2 = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.awscli2;
           opencode = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.opencode;
           opencode2 = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.opencode2;
         })
