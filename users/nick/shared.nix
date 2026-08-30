@@ -44,6 +44,7 @@ in
     pkgs.copilot-language-server
     pkgs.nixfmt # Reformats Nix code
     pkgs.nixd # Nix language server
+    pkgs.nil # Nix language server
     # Reformats shell script
     pkgs.shfmt
     pkgs.xclip
