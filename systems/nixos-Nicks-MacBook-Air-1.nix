@@ -15,4 +15,6 @@
     ./shared.nix
     ./nixos-personal.nix
   ];
+
+  programs.steam.enable = true;
 }

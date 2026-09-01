@@ -92,7 +92,7 @@ in
 
     # PyPI install so the [ssh] extra can pin paramiko<4. The executable lands in ~/.local/bin.
     programs.uv = {
-      enable = true;
+      enable = isDarwin;
       tool.packages = [
         "sqlit-tui[ssh,postgres,cockroachdb,mysql,duckdb,bigquery,d1]"
       ];
