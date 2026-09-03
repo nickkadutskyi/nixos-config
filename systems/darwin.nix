@@ -114,6 +114,7 @@
       "Redirect Web for Safari" = 1571283503;
       "Reeder" = 6475002485;
       "Snippety - Snippets Manager" = 1530751461;
+      "TestFlight" = 899247664;
     };
     casks = [
       "1password" # 1Password 8 main app
