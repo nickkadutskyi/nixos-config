@@ -32,6 +32,27 @@
     };
   };
 
+  # Pin the system registry to this configuration's locked nixpkgs input.
+  environment.etc."nix/registry.json".text = builtins.toJSON {
+    version = 2;
+    flakes = [
+      {
+        from = {
+          type = "indirect";
+          id = "nixpkgs";
+        };
+        to = {
+          type = "path";
+          path = inputs.nixpkgs.outPath;
+          inherit (inputs.nixpkgs) narHash;
+        } // lib.optionalAttrs (inputs.nixpkgs ? rev) {
+          inherit (inputs.nixpkgs) rev;
+        };
+        exact = true;
+      }
+    ];
+  };
+
   environment.systemPackages = [
     inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default
     # pkgs.neovim
