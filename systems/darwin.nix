@@ -45,7 +45,8 @@
           type = "path";
           path = inputs.nixpkgs.outPath;
           inherit (inputs.nixpkgs) narHash;
-        } // lib.optionalAttrs (inputs.nixpkgs ? rev) {
+        }
+        // lib.optionalAttrs (inputs.nixpkgs ? rev) {
           inherit (inputs.nixpkgs) rev;
         };
         exact = true;
@@ -136,6 +137,7 @@
       "Reeder" = 6475002485;
       "Snippety - Snippets Manager" = 1530751461;
       "TestFlight" = 899247664;
+      "Xcode" = 497799835;
     };
     casks = [
       "1password" # 1Password 8 main app
