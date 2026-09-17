@@ -133,7 +133,7 @@ in
   #---------------------------------------------------------------------
   targets.darwin.currentHostDefaults = lib.mkIf isDarwin {
     "com.apple.controlcenter" = {
-      FocusModes = 18;
+      FocusModes = 2;
     };
   };
   targets.darwin.defaults = lib.mkIf isDarwin {
