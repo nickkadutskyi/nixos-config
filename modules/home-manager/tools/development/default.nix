@@ -89,6 +89,14 @@ in
     # Programs
     #---------------------------------------------------------------------
 
+    # PyPI install so the [ssh] extra can pin paramiko<4. The executable lands in ~/.local/bin.
+    programs.uv = {
+      enable = true;
+      tool.packages = [
+        "sqlit-tui[ssh,postgres,cockroachdb,mysql,duckdb,bigquery,d1]"
+      ];
+    };
+
     # Enables direnv to automatically switch environments in project directories.
     programs.direnv = {
       enable = true;
@@ -155,6 +163,23 @@ in
               p="$rest"
               if [ -n "$p" ]; then
                 handle-tmux "$p"
+              else
+                echo "No project provided."
+              fi
+            elif [[ "$first" == "d" ]]; then
+              p="$rest"
+              if [ -n "$p" ]; then
+                cd "$p"
+                if command -v sqlit >/dev/null 2>&1; then
+                  if [[ "$(uname -s)" == "Darwin" ]]; then
+                    export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+                  else
+                    export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
+                  fi
+                  sqlit .
+                else
+                  echo "sqlit is not available."
+                fi
               else
                 echo "No project provided."
               fi

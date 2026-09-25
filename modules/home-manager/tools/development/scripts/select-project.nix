@@ -139,7 +139,7 @@ pkgs.writeShellScriptBin "select-project"
     done <<<"$projects"
 
     selected_project_path="$(printf "%s\n" "''${project_options[@]}" |
-      FZF_DEFAULT_OPTS_FILE=${confDir}/fzf/fzfrc $FZF -1 --bind """ctrl-p:become(echo p {})""" --bind """ctrl-t:become(echo t {})""" -q "$QUERY" | $SED 's/ ⧉ .*$//g' | $SED 's/ 󰘬 .*$//g')"
+      FZF_DEFAULT_OPTS_FILE=${confDir}/fzf/fzfrc $FZF -1 --bind """ctrl-p:become(echo p {})""" --bind """ctrl-t:become(echo t {})""" --bind """ctrl-d:become(echo d {})""" -q "$QUERY" | $SED 's/ ⧉ .*$//g' | $SED 's/ 󰘬 .*$//g')"
 
     if [[ -n "$selected_project_path" ]]; then
       echo $selected_project_path
