@@ -105,6 +105,9 @@ in
       enableZshIntegration = true;
       silent = true;
     };
+    programs.direnv-instant = {
+      enable = true;
+    };
     programs.zsh = {
       enable = true;
       initContent =
@@ -186,7 +189,7 @@ in
             else
               if [ -n "$p" ]; then
                 cd "$p"
-                eval "$(${pkgs.direnv}/bin/direnv export zsh)"
+                  #  eval "$(${pkgs.direnv}/bin/direnv export zsh)"
                 nvim
               else
                 echo "No project provided."

@@ -123,7 +123,10 @@ systemFunc {
         backupFileExtension = "hm-backup";
         useGlobalPkgs = true;
         useUserPackages = true;
-        sharedModules = [ ../modules/home-manager ];
+        sharedModules = [
+          inputs.direnv-instant.homeModules.direnv-instant
+          ../modules/home-manager
+        ];
         extraSpecialArgs = {
           inherit
             inputs
