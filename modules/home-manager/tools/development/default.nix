@@ -75,11 +75,11 @@ in
     # Packages
     #---------------------------------------------------------------------
     home.packages = [
-      pkgs.opencode # TUI AI Assistant
       pkgs.opencode2 # TUI AI Assistant
       pkgs.jujutsu # Alternative VCS
       pkgs.starship-jj
       pkgs.watchman # Needed for Jujutsu register-snapshot-trigger
+      pkgs.nodejs # Node is required for Copilot.vim
 
       (import ./scripts/aws_cd_deployments.nix { inherit pkgs; })
       (import ./scripts/aws_ec2_instances.nix { inherit pkgs; })

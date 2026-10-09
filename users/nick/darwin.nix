@@ -42,10 +42,10 @@ in
 
     # TODO: configure it
     # Provides php-debug
-    (pkgs.writeShellScriptBin "php-debug-adapter" ''
-      exec ${pkgs.nodejs}/bin/node \
-        ${pkgs.vscode-extensions.xdebug.php-debug}/share/vscode/extensions/xdebug.php-debug/out/phpDebug.js "$@"
-    '')
+    # (pkgs.writeShellScriptBin "php-debug-adapter" ''
+    #   exec ${pkgs.nodejs}/bin/node \
+    #     ${pkgs.vscode-extensions.xdebug.php-debug}/share/vscode/extensions/xdebug.php-debug/out/phpDebug.js "$@"
+    # '')
   ];
 
   #---------------------------------------------------------------------
