@@ -80,6 +80,7 @@ in
       pkgs.starship-jj
       pkgs.watchman # Needed for Jujutsu register-snapshot-trigger
       pkgs.nodejs # Node is required for Copilot.vim
+      pkgs.copilot-language-server
 
       (import ./scripts/aws_cd_deployments.nix { inherit pkgs; })
       (import ./scripts/aws_ec2_instances.nix { inherit pkgs; })
