@@ -102,6 +102,7 @@
       "dunglas/homebrew-frankenphp" = inputs.dunglas-homebrew-frankenphp;
       "shivammathur/homebrew-php" = inputs.shivammathur-homebrew-php;
       "shivammathur/homebrew-extensions" = inputs.shivammathur-homebrew-extensions;
+      "ampcode/homebrew-tap" = inputs.ampcode-homebrew-tap;
     };
     # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
     mutableTaps = false;
@@ -116,6 +117,7 @@
         "dunglas/homebrew-frankenphp"
         "shivammathur/homebrew-php"
         "shivammathur/homebrew-extensions"
+        "ampcode/homebrew-tap"
       ];
     };
   };
@@ -169,6 +171,7 @@
       "zoom"
     ];
     brews = [
+      "ampcode/tap/ampcode"
       {
         name = "caddy";
         restart_service = true;

@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "ampcode-homebrew-tap": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791663670,
+        "narHash": "sha256-aybZVFtjoPpwIUPPS6yzBjVTpOvXKfnb3BdVD1hrdcg=",
+        "owner": "ampcode",
+        "repo": "homebrew-tap",
+        "rev": "a054da28fecc9609287640c9335bdd463216cc67",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ampcode",
+        "repo": "homebrew-tap",
+        "type": "github"
+      }
+    },
     "bdwgc": {
       "flake": false,
       "locked": {
@@ -597,6 +613,7 @@
     },
     "root": {
       "inputs": {
+        "ampcode-homebrew-tap": "ampcode-homebrew-tap",
         "brew-src": "brew-src",
         "darwin-custom-icons": "darwin-custom-icons",
         "determinate": "determinate",

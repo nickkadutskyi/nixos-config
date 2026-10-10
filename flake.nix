@@ -67,6 +67,10 @@
       url = "github:shivammathur/homebrew-extensions";
       flake = false;
     };
+    ampcode-homebrew-tap = {
+      url = "github:ampcode/homebrew-tap";
+      flake = false;
+    };
 
     # Sets custom icons on macOS
     darwin-custom-icons.url = "github:ryanccn/nix-darwin-custom-icons";
