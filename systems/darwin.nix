@@ -143,6 +143,7 @@
     };
     casks = [
       "1password" # 1Password 8 main app
+      "amp-app"
       "betterzip"
       "bibdesk" # reference manager
       "chatgpt"
