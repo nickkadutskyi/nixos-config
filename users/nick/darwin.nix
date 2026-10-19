@@ -23,6 +23,7 @@ in
   imports = [
     ./shared.nix
     ./personal.nix
+    ./rex
   ];
 
   # Tool Theme Switching
