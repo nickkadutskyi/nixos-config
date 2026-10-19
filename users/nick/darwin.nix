@@ -73,6 +73,8 @@ in
     # Adds my custom templates to BibDesk
     "Library/Application\ Support/BibDesk/Templates/mdApaTemplate.txt".source = ./bibdesk/Templates/mdApaTemplate.txt;
     ".local/scripts".source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/scripts");
+    ".local/bin/rex".source =
+      config.lib.file.mkOutOfStoreSymlink "/Applications/Rex Beta.app/Contents/Helpers/Rex Server.rex/Contents/MacOS/rex";
     ".ssh/conf.d" = {
       recursive = true;
       source = config.lib.file.mkOutOfStoreSymlink (syncHomeDir + "/.ssh/conf.d");
