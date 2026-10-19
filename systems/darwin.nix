@@ -150,6 +150,7 @@
       "cleanshot"
       "clickup"
       "codex"
+      "discord"
       "flashspace"
       "ghostty@tip"
       "google-chrome"
