@@ -162,6 +162,7 @@
       "mullvad-vpn"
       "rapidapi"
       "splashtop-business"
+      "tailscale-app"
       "telegram"
       "transmission"
       "transmit"
