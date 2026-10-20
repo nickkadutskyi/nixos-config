@@ -19,6 +19,13 @@
   # These are app-private keys; recheck them when upgrading Rex.
   targets.darwin.defaults."com.superlogical.rex" = {
     "Workspace.appearance" = "system";
+    "Workspace.showsPaneHeaders" = true;
+    "Workspace.hiddenPaneButtons" = [
+      "close"
+      "splitDown"
+      "splitRight"
+      "zoom"
+    ];
     "Workspace.terminalFontName" = "TX-02";
     "Workspace.terminalFontStyle" = "Retina";
     "Workspace.terminalFallbackFontNames" = [ "Symbols Nerd Font" ];
