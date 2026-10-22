@@ -36,7 +36,7 @@
     "Workspace.terminalImproveTextContrast" = false;
     "Workspace.terminalCursorStyle" = "bar";
     "Workspace.terminalCursorStyleForced" = false;
-    "Workspace.terminalOptionKeyBehavior" = "left";
+    "Workspace.terminalOptionKeyBehavior" = "leftActsAsAlt";
     "Workspace.terminalPaddingColor" = "background";
     # Ghostty uses the standard extended palette, not Rex's generated one.
     "Workspace.lightUsesExtendedThemePalette" = false;
