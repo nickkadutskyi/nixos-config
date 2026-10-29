@@ -55,7 +55,7 @@
       # Manages reading materials and e-books
       # "crossover" # keeping specific version instead of latest
       # Required by VeraCrypt on Apple Silicon to mount encrypted volumes
-      "fuse-t"
+      # "fuse-t" # FIXME: this has an error in definition
       "hhkb"
       "steam"
       "veracrypt-fuse-t"
