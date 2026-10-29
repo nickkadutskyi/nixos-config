@@ -89,11 +89,11 @@
         ];
         hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
       };
-      postCommands = ''
-        # Automatically ask for the password on SSH login
-        echo 'cryptsetup-askpass || echo "Unlock was successful; exiting SSH session" && exit 1' >> /root/.profile
-      '';
     };
+    # Automatically answer pending disk-unlock prompts on SSH login.
+    systemd.contents."/root/.profile".text = ''
+      exec systemd-tty-ask-password-agent --watch
+    '';
   };
 
   # Ensure enp0s25 name persists by tying it to the MAC address
