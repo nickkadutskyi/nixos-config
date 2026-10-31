@@ -22,7 +22,6 @@
     "Workspace.paneDensity" = "comfortable";
     "Workspace.showsPaneHeaders" = true;
     "Workspace.hiddenPaneButtons" = [
-      "close"
       "splitDown"
       "splitRight"
       "zoom"

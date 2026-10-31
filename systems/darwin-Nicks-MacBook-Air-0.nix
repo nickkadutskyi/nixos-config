@@ -26,7 +26,7 @@
   homebrew = {
     casks = [
       # Required by VeraCrypt on Apple Silicon to mount encrypted volumes
-      "fuse-t"
+      # "fuse-t" # FIXME: error in definition
       "veracrypt-fuse-t"
     ];
   };
