@@ -57,3 +57,8 @@ rex.action({
 
 rex.bind("cmd+shift+j", "paste_screen_file")
 rex.bind("cmd+alt+shift+j", "open_screen_file")
+
+rex.bind("ctrl+cmd+left", "pane.resize", { direction = "left", amount = 2 })
+rex.bind("ctrl+cmd+right", "pane.resize", { direction = "right", amount = 2 })
+rex.bind("ctrl+cmd+up", "pane.resize", { direction = "up", amount = 2 })
+rex.bind("ctrl+cmd+down", "pane.resize", { direction = "down", amount = 2 })
