@@ -55,6 +55,7 @@ rex.action({
     end,
 })
 
+rex.bind("cmd+ctrl+t", "client.visibility.toggle")
 rex.bind("cmd+shift+j", "paste_screen_file")
 rex.bind("cmd+alt+shift+j", "open_screen_file")
 

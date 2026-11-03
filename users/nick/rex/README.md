@@ -31,17 +31,22 @@ files remain in its temporary directory for subsequent use.
 ## Conversion limits
 
 The public Lua API does not configure typography or persistent client themes.
-The `Workspace.*` preferences in `default.nix` were identified in installed Rex
-Beta 0.1.0 (1290); they are private, version-dependent settings, not a documented
+The `Workspace.*` preferences in `default.nix` were checked against installed Rex
+Beta 0.1.0 (1763); they are private, version-dependent settings, not a documented
 Lua API. `rex config check` validates Lua only, not those preferences.
 
+- Pane behavior and appearance preserve the saved UI choices: comfortable glass
+  panes, program-background tinting, automatic split balancing, inactive-pane
+  fading, and an accent-colored active-pane border at approximately 40% opacity.
+- Build 1763 exposes horizontal and vertical terminal padding preferences, set
+  to 6 and 0 respectively, with padding color set to Background.
 - TX-02 Retina, 14 pt, Symbols Nerd Font fallback, +30% cell height, disabled
   ligatures, a bar cursor (applications may override it), and left Option as Alt
   are mapped to the corresponding Rex preferences.
 - Rex's ligature toggle approximates `font-feature = -calt`. No verified setting
   was found for `+ss01`, a separate bold face, disabling synthetic styles,
   underline offsets/thickness, or cursor thickness.
-- No exact mapping was found for `minimum-contrast = 1.1`, balanced 6 px padding,
+- No exact mapping was found for `minimum-contrast = 1.1`, padding balancing,
   Ghostty's bell features, mouse hiding, padded-notch fullscreen, titlebar style,
   or the shell-integration feature list. Rex retains its own behavior for these.
 - No equivalent global quick-terminal action was found; `Cmd+Ctrl+T` and the

@@ -15,11 +15,20 @@
     };
   };
 
-  # Rex Beta 0.1.0 (1290) keeps appearance in UserDefaults, not init.lua.
+  # Rex Beta 0.1.0 (1763) keeps appearance in UserDefaults, not init.lua.
   # These are app-private keys; recheck them when upgrading Rex.
   targets.darwin.defaults."com.superlogical.rex" = {
     "Workspace.appearance" = "system";
+    "Workspace.interfaceStyle" = "blendTheme";
     "Workspace.paneDensity" = "comfortable";
+    "Workspace.usesPaneGlass" = true;
+    "Workspace.tintsPanesWithProgramBackground" = true;
+    "Workspace.balancesSplitsOnCreation" = true;
+    "Workspace.inactivePaneFadeMode" = "both";
+    "Workspace.usesStandardInactiveWindowPaneStyles" = true;
+    "Workspace.showsActivePaneBorder" = true;
+    "Workspace.activePaneBorderColor" = "accent";
+    "Workspace.activePaneBorderOpacity" = 0.39965533088235294;
     "Workspace.showsPaneHeaders" = true;
     "Workspace.hiddenPaneButtons" = [
       "splitDown"
@@ -37,6 +46,8 @@
     "Workspace.terminalCursorStyleForced" = false;
     "Workspace.terminalOptionKeyBehavior" = "leftActsAsAlt";
     "Workspace.terminalPaddingColor" = "background";
+    "Workspace.terminalPaddingX" = 6.0;
+    "Workspace.terminalPaddingY" = 0.0;
     # Ghostty uses the standard extended palette, not Rex's generated one.
     "Workspace.lightUsesExtendedThemePalette" = false;
     "Workspace.darkUsesExtendedThemePalette" = false;

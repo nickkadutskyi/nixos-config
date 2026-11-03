@@ -48,7 +48,7 @@
   window-padding-balance = true
   window-padding-x = 6
   # window-padding-color = extend
-  keybind = global:cmd+ctrl+t=toggle_quick_terminal
+  # keybind = global:cmd+ctrl+t=toggle_quick_terminal
   keybind = super+shift+j=write_screen_file:paste
   keybind = super+alt+shift+j=write_screen_file:open
   mouse-hide-while-typing = true
