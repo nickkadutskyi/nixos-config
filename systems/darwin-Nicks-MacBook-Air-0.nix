@@ -27,7 +27,7 @@
     casks = [
       # Required by VeraCrypt on Apple Silicon to mount encrypted volumes
       # "fuse-t" # FIXME: error in definition
-      "veracrypt-fuse-t"
+      # "veracrypt-fuse-t"
     ];
   };
 }

@@ -58,7 +58,7 @@
       # "fuse-t" # FIXME: this has an error in definition
       "hhkb"
       "steam"
-      "veracrypt-fuse-t"
+      # "veracrypt-fuse-t"
       "vmware-fusion"
     ];
   };

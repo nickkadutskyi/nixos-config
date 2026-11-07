@@ -88,14 +88,14 @@
     };
 
     # Latest Opencode dev build
-    opencode = {
-      url = "github:anomalyco/opencode";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    llm-agents = {
-      url = "github:numtide/llm-agents.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # opencode = {
+    #   url = "github:anomalyco/opencode";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    # llm-agents = {
+    #   url = "github:numtide/llm-agents.nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # Env management
     direnv-instant = {
@@ -114,8 +114,6 @@
     let
       overlays = [
         (final: prev: rec {
-          opencode = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.opencode;
-          opencode2 = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.opencode2;
           watchman = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.watchman;
         })
         # inputs.neovim-nightly-overlay.overlays.default

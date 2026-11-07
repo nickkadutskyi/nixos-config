@@ -149,6 +149,8 @@
       "chatgpt"
       "cleanshot"
       "clickup"
+      "claude"
+      "claude-code@latest"
       "codex"
       "discord"
       "flashspace"
@@ -179,10 +181,9 @@
         name = "caddy";
         restart_service = true;
       }
-      # "coreutils"
-      # "mas"
       "ncurses"
       "dunglas/frankenphp/frankenphp"
+      "opencode"
     ];
     global.autoUpdate = false;
     onActivation = {

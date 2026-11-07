@@ -75,7 +75,6 @@ in
     # Packages
     #---------------------------------------------------------------------
     home.packages = [
-      pkgs.opencode2 # TUI AI Assistant
       pkgs.jujutsu # Alternative VCS
       pkgs.starship-jj
       pkgs.watchman # Needed for Jujutsu register-snapshot-trigger
@@ -114,14 +113,6 @@ in
       initContent =
         # bash
         ''
-          # Adds Anthropics API key to environment for avante.nvim
-          export ANTHROPIC_API_KEY
-          ANTHROPIC_API_KEY="$([ -f /run/secrets/anthropic/api_key ] && cat /run/secrets/anthropic/api_key)"
-
-          # Adds Tavily API key to environment for avante.nvim
-          export TAVILY_API_KEY
-          TAVILY_API_KEY="$([ -f /run/secrets/tavily/api_key ] && cat /run/secrets/tavily/api_key)"
-
           # Select and cd to the project directory
           function select-project() { ${select-project}/bin/select-project "$@" }
           function handle-tmux(){
