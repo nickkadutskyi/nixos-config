@@ -162,6 +162,7 @@
       "karabiner-elements"
       "little-snitch"
       "mullvad-vpn"
+      "pandora"
       "rapidapi"
       "splashtop-business"
       "tailscale-app"
