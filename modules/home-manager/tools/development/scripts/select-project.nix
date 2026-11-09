@@ -201,15 +201,21 @@ pkgs.writeShellScriptBin "select-project"
         fi
       fi
 
+      # Show $HOME as ~ in fzf; it is expanded back after selection
+      display_path="$project_path"
+      if [[ "$project_path" == "$HOME"/* ]]; then
+        display_path="~''${project_path#"$HOME"}"
+      fi
+
       if [[ "$has_session" == true && "$SHOW_TMUX_INFO" == true ]]; then
-        project_options+=("$project_path ⧉ $session_name  $vcs_info")
+        project_options+=("$display_path ⧉ $session_name  $vcs_info")
       else
-        project_options+=("$project_path $vcs_info")
+        project_options+=("$display_path $vcs_info")
       fi
     done <<<"$projects"
 
     selected_project_path="$(printf "%s\n" "''${project_options[@]}" |
-      FZF_DEFAULT_OPTS_FILE=${confDir}/fzf/fzfrc $FZF -1 --bind """ctrl-p:become(echo p {})""" --bind """ctrl-t:become(echo t {})""" --bind """ctrl-d:become(echo d {})""" -q "$QUERY" | $SED 's/ ⧉ .*$//g' | $SED 's/ 󰘬 .*$//g')"
+      FZF_DEFAULT_OPTS_FILE=${confDir}/fzf/fzfrc $FZF -1 --bind """ctrl-p:become(echo p {})""" --bind """ctrl-t:become(echo t {})""" --bind """ctrl-d:become(echo d {})""" -q "$QUERY" | $SED 's/ ⧉ .*$//g' | $SED 's/ 󰘬 .*$//g' | $SED "s|^\(. \)\?~/|\1$HOME/|")"
 
     if [[ -n "$selected_project_path" ]]; then
       echo $selected_project_path
