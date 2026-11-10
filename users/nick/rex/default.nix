@@ -27,6 +27,7 @@
 
     "Workspace.appearance" = "system";
     "Workspace.interfaceStyle" = "blendTheme";
+    "Workspace.toolbarBehavior" = "onHover";
     "Workspace.paneDensity" = "comfortable";
     "Workspace.usesPaneGlass" = true;
     "Workspace.tintsPanesWithProgramBackground" = true;
