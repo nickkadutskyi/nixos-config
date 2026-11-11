@@ -56,7 +56,6 @@ in
         ${builtins.readFile ./vim/ideavimrc}
       '';
       "jj/config.toml".text = import ./jj/config.nix { inherit isDarwin lib pkgs; };
-      "starship-jj/starship-jj.toml".source = ./jj/starship-jj.toml;
       "opencode/opencode.json".source = ./opencode/opencode.json;
     };
     home.file = {
@@ -76,7 +75,6 @@ in
     #---------------------------------------------------------------------
     home.packages = [
       pkgs.jujutsu # Alternative VCS
-      pkgs.starship-jj
       pkgs.watchman # Needed for Jujutsu register-snapshot-trigger
       pkgs.nodejs # Node is required for Copilot.vim
       pkgs.copilot-language-server
@@ -96,6 +94,23 @@ in
         "sqlit-tui[ssh,postgres,cockroachdb,mysql,duckdb,bigquery,d1]"
       ];
     };
+
+    # Starship's jj modules run `jj show` without --ignore-working-copy, so give
+    # starship a jj that always passes it. The watchman snapshot trigger keeps
+    # the working copy commit up to date. Binary wrappers avoid starting bash on
+    # every prompt.
+    programs.starship.package =
+      let
+        jj = pkgs.runCommand "jj-ignore-working-copy" {
+          nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
+        } "makeWrapper ${pkgs.jujutsu}/bin/jj $out/bin/jj --add-flags --ignore-working-copy";
+      in
+      pkgs.symlinkJoin {
+        name = "starship"; # lib.getExe derives bin/starship from this
+        paths = [ pkgs.starship ];
+        nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
+        postBuild = "wrapProgram $out/bin/starship --prefix PATH : ${jj}/bin";
+      };
 
     # Enables direnv to automatically switch environments in project directories.
     programs.direnv = {

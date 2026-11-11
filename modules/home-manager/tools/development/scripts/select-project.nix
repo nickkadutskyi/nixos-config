@@ -11,7 +11,7 @@ pkgs.writeShellScriptBin "select-project"
     # XARGS=${pkgs.findutils}/bin/xargs
     SED=${pkgs.gnused}/bin/sed
     GIT=${pkgs.git}/bin/git
-    STARSHIP_JJ="starship-jj"
+    STARSHIP=${config.programs.starship.package}/bin/starship
 
     # Parse arguments
     FETCH_REMOTES=false
@@ -155,7 +155,7 @@ pkgs.writeShellScriptBin "select-project"
       vcs_info=""
       if [[ "$SHOW_GIT_INFO" == true ]]; then
         # First check for JJ repo
-        jj_status=$($STARSHIP_JJ --ignore-working-copy -R "$project_path" starship prompt 2>/dev/null | $SED 's/\x1b\[[0-9;]*m//g')
+        jj_status=$([[ -d "$project_path/.jj" ]] && cd "$project_path" && STARSHIP_SHELL=sh $STARSHIP module vcs 2>/dev/null | $SED -E 's/\x1b\[[0-9;]*m//g; s/ +$//')
         if [[ $? -eq 0 && -n "$jj_status" ]]; then
           vcs_info="$jj_status "
         elif [[ -d "$project_path/.git" ]]; then
@@ -195,7 +195,7 @@ pkgs.writeShellScriptBin "select-project"
             done <<<"$git_status"
 
             if [[ -n "$branch" ]]; then
-              vcs_info="󰘬 $branch$unpulled$unmerged$is_dirty "
+              vcs_info="$branch$unpulled$unmerged$is_dirty "
             fi
           fi
         fi
@@ -207,15 +207,17 @@ pkgs.writeShellScriptBin "select-project"
         display_path="~''${project_path#"$HOME"}"
       fi
 
+      # A tab separates the path from the info so it can be cut off after
+      # selection; --tabstop=1 renders it as a single space.
       if [[ "$has_session" == true && "$SHOW_TMUX_INFO" == true ]]; then
-        project_options+=("$display_path ⧉ $session_name  $vcs_info")
+        project_options+=("$display_path"$'\t'"⧉ $session_name  $vcs_info")
       else
-        project_options+=("$display_path $vcs_info")
+        project_options+=("$display_path"$'\t'"$vcs_info")
       fi
     done <<<"$projects"
 
     selected_project_path="$(printf "%s\n" "''${project_options[@]}" |
-      FZF_DEFAULT_OPTS_FILE=${confDir}/fzf/fzfrc $FZF -1 --bind """ctrl-p:become(echo p {})""" --bind """ctrl-t:become(echo t {})""" --bind """ctrl-d:become(echo d {})""" -q "$QUERY" | $SED 's/ ⧉ .*$//g' | $SED 's/ 󰘬 .*$//g' | $SED "s|^\(. \)\?~/|\1$HOME/|")"
+      FZF_DEFAULT_OPTS_FILE=${confDir}/fzf/fzfrc $FZF -1 --tabstop=1 --bind """ctrl-p:become(echo p {})""" --bind """ctrl-t:become(echo t {})""" --bind """ctrl-d:become(echo d {})""" -q "$QUERY" | $SED 's/\t.*$//' | $SED "s|^\(. \)\?~/|\1$HOME/|")"
 
     if [[ -n "$selected_project_path" ]]; then
       echo $selected_project_path
