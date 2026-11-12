@@ -34,12 +34,18 @@
       "$character"
     ]
   );
+  # Most modules are dimmed: the terminal's default text color, drawn fainter,
+  # so it stays readable in both light and dark themes. The path is blue, user
+  # and host (shown over SSH) are yellow, and root and sudo are bold red.
   username = {
-    format = "[$user]($style) at ";
+    format = "[$user]($style) [at](dimmed) ";
+    style_user = "yellow";
+    style_root = "bold red"; # starship's default, kept explicit; matches sudo
   };
   hostname = {
     format = "[$ssh_symbol$hostname]($style) ";
     ssh_symbol = "󰌘 ";
+    style = "yellow";
   };
   directory = {
     style = "blue";
@@ -54,12 +60,12 @@
   };
   git_branch = {
     format = "[$branch(:$remote_branch)]($style) ";
-    style = "bright-black";
+    style = "dimmed";
   };
   git_status = {
     # Single 󰇂 when there are any changes (the kinds render as zero-width spaces)
     format = "([󰇂$conflicted$untracked$modified$staged$renamed$deleted]($style) )";
-    style = "bright-black";
+    style = "dimmed";
     conflicted = "​";
     untracked = "​";
     modified = "​";
@@ -69,7 +75,7 @@
   };
   git_state = {
     format = "\([$state($progress_current/$progress_total)]($style)\) ";
-    style = "bright-black";
+    style = "dimmed";
   };
   # Shows jj modules in jj repos and git modules otherwise. The jj modules share
   # a single `jj show` call; the starship package is wrapped so that call runs
@@ -84,7 +90,7 @@
   };
   jj_bookmark = {
     format = "[$bookmark(@$remote)]($style) ";
-    style = "bright-black";
+    style = "dimmed";
   };
   # Only rendered when @ is divergent, since $change_offset is empty otherwise.
   jj_change = {
@@ -94,7 +100,7 @@
   # kinds render as zero-width spaces so only the 󰇂 shows, not counts.
   jj_status = {
     format = "($conflicted$immutable$hidden )([󰇂$added$copied$deleted$modified$renamed]($style) )";
-    style = "bright-black";
+    style = "dimmed";
     conflicted = "[\\(conflict\\)](red)";
     immutable = "[\\(immutable\\)](yellow)";
     hidden = "[\\(hidden\\)](yellow)";
@@ -106,7 +112,7 @@
   };
   nix_shell = {
     format = "[$symbol$state]($style) ";
-    style = "blue";
+    style = "dimmed";
     symbol = "󱄅";
     heuristic = true;
     impure_msg = " 󰻍";
@@ -115,22 +121,23 @@
   direnv = {
     format = "[$loaded]($style) ";
     disabled = false;
-    style = "yellow";
+    style = "dimmed";
     loaded_msg = "󰏖 ";
     unloaded_msg = "󰏗 ";
   };
   shlvl = {
     disabled = false;
     symbol = " ";
-    style = "yellow";
+    style = "dimmed";
   };
   sudo = {
     disabled = false;
     format = "[$symbol]($style) ";
     symbol = "󰠠 ";
-    style = "yellow";
+    style = "bold red"; # same as username's style_root
   };
   cmd_duration = {
-    style = "yellow";
+    format = "[took $duration]($style) ";
+    style = "dimmed";
   };
 }
