@@ -294,7 +294,7 @@ in
         # Sets default signature format to ssh but you can override it
         # for a single command like this: `git -c "gpg.format=openpgp" commit`
         format = "ssh";
-        ssh.allowedSignersFile = builtins.toString ./git/allowed_signers;
+        ssh.allowedSignersFile = "${./git/allowed_signers}";
         # Use this public key for ssh signing while gpg signing will
         # use the one based on email
         ssh.defaultKeyCommand = "echo 'key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUOOm/kpbXdO0Zg7XzDK3W67QUCZ/jutXK8w+pgoZqq'";

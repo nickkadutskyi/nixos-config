@@ -110,9 +110,9 @@ in
       "all" = {
         header = "Host *";
         IdentityFile = [
-          (toString ./ssh + "/${machine}.pub")
-          (toString ./ssh/EPDS.pub)
-          (toString ./ssh/CUTN.pub)
+          "${./ssh + "/${machine}.pub"}"
+          "${./ssh/EPDS.pub}"
+          "${./ssh/CUTN.pub}"
         ];
         IdentityAgent = "${homeDir}/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";
       };

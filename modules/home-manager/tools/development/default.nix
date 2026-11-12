@@ -98,19 +98,19 @@ in
     # Starship's jj modules run `jj show` without --ignore-working-copy, so give
     # starship a jj that always passes it. The watchman snapshot trigger keeps
     # the working copy commit up to date. Binary wrappers avoid starting bash on
-    # every prompt.
-    programs.starship.package =
-      let
-        jj = pkgs.runCommand "jj-ignore-working-copy" {
-          nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
-        } "makeWrapper ${pkgs.jujutsu}/bin/jj $out/bin/jj --add-flags --ignore-working-copy";
-      in
-      pkgs.symlinkJoin {
-        name = "starship"; # lib.getExe derives bin/starship from this
-        paths = [ pkgs.starship ];
+    # every prompt. The shim is linked outside /nix/store because starship's
+    # nix_shell heuristic treats any /nix/store entry in PATH as a nix shell.
+    xdg.dataFile."starship/bin/jj".source =
+      pkgs.runCommand "jj-ignore-working-copy" {
         nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
-        postBuild = "wrapProgram $out/bin/starship --prefix PATH : ${jj}/bin";
-      };
+      } "makeWrapper ${pkgs.jujutsu}/bin/jj $out --add-flags --ignore-working-copy";
+    programs.starship.package = pkgs.symlinkJoin {
+      name = "starship";
+      meta.mainProgram = "starship"; # for lib.getExe in the starship module
+      paths = [ pkgs.starship ];
+      nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
+      postBuild = "wrapProgram $out/bin/starship --prefix PATH : ${config.xdg.dataHome}/starship/bin";
+    };
 
     # Enables direnv to automatically switch environments in project directories.
     programs.direnv = {
