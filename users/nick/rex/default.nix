@@ -39,7 +39,7 @@
     ];
     "Workspace.hiddenChromeButtons" = [ "commandPalette" ];
     "Workspace.tabsFillAvailableSpace" = true;
-    "Workspace.tabIconColorMode" = "activePanes";
+    "Workspace.tabIconColorMode" = "activeTabs";
     "Workspace.prefersGeneratedTitles" = false;
     "Workspace.terminalFontName" = "TX-02";
     "Workspace.terminalFontStyle" = "Retina";
