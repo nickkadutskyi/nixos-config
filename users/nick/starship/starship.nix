@@ -34,6 +34,15 @@
       "$character"
     ]
   );
+  # Date and time the prompt was drawn (when the previous command finished),
+  # at the right edge of the input line, e.g. Thu Nov 12 01:06:06 PST.
+  right_format = "$time";
+  time = {
+    disabled = false;
+    format = "[$time]($style)";
+    time_format = "%a %b %-d %H:%M:%S %Z";
+    style = "dimmed";
+  };
   # Most modules are dimmed: the terminal's default text color, drawn fainter,
   # so it stays readable in both light and dark themes. The path is blue, user
   # and host (shown over SSH) are yellow, and root and sudo are bold red.
