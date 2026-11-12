@@ -32,14 +32,16 @@ files remain in its temporary directory for subsequent use.
 
 The public Lua API does not configure typography or persistent client themes.
 The `Workspace.*` preferences in `default.nix` were checked against installed Rex
-Beta 0.1.0 (1763); they are private, version-dependent settings, not a documented
-Lua API. `rex config check` validates Lua only, not those preferences.
+Beta 0.1.0 (1940); they are private, version-dependent settings, not a documented
+Lua API. `rex config check` validates Lua only, not those preferences. Only
+values that differ from Rex's built-in defaults are set; the defaults were read
+from a copy of the app running with empty preferences.
 
-- Pane behavior and appearance preserve the saved UI choices: comfortable glass
-  panes, program-background tinting, automatic split balancing, inactive-pane
-  fading, and an accent-colored active-pane border at approximately 40% opacity.
-- Build 1763 exposes horizontal and vertical terminal padding preferences, set
-  to 6 and 0 respectively, with padding color set to Background.
+- Pane behavior and appearance preserve the saved UI choices: glass panes
+  without program-background tinting, and an always-visible active-pane border
+  at approximately 40% opacity.
+- Horizontal and vertical terminal padding are both 7; padding color keeps
+  Rex's default, Extend.
 - TX-02 Retina, 14 pt, Symbols Nerd Font fallback, +30% cell height, disabled
   ligatures, a bar cursor (applications may override it), and left Option as Alt
   are mapped to the corresponding Rex preferences.
