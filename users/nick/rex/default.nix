@@ -27,7 +27,7 @@
 
     "Workspace.animationStyle" = "natural";
     "Workspace.interfaceStyle" = "blendTheme";
-    "Workspace.toolbarBehavior" = "onHover";
+    "Workspace.toolbarBehavior" = "alwaysShow";
     "Workspace.usesPaneGlass" = true;
     "Workspace.tintsPanesWithProgramBackground" = false;
     "Workspace.showsActivePaneBorder" = true;
