@@ -157,6 +157,7 @@
       "ghostty@tip"
       "google-chrome"
       "gpg-suite"
+      "grok-build"
       "hazel"
       "jetbrains-toolbox"
       "karabiner-elements"
