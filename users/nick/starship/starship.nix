@@ -130,6 +130,9 @@
   direnv = {
     format = "[$loaded]($style) ";
     disabled = false;
+    # An empty list always matches, bypassing Starship's directory scan.
+    # Let `direnv status` detect .envrc instead (also keeps unloaded indicators).
+    detect_env_vars = [ ];
     style = "dimmed";
     loaded_msg = "󰏖 ";
     unloaded_msg = "󰏗 ";
