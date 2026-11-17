@@ -27,10 +27,10 @@
       "$git_state"
       "$nix_shell"
       "$direnv"
-      "$shlvl"
+      # "$shlvl"
       "$sudo"
-      "$cmd_duration"
-      "$line_break"
+      # "$cmd_duration"
+      # "$line_break"
       "$character"
     ]
   );
