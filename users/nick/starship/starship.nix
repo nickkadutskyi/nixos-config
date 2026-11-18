@@ -35,12 +35,12 @@
     ]
   );
   # Date and time the prompt was drawn (when the previous command finished),
-  # at the right edge of the input line, e.g. Thu Nov 12 01:06:06 PST.
+  # at the right edge of the input line, e.g. Thu Nov 12 01:06:06 -0800.
   right_format = "$time";
   time = {
     disabled = false;
     format = "[$time]($style)";
-    time_format = "%a %b %-d %H:%M:%S %Z";
+    time_format = "%a %b %-d %H:%M:%S %:z";
     style = "dimmed";
   };
   # Most modules are dimmed: the terminal's default text color, drawn fainter,
