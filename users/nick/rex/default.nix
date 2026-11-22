@@ -1,4 +1,11 @@
 { config, lib, ... }:
+let
+  rexBinDirInit = ''
+    if [ -n "$REX_BIN_DIR" ]; then
+      export PATH="$REX_BIN_DIR:$PATH"
+    fi
+  '';
+in
 {
   xdg.configFile = {
     "rex/init.lua".text =
@@ -15,7 +22,15 @@
     };
   };
 
-  # Rex Beta 0.1.0 (1940) keeps appearance in UserDefaults, not init.lua.
+  # Rex prepends its server's bin directory to PATH and exports REX_BIN_DIR,
+  # but nix-darwin's shell init resets PATH afterwards. Restore it last so the
+  # `rex` matching the running server wins. Not home.sessionPath: outside Rex
+  # the variable is empty and would add an empty PATH entry.
+  # https://www.superlogical.com/rex/docs/automate/cli#path
+  programs.zsh.initContent = lib.mkOrder 2000 rexBinDirInit;
+  programs.bash.initExtra = lib.mkOrder 2000 rexBinDirInit;
+
+  # Rex 0.1.0 (1940) keeps appearance in UserDefaults, not init.lua.
   # These are app-private keys; recheck them when upgrading Rex. Only values
   # that differ from Rex's built-in defaults are listed.
   targets.darwin.defaults."com.superlogical.rex" = {

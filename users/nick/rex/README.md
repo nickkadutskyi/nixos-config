@@ -1,4 +1,4 @@
-# Rex Beta
+# Rex
 
 Imported by `../darwin.nix`. Home Manager installs `rex/init.lua` and
 `rex/themes/{jb-light,jb-dark}` under its XDG config directory and sets the
@@ -8,7 +8,7 @@ than maintaining duplicate palettes.
 
 ## Apply
 
-Install Rex Beta separately. Quit the app before your usual Darwin rebuild so
+Install Rex separately. Quit the app before your usual Darwin rebuild so
 it reads the new preferences on launch. After reopening, run in a Rex terminal:
 
 ```sh
@@ -32,7 +32,7 @@ files remain in its temporary directory for subsequent use.
 
 The public Lua API does not configure typography or persistent client themes.
 The `Workspace.*` preferences in `default.nix` were checked against installed Rex
-Beta 0.1.0 (1940); they are private, version-dependent settings, not a documented
+0.1.0 (1940); they are private, version-dependent settings, not a documented
 Lua API. `rex config check` validates Lua only, not those preferences. Only
 values that differ from Rex's built-in defaults are set; the defaults were read
 from a copy of the app running with empty preferences.
