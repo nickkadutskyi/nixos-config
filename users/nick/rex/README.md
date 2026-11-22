@@ -32,10 +32,11 @@ files remain in its temporary directory for subsequent use.
 
 The public Lua API does not configure typography or persistent client themes.
 The `Workspace.*` preferences in `default.nix` were checked against installed Rex
-0.1.0 (1940); they are private, version-dependent settings, not a documented
+0.1.0 (2083); they are private, version-dependent settings, not a documented
 Lua API. `rex config check` validates Lua only, not those preferences. Only
 values that differ from Rex's built-in defaults are set; the defaults were read
-from a copy of the app running with empty preferences.
+from a copy of build 1940 running with empty preferences. Keys added since then
+whose defaults could not be confirmed are grouped and marked in `default.nix`.
 
 - Pane behavior and appearance preserve the saved UI choices: glass panes
   without program-background tinting, and an always-visible active-pane border

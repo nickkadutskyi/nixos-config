@@ -30,7 +30,7 @@ in
   programs.zsh.initContent = lib.mkOrder 2000 rexBinDirInit;
   programs.bash.initExtra = lib.mkOrder 2000 rexBinDirInit;
 
-  # Rex 0.1.0 (1940) keeps appearance in UserDefaults, not init.lua.
+  # Rex 0.1.0 (2083) keeps appearance in UserDefaults, not init.lua.
   # These are app-private keys; recheck them when upgrading Rex. Only values
   # that differ from Rex's built-in defaults are listed.
   targets.darwin.defaults."com.superlogical.rex" = {
@@ -71,9 +71,16 @@ in
     "Workspace.lightUsesExtendedThemePalette" = false;
     "Workspace.darkUsesExtendedThemePalette" = false;
 
+    "Workspace.sshAgentChoice" = "1password";
+
     "rex.server.web-client-origin-patterns" = [ "https://rex.superlogical.com" ];
-    # Defaults for these two could not be confirmed; keep the chosen values.
+    # Each machine sets its own rex.server.tailnet-hostname.
+    "rex.server.tailnet-enabled" = true;
+    # Defaults for these could not be confirmed; keep the chosen values.
     "rex.client.remoteControl" = true;
     "RexAppUpdateAutomation" = "install";
+    "rex.server.tailnet-allow-tailnet-members" = false;
+    "rex.agents.names-sessions" = true;
+    "Workspace.tabIconTintMode" = "off";
   };
 }
