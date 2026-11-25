@@ -21,7 +21,6 @@
       rootfs = {
         name = "rootfs";
         device = "/dev/sda1";
-        preLVM = true;
       };
     };
     forceLuksSupportInInitrd = true;
