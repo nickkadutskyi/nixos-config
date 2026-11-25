@@ -24,10 +24,15 @@
       extra-substituters = [
         "https://nix-community.cachix.org"
         "https://cache.numtide.com"
+        # Private Attic cache on x2400. Needs a netrc entry for cache.kdtsk.com
+        # with an Attic token as the password; keep it in ~/.config/nix/netrc
+        # and point netrc-file at it in ~/.config/nix/nix.conf.
+        "https://cache.kdtsk.com/nick-main"
       ];
       extra-trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+        "nick-main:KJl06cjrR1bMsPGdP58LxjQNe+CHHibEt5ik/qxF3m0="
       ];
     };
   };
