@@ -32,6 +32,9 @@
   boot.loader.grub = {
     device = "/dev/sda";
   };
+  # The ESP is only 487 MB and each generation's kernel and initrd take about
+  # 75 MB, so keep only a few boot entries.
+  boot.loader.systemd-boot.configurationLimit = 3;
 
   # Prevent suspend and hibernate
   systemd.sleep.settings.Sleep = {
