@@ -81,7 +81,8 @@ pkgs.writeShellScriptBin "list-projects"
     {
       # Repos inside ~/.config, such as nvim or nixpkgs configs
       $FD -t d -H '^.git$' ~/.config --min-depth 2 --max-depth 3 -x echo {//}
-      list_root_projects ~/Documents
-      list_root_projects ~/Developer
+      ${pkgs.lib.concatMapStrings (root: ''
+        list_root_projects ~/${root}
+      '') (import ./project-roots.nix)}
     } | sort -ru
   ''
