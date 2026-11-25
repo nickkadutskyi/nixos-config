@@ -82,6 +82,7 @@ in
 
       (import ./scripts/aws_cd_deployments.nix { inherit pkgs; })
       (import ./scripts/aws_ec2_instances.nix { inherit pkgs; })
+      (import ./scripts/attic-push-devenv.nix { inherit pkgs; })
     ];
 
     #---------------------------------------------------------------------
