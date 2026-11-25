@@ -25,6 +25,10 @@
     };
     forceLuksSupportInInitrd = true;
   };
+  # Root lives on LVM inside LUKS, so it only appears after the passphrase is
+  # entered. Wait for it indefinitely instead of failing into emergency mode
+  # after the default 90 seconds.
+  fileSystems."/".options = [ "x-systemd.device-timeout=0" ];
   boot.loader.grub = {
     device = "/dev/sda";
   };
@@ -89,9 +93,13 @@
         hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
       };
     };
-    # Automatically answer pending disk-unlock prompts on SSH login.
-    systemd.contents."/root/.profile".text = ''
-      exec systemd-tty-ask-password-agent --watch
+    # Answer pending disk-unlock prompts on SSH login, then leave a shell for
+    # rescue. Uses /etc/profile because root's home in the systemd initrd is
+    # /var/empty, so /root/.profile is never read.
+    systemd.contents."/etc/profile".text = ''
+      if [ -n "$SSH_CONNECTION" ]; then
+        systemd-tty-ask-password-agent
+      fi
     '';
   };
 
