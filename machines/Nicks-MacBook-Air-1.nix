@@ -70,6 +70,25 @@
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="platform", KERNEL=="ACPI0003:00", ATTR{power/wakeup}="enabled"
   '';
+  # GNOME keeps the only display on with the lid closed, so on the charger the
+  # backlight (and the Apple logo, which it lights) stays on. Turn it off on
+  # lid close and restore it on open, like macOS.
+  services.acpid = {
+    enable = true;
+    lidEventCommands = # bash
+      ''
+        export PATH=$PATH:/run/current-system/sw/bin
+        bl=/sys/class/backlight/intel_backlight
+        saved=/run/lid-closed-brightness
+        if grep -q closed /proc/acpi/button/lid/LID0/state; then
+          cat $bl/brightness > $saved
+          echo 0 > $bl/brightness
+        elif [ -f $saved ]; then
+          cat $saved > $bl/brightness
+          rm $saved
+        fi
+      '';
+  };
   # GNOME's idle suspend runs both on the GDM login screen and in the session.
   # mkBefore puts these ahead of GDM's greeter defaults, which take precedence
   # otherwise. A change in GNOME Settings > Power still overrides the user one.
