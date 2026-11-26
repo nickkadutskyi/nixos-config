@@ -76,9 +76,9 @@
   # Macs, and resolve other machines' .local names. GNOME already runs Avahi.
   services.avahi = {
     nssmdns4 = true;
-    publish = {
-      enable = true;
-      addresses = true;
+    settings.publish = {
+      disable-publishing = false;
+      publish-addresses = true;
     };
   };
 
