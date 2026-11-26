@@ -10,7 +10,13 @@ pkgs.writeShellScriptBin "switch"
   ''
     set -e
 
-    USERHOME=''${USERHOME:-$HOME}
+    # The caller's home. sudo on NixOS sets HOME to root's, so look it up from
+    # SUDO_USER instead of trusting HOME.
+    if [ -n "''${SUDO_USER:-}" ]; then
+      USERHOME=''${USERHOME:-$(eval echo "~$SUDO_USER")}
+    else
+      USERHOME=''${USERHOME:-$HOME}
+    fi
 
     # sudo keeps the caller's HOME, which Nix refuses to use as root ("$HOME is
     # not owned by you"). The checkouts are found through USERHOME, so only Nix
