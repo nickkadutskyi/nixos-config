@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -56,6 +56,29 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+
+  # Sleep like macOS: on the charger, stay awake with the lid closed or when
+  # idle, so SSH and Rex keep working; on battery, suspend on lid close and
+  # after idle. logind rechecks a closed lid when the charger is unplugged.
+  services.logind.settings.Login = {
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "ignore";
+  };
+  # GNOME's idle suspend runs both on the GDM login screen and in the session.
+  # mkBefore puts these ahead of GDM's greeter defaults, which take precedence
+  # otherwise. A change in GNOME Settings > Power still overrides the user one.
+  programs.dconf.profiles =
+    let
+      noIdleSuspendOnAC = {
+        settings."org/gnome/settings-daemon/plugins/power" = {
+          sleep-inactive-ac-type = "nothing";
+        };
+      };
+    in
+    {
+      gdm.databases = lib.mkBefore [ noIdleSuspendOnAC ];
+      user.databases = lib.mkBefore [ noIdleSuspendOnAC ];
+    };
 
   # Configure keymap in X11
   services.xserver.xkb = {
