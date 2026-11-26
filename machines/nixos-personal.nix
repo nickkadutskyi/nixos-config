@@ -10,6 +10,8 @@
   ...
 }:
 {
+  imports = [ ./personal.nix ];
+
   nix = {
     package = pkgs.nixVersions.latest;
     extraOptions = ''
@@ -28,16 +30,6 @@
       substituters = [
         "https://devenv.cachix.org"
       ];
-    };
-  };
-  sops = {
-    defaultSopsFile = ../secrets/server/secrets.yaml;
-    age.keyFile = "/home/${user}/.config/sops/age/keys.txt";
-    secrets = {
-      "nick/hashed_password" = {
-        owner = user;
-        neededForUsers = true;
-      };
     };
   };
   # Manage fonts. We pull these from a secret directory since most of these

@@ -10,6 +10,8 @@
   ...
 }:
 {
+  imports = [ ./personal.nix ];
+
   # Needed for macOS Sequoia
   system.stateVersion = 6;
 
@@ -39,23 +41,4 @@
     "Ethernet"
     "Wi-Fi"
   ];
-
-  sops = {
-    defaultSopsFile = ../secrets/mac/secrets.yaml;
-    age.keyFile = "/Users/${user}/.config/sops/age/keys.txt";
-    secrets = {
-      "php/intelephense_license" = {
-        owner = user;
-      };
-      "clickup/api_key" = {
-        owner = user;
-      };
-      "anthropic/api_key" = {
-        owner = user;
-      };
-      "tavily/api_key" = {
-        owner = user;
-      };
-    };
-  };
 }
