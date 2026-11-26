@@ -89,20 +89,55 @@
         fi
       '';
   };
-  # GNOME's idle suspend runs both on the GDM login screen and in the session.
+  # Turn the screen off after 2 minutes idle on battery and 10 on the charger,
+  # like macOS on mba0. GNOME has one delay for both, so this sets it whenever
+  # UPower reports a power change. GNOME locks as soon as the screen blanks.
+  systemd.user.services.idle-delay-by-power = {
+    description = "Screen-off delay by power source";
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    # Not in the GDM greeter's session, which also reaches graphical-session.target.
+    unitConfig.ConditionUser = "nick";
+    path = [
+      pkgs.glib
+      pkgs.dconf
+    ];
+    script = ''
+      key=/org/gnome/desktop/session/idle-delay
+      set_delay() {
+        if [ "$(cat /sys/class/power_supply/ADP1/online)" = 1 ]; then
+          delay="uint32 600"
+        else
+          delay="uint32 120"
+        fi
+        if [ "$(dconf read $key)" != "$delay" ]; then
+          dconf write $key "$delay"
+        fi
+      }
+      set_delay
+      gdbus monitor --system --dest org.freedesktop.UPower \
+        --object-path /org/freedesktop/UPower | while read -r _; do set_delay; done
+    '';
+  };
+  # GNOME's idle suspend runs both on the GDM login screen and in the session:
+  # never on the charger, and on battery after 2 minutes, when the screen
+  # turns off, like macOS on mba0.
   # mkBefore puts these ahead of GDM's greeter defaults, which take precedence
   # otherwise. A change in GNOME Settings > Power still overrides the user one.
   programs.dconf.profiles =
     let
-      noIdleSuspendOnAC = {
+      idleSuspend = {
         settings."org/gnome/settings-daemon/plugins/power" = {
           sleep-inactive-ac-type = "nothing";
+          sleep-inactive-battery-type = "suspend";
+          sleep-inactive-battery-timeout = lib.gvariant.mkInt32 120;
         };
       };
     in
     {
-      gdm.databases = lib.mkBefore [ noIdleSuspendOnAC ];
-      user.databases = lib.mkBefore [ noIdleSuspendOnAC ];
+      gdm.databases = lib.mkBefore [ idleSuspend ];
+      user.databases = lib.mkBefore [ idleSuspend ];
     };
 
   # Configure keymap in X11
