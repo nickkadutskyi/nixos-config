@@ -24,9 +24,7 @@
       extra-substituters = [
         "https://nix-community.cachix.org"
         "https://cache.numtide.com"
-        # Private Attic cache on x2400. Needs a netrc entry for cache.kdtsk.com
-        # with an Attic token as the password; keep it in ~/.config/nix/netrc
-        # and point netrc-file at it in ~/.config/nix/nix.conf.
+        # Private Attic cache on x2400; its token is added to the netrc below.
         "https://cache.kdtsk.com/nick-main"
       ];
       extra-trusted-public-keys = [
@@ -35,6 +33,12 @@
         "nick-main:KJl06cjrR1bMsPGdP58LxjQNe+CHHibEt5ik/qxF3m0="
       ];
     };
+    # Determinate owns netrc-file, so add the cache's token to the netrc it
+    # builds. The daemon reads it, so root (`sudo switch`) authenticates too,
+    # not only nick. The secret is declared in machines/personal.nix.
+    determinateNixd.authentication.additionalNetrcSources = [
+      config.sops.secrets."attic/netrc".path
+    ];
   };
 
   # Pin the system registry to this configuration's locked nixpkgs input.

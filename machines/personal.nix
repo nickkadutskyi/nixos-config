@@ -26,6 +26,9 @@
       "tavily/api_key" = {
         owner = user;
       };
+      # netrc with a pull-only token for the Attic cache at cache.kdtsk.com,
+      # read by the root nix daemon, so it stays root-only.
+      "attic/netrc" = { };
     };
   };
 }
