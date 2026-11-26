@@ -40,8 +40,6 @@ in
     # ----------------------------------------------------------------
     pkgs.blueutil # Control bluetooth
     pkgs.duti # Set default apps for doc types and URL schemes
-    # `sudo switch` to apply nixos-config-private on this Mac
-    (import ../../modules/home-manager/tools/development/scripts/switch.nix { inherit pkgs; })
 
     # TODO: configure it
     # Provides php-debug

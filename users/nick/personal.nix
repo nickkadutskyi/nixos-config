@@ -37,6 +37,8 @@ in
     # vscode-html-language-server vscode-json-language-server
     # vscode-markdown-language-server
     pkgs.vscode-langservers-extracted
+    # `sudo switch` to apply nixos-config-private on this machine
+    (import ../../modules/home-manager/tools/development/scripts/switch.nix { inherit pkgs; })
   ];
   xdg.configFile = {
     "1Password/ssh/agent.toml".text = import ./1p/ssh/agent.nix { inherit machine; };

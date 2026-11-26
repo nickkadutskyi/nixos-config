@@ -1,8 +1,10 @@
 { pkgs, ... }:
-# Switches this Mac to nixos-config-private, run as `sudo switch`. When the
-# local nixos-config checkout has uncommitted or unpushed changes, it overrides
-# the GitHub version pinned in the private flake.lock with the checkout.
-# Both checkouts are looked up in the project directories from project-roots.nix.
+# Switches this machine (nix-darwin or NixOS) to nixos-config-private, run as
+# `sudo switch`. When the local nixos-config checkout has uncommitted or
+# unpushed changes, it overrides the GitHub version pinned in the private
+# flake.lock with the checkout.
+# Both checkouts are looked up in the project directories from project-roots.nix,
+# then in ~/.config, where the NixOS machines keep them.
 pkgs.writeShellScriptBin "switch"
   # bash
   ''
@@ -17,7 +19,7 @@ pkgs.writeShellScriptBin "switch"
       export HOME=~root
     fi
 
-    PROJECT_ROOTS=(${pkgs.lib.escapeShellArgs (import ./project-roots.nix)})
+    PROJECT_ROOTS=(${pkgs.lib.escapeShellArgs (import ./project-roots.nix ++ [ ".config" ])})
 
     # Prints the first $USERHOME/<root>/<name> that exists.
     find_checkout() {
@@ -42,17 +44,26 @@ pkgs.writeShellScriptBin "switch"
     YELLOW='\033[1;33m'
     NC='\033[0m' # No Color
 
+    rebuild_switch() {
+      ${
+        if pkgs.stdenv.hostPlatform.isDarwin then
+          ''nix run nix-darwin -- switch "$@"''
+        else
+          ''nixos-rebuild switch "$@"''
+      }
+    }
+
     # Function to run switch with override
     run_with_override() {
       local reason="$1"
       echo -e "''${RED}Using local nixos-config override: ''${reason}''${NC}"
-      nix run nix-darwin -- switch --flake "$NIXOS_CONFIG_PRIVATE" \
+      rebuild_switch --flake "$NIXOS_CONFIG_PRIVATE" \
         --override-input nixos-config "git+file://$NIXOS_CONFIG_LOCAL"
     }
 
     # Function to run switch without override
     run_without_override() {
-      nix run nix-darwin -- switch --flake "$NIXOS_CONFIG_PRIVATE"
+      rebuild_switch --flake "$NIXOS_CONFIG_PRIVATE"
     }
 
     # Check if local nixos-config exists
