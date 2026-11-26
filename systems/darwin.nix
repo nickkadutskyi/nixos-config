@@ -88,14 +88,14 @@
 
   nix-homebrew = {
     enable = true;
-    # package = lib.mkDefault (
-    #   inputs.brew-src
-    #   // {
-    #     # when updating the flake input change this too
-    #     name = "brew-6.0.13";
-    #     version = "6.0.13";
-    #   }
-    # );
+    package = lib.mkDefault (
+      inputs.brew-src
+      // {
+        # when updating the flake input change this too
+        name = "brew-7.0.16";
+        version = "7.0.16";
+      }
+    );
     enableRosetta = true;
     # User owning the Homebrew prefix
     user = user;
