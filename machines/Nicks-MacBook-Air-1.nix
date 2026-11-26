@@ -31,6 +31,15 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  # Publish this machine on the LAN as Nicks-MacBook-Air-1.local, like the
+  # Macs, and resolve other machines' .local names. GNOME already runs Avahi.
+  services.avahi = {
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+    };
+  };
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
