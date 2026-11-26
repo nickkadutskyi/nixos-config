@@ -1,3 +1,4 @@
 .idea
 # Otter.nvim related files
 *.otter.*
+.DS_Store

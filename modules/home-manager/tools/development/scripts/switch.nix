@@ -64,6 +64,10 @@ pkgs.writeShellScriptBin "switch"
 
     cd "$NIXOS_CONFIG_LOCAL"
 
+    # Git reads the user's global config (and its core.excludesfile, which
+    # ignores .DS_Store and similar) from HOME, which is root's under sudo.
+    git() { HOME="$USERHOME" command git "$@"; }
+
     # 1. Check for uncommitted changes (dirty working tree)
     # Check both staged and unstaged changes, ignoring detached HEAD state
     if [ -n "$(git status --porcelain 2>/dev/null)" ]; then
