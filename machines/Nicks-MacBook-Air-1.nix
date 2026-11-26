@@ -54,8 +54,8 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Sleep like macOS: on the charger, stay awake with the lid closed or when
   # idle, so SSH and Rex keep working; on battery, suspend on lid close and
