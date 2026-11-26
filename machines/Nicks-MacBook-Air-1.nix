@@ -64,6 +64,12 @@
     HandleLidSwitch = "suspend";
     HandleLidSwitchExternalPower = "ignore";
   };
+  # Wake from suspend when the charger is plugged in (ADP1 in
+  # /proc/acpi/wakeup, disabled by default), so a closed Air that slept on
+  # battery comes back for SSH and Rex once it's charging.
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="platform", KERNEL=="ACPI0003:00", ATTR{power/wakeup}="enabled"
+  '';
   # GNOME's idle suspend runs both on the GDM login screen and in the session.
   # mkBefore puts these ahead of GDM's greeter defaults, which take precedence
   # otherwise. A change in GNOME Settings > Power still overrides the user one.
