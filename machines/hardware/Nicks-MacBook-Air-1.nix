@@ -12,11 +12,9 @@
   boot.initrd.kernelModules = [ "wl" ];
   boot.kernelModules = [ "kvm-intel" "wl" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
-  nixpkgs.config.permittedInsecurePackages = [
-    "broadcom-sta-6.30.223.271-59-6.18.43"
-    "broadcom-sta-6.30.223.271-63-6.18.41"
-    "broadcom-sta-6.30.223.271-63-6.18.56"
-  ];
+  # The Wi-Fi card needs broadcom_sta, which nixpkgs marks insecure. Its name
+  # embeds the kernel version, so match the package name to survive kernel bumps.
+  nixpkgs.config.allowInsecurePredicate = pkg: lib.getName pkg == "broadcom-sta";
 
 
 
