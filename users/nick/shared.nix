@@ -54,6 +54,7 @@ in
     # Simple, modern and secure encryption tool
     pkgs.age
     pkgs.attic-client # For binary cache backup
+    (import ../../modules/home-manager/tools/development/scripts/attic-backfill.nix { inherit pkgs; })
     pkgs.awscli2
     # Feature–rich alternative to ls
     pkgs.eza
