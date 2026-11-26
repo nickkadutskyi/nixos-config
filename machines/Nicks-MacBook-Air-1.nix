@@ -22,6 +22,47 @@
 
 
   boot.initrd.luks.devices."luks-3f43ec5d-e1b1-4e37-b8a5-3eef888b9d29".device = "/dev/disk/by-uuid/3f43ec5d-e1b1-4e37-b8a5-3eef888b9d29";
+
+  # SSH into the initrd to unlock the disks remotely, like x2400:
+  #   ssh mba1_initrd_lan_eth
+  # Only over the Thunderbolt Ethernet adapter (tg3); the Wi-Fi card needs the
+  # proprietary wl driver. Port 2221 keeps the initrd host key apart from the
+  # system's in known_hosts. Create the host key once before switching:
+  #   sudo mkdir -p /etc/secrets/initrd
+  #   sudo ssh-keygen -t ed25519 -N "" -f /etc/secrets/initrd/ssh_host_ed25519_key
+  boot.initrd = {
+    availableKernelModules = [
+      "thunderbolt"
+      "tg3"
+    ];
+    network = {
+      enable = true;
+      ssh = {
+        enable = true;
+        port = 2221;
+        authorizedKeys = map (m: builtins.readFile ../users/nick/ssh/${m}.pub) [
+          "Nicks-MacBook-Air-0"
+          "Nicks-MacBook-Air-1"
+          "Nicks-Mac-mini-0"
+          "Nicks-iPhone-0"
+        ];
+        hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
+      };
+    };
+    # NetworkManager doesn't run in the initrd, so get an address over Ethernet.
+    systemd.network.networks."10-ethernet" = {
+      matchConfig.Type = "ether";
+      networkConfig.DHCP = "yes";
+    };
+    # Answer pending disk-unlock prompts on SSH login, then leave a shell for
+    # rescue. Uses /etc/profile because root's home in the systemd initrd is
+    # /var/empty, so /root/.profile is never read.
+    systemd.contents."/etc/profile".text = ''
+      if [ -n "$SSH_CONNECTION" ]; then
+        systemd-tty-ask-password-agent
+      fi
+    '';
+  };
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
