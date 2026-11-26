@@ -21,6 +21,9 @@
       rootfs = {
         name = "rootfs";
         device = "/dev/sda1";
+        # Pass TRIM through to the SSD so fstrim.timer reaches it; without it
+        # the drive's write amplification and write latency climb.
+        allowDiscards = true;
       };
     };
     forceLuksSupportInInitrd = true;
