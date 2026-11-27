@@ -60,8 +60,22 @@ in
     "/Applications/FlashSpace.app/Contents/Resources"
   ];
 
+  # Karabiner refuses to use a read-only symlinked karabiner.json ("cannot be saved safely"),
+  # so copy it as a regular writable file instead. A differing file is backed up first.
+  home.activation.karabinerConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    karabinerSrc=${./karabiner/karabiner.json}
+    karabinerDst="${config.xdg.configHome}/karabiner/karabiner.json"
+    if [ -L "$karabinerDst" ] || ! cmp -s "$karabinerSrc" "$karabinerDst"; then
+      run mkdir -p "$(dirname "$karabinerDst")"
+      if [ -f "$karabinerDst" ] && [ ! -L "$karabinerDst" ]; then
+        run cp "$karabinerDst" "$karabinerDst.hm-bak"
+      fi
+      run rm -f "$karabinerDst"
+      run install -m 644 "$karabinerSrc" "$karabinerDst"
+    fi
+  '';
+
   xdg.configFile = {
-    "karabiner/karabiner.json".source = ./karabiner/karabiner.json;
     "flashspace/profiles.json".source = config.lib.file.mkOutOfStoreSymlink (cfgSync + "/flashspace/profiles.json");
     "flashspace/settings.json".source = config.lib.file.mkOutOfStoreSymlink (cfgSync + "/flashspace/settings.json");
     "nvim_spell".source = config.lib.file.mkOutOfStoreSymlink (cfgSync + "/nvim_spell");
